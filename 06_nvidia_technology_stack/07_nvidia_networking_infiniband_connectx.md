@@ -92,6 +92,15 @@ flowchart TD
 
 ဒါကြောင့် ConnectX ကို server နဲ့ high-performance network fabric ကြားက networking adapter လို့ conceptual အနေနဲ့ မှတ်နိုင်ပါတယ်။
 
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA ConnectX InfiniBand adapter](../assets/hardware/connectx-ib-nic.jpg)
+
+**ဓာတ်ပုံရှင်းလင်းချက် (Photo walkthrough):**
+- ပုံထဲမှာ NVIDIA ConnectX InfiniBand adapter (NIC / HCA) ကို မြင်ရပါတယ် — server ထဲက PCIe slot မှာ တပ်ဆင်သုံးတဲ့ networking card ဖြစ်ပါတယ်။
+- ဒီကတ်ပေါ်မှာ network processor ရှိပြီး ကတ်ကနေ အပြင်ဘက် network port ကတစ်ဆင့် InfiniBand cable နဲ့ fabric ဆီ ချိတ်ဆက်ပါတယ်။
+- အပေါ်က diagram မှာ "ConnectX Adapter" box အဖြစ် ပြထားတဲ့ အရာဟာ ဒီလို physical card ကို ဆိုလိုတာ ဖြစ်ပါတယ်။
+
+*(Image: NVIDIA official product image)*
+
 ## 4. HCA — Host Channel Adapter
 
 Source မှာ HCA ဆိုတဲ့ term ကို ဖော်ပြထားပါတယ်။
@@ -303,6 +312,15 @@ DGX Node 3 ──┼── InfiniBand Fabric
 DGX Node 4 ──┤
 DGX Node 5 ──┘
 ```
+
+![ဓာတ်ပုံ 2 (Photo 2): NVIDIA Quantum InfiniBand switch](../assets/hardware/quantum-ib-switch.jpg)
+
+**ဓာတ်ပုံရှင်းလင်းချက် (Photo walkthrough):**
+- ပုံထဲမှာ NVIDIA Quantum InfiniBand switch ကို မြင်ရပါတယ် — data-center rack ထဲ တပ်ဆင်ရတဲ့ switch chassis အမျိုးအစား ဖြစ်ပါတယ်။
+- Switch ရဲ့ port panel ကနေ DGX node တွေကို InfiniBand cable တွေနဲ့ ချိတ်ဆက်ပြီး အပေါ်က concept ပုံမှာ ပြထားတဲ့ "InfiniBand Fabric" ကို တည်ဆောက်ပေးပါတယ်။
+- Node အားလုံးကြား data ဖလှယ်တဲ့ လမ်းကြောင်းဟာ ဒီ switch ကတစ်ဆင့် ဖြတ်သန်းရတာကြောင့် switch ရဲ့ bandwidth နဲ့ latency က cluster performance ကို တိုက်ရိုက် သက်ရောက်ပါတယ်။
+
+*(Image: NVIDIA official product image)*
 
 ## 10. Converged Ethernet
 
@@ -711,6 +729,15 @@ A useful mental model is:
 
 - ConnectX = the high-performance networking adapter between the server and the network fabric.
 
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA ConnectX InfiniBand adapter](../assets/hardware/connectx-ib-nic.jpg)
+
+**Photo walkthrough (ဓာတ်ပုံရှင်းလင်းချက်):**
+- The photo shows an NVIDIA ConnectX InfiniBand adapter (NIC / HCA) — a networking card that installs in a PCIe slot inside a server.
+- The card carries a network processor, and through its external network port an InfiniBand cable connects it to the fabric.
+- The "ConnectX Adapter" box in the diagram above refers to exactly this kind of physical card.
+
+*(Image: NVIDIA official product image)*
+
 ## 4. HCA — Host Channel Adapter
 
 The source introduces the term HCA.
@@ -898,6 +925,15 @@ DGX Node 3 ──┼── InfiniBand Fabric
 DGX Node 4 ──┤
 DGX Node 5 ──┘
 ```
+
+![ဓာတ်ပုံ 2 (Photo 2): NVIDIA Quantum InfiniBand switch](../assets/hardware/quantum-ib-switch.jpg)
+
+**Photo walkthrough (ဓာတ်ပုံရှင်းလင်းချက်):**
+- The photo shows an NVIDIA Quantum InfiniBand switch — a switch chassis designed to be installed in a data-center rack.
+- From the switch's port panel, InfiniBand cables connect the DGX nodes, and this hardware is what builds the "InfiniBand Fabric" shown in the concept diagram above.
+- Because all node-to-node traffic passes through this switch, its bandwidth and latency directly affect cluster performance.
+
+*(Image: NVIDIA official product image)*
 
 ## 10. Converged Ethernet
 

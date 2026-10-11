@@ -95,6 +95,17 @@ Source အရ compute fabric ကို အောက်ပါ technologies တွ
 
 ဒီ technologies တွေကို နောက်ပိုင်း section တွေမှာ အသေးစိတ် လေ့လာပါမယ်။
 
+InfiniBand compute fabric ကို physical အနေနဲ့ NVIDIA Quantum-2 NDR InfiniBand switch များကဲ့သို့ hardware များဖြင့် တည်ဆောက်လေ့ရှိပါတယ်။
+
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA Quantum-2 NDR InfiniBand](../assets/hardware/quantum-2-ndr.jpg)
+
+**ပုံရှင်းလင်းချက် (Photo walkthrough)**
+1. ဒီမှာ မြင်ရတာက rack ထဲ တပ်ဆင်သုံးရတဲ့ InfiniBand switch chassis ဖြစ်ပါတယ်။
+2. ရှေ့ဘက် faceplate မှာ high-speed InfiniBand port တွေကို အတန်းလိုက် တန်းစီထားပြီး cable ချိတ်ဆက်ဖို့ connector cage တွေ ပါရှိပါတယ်။
+3. GPU nodes တွေကို ချိတ်ဆက်ထားတဲ့ fabric ရဲ့ အလယ်ခံ hardware က ဒီလို switch တွေ ဖြစ်ပါတယ်။
+
+*(Image: NVIDIA official product image)*
+
 အဓိက idea ကတော့—Compute nodes တွေကြားမှာ data ကို အမြန်ဆုံး ရွှေ့နိုင်တဲ့ high-bandwidth interconnect ဖြစ်ရမယ်။
 
 ## 5. Compute Network Design Requirements
@@ -592,6 +603,17 @@ According to the source, a compute fabric can be implemented with the following 
 - NVLink
 
 We will study these technologies in detail in later sections.
+
+In practice, an InfiniBand compute fabric is built with hardware such as NVIDIA Quantum-2 NDR InfiniBand switches.
+
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA Quantum-2 NDR InfiniBand](../assets/hardware/quantum-2-ndr.jpg)
+
+**Photo walkthrough**
+1. What you see is an InfiniBand switch chassis designed to be mounted in a rack.
+2. On the front faceplate, high-speed InfiniBand ports are arranged in rows, each with a connector cage for the cable.
+3. Switches like this one are the hardware at the center of the fabric connecting GPU nodes.
+
+*(Image: NVIDIA official product image)*
 
 The key idea is that there must be a high-bandwidth interconnect that can move data between compute nodes as fast as possible.
 

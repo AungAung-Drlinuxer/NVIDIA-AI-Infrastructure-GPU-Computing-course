@@ -18,6 +18,12 @@ GPU (Graphics Processing Unit) ကို အပြင်ကကြည့်ရင
 
 ဒီ Core အမျိုးအစားတွေဟာ အလုပ်တူတူကို နည်းလမ်းတူတူနဲ့ လုပ်ဆောင်တာမဟုတ်ပါဘူး။ တစ်ခုချင်းစီမှာ ကိုယ်ပိုင်ရည်ရွယ်ချက်နဲ့ အားသာချက်တွေ ရှိပါတယ်။
 
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA H100 GPU](../assets/hardware/h100-gpu.jpg)
+
+**ပုံရှင်းလင်းချက် (ဓာတ်ပုံ 1)** — ဓာတ်ပုံမှာ NVIDIA H100 GPU ကို မြင်ရပါမယ် — GPU chip ပါဝင်တဲ့ board ပေါ်မှာ ကြီးမားတဲ့ heatsink / cooling assembly နဲ့ အနီးအနားမှာ high-bandwidth memory တွေ တပ်ဆင်ထားပါတယ်။ CUDA Cores၊ Tensor Cores စတဲ့ core အမျိုးအစားတွေဟာ ဒီ GPU chip ထဲမှာ ပါဝင်တဲ့ hardware units တွေ ဖြစ်ပြီး အပြင်ကနေ ကြည့်ရင်တော့ GPU တစ်လုံးဟာ hardware unit တစ်ခုတည်းလိုပဲ မြင်ရပါတယ်။
+
+*(Image: NVIDIA official product image)*
+
 Conceptual Diagram —
 
 ```
@@ -372,6 +378,12 @@ A GPU (Graphics Processing Unit) may look like one hardware device, but internal
 - **RT Cores** — Specialized acceleration for ray-tracing operations on supported GPU architectures.
 
 These components have different purposes and should not be treated as interchangeable.
+
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA H100 GPU](../assets/hardware/h100-gpu.jpg)
+
+**Photo walkthrough (Photo 1)** — The photo shows an NVIDIA H100 GPU: a board carrying the GPU chip under a large heatsink and cooling assembly, with high-bandwidth memory mounted nearby. CUDA Cores, Tensor Cores, and the other core types are hardware units inside this GPU chip — from the outside, the whole GPU simply looks like one hardware device.
+
+*(Image: NVIDIA official product image)*
 
 Conceptual Diagram:
 

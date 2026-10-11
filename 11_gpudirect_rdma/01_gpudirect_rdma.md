@@ -121,6 +121,12 @@ flowchart LR
 
 Network adapters တွေက support လုပ်တဲ့ hardware paths တွေမှတစ်ဆင့် GPUs တွေရဲ့ memory နဲ့ data ဖလှယ်နိုင်ပါတယ်။
 
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA ConnectX Ethernet NIC](../assets/hardware/connectx-nic.jpg)
+
+**ပုံရှင်းလင်းချက် (ဓာတ်ပုံ 1)** — ဓာတ်ပုံမှာ NVIDIA ConnectX Ethernet adapter (NIC) ကို မြင်ရပါမယ် — ကတ်ပေါ်မှာ heatsink ဖုံးအုပ်ထားတဲ့ network processor၊ ကွန်ရက် cable ချိတ်ဆက်ဖို့ port တွေနဲ့ server ရဲ့ PCIe slot ထဲ ထည့်သုံးရမယ့် connector ပါဝင်ပါတယ်။ GPUDirect RDMA မှာ ဒီလို NIC က host RAM bounce buffer ကို ဖြတ်သန်းစရာ မလိုဘဲ GPU memory နဲ့ network ကြား data ကို တိုက်ရိုက် ဖလှယ်ပေးနိုင်ပါတယ်။
+
+*(Image: NVIDIA official product image)*
+
 အဓိက idea ကတော့—data ကို GPU memory နဲ့ network ကြား host RAM မှတစ်ဆင့် extra copy မလိုဘဲ ရွှေ့ပြောင်းနိုင်တယ် ဆိုတာ ဖြစ်ပါတယ်။
 
 CPU က application execution၊ communication setup၊ memory registration၊ synchronization နဲ့ completion handling တွေမှာ ပုံမှန်အားဖြင့် ပါဝင်နေဆဲ ဖြစ်ပါတယ်။ ဒါကြောင့် "direct" ဆိုတာ CPU နဲ့ operating system တွေ ဘယ်တော့မှ မပါဝင်ဘူးလို့ မဆိုလိုပါဘူး။
@@ -354,6 +360,12 @@ flowchart LR
 **Figure walkthrough** — Compared with Figure 1, the system RAM step is gone: GPU 1 memory sends data through the network adapter directly, and the receiving adapter delivers it into GPU 2 memory. The CPU is still involved in setup, memory registration, and completion handling.
 
 The network adapters can exchange data with the GPUs' memory through supported hardware paths.
+
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA ConnectX Ethernet NIC](../assets/hardware/connectx-nic.jpg)
+
+**Photo walkthrough (Photo 1)** — The photo shows an NVIDIA ConnectX Ethernet adapter (NIC): a heatsink covering the network processor, ports for network cables, and the connector that plugs into a server's PCIe slot. With GPUDirect RDMA, this kind of NIC exchanges data directly between GPU memory and the network without staging it through a host-RAM bounce buffer.
+
+*(Image: NVIDIA official product image)*
 
 This is the key idea: the data can move between GPU memory and the network without requiring an extra copy through host RAM.
 

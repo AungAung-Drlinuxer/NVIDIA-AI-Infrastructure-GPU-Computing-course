@@ -27,6 +27,12 @@ AI application တွေ၊ VR workloads တွေ၊ AI-based data processing �
 
 ဒါကြောင့် Traditional Data Center ထက် Power, Cooling, Networking, Physical Space စတဲ့ infrastructure တွေကို ပိုပြီးဂရုစိုက်ရပါတယ်။
 
+![ဓာတ်ပုံ 1 (Photo 1): AI data center — server racks](../assets/hardware/data-center.jpg)
+
+**ပုံရှင်းလင်းချက် (ဓာတ်ပုံ 1)** — ဓာတ်ပုံမှာ AI data center တစ်ခုရဲ့ အတွင်းပိုင်း မြင်ကွင်းကို တွေ့ရပါမယ် — ဘေးချင်းကပ် တန်းစီထားတဲ့ server rack ကြီးတွေ၊ rack တွေအတွင်း တန်းညှိ တပ်ဆင်ထားတဲ့ server တွေနဲ့ ၎င်းတို့ကို ချိတ်ဆက်ထားတဲ့ cabling တွေ ပါဝင်ပါတယ်။ ဒီ rack တွေထဲမှာပဲ compute (GPU server)၊ storage နဲ့ network equipment တွေ ထည့်သွင်းတပ်ဆင်ထားတာ ဖြစ်တာကြောင့် data center ဆိုတာ ဒီလို rack တွေ အများကြီး စုပေါင်းထားတဲ့ အခန်းတစ်ခုလို့ မြင်နိုင်ပါတယ်။
+
+*(Image: NVIDIA official product image)*
+
 ## 2. AI-Centric Data Center ရဲ့ Fundamental Building Blocks
 
 AI-centric Data Center ထဲမှာ အခြေခံအားဖြင့် ၄ ခု ရှိတယ်လို့ စဉ်းစားနိုင်ပါတယ်။
@@ -268,6 +274,12 @@ GPU အများကြီးကို rack အတွင်းမှာ ထည
 - Network requirement မြင့်လာနိုင်မယ်
 
 ဒါကြောင့် AI Data Center design မှာ high-density GPU workload ကို အထူးစဉ်းစားရပါတယ်။
+
+![ဓာတ်ပုံ 2 (Photo 2): NVIDIA DGX SuperPOD](../assets/hardware/dgx-superpod.jpg)
+
+**ပုံရှင်းလင်းချက် (ဓာတ်ပုံ 2)** — DGX SuperPOD ဓာတ်ပုံမှာ GPU server တွေကို rack တွေအဖြစ် အတန်းလိုက် စုပေါင်းတပ်ဆင်ထားတာကို မြင်ရပါမယ်။ rack တစ်ခုချင်းစီထဲမှာ high-density GPU server တွေ ထည့်သွင်းထားပြီး rack တွေကြားကို high-speed network တွေနဲ့ ချိတ်ဆက်ကာ GPU အများကြီးကို တစ်ခုတည်းသော ကြီးမားတဲ့ cluster အဖြစ် စုစည်းထားတာ ဖြစ်ပါတယ်။ ဒါဟာ အပေါ်မှာ ရှင်းပြခဲ့တဲ့ high-density GPU workload ကို လက်တွေ့ တည်ဆောက်ထားတဲ့ စံနမူနာ ဖြစ်ပါတယ်။
+
+*(Image: NVIDIA official product image)*
 
 ## 8. Key Constraints of AI-Centric Data Center
 
@@ -526,6 +538,12 @@ AI workloads can require:
 
 Therefore, an AI-centric data center requires more careful planning around compute, networking, storage, power, cooling, and physical space.
 
+![ဓာတ်ပုံ 1 (Photo 1): AI data center — server racks](../assets/hardware/data-center.jpg)
+
+**Photo walkthrough (Photo 1)** — The photo shows the inside of an AI data center: rows of tall server racks standing side by side, servers mounted inside the racks, and the cabling that connects them. The compute (GPU servers), storage, and network equipment discussed above are physically installed inside racks like these — a data center is essentially a room full of such racks.
+
+*(Image: NVIDIA official product image)*
+
 ## 2. Four Fundamental Building Blocks
 
 An AI-centric data center can be generalized into four fundamental blocks:
@@ -754,6 +772,12 @@ As GPU density increases:
 - Network requirements may increase
 
 Therefore, high-density GPU workloads require special consideration during data center design.
+
+![ဓာတ်ပုံ 2 (Photo 2): NVIDIA DGX SuperPOD](../assets/hardware/dgx-superpod.jpg)
+
+**Photo walkthrough (Photo 2)** — The photo shows GPU servers assembled into ordered rows of racks. Each rack holds high-density GPU servers, and the racks are connected by high-speed networking so that many GPUs work as one large cluster. This is a real-world example of the high-density GPU workload described above.
+
+*(Image: NVIDIA official product image)*
 
 ## 8. Key Constraints of an AI-Centric Data Center
 

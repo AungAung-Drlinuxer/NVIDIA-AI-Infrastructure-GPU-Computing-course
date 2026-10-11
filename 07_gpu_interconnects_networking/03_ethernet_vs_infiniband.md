@@ -125,6 +125,17 @@ RJ45 / Ethernet Interface
 
 High-speed Ethernet environment တွေမှာတော့ optical transceivers နဲ့ high-speed pluggable interfaces တွေကိုလည်း အသုံးပြုနိုင်ပါတယ်။
 
+ဒီ Ethernet connectivity တွေကို physical အနေနဲ့ Ethernet switch များ၊ NIC များနဲ့ cable များဖြင့် တည်ဆောက်ပါတယ်။
+
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA Spectrum Ethernet switch](../assets/hardware/spectrum-switch.jpg)
+
+**ပုံရှင်းလင်းချက် (Photo walkthrough)**
+1. ဒီမှာ မြင်ရတာက Ethernet ဘက်ခြမ်းမှာ သုံးတဲ့ rack-mount Ethernet switch chassis ဖြစ်ပါတယ်။
+2. ရှေ့ဘက် faceplate မှာ high-speed Ethernet port တွေကို အတန်းလိုက် တန်းစီထားပြီး cable ချိတ်ဆက်ဖို့ connector cage တွေ ပါရှိပါတယ်။
+3. Server တွေက NIC ကတစ်ဆင့် ဒီ switch ထဲကို cable ချိတ်ပြီး Ethernet network ထဲ ဝင်ကြပါတယ်။
+
+*(Image: NVIDIA official product image)*
+
 ## 7. InfiniBand Physical Connectivity
 
 InfiniBand မှာလည်း cable နဲ့ connectors လိုအပ်ပါတယ်။ High-speed InfiniBand deployment တွေမှာ—Fiber optic, High-speed copper, SFP/QSFP-class pluggable interfaces စတဲ့ connectivity technologies တွေကို အသုံးပြုနိုင်ပါတယ်။
@@ -132,6 +143,17 @@ InfiniBand မှာလည်း cable နဲ့ connectors လိုအပ်�
 Source မှာ **QSFP — Quad Small Form-factor Pluggable** ဆိုတဲ့ connector/form-factor ကို mention လုပ်ထားပါတယ်။
 
 အဓိက idea က—InfiniBand physical infrastructure ကို high-speed server-to-server interconnect အတွက် optimize လုပ်ထားခြင်း ဖြစ်ပါတယ်။
+
+ဒီ InfiniBand fabric ရဲ့ အလယ်ခံ hardware ကတော့ InfiniBand switch တွေ ဖြစ်ပါတယ်။
+
+![ဓာတ်ပုံ 2 (Photo 2): NVIDIA Quantum InfiniBand switch](../assets/hardware/quantum-ib-switch.jpg)
+
+**ပုံရှင်းလင်းချက် (Photo walkthrough)**
+1. ဒီမှာ မြင်ရတာက InfiniBand ဘက်ခြမ်းမှာ သုံးတဲ့ rack-mount InfiniBand switch chassis ဖြစ်ပါတယ်။
+2. ရှေ့ဘက် faceplate မှာ high-speed InfiniBand port တွေ အတန်းလိုက် တန်းစီပြီး QSFP-class connector cage တွေ ပါရှိပါတယ်။
+3. ဒီ switch ကတစ်ဆင့် server တွေကြား high-speed, low-latency interconnect လမ်းကြောင်း ဖြစ်လာပါတယ်။
+
+*(Image: NVIDIA official product image)*
 
 ## 8. Ethernet vs InfiniBand — Main Comparison
 
@@ -590,6 +612,17 @@ RJ45 / Ethernet Interface
 
 In high-speed Ethernet environments, optical transceivers and high-speed pluggable interfaces can also be used.
 
+This Ethernet connectivity is physically built from Ethernet switches, NICs, and cables.
+
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA Spectrum Ethernet switch](../assets/hardware/spectrum-switch.jpg)
+
+**Photo walkthrough**
+1. What you see is a rack-mount Ethernet switch chassis used on the Ethernet side.
+2. On the front faceplate, high-speed Ethernet ports are arranged in rows, each with a connector cage for the cable.
+3. Servers connect through a cable from their NIC into a switch like this to join the Ethernet network.
+
+*(Image: NVIDIA official product image)*
+
 ## 7. InfiniBand Physical Connectivity
 
 InfiniBand also needs cables and connectors. In high-speed InfiniBand deployments—Fiber optic, high-speed copper, SFP/QSFP-class pluggable interfaces and other connectivity technologies can be used.
@@ -597,6 +630,17 @@ InfiniBand also needs cables and connectors. In high-speed InfiniBand deployment
 The source mentions **QSFP — Quad Small Form-factor Pluggable**, a connector/form-factor.
 
 The key idea is that InfiniBand physical infrastructure is optimized for high-speed server-to-server interconnect.
+
+The hardware at the center of this InfiniBand fabric is the InfiniBand switch.
+
+![ဓာတ်ပုံ 2 (Photo 2): NVIDIA Quantum InfiniBand switch](../assets/hardware/quantum-ib-switch.jpg)
+
+**Photo walkthrough**
+1. What you see is a rack-mount InfiniBand switch chassis used on the InfiniBand side.
+2. On the front faceplate, high-speed InfiniBand ports are arranged in rows with QSFP-class connector cages.
+3. Through this switch, servers get the high-speed, low-latency interconnect path between one another.
+
+*(Image: NVIDIA official product image)*
 
 ## 8. Ethernet vs InfiniBand — Main Comparison
 

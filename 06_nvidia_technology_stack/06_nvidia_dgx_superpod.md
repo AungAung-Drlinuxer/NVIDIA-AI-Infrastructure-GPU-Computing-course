@@ -55,6 +55,15 @@ flowchart TD
 
 - DGX SuperPOD = Multiple DGX systems working together as a large-scale AI computing infrastructure.
 
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA DGX SuperPOD](../assets/hardware/dgx-superpod.jpg)
+
+**ဓာတ်ပုံရှင်းလင်းချက် (Photo walkthrough):**
+- ပုံထဲမှာ NVIDIA DGX SuperPOD ကို မြင်ရပါတယ် — DGX systems အများကြီးကို စုပေါင်းတပ်ဆင်ထားတဲ့ data-center-scale infrastructure ဖြစ်ပါတယ်။
+- Diagram ထဲမှာ box သေးသေးလေးတွေအဖြစ် မြင်ရတဲ့ DGX nodes တွေဟာ တကယ့်လက်တွေ့မှာ rack ထဲ တပ်ဆင်ထားတဲ့ server တွေ ဖြစ်ပါတယ်။
+- Single DGX တစ်လုံးကနေ ဒီလို စုစည်းမှုကြီးအထိ တိုးချဲ့လိုက်တာကပဲ "large-scale AI supercomputing" ဆိုတဲ့ စကားလုံးကို ဖြစ်လာစေတာ ဖြစ်ပါတယ်။
+
+*(Image: NVIDIA official product image)*
+
 ## 3. DGX Nodes
 
 SuperPOD architecture diagram မှာ သေးငယ်တဲ့ box တွေက individual DGX nodes တွေကို ကိုယ်စားပြုပါတယ်။
@@ -83,6 +92,17 @@ Conceptually—
 ```
 
 Node တစ်ခုချင်းစီက GPU compute resources တွေ ပေးပါတယ်။ Node အများကြီးကို high-performance network fabric ကနေ တစ်ခုနဲ့တစ်ခု ချိတ်ဆက်ထားပါတယ်။
+
+DGX node တွေထဲမှာ တပ်ဆင်ထားတဲ့ GPU တွေရဲ့ ပုံကို အောက်မှာ ကြည့်နိုင်ပါတယ် — ဒီ SuperPOD generation မှာ NVIDIA H100 GPU တွေကို အသုံးပြုပါတယ်။
+
+![ဓာတ်ပုံ 2 (Photo 2): NVIDIA H100 GPU](../assets/hardware/h100-gpu.jpg)
+
+**ဓာတ်ပုံရှင်းလင်းချက် (Photo walkthrough):**
+- ပုံထဲမှာ NVIDIA H100 GPU ကို မြင်ရပါတယ် — Hopper architecture ပေါ် တည်ဆောက်ထားတဲ့ data-center GPU ဖြစ်ပြီး DGX H100 nodes တွေရဲ့ အဓိက compute unit ဖြစ်ပါတယ်။
+- DGX node တစ်ခုထဲမှာ ဒီလို GPU အများကြီး ပါဝင်ပြီး SuperPOD တစ်ခုလုံးရဲ့ computing power ဟာ node ပေါင်းများစွာက GPU ရာပေါင်းများစွာကနေ လာတာ ဖြစ်ပါတယ်။
+- ပုံထဲက GPU ကို ကြည့်ရင် AI training အတွက် လိုအပ်တဲ့ computing power အားလုံး ဒီ chip အဆင့်ကနေ စတင်တာကို နားလည်နိုင်ပါတယ်။
+
+*(Image: NVIDIA official product image)*
 
 ## 4. DGX SuperPOD Architecture
 
@@ -757,6 +777,15 @@ So, at a high level:
 
 - DGX SuperPOD = Multiple DGX systems working together as a large-scale AI computing infrastructure.
 
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA DGX SuperPOD](../assets/hardware/dgx-superpod.jpg)
+
+**Photo walkthrough (ဓာတ်ပုံရှင်းလင်းချက်):**
+- The photo shows an NVIDIA DGX SuperPOD — a data-center-scale installation built from many DGX systems working together.
+- The tiny boxes labeled "DGX Node" in the diagram are, in real life, full servers like this, installed in racks.
+- Scaling from one DGX to this kind of aggregated deployment is exactly what the phrase "large-scale AI supercomputing" means.
+
+*(Image: NVIDIA official product image)*
+
 ## 3. DGX Nodes
 
 In a SuperPOD architecture diagram, the small boxes represent individual DGX nodes.
@@ -785,6 +814,17 @@ Conceptually:
 ```
 
 Each node provides GPU compute resources, and multiple nodes are connected through a high-performance network fabric.
+
+The photo below shows the kind of GPU installed inside these DGX nodes — this SuperPOD generation is built on the NVIDIA H100 GPU.
+
+![ဓာတ်ပုံ 2 (Photo 2): NVIDIA H100 GPU](../assets/hardware/h100-gpu.jpg)
+
+**Photo walkthrough (ဓာတ်ပုံရှင်းလင်းချက်):**
+- The photo shows an NVIDIA H100 GPU — a data-center GPU built on the Hopper architecture and the main compute unit inside DGX H100 nodes.
+- Each DGX node contains several of these GPUs, and the SuperPOD's total computing power comes from hundreds of GPUs across many nodes.
+- Looking at the GPU in the photo helps you see where all the AI-training compute physically starts — at the chip level.
+
+*(Image: NVIDIA official product image)*
 
 ## 4. DGX SuperPOD Architecture
 

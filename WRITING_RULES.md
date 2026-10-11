@@ -62,6 +62,22 @@ translations or marketing language.
 - Keep diagrams simple: max ~15 nodes, quoted labels for anything with
   spaces or special characters, no `xychart`/`block`/HTML syntax.
 
+## Real photos (hardware/physical level)
+- Mermaid diagrams cannot show what hardware actually LOOKS like. When
+  explaining physical hardware (servers, GPU cards, NICs, DPUs, switches),
+  include a real product photo.
+- Photos live in `assets/hardware/` with source URLs recorded in
+  `assets/hardware/IMAGES.md`.
+- Reference format: `![ဓာတ်ပုံ N (Photo N): <product>](../assets/hardware/<file>.jpg)`.
+  Photo numbering is separate from and continues alongside Figure numbering.
+- Follow EVERY photo with a short walkthrough (ပုံရှင်းလင်းချက်): what can be
+  seen in the photo (chassis, ports, heatsinks, blades...) in beginner
+  language.
+- Photos appear in BOTH the Myanmar and English sections with the same
+  photo numbering.
+- Add `*(Image: NVIDIA official product image)*` under each photo block;
+  image rights belong to NVIDIA (educational use).
+
 ## Output
 - Use clean Markdown headings, short paragraphs, tables, and code blocks.
 - Preserve the supplied module and chapter numbering.

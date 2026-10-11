@@ -183,6 +183,12 @@ GPU ထဲမှာ အဓိကပါဝင်တာတွေက—
 - **VRAM (Video Memory)** — သီးသန့် high-bandwidth memory
 - **Memory Interface** — processing unit များကို VRAM နှင့် ချိတ်ဆက်ပေးသည်
 
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA A100 80GB GPU](../assets/hardware/a100-gpu.jpg)
+
+**ပုံရှင်းလင်းချက် (ဓာတ်ပုံ 1)** — ဓာတ်ပုံမှာ NVIDIA A100 GPU တစ်လုံး (GPU board/module) ကို မြင်ရပါမယ် — GPU chip ကို ဖုံးအုပ်ထားတဲ့ ကြီးမားတဲ့ heatsink နဲ့ cooling assembly နဲ့ ၎င်းဝန်းကျင်မှာ တပ်ဆင်ထားတဲ့ GPU memory (VRAM) တွေ ပါဝင်ပါတယ်။ အပေါ်မှာ ပြောခဲ့တဲ့ parallel processing units၊ VRAM နဲ့ memory interface ဆိုတဲ့ အစိတ်အပိုင်း သုံးခုလုံးဟာ ဒီ hardware တစ်ခုလုံးထဲမှာ ပါဝင်နေတာ ဖြစ်ပါတယ်။
+
+*(Image: NVIDIA official product image)*
+
 အောက်ပါ **Figure 3** မှာ GPU ရဲ့ အဓိက အစိတ်အပိုင်း သုံးခုကို ပုံနဲ့ ကြည့်နိုင်ပါတယ်။
 
 **Figure 3: GPU High-Level Architecture — Parallel Units, VRAM နှင့် Memory Interface**
@@ -559,6 +565,12 @@ The main parts are:
 - **Many small parallel processing units** (e.g., Streaming Multiprocessors and CUDA cores in NVIDIA GPUs)
 - **VRAM (Video Memory)** — dedicated high-bandwidth memory
 - **Memory Interface** — connects processing units to VRAM
+
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA A100 80GB GPU](../assets/hardware/a100-gpu.jpg)
+
+**Photo walkthrough (Photo 1)** — The photo shows an NVIDIA A100 GPU: a board carrying the GPU chip under a large heatsink and cooling assembly, with GPU memory (VRAM) mounted around it. The three parts described above — parallel processing units, VRAM, and the memory interface — all live inside this single piece of hardware.
+
+*(Image: NVIDIA official product image)*
 
 See **Figure 3** for a picture of the three main parts of a GPU.
 

@@ -86,6 +86,12 @@ Course မှာ DGX OS ကို customized Ubuntu-based OS အဖြစ် ဖ
 
 အဓိက idea က— NVIDIA က generic OS installation ထက် ပိုပေးပါတယ်။ Software environment ကို DGX hardware နဲ့ ၎င်း support ပြုတဲ့ NVIDIA software component တွေနဲ့ အတူ အလုပ်လုပ်နိုင်အောင် design လုပ်ထားခြင်း ဖြစ်ပါတယ်။
 
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA DGX system](../assets/hardware/dgx-system.jpg)
+
+**ပုံရှင်းလင်းချက် (ဓာတ်ပုံ 1)** — ဓာတ်ပုံမှာ NVIDIA DGX system ကို မြင်ရပါမယ် — အပြင်ဘက်မှာ ခိုင်မာတဲ့ chassis ဖြင့် ဖုံးအုပ်ထားပြီး အတွင်းမှာ GPU များစွာ၊ high-speed interconnect နဲ့ storage တွေကို ပေါင်းစပ်တပ်ဆင်ထားတဲ့ integrated AI server ဖြစ်ပါတယ်။ DGX OS ဆိုတာ ဒီ hardware component တွေ အားလုံးကို တစ်ခုတည်းသော platform အဖြစ် အလုပ်လုပ်စေဖို့ ရည်ရွယ်ထားတဲ့ operating-system environment ဖြစ်ပါတယ်။
+
+*(Image: NVIDIA official product image)*
+
 DGX-specific OS ကို ဘာကြောင့် သုံးရသလဲ?
 
 DGX system မှာ စွမ်းအားမြင့် GPU များကို high-speed interconnect, storage နဲ့ အခြား hardware များနဲ့ ပေါင်းစပ်ထားပါတယ်။ OS နဲ့ software environment က ဒီ component တွေကို ပေါင်းစပ် platform တစ်ခုအဖြစ် support လုပ်ပေးရပါမယ်။
@@ -393,6 +399,12 @@ NVIDIA DGX OS is an NVIDIA-provided operating-system environment designed for NV
 The course describes DGX OS as a customized Ubuntu-based OS, with optimizations and an integrated software stack intended for AI, machine learning, and analytics workloads on DGX platforms.
 
 The key idea is that NVIDIA provides more than a generic OS installation: the software environment is designed to work with DGX hardware and its supported NVIDIA software components.
+
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA DGX system](../assets/hardware/dgx-system.jpg)
+
+**Photo walkthrough (Photo 1)** — The photo shows an NVIDIA DGX system: a sturdy chassis enclosing an integrated AI server that combines many GPUs, high-speed interconnects, and storage. DGX OS is the operating-system environment designed to make all of these hardware components work as a single platform.
+
+*(Image: NVIDIA official product image)*
 
 Why use a DGX-specific OS?
 

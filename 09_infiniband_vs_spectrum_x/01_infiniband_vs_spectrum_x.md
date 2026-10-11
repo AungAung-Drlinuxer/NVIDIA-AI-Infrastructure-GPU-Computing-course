@@ -40,11 +40,33 @@ NVIDIA Quantum InfiniBand—
 GPU Server → ConnectX HCA → Quantum Switches → ConnectX HCA → GPU Server
 ```
 
+ဒီ Quantum InfiniBand fabric ကို တည်ဆောက်ပေးတဲ့ switch hardware က အောက်ပုံလို ဖြစ်ပါတယ်။
+
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA Quantum-2 NDR InfiniBand](../assets/hardware/quantum-2-ndr.jpg)
+
+**ပုံရှင်းလင်းချက် (Photo walkthrough)**
+1. ဒီမှာ မြင်ရတာက InfiniBand ဘက်ခြမ်းမှာ သုံးတဲ့ NVIDIA Quantum-2 NDR InfiniBand switch chassis ဖြစ်ပါတယ်။
+2. ရှေ့ဘက် faceplate မှာ high-speed InfiniBand port တွေကို အတန်းလိုက် တန်းစီထားပြီး cable ချိတ်ဆက်ဖို့ connector cage တွေ ပါရှိပါတယ်။
+3. အပေါ်က data path မှာ ပြထားတဲ့ Quantum Switches ဆိုတာ ဒီလို switch hardware တွေကို ဆိုလိုပါတယ်။
+
+*(Image: NVIDIA official product image)*
+
 NVIDIA Spectrum-X Ethernet—
 
 ```
 GPU Server → ConnectX NIC / SuperNIC → Spectrum Switches → NIC / SuperNIC → GPU Server
 ```
+
+Spectrum-X ဘက်ခြမ်း hardware ကတော့ အောက်ပုံလို ဖြစ်ပါတယ်။
+
+![ဓာတ်ပုံ 2 (Photo 2): NVIDIA Spectrum-X platform](../assets/hardware/spectrum-x.jpg)
+
+**ပုံရှင်းလင်းချက် (Photo walkthrough)**
+1. ဒီမှာ မြင်ရတာက Spectrum-X Ethernet platform ရဲ့ hardware ဖြစ်တဲ့ Ethernet switch အမျိုးအစား ဖြစ်ပါတယ်။
+2. Faceplate ပေါ်မှာ high-speed Ethernet port တွေ အတန်းလိုက် တန်းစီပြီး ဒီ port တွေကတစ်ဆင့် ConnectX NIC / SuperNIC တပ်ထားတဲ့ GPU server တွေ ချိတ်ဆက်ပါတယ်။
+3. ဒီ switch hardware နဲ့ supported SuperNICs၊ networking software ပေါင်းစပ်မှုကပဲ Spectrum-X platform ကို ဖြစ်စေပါတယ်။
+
+*(Image: NVIDIA official product image)*
 
 **Figure 1 — Quantum InfiniBand vs Spectrum-X Ethernet Data Paths**
 
@@ -294,11 +316,33 @@ NVIDIA Quantum InfiniBand:
 GPU Server → ConnectX HCA → Quantum Switches → ConnectX HCA → GPU Server
 ```
 
+The switch hardware that builds this Quantum InfiniBand fabric looks like the photo below.
+
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA Quantum-2 NDR InfiniBand](../assets/hardware/quantum-2-ndr.jpg)
+
+**Photo walkthrough**
+1. What you see is an NVIDIA Quantum-2 NDR InfiniBand switch chassis used on the InfiniBand side.
+2. On the front faceplate, high-speed InfiniBand ports are arranged in rows, each with a connector cage for the cable.
+3. The "Quantum Switches" shown in the data path above are switch hardware like this one.
+
+*(Image: NVIDIA official product image)*
+
 NVIDIA Spectrum-X Ethernet:
 
 ```
 GPU Server → ConnectX NIC / SuperNIC → Spectrum Switches → NIC / SuperNIC → GPU Server
 ```
+
+The Spectrum-X side hardware looks like the photo below.
+
+![ဓာတ်ပုံ 2 (Photo 2): NVIDIA Spectrum-X platform](../assets/hardware/spectrum-x.jpg)
+
+**Photo walkthrough**
+1. What you see is Ethernet switch-class hardware from the Spectrum-X Ethernet platform.
+2. High-speed Ethernet ports are arranged in rows on the faceplate, and GPU servers with ConnectX NICs / SuperNICs connect through these ports.
+3. The combination of this switch hardware, supported SuperNICs, and the networking software is what makes the Spectrum-X platform.
+
+*(Image: NVIDIA official product image)*
 
 **Figure 1 — Quantum InfiniBand vs Spectrum-X Ethernet Data Paths**
 

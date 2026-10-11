@@ -31,6 +31,12 @@ DPU က data movement နှင့် infrastructure task တွေကို က
 
 အဓိက idea က ရိုးရှင်းပါတယ်— CPU နဲ့ GPU က specialized infrastructure hardware က ထိရောက်စွာ ကိုင်တွယ်နိုင်တဲ့ task တွေအတွက် resource မဖြုန်းသင့်ပါဘူး။
 
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA BlueField DPU](../assets/hardware/bluefield-dpu.jpg)
+
+**ပုံရှင်းလင်းချက် (ဓာတ်ပုံ 1)** — ဓာတ်ပုံမှာ NVIDIA BlueField DPU card ကို မြင်ရပါမယ် — ကတ်ပေါ်မှာ DPU processor ကို ဖုံးအုပ်ထားတဲ့ heatsink၊ ကွန်ရက် cable ချိတ်ဆက်ဖို့ network ports နဲ့ server ရဲ့ PCIe slot ထဲ ထည့်သုံးရမယ့် connector တွေ ပါဝင်ပါတယ်။ DPU ဟာ CPU လည်း မဟုတ် GPU လည်း မဟုတ်ဘဲ data movement နဲ့ infrastructure task တွေအတွက် သီးသန့် ဒီဇိုင်းထုတ်ထားတဲ့ ကတ်တစ်ခု ဖြစ်ပါတယ်။
+
+*(Image: NVIDIA official product image)*
+
 အောက်ပါ **Figure 1** မှာ data center ထဲက CPU, GPU နဲ့ DPU သုံးခုရဲ့ အခန်းကဏ္ဍ ကွဲပြားပုံကို ကြည့်နိုင်ပါတယ်။
 
 **Figure 1: Data Center ထဲမှာ CPU, GPU နှင့် DPU ရဲ့ အခန်းကဏ္ဍ**
@@ -290,6 +296,12 @@ Conceptually:
 ```
 
 The idea is simple: the CPU and GPU should not waste resources on tasks that can be handled efficiently by dedicated infrastructure hardware.
+
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA BlueField DPU](../assets/hardware/bluefield-dpu.jpg)
+
+**Photo walkthrough (Photo 1)** — The photo shows an NVIDIA BlueField DPU card: a heatsink covering the DPU processor, network ports for connecting cables, and the connector that plugs into a server's PCIe slot. A DPU is neither a CPU nor a GPU — it is a dedicated card designed for data movement and infrastructure tasks.
+
+*(Image: NVIDIA official product image)*
 
 See **Figure 1** for a picture of the different roles of the CPU, GPU, and DPU inside a data center.
 

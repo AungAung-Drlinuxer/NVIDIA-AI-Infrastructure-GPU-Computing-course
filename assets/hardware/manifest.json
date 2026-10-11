@@ -1,0 +1,114 @@
+{
+ "dgx-system": {
+  "url": "https://www.nvidia.com/content/dam/en-zz/Solutions/data-center/dgx-platform/73466-dgx-platform-og.jpg",
+  "page": "https://www.nvidia.com/en-us/data-center/dgx-platform/",
+  "size": 190124,
+  "ok": true,
+  "type": "jpg"
+ },
+ "hgx-baseboard": {
+  "url": "https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/HGX/nvidia-hgx-platform-og-new.jpg",
+  "page": "https://www.nvidia.com/en-us/data-center/hgx/",
+  "size": 850099,
+  "ok": true,
+  "type": "jpg"
+ },
+ "h100-gpu": {
+  "url": "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs22/data-center/h100/h100-og.jpg",
+  "page": "https://www.nvidia.com/en-us/data-center/h100/",
+  "size": 121343,
+  "ok": true,
+  "type": "jpg"
+ },
+ "a100-gpu": {
+  "url": "https://www.nvidia.com/content/dam/en-zz/Solutions/Data-Center/a100/nvidia-a100-80-gb-og-social-1200x630.jpg",
+  "page": "https://www.nvidia.com/en-us/data-center/a100/",
+  "size": 85323,
+  "ok": true,
+  "type": "jpg"
+ },
+ "rtx-4090-card": {
+  "url": "https://www.nvidia.com/content/dam/en-zz/Solutions/geforce/ada/rtx-4090/geforce-ada-4090-web-og-1200x630.jpg",
+  "page": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4090/",
+  "size": 122531,
+  "ok": true,
+  "type": "jpg"
+ },
+ "rtx-6000-ada-card": {
+  "url": "https://www.nvidia.com/content/dam/en-zz/Solutions/design-visualization/rtx-6000/rtx-6000-og.jpg",
+  "page": "https://www.nvidia.com/en-us/design-visualization/rtx-6000/",
+  "size": 71719,
+  "ok": true,
+  "type": "jpg"
+ },
+ "dgx-superpod": {
+  "url": "https://www.nvidia.com/content/dam/en-zz/Solutions/gtcs22/dgx-superpod/dgx-superpod-1-og.jpg",
+  "page": "https://www.nvidia.com/en-us/data-center/dgx-superpod/",
+  "size": 113561,
+  "ok": true,
+  "type": "jpg"
+ },
+ "data-center": {
+  "url": "https://www.nvidia.com/content/dam/en-zz/solutions/data-center/home/data-center-og.jpg",
+  "page": "https://www.nvidia.com/en-us/data-center/",
+  "size": 193487,
+  "ok": true,
+  "type": "jpg"
+ },
+ "connectx-nic": {
+  "url": "https://www.nvidia.com/content/dam/en-zz/Solutions/networking/Ethernet/nvidia-mellanox-connectx-6-dx-og-100.jpg",
+  "page": "https://www.nvidia.com/en-us/networking/ethernet-adapters/",
+  "size": 93794,
+  "ok": true,
+  "type": "jpg"
+ },
+ "connectx-ib-nic": {
+  "url": "https://www.nvidia.com/content/dam/en-zz/Solutions/networking/infiniband-adapters/nvidia-mellanox-multihost-adapter-og-100.jpg",
+  "page": "https://www.nvidia.com/en-us/networking/infiniband-adapters/",
+  "size": 90535,
+  "ok": true,
+  "type": "jpg"
+ },
+ "bluefield-dpu": {
+  "url": "https://www.nvidia.com/content/dam/en-zz/Solutions/networking/data-processing-unit/new/nvidia-bluefield-platform-og.jpg",
+  "page": "https://www.nvidia.com/en-us/networking/products/data-processing-unit/",
+  "size": 55655,
+  "ok": true,
+  "type": "jpg"
+ },
+ "quantum-2-ndr": {
+  "url": "https://www.nvidia.com/content/dam/en-zz/Solutions/networking/ndr-technology/ndr-1200x630-og.jpg",
+  "page": "https://nvidia.com/en-us/networking/quantum2",
+  "size": 126953,
+  "ok": true,
+  "type": "jpg"
+ },
+ "quantum-ib-switch": {
+  "url": "https://www.nvidia.com/content/dam/en-zz/nvidiaweb/networking/infiniband-switching/nvidia-quantum-infiniband-switches-og.jpg",
+  "page": "https://nvidia.com/en-us/networking/infiniband/gateway-systems",
+  "size": 748576,
+  "ok": true,
+  "type": "jpg"
+ },
+ "spectrum-switch": {
+  "url": "https://www.nvidia.com/content/dam/en-zz/Solutions/networking/ethernet-switching/ethernet-render-sn6800-2open-og.jpg",
+  "page": "https://www.nvidia.com/en-us/networking/ethernet-switching",
+  "size": 901585,
+  "ok": true,
+  "type": "jpg"
+ },
+ "spectrum-x": {
+  "url": "https://www.nvidia.com/content/dam/en-zz/Solutions/networking/spectrumx/spectrum-x-og-2.jpg",
+  "page": "https://www.nvidia.com/en-us/networking/spectrumx/",
+  "size": 77663,
+  "ok": true,
+  "type": "jpg"
+ },
+ "supernic": {
+  "url": "https://www.nvidia.com/content/dam/en-zz/Solutions/networking/products/supernic/ethernet-supernic-og.jpg",
+  "page": "https://www.nvidia.com/en-us/networking/products/ethernet/supernic/",
+  "size": 81600,
+  "ok": true,
+  "type": "jpg"
+ }
+}

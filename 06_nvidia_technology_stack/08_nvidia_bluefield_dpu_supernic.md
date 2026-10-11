@@ -32,6 +32,15 @@ BlueField DPU တွေဟာ networking, compute နဲ့ acceleration capabil
 
 - BlueField DPU = Data Center Infrastructure အတွက် specialized processor ဖြစ်ပြီး networking, storage နဲ့ security workload တွေကို host CPU ပေါ်ကနေ offload လုပ်ပေးနိုင်တယ်။
 
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA BlueField DPU platform](../assets/hardware/bluefield-dpu.jpg)
+
+**ဓာတ်ပုံရှင်းလင်းချက် (Photo walkthrough):**
+- ပုံထဲမှာ NVIDIA BlueField DPU platform ကို မြင်ရပါတယ် — server ထဲ တပ်ဆင်သုံးတဲ့ add-on card အမျိုးအစား ဖြစ်ပါတယ်။
+- ဒီကတ်မှာ ConnectX လို networking capability အပြင် programmable compute နဲ့ accelerators ပါဝင်တာကြောင့် networking, storage နဲ့ security အလုပ်တွေကို host CPU ကနေ offload လုပ်ပေးနိုင်ပါတယ်။
+- ပုံထဲက card ကို ကြည့်ရင် "DPU ဆိုတာ GPU မဟုတ်ဘဲ infrastructure processor တစ်မျိုး" ဆိုတာ ပိုမို ရှင်းလင်းသွားပါမယ်။
+
+*(Image: NVIDIA official product image)*
+
 ## 3. What Is a SuperNIC?
 
 BlueField technology နဲ့ ဆက်စပ်ပြီး NVIDIA က SuperNIC ဆိုတဲ့ concept ကိုလည်း အသုံးပြုပါတယ်။
@@ -75,6 +84,15 @@ flowchart TD
 2. အောက်မှာ component သုံးခု ခွဲပြထားပါတယ် — GPU က AI computation၊ ConnectX / SuperNIC က high-performance networking အတွက် ဖြစ်ပါတယ်။
 3. တတိယ box က BlueField DPU ဖြစ်ပြီး infrastructure offload ကို လုပ်ပေးပါတယ်။
 4. BlueField အောက်က box သုံးခုက networking, storage နဲ့ security ဆိုင်ရာ infrastructure workloads တွေကို offload လုပ်ပေးနိုင်ပုံကို ပြပါတယ်။
+
+![ဓာတ်ပုံ 2 (Photo 2): NVIDIA ConnectX SuperNIC](../assets/hardware/supernic.jpg)
+
+**ဓာတ်ပုံရှင်းလင်းချက် (Photo walkthrough):**
+- ပုံထဲမှာ NVIDIA ConnectX SuperNIC ကို မြင်ရပါတယ် — AI data center အတွက် ရည်ရွယ်ထားတဲ့ high-performance networking card ဖြစ်ပါတယ်။
+- SuperNIC ဟာ ပုံမှန် NIC ထက် ပိုမို မြန်ဆန်တဲ့ networking နဲ့ acceleration ကို ပေးစွမ်းပြီး GPU server တွေကြားက AI workload traffic ကို သယ်ဆောင်ပေးပါတယ်။
+- ဒီကတ်ကို ကြည့်ရင် GPU (AI computation) နဲ့ BlueField DPU (infrastructure offload) တို့ကြားမှာ SuperNIC ရဲ့ role က networking အပိုင်း ဖြစ်တာ ပိုမို နားလည်လာပါမယ်။
+
+*(Image: NVIDIA official product image)*
 
 ## 4. Why Do We Need Infrastructure Offload?
 
@@ -386,6 +404,15 @@ A simple definition is:
 
 - BlueField DPU = a specialized data-center processor that can offload networking, storage, and security-related infrastructure workloads from the host CPU.
 
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA BlueField DPU platform](../assets/hardware/bluefield-dpu.jpg)
+
+**Photo walkthrough (ဓာတ်ပုံရှင်းလင်းချက်):**
+- The photo shows an NVIDIA BlueField DPU platform — an add-on card type installed inside a server.
+- Along with ConnectX-like networking capability, the card carries programmable compute and accelerators, so it can offload networking, storage, and security work from the host CPU.
+- Looking at the card makes one point concrete: a DPU is not a GPU — it is a dedicated infrastructure processor.
+
+*(Image: NVIDIA official product image)*
+
 ## 3. What Is a SuperNIC?
 
 NVIDIA also uses the term SuperNIC for high-performance networking interfaces designed for demanding AI data-center workloads.
@@ -429,6 +456,15 @@ flowchart TD
 2. Below it, three components are separated: the GPU handles AI computation, and ConnectX / SuperNIC handles high-performance networking.
 3. The third box is the BlueField DPU, which performs infrastructure offload.
 4. The three boxes under BlueField show that it can offload networking, storage, and security-related infrastructure workloads.
+
+![ဓာတ်ပုံ 2 (Photo 2): NVIDIA ConnectX SuperNIC](../assets/hardware/supernic.jpg)
+
+**Photo walkthrough (ဓာတ်ပုံရှင်းလင်းချက်):**
+- The photo shows an NVIDIA ConnectX SuperNIC — a high-performance networking card designed for AI data centers.
+- A SuperNIC delivers faster networking and acceleration than a regular NIC, carrying AI-workload traffic between GPU servers.
+- The card makes the division of roles clear: GPU for AI computation, BlueField DPU for infrastructure offload, and SuperNIC for high-performance networking.
+
+*(Image: NVIDIA official product image)*
 
 ## 4. Why Do We Need Infrastructure Offload?
 

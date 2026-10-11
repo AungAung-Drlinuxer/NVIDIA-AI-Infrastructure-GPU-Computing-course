@@ -49,6 +49,17 @@ flowchart TD
 3. အောက်ဆုံး node က node တွေကြား ပို့ဆောင်ရမယ့် traffic အမျိုးအစားတွေ (Application, Compute, Storage, Management) ကို ပြထားပါတယ်။
 4. Node အရေအတွက် များလာလည်း ဒီ Network ကတစ်ဆင့်ပဲ ဆက်သွယ်ကြတာ ဖြစ်ပါတယ်။
 
+Node တွေကို network နဲ့ တကယ် ချိတ်ဆက်ပေးတဲ့ physical hardware ကတော့ NIC — Network Interface Card ဖြစ်ပါတယ်။
+
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA ConnectX NIC (Ethernet adapter)](../assets/hardware/connectx-nic.jpg)
+
+**ပုံရှင်းလင်းချက် (Photo walkthrough)**
+1. ဒီမှာ မြင်ရတာက server ရဲ့ PCIe slot ထဲ ထည့်သုံးရတဲ့ NIC card တစ်ခု ဖြစ်ပါတယ်။
+2. Card ရဲ့ အစွန်းဘက် bracket မှာ network cable ချိတ်ဆက်ဖို့ high-speed port (QSFP-class interface) ကို မြင်ရပါတယ်။
+3. ဒီ port ကတစ်ဆင့် node တစ်ခုချင်းစီက network fabric ထဲကို ဝင်ရောက်ချိတ်ဆက်ပါတယ်။
+
+*(Image: NVIDIA official product image)*
+
 ဒီ nodes တွေကြားမှာ—
 
 - Application traffic
@@ -238,6 +249,17 @@ Network separation ရှိထားရင် workload တစ်ခုချင
 AI-centric data center networking မှာ Network Fabric ဆိုတဲ့ term ကို ကြားရပါမယ်။
 
 အလွယ်ပြောရရင်—Network Fabric ဆိုတာ traffic အမျိုးအစားအလိုက် communication ကို handle လုပ်ပေးတဲ့ logical/physical networking infrastructure ဖြစ်ပါတယ်။
+
+Physical အနေနဲ့ ဒီ fabric တွေကို switch များ၊ NIC များနဲ့ cable များဖြင့် တည်ဆောက်ထားပါတယ်။
+
+![ဓာတ်ပုံ 2 (Photo 2): NVIDIA Spectrum Ethernet switch](../assets/hardware/spectrum-switch.jpg)
+
+**ပုံရှင်းလင်းချက် (Photo walkthrough)**
+1. ဒီမှာ မြင်ရတာက rack ထဲ တပ်ဆင်သုံးရတဲ့ Ethernet switch chassis ဖြစ်ပါတယ်။
+2. ရှေ့ဘက် faceplate မှာ high-speed Ethernet port တွေကို အတန်းလိုက် တန်းစီထားပြီး cable ချိတ်ဆက်ဖို့ connector cage တွေ ပါရှိပါတယ်။
+3. Node တွေ အများကြီးကို ဒီလို switch တစ်လုံး (ဒါမှမဟုတ် အများကြီး) ကတစ်ဆင့် ချိတ်ဆက်ကြပါတယ်။
+
+*(Image: NVIDIA official product image)*
 
 AI-centric data center မှာ network fabric အမျိုးမျိုး ရှိနိုင်ပါတယ်။
 ဒီ lesson ရဲ့ framework အရ အဓိက ၄ မျိုးကို ပြောထားပါတယ်။
@@ -581,6 +603,17 @@ flowchart TD
 3. The bottom node shows the traffic types carried between nodes: Application, Compute, Storage, and Management traffic.
 4. Even when there are many nodes, they all communicate through this Network.
 
+The physical hardware that actually connects each node to the network is the NIC — Network Interface Card.
+
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA ConnectX NIC (Ethernet adapter)](../assets/hardware/connectx-nic.jpg)
+
+**Photo walkthrough**
+1. What you see is a NIC card that is installed in a PCIe slot inside the server.
+2. On the card's edge bracket there is a high-speed network port (a QSFP-class interface) where the network cable connects.
+3. Through this port, each node joins the network fabric.
+
+*(Image: NVIDIA official product image)*
+
 Between these nodes, we have to carry:
 
 - Application traffic
@@ -764,6 +797,17 @@ With network separation, you can scale each workload according to its own requir
 In AI-centric data center networking, you will hear the term Network Fabric.
 
 Simply put, a Network Fabric is the logical/physical networking infrastructure that handles communication for each traffic type.
+
+Physically, these fabrics are built from switches, NICs, and cables.
+
+![ဓာတ်ပုံ 2 (Photo 2): NVIDIA Spectrum Ethernet switch](../assets/hardware/spectrum-switch.jpg)
+
+**Photo walkthrough**
+1. What you see is an Ethernet switch chassis designed to be mounted in a rack.
+2. On the front faceplate, high-speed Ethernet ports are arranged in rows, each with a connector cage for the cable.
+3. Many nodes connect to the fabric through switches like this one.
+
+*(Image: NVIDIA official product image)*
 
 An AI-centric data center can have several kinds of network fabric.
 According to this lesson's framework, the main four are:

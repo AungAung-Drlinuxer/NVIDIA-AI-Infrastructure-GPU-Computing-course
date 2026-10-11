@@ -33,6 +33,12 @@ AI, machine learning, High-Performance Computing (HPC) နဲ့ graphics အပ
 
 တိကျတဲ့ capability တွေက GPU model, driver version, operating system နဲ့ supported software configuration ပေါ် မူတည်ပါတယ်။
 
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA A100 80GB GPU](../assets/hardware/a100-gpu.jpg)
+
+**ပုံရှင်းလင်းချက် (ဓာတ်ပုံ 1)** — ဓာတ်ပုံမှာ NVIDIA A100 GPU ကို မြင်ရပါမယ် — GPU chip ကို ဖုံးအုပ်ထားတဲ့ heatsink နဲ့ cooling assembly ပါဝင်တဲ့ GPU board ဖြစ်ပါတယ်။ ဒီဓာတ်ပုံက ဒီ section မှာ ပြောတဲ့ "NVIDIA GPU Hardware" layer ရဲ့ လက်တွေ့ ပုံစံ ဖြစ်ပြီး GPU driver ဆိုတာ ဒီ hardware ကို operating system နဲ့ application တွေနဲ့ ချိတ်ဆက်ပေးတဲ့ software ဖြစ်ပါတယ်။
+
+*(Image: NVIDIA official product image)*
+
 **ရိုးရှင်းသော architecture**
 
 ```
@@ -459,6 +465,12 @@ Important responsibilities include:
 - Providing the driver functionality required by compatible container and virtualization environments.
 
 The exact capabilities depend on the GPU model, driver version, operating system, and supported software configuration.
+
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA A100 80GB GPU](../assets/hardware/a100-gpu.jpg)
+
+**Photo walkthrough (Photo 1)** — The photo shows an NVIDIA A100 GPU: a GPU board with a heatsink and cooling assembly covering the GPU chip. This is the real-world form of the "NVIDIA GPU Hardware" layer below, and the GPU driver is the software that connects this hardware with the operating system and applications.
+
+*(Image: NVIDIA official product image)*
 
 **Simplified architecture**
 

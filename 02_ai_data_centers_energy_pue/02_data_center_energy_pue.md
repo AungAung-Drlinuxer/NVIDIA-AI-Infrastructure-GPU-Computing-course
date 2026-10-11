@@ -67,6 +67,12 @@ flowchart TD
 
 **ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက Data Center Power ကနေ စပါတယ်။ ဒီ power ကို အဓိက လေးစုခွဲသုံးပါတယ် — IT Equipment၊ Cooling၊ Power Conversion / Distribution နဲ့ Other Facility Systems။ အောက်ဆုံးအဆင့်မှာ တစ်စုချင်းစီရဲ့ ဥပမာပစ္စည်းတွေ — Servers / GPUs / Storage / Network၊ Chillers / Fans / Pumps၊ UPS / Power Distribution၊ Lighting / Fire / Monitoring — ကို တွေ့ရပါမယ်။ IT equipment အတွက် သုံးတဲ့ power နဲ့ ကျန် overhead power ကွာခြားပုံကို နားလည်ဖို့ ဒီပုံက အခြေခံပါတယ်။
 
+![ဓာတ်ပုံ 1 (Photo 1): AI data center — server racks](../assets/hardware/data-center.jpg)
+
+**ပုံရှင်းလင်းချက် (ဓာတ်ပုံ 1)** — ဒီဓာတ်ပုံမှာ မြင်ရတဲ့ rack တစ်ခုချင်းစီထဲက server တွေ၊ GPU တွေ၊ storage နဲ့ network equipment တွေဟာ ဒီ section မှာ ပြောခဲ့တဲ့ IT Equipment power consumption ရဲ့ အဓိက ပစ္စည်းတွေ ဖြစ်ပါတယ်။ rack တွေ ဘယ်လောက် စုပြုံနေလဲ၊ တစ် rack ထဲမှာ ပစ္စည်း ဘယ်လောက် ထူထပ်လဲ ဆိုတာက power နဲ့ cooling ဘယ်လောက် လိုအပ်မလဲ ဆိုတာကို တိုက်ရိုက် သက်ရောက်စေပါတယ်။
+
+*(Image: NVIDIA official product image)*
+
 ### 3. Traditional Data Center တွေရဲ့ Power Distribution
 
 မူရင်းသင်ခန်းစာမှာ traditional/older data center တစ်ခုရဲ့ power distribution ကို ဥပမာအနေနဲ့—
@@ -421,6 +427,12 @@ flowchart TD
 ```
 
 **Figure walkthrough** — Start at the top node, Data Center Power. It is divided into four main areas: IT Equipment, Cooling, Power Conversion / Distribution, and Other Facility Systems. At the bottom, each area shows example equipment — Servers / GPUs / Storage / Network, Chillers / Fans / Pumps, UPS / Power Distribution, and Lighting / Fire / Monitoring. This figure is the basis for understanding the difference between power used by IT equipment and the remaining overhead power.
+
+![ဓာတ်ပုံ 1 (Photo 1): AI data center — server racks](../assets/hardware/data-center.jpg)
+
+**Photo walkthrough (Photo 1)** — The servers, GPUs, storage, and networking equipment inside each rack shown in this photo are exactly the "IT Equipment" whose power use is described above. How densely racks are packed directly affects how much power and cooling the facility needs.
+
+*(Image: NVIDIA official product image)*
 
 ### 3. Traditional Data Center Power Distribution
 

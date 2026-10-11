@@ -29,6 +29,15 @@ Ray tracing ဆိုတာ graphics rendering နဲ့ သက်ဆိုင�
 
 - RTX = NVIDIA GPU platform/family associated with Ray Tracing and accelerated graphics capabilities.
 
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA GeForce RTX 4090 graphics card](../assets/hardware/rtx-4090-card.jpg)
+
+**ဓာတ်ပုံရှင်းလင်းချက် (Photo walkthrough):**
+- ပုံထဲမှာ NVIDIA GeForce RTX 4090 graphics card တစ်ခုလုံးကို မြင်ရပါတယ်။ ဒါဟာ RTX 40 series ရဲ့ flagship consumer gaming card ဖြစ်ပါတယ်။
+- ကတ်ရဲ့ ကိုယ်ထည် (casing) က GPU chip၊ memory နဲ့ အအေးပေး cooling system တွေကို ဖုံးအုပ်ထားပြီး ကတ်အရွယ်အစားကိုကြည့်ရင် high-end card အမျိုးအစား ဖြစ်တာ တွေ့ရပါမယ်။
+- ဒီလိုကတ်ကို desktop PC / workstation ရဲ့ PCIe slot ထဲ ထည့်သုံးပါတယ် — server ထဲက data-center GPU တွေနဲ့ မတူဘဲ ပုံမှန်ကွန်ပျူတာအတွက် ထုတ်လုပ်ထားတဲ့ card ဖြစ်ပါတယ်။
+
+*(Image: NVIDIA official product image)*
+
 ## 3. RTX Architecture
 
 RTX family ကို NVIDIA ရဲ့ GPU architectures တွေထဲမှာ—
@@ -100,6 +109,15 @@ flowchart TD
 - အပေါ်က RTX platform တစ်ခုတည်းကနေ အောက်ကို သုံးခု ခွဲကြည့်ပါ။
 - Gaming၊ Professional Workstation နဲ့ Data Center graphics/visualization ဆိုပြီး target market သုံးမျိုးအတွက် ထုတ်ကုန်တွေ ရှိပါတယ်။
 - ဒါကြောင့် RTX ကို gaming အတွက်ပဲလို့ မမှတ်ဘဲ graphics-oriented market တွေအတွက် ပူးပေါင်းအသုံးပြုနိုင်တဲ့ platform အဖြစ် နားလည်ပါ။
+
+![ဓာတ်ပုံ 2 (Photo 2): NVIDIA RTX 6000 Ada Generation workstation card](../assets/hardware/rtx-6000-ada-card.jpg)
+
+**ဓာတ်ပုံရှင်းလင်းချက် (Photo walkthrough):**
+- ပုံထဲမှာ NVIDIA RTX 6000 Ada Generation workstation graphics card ကို မြင်ရပါတယ်။
+- Gaming card တွေနဲ့ မတူဘဲ ဒီကတ်က professional workstation market အတွက် ရည်ရွယ်ထုတ်လုပ်ထားတဲ့ အမျိုးအစားဖြစ်ပြီး ကတ်တစ်ခုလုံးမှာ GPU၊ memory နဲ့ cooling ပါဝင်ပါတယ်။
+- Workstation ဒါမှမဟုတ် server ရဲ့ PCIe slot ထဲ ထည့်ကာ 3D design၊ rendering နဲ့ visualization အလုပ်တွေအတွက် အသုံးပြုပါတယ် — အပေါ်က target market သုံးခုထဲက "Professional Workstation" အပိုင်းကို ဒီကတ်နဲ့ မှတ်ထားနိုင်ပါတယ်။
+
+*(Image: NVIDIA official product image)*
 
 ## 5. NVIDIA L40
 
@@ -464,6 +482,15 @@ For now, remember:
 
 - RTX = NVIDIA GPU platform/family associated with Ray Tracing and accelerated graphics capabilities.
 
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA GeForce RTX 4090 graphics card](../assets/hardware/rtx-4090-card.jpg)
+
+**Photo walkthrough (ဓာတ်ပုံရှင်းလင်းချက်):**
+- The photo shows a complete NVIDIA GeForce RTX 4090 graphics card — the flagship consumer gaming card of the RTX 40 series.
+- The card's casing covers the GPU chip, memory, and its cooling system; its overall size marks it as a high-end card rather than an entry-level one.
+- Cards like this go into a PCIe slot inside a desktop PC or workstation — unlike the data-center GPUs that live inside servers.
+
+*(Image: NVIDIA official product image)*
+
 ## 3. RTX Architecture
 
 RTX GPUs are associated with specialized processing elements such as:
@@ -529,6 +556,15 @@ flowchart TD
 - Start from the single RTX platform box at the top and split downward into three markets.
 - Products exist for gaming, professional workstations, and data-center graphics/visualization.
 - So RTX is not only for gaming — it is one graphics-oriented platform adapted for several markets.
+
+![ဓာတ်ပုံ 2 (Photo 2): NVIDIA RTX 6000 Ada Generation workstation card](../assets/hardware/rtx-6000-ada-card.jpg)
+
+**Photo walkthrough (ဓာတ်ပုံရှင်းလင်းချက်):**
+- The photo shows an NVIDIA RTX 6000 Ada Generation workstation graphics card.
+- Unlike gaming cards, this one targets the professional workstation market; the card as a whole contains the GPU, memory, and cooling.
+- It installs in a PCIe slot inside a workstation or server for 3D design, rendering, and visualization work — use this card to remember the "Professional Workstation" branch of the three target markets above.
+
+*(Image: NVIDIA official product image)*
 
 ## 5. NVIDIA L40
 

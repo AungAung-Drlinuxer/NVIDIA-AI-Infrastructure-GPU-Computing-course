@@ -40,6 +40,15 @@ flowchart TD
 - အောက်က components ခုနစ်ခုကို တစ်ခုချင်းစီ ကြည့်ပါ — CPU က control အလုပ်၊ GPU က AI acceleration၊ GPU Interconnect က GPU ကြား ဆက်သွယ်ရေး ဖြစ်ပါတယ်။
 - Memory၊ Networking၊ Storage နဲ့ NVIDIA Software Stack တွေ မပါဘဲ DGX ဟာ ပြည့်စုံတဲ့ AI platform မဖြစ်နိုင်ပါဘူး။
 
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA DGX system](../assets/hardware/dgx-system.jpg)
+
+**ဓာတ်ပုံရှင်းလင်းချက် (Photo walkthrough):**
+- ပုံထဲမှာ NVIDIA DGX system တစ်လုံးကို မြင်ရပါတယ် — ဒါဟာ data-center rack ထဲ တပ်ဆင်ရတဲ့ integrated server အမျိုးအစား ဖြစ်ပါတယ်။
+- အပြင်ဘက်ကနေ CPU၊ GPU များ၊ memory၊ NVMe storage နဲ့ networking စတဲ့ components တွေ မမြင်ရပေမဲ့ ဒီ chassis တစ်ခုတည်းထဲမှာ အားလုံး ပေါင်းစပ်ပါဝင်နေပါတယ်။
+- အပေါ်က Figure 1 မှာ ပြထားတဲ့ components ခုနစ်ခုစလုံး ဒီစက်ထဲမှာ ပါဝင်တာကြောင့် "integrated AI platform" ဆိုတဲ့ အဓိပ္ပာယ်ကို ဒီပုံနဲ့ ယှဉ်မှတ်ထားနိုင်ပါတယ်။
+
+*(Image: NVIDIA official product image)*
+
 ## 2. DGX Systems ရဲ့ Evolution
 
 DGX Family ဟာ GPU Generations တွေ တိုးတက်လာတာနဲ့အမျှ CPU, GPU, Memory နဲ့ Interconnect Technologies တွေကိုလည်း တဖြည်းဖြည်း ပြောင်းလဲတိုးတက်လာခဲ့ပါတယ်။
@@ -318,6 +327,15 @@ flowchart TD
 - The top box shows that DGX is an integrated AI platform — more than a server that just contains GPUs.
 - Look at the seven components below one by one: the CPU handles control work, the GPU handles AI acceleration, and the GPU interconnect links the GPUs to each other.
 - Memory, networking, storage, and the NVIDIA software stack are all part of the platform — without them DGX would not be complete.
+
+![ဓာတ်ပုံ 1 (Photo 1): NVIDIA DGX system](../assets/hardware/dgx-system.jpg)
+
+**Photo walkthrough (ဓာတ်ပုံရှင်းလင်းချက်):**
+- The photo shows an NVIDIA DGX system — an integrated server designed to be installed in a data-center rack.
+- From the outside you cannot see the CPUs, GPUs, memory, NVMe storage, and networking, but all of them are combined inside this one chassis.
+- Because all seven components from Figure 1 live inside this machine, the photo is a good anchor for the phrase "integrated AI platform".
+
+*(Image: NVIDIA official product image)*
 
 ## 2. DGX Evolution
 
