@@ -4,11 +4,16 @@
 
 **Target audience** — IT infrastructure engineers, Cloud/DevOps engineers, AI infrastructure engineers, GPU administrators and learners preparing for NVIDIA AI infrastructure concepts and related certification topics.
 
+**Status** — ✅ = bilingual module file(s) written in repo (📁 line က module files ကို ဖော်ပြ)၊ ⏳ = content မပေးရသေး — roadmap entry အဖြစ် ထားရှိ
+
 ---
 
 # PART I — AI Foundations and AI Infrastructure
 
+
 ## Module 01 — AI, ML, DL Fundamentals and AI Adoption
+
+**📁 files** — `01_ai_ml_dl_fundamentals/` (topic notes 5)
 
 **အဓိကအကြောင်းအရာများ**
 - Artificial Intelligence (AI), Machine Learning (ML) နဲ့ Deep Learning (DL) တို့ရဲ့ ဆက်နွယ်မှု
@@ -20,8 +25,9 @@
 - AI lifecycle နဲ့ AI infrastructure ရဲ့ အခန်းကဏ္ဍ
 
 **သင်ယူရမည့်ရလဒ်** — AI workload တစ်ခုရဲ့ ရည်ရွယ်ချက်နဲ့ လိုအပ်နိုင်တဲ့ infrastructure ကို အခြေခံအားဖြင့် ခွဲခြားနိုင်ရန်။
-
 ## Module 02 — AI Data Centers, Energy Consumption and PUE
+
+**📁 files** — `02_ai_data_centers_energy_pue/`
 
 **အဓိကအကြောင်းအရာများ**
 - AI data center တွေမှာ လိုအပ်တဲ့ compute, power, cooling နဲ့ networking
@@ -32,8 +38,9 @@
 - AI infrastructure ရဲ့ energy efficiency နဲ့ sustainability
 
 **သင်ယူရမည့်ရလဒ်** — AI infrastructure ရဲ့ performance ကို power, cooling နဲ့ facility efficiency တို့နဲ့ ဆက်စပ်နားလည်ရန်။
-
 ## Module 03 — CPU vs GPU and Parallel Computing
+
+**📁 files** — `03_cpu_gpu_parallel_computing/`
 
 **အဓိကအကြောင်းအရာများ**
 - CPU architecture နဲ့ GPU architecture
@@ -45,8 +52,9 @@
 - CPU နဲ့ GPU ကို ပေါင်းစပ်အသုံးပြုပုံ
 
 **သင်ယူရမည့်ရလဒ်** — CPU နဲ့ GPU တို့ရဲ့ ကွာခြားချက်၊ သင့်တော်တဲ့ workload နဲ့ parallel computing ရဲ့ အခြေခံကို ရှင်းပြနိုင်ရန်။
+## Module 04 — Training vs Inference ⏳
 
-## Module 04 — Training vs Inference
+**📁 files** — ⏳ content မပေးရသေး (in-depth: `35_model_training_vs_inference/`)
 
 **အဓိကအကြောင်းအရာများ**
 - Model training နဲ့ inference တို့ရဲ့ ရည်ရွယ်ချက်
@@ -59,8 +67,9 @@
 - Training နဲ့ inference အတွက် infrastructure ရွေးချယ်မှု
 
 **သင်ယူရမည့်ရလဒ်** — Training နဲ့ inference အတွက် GPU, memory, networking နဲ့ performance requirements တွေ ဘာကြောင့်ကွာခြားသလဲ နားလည်ရန်။
-
 ## Module 05 — AI Infrastructure: Compute, Storage and Cloud
+
+**📁 files** — `05_ai_infra_compute_storage_cloud/`
 
 **အဓိကအကြောင်းအရာများ**
 - AI infrastructure ရဲ့ အဓိက components
@@ -72,8 +81,9 @@
 - Infrastructure cost, availability နဲ့ capacity planning
 
 **သင်ယူရမည့်ရလဒ်** — AI workload တစ်ခုအတွက် compute, storage နဲ့ deployment environment ကို အခြေခံရွေးချယ်နိုင်ရန်။
-
 ## Module 06 — NVIDIA AI Infrastructure and DGX Systems
+
+**📁 files** — `06_nvidia_technology_stack/`
 
 **အဓိကအကြောင်းအရာများ**
 - NVIDIA AI infrastructure ecosystem
@@ -89,8 +99,9 @@
 ---
 
 # PART II — GPU Interconnects, Networking and Data Movement
-
 ## Module 07 — NVLink and NVSwitch
+
+**📁 files** — `07_gpu_interconnects_networking/05_nvlink_nvswitch.md`
 
 **အဓိကအကြောင်းအရာများ**
 - PCIe နဲ့ NVLink
@@ -102,8 +113,9 @@
 - GPU memory sharing နဲ့ pooling အတွက် software support လိုအပ်ချက်
 
 **သင်ယူရမည့်ရလဒ်** — NVLink နဲ့ NVSwitch တို့ရဲ့ ကွာခြားချက်၊ multi-GPU communication မှာ သူတို့ရဲ့ အခန်းကဏ္ဍကို နားလည်ရန်။
-
 ## Module 08 — HPC Fabric and InfiniBand
+
+**📁 files** — `08_hpc_fabric_infiniband/`
 
 **အဓိကအကြောင်းအရာများ**
 - HPC cluster architecture
@@ -116,8 +128,9 @@
 - Multi-node AI training အတွက် fabric requirements
 
 **သင်ယူရမည့်ရလဒ်** — InfiniBand-based AI/HPC cluster ရဲ့ အခြေခံ network architecture ကို ရှင်းပြနိုင်ရန်။
-
 ## Module 09 — InfiniBand vs NVIDIA Spectrum-X Ethernet
+
+**📁 files** — `09_infiniband_vs_spectrum_x/`
 
 **အဓိကအကြောင်းအရာများ**
 - InfiniBand နဲ့ Ethernet တို့ရဲ့ အခြေခံကွာခြားချက်
@@ -130,8 +143,9 @@
 - Workload, operations နဲ့ cost အပေါ်မူတည်ပြီး fabric ရွေးချယ်ခြင်း
 
 **သင်ယူရမည့်ရလဒ်** — InfiniBand နဲ့ AI-optimized Ethernet တို့ကို workload requirements အပေါ်အခြေခံပြီး နှိုင်းယှဉ်နိုင်ရန်။
-
 ## Module 10 — DMA, RDMA and GPU Data Movement
+
+**📁 files** — `10_dma_rdma_gpu_data_movement/`
 
 **အဓိကအကြောင်းအရာများ**
 - Direct Memory Access (DMA)
@@ -143,8 +157,9 @@
 - AI workload မှာ data movement က ဘာကြောင့်အရေးကြီးသလဲ
 
 **သင်ယူရမည့်ရလဒ်** — DMA နဲ့ RDMA တို့ရဲ့ ကွာခြားချက်၊ data transfer ကို ပိုမိုထိရောက်စေတဲ့ အကြောင်းရင်းကို နားလည်ရန်။
-
 ## Module 11 — GPUDirect RDMA
+
+**📁 files** — `11_gpudirect_rdma/`
 
 **အဓိကအကြောင်းအရာများ**
 - GPUDirect RDMA concept
@@ -156,8 +171,9 @@
 - GPUDirect RDMA troubleshooting အခြေခံ
 
 **သင်ယူရမည့်ရလဒ်** — Supported hardware/software environment မှာ GPU memory နဲ့ network device တို့အကြား direct data transfer ဘယ်လိုလုပ်ဆောင်နိုင်သလဲ နားလည်ရန်။
+## Module 12 — GPUDirect Storage (GDS) ⏳
 
-## Module 12 — GPUDirect Storage (GDS)
+**📁 files** — ⏳ content မပေးရသေး
 
 **အဓိကအကြောင်းအရာများ**
 - Storage-to-GPU data movement
@@ -169,8 +185,9 @@
 - GDS deployment considerations
 
 **သင်ယူရမည့်ရလဒ်** — Storage data ကို GPU memory သို့ ပိုမိုထိရောက်စွာ ပို့ဆောင်နိုင်တဲ့ နည်းလမ်းကို နားလည်ရန်။
+## Module 13 — GPUDirect RDMA vs GPUDirect Storage ⏳
 
-## Module 13 — GPUDirect RDMA vs GPUDirect Storage
+**📁 files** — ⏳ content မပေးရသေး
 
 **အဓိကအကြောင်းအရာများ**
 - GPUDirect RDMA နဲ့ GDS တို့ရဲ့ ရည်ရွယ်ချက်
@@ -181,8 +198,9 @@
 - Real-world architecture examples
 
 **သင်ယူရမည့်ရလဒ်** — GPU data movement technology တစ်ခုချင်းစီကို သင့်တော်တဲ့ use case နဲ့ ချိတ်ဆက်ရွေးချယ်နိုင်ရန်။
-
 ## Module 14 — Layer 3 Networking, DGX OS and GPU Software Foundations
+
+**📁 files** — `14_dgx_os_gpu_software_foundations/`
 
 **အဓိကအကြောင်းအရာများ**
 - Layer 2 နဲ့ Layer 3 networking အခြေခံ
@@ -198,8 +216,9 @@
 ---
 
 # PART III — GPU Drivers, Virtualization and CUDA
-
 ## Module 15 — NVIDIA GPU Drivers and nvidia-smi
+
+**📁 files** — `15_gpu_drivers_nvidia_smi/`
 
 **အဓိကအကြောင်းအရာများ**
 - NVIDIA GPU driver ရဲ့ အခန်းကဏ္ဍ
@@ -212,8 +231,9 @@
 - Common driver troubleshooting
 
 **သင်ယူရမည့်ရလဒ်** — Linux GPU server ပေါ်မှာ GPU visibility, driver status နဲ့ basic utilization ကို စစ်ဆေးနိုင်ရန်။
+## Module 16 — GPU Virtualization Fundamentals ⏳
 
-## Module 16 — GPU Virtualization Fundamentals
+**📁 files** — ⏳ content မပေးရသေး (အချို့ကို `17_vgpu_vs_mig/` တွင် ဖုံး)
 
 **အဓိကအကြောင်းအရာများ**
 - GPU sharing နဲ့ virtualization
@@ -225,8 +245,9 @@
 - Virtualized AI workload use cases
 
 **သင်ယူရမည့်ရလဒ်** — GPU virtualization ဘာကြောင့်လိုအပ်သလဲ၊ ဘယ်လို deployment options တွေရှိသလဲ နားလည်ရန်။
-
 ## Module 17 — NVIDIA vGPU vs MIG: Conceptual Fundamentals
+
+**📁 files** — `17_vgpu_vs_mig/`
 
 **အဓိကအကြောင်းအရာများ**
 - NVIDIA vGPU အခြေခံ
@@ -239,8 +260,9 @@
 - MIG-backed vGPU အပါအဝင် implementation ကွဲပြားမှုများ
 
 **သင်ယူရမည့်ရလဒ်** — vGPU နဲ့ MIG ကို အဓိပ္ပာယ်တူ technology တွေအဖြစ် မယူဆဘဲ ရည်ရွယ်ချက်နဲ့ implementation အပေါ်အခြေခံပြီး ခွဲခြားနိုင်ရန်။
-
 ## Module 18 — NVIDIA vGPU and MIG: Profiles, Configuration and Operations
+
+**📁 files** — `18_vgpu_mig_operations/`
 
 **အဓိကအကြောင်းအရာများ**
 - vGPU profiles နဲ့ supported configuration
@@ -257,8 +279,9 @@
 ---
 
 # PART IV — CUDA, Multi-GPU Communication and NVIDIA Software Stack
-
 ## Module 19 — CUDA Fundamentals: GPU Programming and Parallel Computing
+
+**📁 files** — `19_cuda_fundamentals/`
 
 **အဓိကအကြောင်းအရာများ**
 - CUDA ဆိုတာဘာလဲ
@@ -270,8 +293,9 @@
 - Python frameworks က GPU ကို ဘယ်လိုအသုံးပြုသလဲ
 
 **သင်ယူရမည့်ရလဒ်** — CUDA ရဲ့ အဓိကရည်ရွယ်ချက်နဲ့ GPU computing နဲ့ ဆက်စပ်မှုကို ရှင်းပြနိုင်ရန်။
-
 ## Module 20 — CUDA Architecture, Programming Model and Software Stack
+
+**📁 files** — `20_cuda_architecture_programming_model/`
 
 **အဓိကအကြောင်းအရာများ**
 - CUDA threads, blocks နဲ့ grids
@@ -284,22 +308,22 @@
 - CUDA compatibility နဲ့ software dependencies
 
 **သင်ယူရမည့်ရလဒ်** — CUDA programming model နဲ့ high-level framework မှ GPU execution အထိ software stack ကို နားလည်ရန်။
+## Module 21 — Installing CUDA Toolkit and Verifying the GPU Environment
 
-## Module 21 — CUDA Execution, Memory and Programming Workflow
+**📁 files** — `21_installing_cuda_toolkit/`
 
 **အဓိကအကြောင်းအရာများ**
-- Host code နဲ့ device code
-- Kernel launch အခြေခံ
-- Host-to-device နဲ့ device-to-host data transfer
-- GPU memory allocation
-- Synchronization အခြေခံ
-- Kernel execution နဲ့ performance considerations
-- CUDA program lifecycle
-- Common CUDA programming concepts
+- CUDA Toolkit installation prerequisites
+- NVIDIA GPU Driver နှင့် CUDA Toolkit တို့ရဲ့ ကွာခြားချက်နှင့် version compatibility
+- `nvidia-smi` နှင့် `nvcc --version` ဖြင့် စစ်ဆေးခြင်း
+- `/usr/local/cuda` version information
+- `nvcc: command not found` က ဘာကို ဆိုလိုသလဲ (GPU driver ပျက်နေခြင်း မဟုတ်)
+- Toolkit installation နှင့် GPU environment verification workflow
 
-**သင်ယူရမည့်ရလဒ်** — CUDA application တစ်ခုက GPU ပေါ်မှာ အလုပ်လုပ်ပုံကို conceptual workflow အဖြစ် နားလည်ရန်။
-
+**သင်ယူရမည့်ရလဒ်** — CUDA Toolkit ကို တပ်ဆင်ပြီး GPU environment မှန်ကန်မှုကို စစ်ဆေးအတည်ပြုနိုင်ရန်။
 ## Module 22 — NCCL: Multi-GPU and Multi-Node Communication
+
+**📁 files** — `22_nccl_multi_gpu_communication/`
 
 **အဓိကအကြောင်းအရာများ**
 - NVIDIA Collective Communications Library (NCCL)
@@ -312,8 +336,9 @@
 - Multi-GPU training မှာ NCCL ရဲ့ အခန်းကဏ္ဍ
 
 **သင်ယူရမည့်ရလဒ်** — NCCL က collective communication ကို ဘယ်လိုပံ့ပိုးသလဲ၊ hardware interconnect နဲ့ ဘယ်လိုကွာခြားသလဲ နားလည်ရန်။
-
 ## Module 23 — NVLink, NVSwitch, PCIe, RDMA and NCCL
+
+**📁 files** — `23_nvlink_nvswitch_pcie_rdma_nccl/`
 
 **အဓိကအကြောင်းအရာများ**
 - GPU interconnect technologies
@@ -330,8 +355,9 @@
 ---
 
 # PART V — NVIDIA Monitoring, Cluster Management and Tool Selection
-
 ## Module 24 — NVIDIA GPU Monitoring and Data Center Management
+
+**📁 files** — `24_gpu_monitoring_data_center_management/`
 
 **အဓိကအကြောင်းအရာများ**
 - GPU monitoring ရဲ့ ရည်ရွယ်ချက်
@@ -344,22 +370,22 @@
 - Operational troubleshooting
 
 **သင်ယူရမည့်ရလဒ်** — GPU monitoring tools တွေကို သင့်တော်တဲ့ operational requirement နဲ့ ချိတ်ဆက်နိုင်ရန်။
+## Module 25 — NVIDIA-SMI: GPU Monitoring and Basic Management
 
-## Module 25 — GPU Telemetry, Metrics and Monitoring Architecture
+**📁 files** — `25_nvidia_smi_monitoring/`
 
 **အဓိကအကြောင်းအရာများ**
-- GPU metrics collection
-- Exporters နဲ့ monitoring endpoints
-- Prometheus time-series metrics
-- Grafana dashboards
-- Alert rules နဲ့ notifications
-- GPU-level နဲ့ application-level metrics
-- Monitoring data ကို troubleshooting မှာ အသုံးပြုခြင်း
-- Monitoring pipeline ရဲ့ limitations
+- `nvidia-smi` output ကို ဖတ်ရှုခြင်း — GPU utilization, memory, temperature နှင့် power
+- Query GPU ဖြင့် CSV output ရယူခြင်းနှင့် monitoring loop (`-l 1` ကဲ့သို့)
+- Compute mode နှင့် MIG visibility
+- `nvidia-smi` နှင့် DCGM တို့ရဲ့ ကွာခြားချက်
+- Basic GPU management နှင့် operational troubleshooting
+- `nvidia-smi` ရဲ့ limitation များ — single-node quick status tool (fleet monitoring မဟုတ်)
 
-**သင်ယူရမည့်ရလဒ်** — GPU telemetry ကို စုဆောင်း၊ သိမ်းဆည်း၊ မြင်သာအောင်ပြသပြီး သတိပေးချက်များ ထုတ်ပေးနိုင်တဲ့ architecture ကို နားလည်ရန်။
-
+**သင်ယူရမည့်ရလဒ်** — `nvidia-smi` ကို အသုံးပြုပြီး GPU အခြေအနေကို စစ်ဆေးပြီး basic management လုပ်ဆောင်နိုင်ရန်။
 ## Module 26 — NVIDIA DCGM: Health, Diagnostics and GPU Monitoring
+
+**📁 files** — `26_dcgm_health_diagnostics/`
 
 **အဓိကအကြောင်းအရာများ**
 - Data Center GPU Manager (DCGM)
@@ -372,8 +398,9 @@
 - GPU fault investigation နဲ့ troubleshooting
 
 **သင်ယူရမည့်ရလဒ်** — DCGM ရဲ့ အခန်းကဏ္ဍကို GPU status inspection နဲ့ broader monitoring stack တို့မှ ခွဲခြားနိုင်ရန်။
-
 ## Module 27 — NVIDIA Base Command Manager (BCM)
+
+**📁 files** — `27_base_command_manager/`
 
 **အဓိကအကြောင်းအရာများ**
 - BCM ရဲ့ အခန်းကဏ္ဍ
@@ -386,8 +413,9 @@
 - Base Command Manager နဲ့ Base Command Platform တို့ရဲ့ ကွာခြားချက်
 
 **သင်ယူရမည့်ရလဒ်** — Cluster infrastructure management ကို job scheduling နဲ့ application orchestration တို့မှ ခွဲခြားနားလည်ရန်။
-
 ## Module 28 — NVIDIA Infrastructure Tools: Scenarios and Tool Selection
+
+**📁 files** — `28_infrastructure_tools_scenarios/`
 
 **အဓိကအကြောင်းအရာများ**
 - nvidia-smi — local GPU status
@@ -404,8 +432,9 @@
 ---
 
 # PART VI — NVIDIA AI Software, Workloads and Enterprise Platform
+## Module 29 — NVIDIA AI Applications and Vertical Solutions
 
-## Module 29 — NVIDIA AI Applications and Domain-Specific Technologies
+**📁 files** — `29_ai_applications_domain_technologies/`
 
 **အဓိကအကြောင်းအရာများ**
 - AI application categories
@@ -418,8 +447,9 @@
 - Application requirement နဲ့ infrastructure selection
 
 **သင်ယူရမည့်ရလဒ်** — AI use case တစ်ခုနဲ့ သက်ဆိုင်တဲ့ model, framework နဲ့ infrastructure requirement တွေကို ချိတ်ဆက်နားလည်ရန်။
+## Module 30 — NVIDIA AI Stack Integration
 
-## Module 30 — NVIDIA AI Software Stack and Component Integration
+**📁 files** — `30_ai_software_stack_integration/`
 
 **အဓိကအကြောင်းအရာများ**
 - GPU drivers
@@ -432,8 +462,9 @@
 - Software compatibility နဲ့ dependency management
 
 **သင်ယူရမည့်ရလဒ်** — NVIDIA software components တွေဟာ အဆင့်အလိုက် ဘယ်လိုပေါင်းစပ်အလုပ်လုပ်သလဲ နားလည်ရန်။
-
 ## Module 31 — NVIDIA AI Enterprise and AI Factory
+
+**📁 files** — `31_ai_enterprise_ai_factory/`
 
 **အဓိကအကြောင်းအရာများ**
 - NVIDIA AI Enterprise ရဲ့ ရည်ရွယ်ချက်
@@ -448,8 +479,9 @@
 - AI Enterprise နဲ့ AI Factory တို့ရဲ့ ကွာခြားချက်
 
 **သင်ယူရမည့်ရလဒ်** — Enterprise AI software platform နဲ့ complete AI production infrastructure တို့ရဲ့ ဆက်နွယ်မှုကို ရှင်းပြနိုင်ရန်။
+## Module 32 — NVIDIA AI Workflow: Data Processing to Production Inference
 
-## Module 32 — AI Workflow: Data Processing to Inference
+**📁 files** — `32_ai_workflow_data_to_inference/`
 
 **အဓိကအကြောင်းအရာများ**
 - Data processing နဲ့ preparation
@@ -463,8 +495,9 @@
 - Workflow integration နဲ့ performance considerations
 
 **သင်ယူရမည့်ရလဒ်** — AI application တစ်ခုရဲ့ end-to-end workflow ကို tools နဲ့ ချိတ်ဆက်ဖော်ပြနိုင်ရန်။
+## Module 33 — Machine Learning Frameworks: PyTorch, TensorFlow, Scikit-learn and XGBoost
 
-## Module 33 — PyTorch and TensorFlow: ML Framework Fundamentals
+**📁 files** — `33_ml_frameworks_pytorch_tensorflow/`
 
 **အဓိကအကြောင်းအရာများ**
 - ML framework ဆိုတာဘာလဲ
@@ -477,8 +510,9 @@
 - Framework ရွေးချယ်မှုနဲ့ use cases
 
 **သင်ယူရမည့်ရလဒ်** — ML framework တစ်ခုရဲ့ အခန်းကဏ္ဍကို GPU driver, CUDA နဲ့ inference-serving platform တို့မှ ခွဲခြားနိုင်ရန်။
+## Module 34 — NVIDIA's Differentiator: CUDA, cuDNN and GPU-Accelerated Frameworks
 
-## Module 34 — NVIDIA GPU Libraries and Framework Acceleration
+**📁 files** — `34_cuda_cudnn_gpu_accelerated_frameworks/`
 
 **အဓိကအကြောင်းအရာများ**
 - CUDA ecosystem
@@ -491,27 +525,26 @@
 - Performance optimization concepts
 
 **သင်ယူရမည့်ရလဒ်** — NVIDIA GPU libraries တွေက framework နဲ့ application performance ကို ဘယ်လိုပံ့ပိုးသလဲ နားလည်ရန်။
+## Module 35 — Model Training vs. Model Inference
 
-## Module 35 — AI Model Optimization and Inference Serving
+**📁 files** — `35_model_training_vs_inference/`
 
 **အဓိကအကြောင်းအရာများ**
-- Inference performance requirements
-- Latency နဲ့ throughput
-- Quantization နဲ့ precision selection
-- Model optimization နဲ့ memory usage
-- TensorRT
-- TensorRT-LLM ဆိုင်ရာ အခြေခံအယူအဆများ
-- Triton Inference Server
-- NVIDIA NIM
-- Serving architecture နဲ့ benchmarking
+- Model training နှင့် inference တို့ရဲ့ ရည်ရွယ်ချက်နှင့် ကွာခြားချက်
+- Forward pass, loss, backward pass နှင့် optimizer
+- Training workload ရဲ့ compute နှင့် memory demand
+- Inference latency, throughput နှင့် cost
+- LLM inference ရဲ့ prefill နှင့် decode
+- KV cache
+- Distributed training နှင့် inference scaling
+- Training နှင့် inference အတွက် infrastructure ရွေးချယ်မှု
 
-**သင်ယူရမည့်ရလဒ်** — Model optimization နဲ့ inference serving တို့ရဲ့ မတူညီတဲ့တာဝန်တွေကို နားလည်ပြီး လိုအပ်ချက်အလိုက် tool ရွေးချယ်နိုင်ရန်။
+**သင်ယူရမည့်ရလဒ်** — Training နှင့် inference အတွက် GPU, memory, networking နှင့် performance requirements တွေ ဘာကြောင့် ကွာခြားသလဲ နားလည်ရန်။
 
----
-
-# PART VII — AI Workload Operations and Orchestration
-
+**မှတ်ချက်** — source course က ဤ topic ကို Module 35 အဖြစ် ပေးပို့သည်။ Draft outline ရဲ့ Module 04 (Training vs Inference) နှင့် အကြောင်းအရာ တူညီသဖြင့် ဤနေရာတွင် ပေါင်းစပ်ထားခြင်း ဖြစ်သည်။
 ## Module 36 — Job Scheduling vs Container Orchestration
+
+**📁 files** — `36_job_scheduling_container_orchestration/`
 
 **အဓိကအကြောင်းအရာများ**
 - HPC job scheduling
@@ -524,42 +557,41 @@
 - Training နဲ့ inference architecture examples
 
 **သင်ယူရမည့်ရလဒ်** — AI training jobs နဲ့ production inference services အတွက် scheduling/orchestration requirements ကို ခွဲခြားနိုင်ရန်။
+## Module 37 — Slurm vs. Kubernetes for AI Workloads
 
-## Module 37 — NVIDIA GPUs and Slurm Integration
-
-**အဓိကအကြောင်းအရာများ**
-- Slurm cluster architecture
-- GPU resource allocation
-- GPU-enabled job submission
-- Multi-GPU နဲ့ multi-node training
-- CUDA application execution
-- NCCL communication
-- GPUDirect RDMA ရဲ့ အခန်းကဏ္ဍ
-- DCGM monitoring နဲ့ Slurm operations
-- Job troubleshooting နဲ့ resource utilization
-
-**သင်ယူရမည့်ရလဒ်** — Slurm-managed AI/HPC cluster မှာ GPU workload တစ်ခုကို schedule လုပ်ပြီး စောင့်ကြည့်ပုံကို နားလည်ရန်။
-
-## Module 38 — NVIDIA GPUs and Kubernetes Integration
+**📁 files** — `37_slurm_vs_kubernetes_ai_workloads/`
 
 **အဓိကအကြောင်းအရာများ**
-- Kubernetes GPU workloads
-- NVIDIA GPU Operator
-- GPU drivers, device plugin နဲ့ container toolkit
-- GPU resource requests နဲ့ scheduling
+- Slurm နှင့် Kubernetes တို့ရဲ့ ပင်မရည်ရွယ်ချက် ကွာခြားချက်
+- Job scheduling နှင့် container orchestration မတူညီခြင်း
+- Slurm commands — sbatch, srun, squeue, sinfo, scancel
+- Kubernetes commands — kubectl, YAML manifests, Helm
+- Horizontal, Vertical နှင့် Cluster scaling
+- DCGM/DCGM Exporter က GPU monitoring သာ — Kubernetes Scheduler မဟုတ်
+- Typical users နှင့် role mapping
+- Exam scenarios — queued training jobs vs replicated inference services
+
+**သင်ယူရမည့်ရလဒ်** — Training scenario နှင့် production inference scenario တွေအတွက် Slurm နှင့် Kubernetes ကို မှန်ကန်စွာ ရွေးချယ်နိုင်ရန်။
+## Module 38 — Slurm and Kubernetes Integration with NVIDIA Infrastructure
+
+**📁 files** — `38_slurm_kubernetes_integration/`
+
+**အဓိကအကြောင်းအရာများ**
+- Multi-node NVIDIA GPU training cluster components — DGX, NVLink/NVSwitch, InfiniBand, NCCL, GPUDirect RDMA
+- DGX Systems နှင့် DGX SuperPOD အပါအဝင် AI infrastructure architecture
+- Slurm multi-node training scheduling နှင့် GRES (Generic Resources)
+- DCGM ရဲ့ GPU health monitoring နှင့် performance telemetry
+- NCCL နှင့် multi-GPU/multi-node communication
+- Kubernetes GPU workloads နှင့် NVIDIA GPU Operator
+- GPU drivers, device plugin နှင့် container toolkit
 - MIG resource exposure အခြေခံ
-- DCGM Exporter နဲ့ monitoring
-- GPU-enabled inference services
-- Autoscaling နဲ့ scheduling limitations
-- Training/inference workload deployment examples
+- DCGM Exporter နှင့် monitoring
+- GPU scheduling, autoscaling, load balancing နှင့် workload rescheduling ကွာခြားချက်
 
-**သင်ယူရမည့်ရလဒ်** — Kubernetes ပေါ်မှာ GPU-enabled containers တွေကို deploy လုပ်ပြီး infrastructure components နဲ့ ပေါင်းစပ်ပုံကို နားလည်ရန်။
-
----
-
-# PART VIII — MLOps and End-to-End Production AI
-
+**သင်ယူရမည့်ရလဒ်** — Slurm-managed training cluster နှင့် Kubernetes-based GPU platform တို့ကို NVIDIA infrastructure components တွေနှင့် ပေါင်းစပ်နားလည်ရန်။
 ## Module 39 — Introduction to MLOps
+
+**📁 files** — `39_introduction_to_mlops/`
 
 **အဓိကအကြောင်းအရာများ**
 - MLOps ဆိုတာဘာလဲ
@@ -573,8 +605,9 @@
 - Feedback နဲ့ retraining
 
 **သင်ယူရမည့်ရလဒ်** — Model development ကနေ production operation အထိ MLOps က ဘာကြောင့်လိုအပ်သလဲ နားလည်ရန်။
-
 ## Module 40 — Why We Need MLOps
+
+**📁 files** — `40_why_we_need_mlops/`
 
 **အဓိကအကြောင်းအရာများ**
 - Model တည်ဆောက်ခြင်းနဲ့ production operation
@@ -588,8 +621,9 @@
 - Data drift နဲ့ production monitoring
 
 **သင်ယူရမည့်ရလဒ်** — MLOps က manual ML operations ကို ဘယ်လိုလျှော့ချပြီး production reliability ကို ဘယ်လိုတိုးတက်စေသလဲ ရှင်းပြနိုင်ရန်။
-
 ## Module 41 — NVIDIA Tools for MLOps
+
+**📁 files** — `41_nvidia_tools_for_mlops/`
 
 **အဓိကအကြောင်းအရာများ**
 - RAPIDS နဲ့ data preparation
@@ -607,6 +641,15 @@
 - Model Registry, CI/CD နဲ့ end-to-end lifecycle integration
 
 **သင်ယူရမည့်ရလဒ်** — NVIDIA technologies တွေကို MLOps lifecycle အဆင့်အလိုက် ချိတ်ဆက်ပြီး production AI architecture တစ်ခုအတွက် tool selection လုပ်နိုင်ရန်။
+
+---
+
+# Pending / To-Be-Added
+
+အောက်ပါအကြောင်းအရာများကို content ပေးလာပါက module files အဖြစ် ထည့်သွင်းပါမည်။
+
+- ⏳ **Modules 04, 12, 13, 16** — content မပေးရသေး (Module 04 Training vs Inference ရဲ့ in-depth ကို Module 35 တွင် ဖော်ပြပြီး)
+- ⏳ **AI Model Optimization and Inference Serving** — draft outline ရဲ့ Module 35 ဟောင်း (quantization, TensorRT/TensorRT-LLM, Triton, NIM, serving architecture နှင့် benchmarking); အကြောင်းအရာအချို့ကို Modules 32/33/34/41 တွင် ဖုံးအုပ်ပြီး
 
 ---
 
