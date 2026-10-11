@@ -56,6 +56,21 @@ Desktop / Workstation
         └── Vendor / Board information
 ```
 
+**ပုံ ၁ (Figure 1) — GPU-Z က GPU အချက်အလက် ဘယ်လို ဖော်ပေးသလဲ**
+
+```mermaid
+flowchart TD
+    PC["Desktop / Workstation"] --> GPU["NVIDIA GPU"]
+    GPU --> GZ["GPU-Z utility"]
+    GZ --> I1["GPU name / architecture / clock"]
+    GZ --> I2["Memory / memory type"]
+    GZ --> I3["CUDA / shader information"]
+    GZ --> I4["Bus / driver / technologies"]
+    GZ --> I5["Vendor / board information"]
+```
+
+**ပုံရှင်းလင်းချက်** — Computer ထဲက NVIDIA GPU ကို GPU-Z utility က ဖတ်ပြီး ညာဘက်မှာ မြင်ရတဲ့အတိုင်း အချက်အလက် အုပ်စုတွေ ခွဲပြီး ပြသပေးပါတယ်။ ဒါကြောင့် GPU-Z က GPU ကို identify လုပ်ပြီး specification တွေကို တစ်နေရာတည်းမှာ စစ်ဆေးနိုင်တဲ့ tool ဖြစ်ပါတယ်။
+
 ## 3. ဥပမာ — NVIDIA GeForce GTX 710
 
 ဒီ ဥပမာမှာ အသုံးပြုထားတဲ့ graphics card က—
@@ -160,6 +175,20 @@ GPU
         → Ray tracing
 ```
 
+**ပုံ ၂ (Figure 2) — CUDA Core, Tensor Core, RT Core တို့ရဲ့ role ကွဲပြားပုံ**
+
+```mermaid
+flowchart TD
+    GPU["GPU"] --> CC["CUDA Core"]
+    GPU --> TC["Tensor Core"]
+    GPU --> RC["RT Core"]
+    CC --> CC2["General parallel computation"]
+    TC --> TC2["AI / matrix / tensor operations"]
+    RC --> RC2["Ray Tracing acceleration"]
+```
+
+**ပုံရှင်းလင်းချက်** — GPU ထဲမှာ processing resource သုံးမျိုး ရှိပြီး တစ်ခုချင်းစီက အလုပ် မတူပါဘူး — CUDA Core က general parallel computation၊ Tensor Core က AI/matrix/tensor operation နဲ့ RT Core က Ray Tracing acceleration အတွက် ဖြစ်ပါတယ်။ ဒါကြောင့် Shader ≠ CUDA Core ≠ Tensor Core ≠ RT Core လို့ ခွဲခြား မှတ်သင့်ပါတယ်။
+
 **Exam clarification**
 
 ဒီလို မမှတ်ပါနဲ့—
@@ -202,6 +231,19 @@ Programmable GPU computing
       ├── Scientific computing
       └── HPC
 ```
+
+**ပုံ ၃ (Figure 3) — CUDA ကြောင့် GPU က general-purpose accelerator ဖြစ်လာပုံ**
+
+```mermaid
+flowchart TD
+    T["Traditional GPU"] --> G["Graphics processing အတွက်သာ"]
+    CUDA["CUDA platform"] --> P["Programmable GPU computing"]
+    P --> W1["AI / Machine Learning"]
+    P --> W2["Deep Learning"]
+    P --> W3["Scientific computing / HPC"]
+```
+
+**ပုံရှင်းလင်းချက်** — ဘယ်ဘက်က Traditional GPU က graphics processing အတွက်သာ ဆိုပေမယ့် CUDA programming model (ညာဘက်) ဝင်လာတော့ GPU ကို programmable general-purpose computing အတွက် သုံးလို့ ရလာပါတယ် — AI၊ Machine Learning၊ Deep Learning နဲ့ scientific computing/HPC workload တွေအထိ ဖြစ်ပါတယ်။
 
 ဒါက GPU တွေ graphics processor ကနေ general-purpose accelerator ဘက် ဘယ်လို တိုးတက်လာခဲ့သလဲ ဆိုတာကို နားလည်ရာမှာ အရေးကြီးတဲ့ အဆင့် ဖြစ်ပါတယ်။
 
@@ -327,6 +369,22 @@ GPU-Z
    ├── Check supported technologies
    └── Check vendor / board information
 ```
+
+**ပုံ ၄ (Figure 4) — GPU အချက်အလက် inspect လုပ်မယ့် basic workflow**
+
+```mermaid
+flowchart TD
+    C["Computer"] --> GC["Graphics Card"]
+    GC --> GZ["GPU-Z"]
+    GZ --> S1["GPU identify"]
+    GZ --> S2["specification စစ်"]
+    GZ --> S3["memory စစ်"]
+    GZ --> S4["CUDA support စစ်"]
+    GZ --> S5["supported technologies စစ်"]
+    GZ --> S6["vendor / board info စစ်"]
+```
+
+**ပုံရှင်းလင်းချက်** — Computer ထဲ တပ်ထားတဲ့ Graphics Card ကို GPU-Z နဲ့ ဖတ်ပြီး အောက်ခြေက အချက်တွေကို တစ်ခုချင်း စစ်ဆေးသွားရုံ ဖြစ်ပါတယ်။ Tool က GPU ရဲ့ hardware characteristic တွေကို ဖတ်ပြပေးတာသာ ဖြစ်လို့ ဒီ workflow ကို မှတ်ထားရုံပါပဲ။
 
 Source lesson အရ Windows နဲ့ Mac နှစ်ခုလုံးအတွက် graphics-card အချက်အလက် ရယူနိုင်တဲ့ utility တွေ ရှိပါတယ်။
 
@@ -484,6 +542,21 @@ Desktop / Workstation
         └── Vendor / Board information
 ```
 
+**Figure 1 — How GPU-Z presents GPU information**
+
+```mermaid
+flowchart TD
+    PC["Desktop / Workstation"] --> GPU["NVIDIA GPU"]
+    GPU --> GZ["GPU-Z utility"]
+    GZ --> I1["GPU name / architecture / clock"]
+    GZ --> I2["Memory / memory type"]
+    GZ --> I3["CUDA / shader information"]
+    GZ --> I4["Bus / driver / technologies"]
+    GZ --> I5["Vendor / board information"]
+```
+
+**Figure walkthrough** — The GPU-Z utility reads the NVIDIA GPU inside the computer and displays the information in the groups shown on the right. GPU-Z is therefore the tool for identifying a GPU and checking its specifications in one place.
+
 ## 3. Example: NVIDIA GeForce GTX 710
 
 The graphics card used in the example is:
@@ -580,6 +653,20 @@ GPU
         → Ray tracing
 ```
 
+**Figure 2 — Different roles of CUDA Core, Tensor Core, and RT Core**
+
+```mermaid
+flowchart TD
+    GPU["GPU"] --> CC["CUDA Core"]
+    GPU --> TC["Tensor Core"]
+    GPU --> RC["RT Core"]
+    CC --> CC2["General parallel computation"]
+    TC --> TC2["AI / matrix / tensor operations"]
+    RC --> RC2["Ray Tracing acceleration"]
+```
+
+**Figure walkthrough** — The GPU contains three kinds of processing resources, each doing a different job: CUDA Cores for general parallel computation, Tensor Cores for AI/matrix/tensor operations, and RT Cores for Ray Tracing acceleration. This is why Shader ≠ CUDA Core ≠ Tensor Core ≠ RT Core.
+
 **Exam clarification**
 
 Do not memorize:
@@ -622,6 +709,19 @@ Programmable GPU computing
       ├── Scientific computing
       └── HPC
 ```
+
+**Figure 3 — How CUDA turns the GPU into a general-purpose accelerator**
+
+```mermaid
+flowchart TD
+    T["Traditional GPU"] --> G["Graphics processing only"]
+    CUDA["CUDA platform"] --> P["Programmable GPU computing"]
+    P --> W1["AI / Machine Learning"]
+    P --> W2["Deep Learning"]
+    P --> W3["Scientific computing / HPC"]
+```
+
+**Figure walkthrough** — A traditional GPU on the left serves graphics processing only, but once the CUDA programming model (right) is in place, the GPU can be used for programmable general-purpose computing — AI, Machine Learning, Deep Learning, and scientific computing/HPC workloads.
 
 This is an important step in understanding how GPUs evolved from graphics processors into general-purpose accelerators.
 
@@ -746,6 +846,22 @@ GPU-Z
    └── Check vendor / board information
 ```
 
+**Figure 4 — Basic workflow for inspecting GPU information**
+
+```mermaid
+flowchart TD
+    C["Computer"] --> GC["Graphics Card"]
+    GC --> GZ["GPU-Z"]
+    GZ --> S1["Identify GPU"]
+    GZ --> S2["Check specifications"]
+    GZ --> S3["Check memory"]
+    GZ --> S4["Check CUDA support"]
+    GZ --> S5["Check supported technologies"]
+    GZ --> S6["Check vendor / board information"]
+```
+
+**Figure walkthrough** — Read the graphics card installed in the computer with GPU-Z and check the items at the bottom one by one. The tool only reads and shows the GPU's hardware characteristics, so this workflow is all you need to remember.
+
 The source lesson also points out that utilities are available on Windows and Mac for obtaining graphics-card information.
 
 You do not necessarily need to memorize the specific utility for an exam. The important concept is understanding that GPU hardware characteristics can be inspected using software tools.
@@ -857,3 +973,4 @@ A: NVIDIA provides the GPU technology/design; ASUS is the board vendor/partner t
 - "You can think of shaders like cores" is the source's introductory analogy; it is technically imprecise. Corrected in-text to Shader ≠ CUDA Core ≠ Tensor Core ≠ RT Core, per the source's own clarification section.
 - CUDA = "Compute Unified Device Architecture" is the standard expansion; kept in both language versions.
 - The GPU-Z field list and the statement that inspection utilities exist on Windows and Mac are general capability claims from the lesson; exact fields shown vary by utility version and GPU model (needs verification per tool version).
+- Mermaid figures (Figures 1–4) with figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline to both language sections; all existing text, ASCII diagrams, and review notes are unchanged.

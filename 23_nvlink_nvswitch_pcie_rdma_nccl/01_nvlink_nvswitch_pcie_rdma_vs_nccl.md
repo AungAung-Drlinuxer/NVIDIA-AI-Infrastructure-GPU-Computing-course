@@ -37,6 +37,20 @@ AI infrastructure မှာ NVIDIA GPU အများအပြားကို �
 | Network ပေါ်က remote system ရဲ့ registered memory ဆီ data ကို CPU overhead နည်းနည်းနဲ့ ဘယ်လိုပို့မလဲ။ | **RDMA** |
 | GPU အများအပြားကြား collective communication ကို ဘယ်လိုစီစဉ်ပြီး optimize လုပ်မလဲ။ | **NCCL** |
 
+**Figure 1 — မေးခွန်းနှစ်ခုနဲ့ သက်ဆိုင်ရာ technology များ ပုံ**
+
+```mermaid
+flowchart TD
+    Q["GPU communication မေးခွန်းနှစ်ခု"] --> P["1. Data ကို ဘယ်လမ်းကြောင်းက ပို့မလဲ (hardware / transport level)"]
+    Q --> O["2. Data exchange ကို ဘယ်လို ထိရောက်အောင် စီစဉ်မလဲ (software / algorithm level)"]
+    P --> N["NVLink / NVSwitch — GPU များကြား connection နှင့် switching"]
+    P --> C["PCIe — general-purpose connection"]
+    P --> R["DMA / RDMA — data transfer mechanisms"]
+    O --> X["NCCL — collective communication library"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဆုံး node က ပြဿနာကို မေးခွန်းနှစ်ခုအဖြစ် ခွဲပြထားခြင်း ဖြစ်ပါတယ်။ ဘယ်ဘက် branch က data ပို့မယ့် လမ်းကြောင်း (hardware) အကြောင်းဖြစ်ပြီး NVLink, NVSwitch, PCIe, DMA, RDMA တွေက ဖြေရှင်းပေးပါတယ်။ ညာဘက် branch က GPU အများအပြားကြား data exchange ကို စီစဉ်မယ့် software/algorithm အကြောင်းဖြစ်ပြီး NCCL က ဖြေရှင်းပေးပါတယ်။
+
 ဒီအချက်တွေကို မှတ်ထားရင် technology တစ်ခုချင်းစီရဲ့ role ကို ရှင်းရှင်းလင်းလင်း ခွဲခြားနိုင်ပါပြီ။
 
 ## 3. Expressway နဲ့ Traffic Management Analogy
@@ -89,6 +103,17 @@ Frameworks / Applications
 
 ဒီ diagram က conceptual overview ဖြစ်ပါတယ်။ Actual software stack နဲ့ transport selection ဟာ platform ပေါ်မူတည်ပြီး ပိုမိုရှုပ်ထွေးနိုင်ပါတယ်။
 
+**Figure 2 — Software library နဲ့ hardware transports ရဲ့ အဆင့်များ ပုံ**
+
+```mermaid
+flowchart TD
+    A["Frameworks / Applications"] --> B["NCCL (API + collective algorithms)"]
+    B --> C["Transports — NVLink / NVSwitch / PCIe / DMA / RDMA"]
+    C --> D["GPU 0 ↔ GPU 1 ↔ ... ↔ GPU N (single node နှင့်/သို့မဟုတ် multiple nodes)"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက application/framework အဆင့်၊ အလယ်က NCCL က communication ကို စီစဉ်ပေးတဲ့ software library အဆင့်၊ အောက်က transports အဆင့်၊ အောက်ဆုံးမှာ data ကို အချင်းချင်း ဖလှယ်နေတဲ့ GPU တွေကို အဆင့်လိုက် မြင်ရပါမယ်။ NCCL က အလုပ်ကို စီစဉ်ပေးပြီး NVLink, PCIe, DMA, RDMA တွေက data ကို သယ်ဆောင်ပေးတာ ဖြစ်ပါတယ်။
+
 ## 5. NCCL က ဘာကြောင့် အရေးကြီးသလဲ။
 
 GPU တစ်လုံးနဲ့ GPU တစ်လုံးကြား data transfer လုပ်နိုင်တာနဲ့ GPU အများအပြားကြားမှာ communication ကို ထိရောက်စွာ စီစဉ်နိုင်တာဟာ မတူပါဘူး။
@@ -129,6 +154,22 @@ GPU A က GPU B, C, D, E, F, G, H, I တို့ဆီ data ကို တစ်
 
 ဒီနည်းလမ်းမှာ A က destination တစ်ခုချင်းစီအတွက် communication လုပ်ရနိုင်ပါတယ်။ ဒါပေမဲ့ workload အားလုံးအတွက် ဒီနည်းလမ်းက အကောင်းဆုံးဖြစ်မယ်လို့ မဆိုနိုင်ပါဘူး။
 
+**Figure 3 — Approach A: GPU A မှ အခြား GPU များဆီ တစ်ခုချင်းစီ ပို့ခြင်း ပုံ**
+
+```mermaid
+flowchart LR
+    A["GPU A"] --> B["GPU B"]
+    A --> C["GPU C"]
+    A --> D["GPU D"]
+    A --> E["GPU E"]
+    A --> F["GPU F"]
+    A --> G["GPU G"]
+    A --> H["GPU H"]
+    A --> I["GPU I"]
+```
+
+**ပုံရှင်းလင်းချက်** — ဘယ်ဘက်က GPU A ကနေ မြှာက်ကိန်း (arrow) ရှစ်ခုက တစ်ခုချင်းစီ သီးခြားပို့ရတာကို ပြပါတယ်။ GPU အရေအတွက် များလာရင် ဒီလို တစ်ခုချင်းစီ ပို့နည်းက transfer အရေအတွက် များလာစေနိုင်ကြောင်း မြင်ရပါမယ်။ ဒီပုံက conceptual illustration ဖြစ်ပြီး connection တစ်ခုချင်းစီရဲ့ cost က topology ပေါ် မူတည်ပါတယ်။
+
 **Approach B — Multi-Step Communication**
 
 အချို့ collective operations တွေမှာ data ကို intermediate participants တွေကတစ်ဆင့် ပို့နိုင်ပါတယ်။
@@ -149,6 +190,18 @@ Other participants
 
 အမှန်တကယ်မှာ ring, tree နဲ့ အခြား communication algorithms တွေကို operation, message size, topology နဲ့ system configuration ပေါ်မူတည်ပြီး အသုံးပြုနိုင်ပါတယ်။
 
+**Figure 4 — Approach B: intermediate participants များကတဆင့် ပို့ခြင်း ပုံ**
+
+```mermaid
+flowchart TD
+    A["GPU A"] --> B["GPU B"]
+    B --> C["GPU C"]
+    B --> D["GPU D"]
+    B --> E["အခြား participants များ"]
+```
+
+**ပုံရှင်းလင်းချက်** — GPU A က ပို့တဲ့ data ဟာ တစ်ဆင့်ခံ participant (ဒီပုံမှာ GPU B) ကတဆင့် အခြားသူတွေဆီ ဆက်သွားတာကို မြင်ရပါတယ်။ ဒါပေမဲ့ NCCL က GPU B ကို အမြဲတမ်း intermediary လုပ်ပေးတယ်လို့ မဆိုလိုပါဘူး — တကယ့်မှာ ring, tree စတဲ့ algorithm တွေကို အခြေအနေပေါ်မူတည်ပြီး သုံးနိုင်ပါတယ်။
+
 **အဓိကသင်ခန်းစာ** — NCCL ရဲ့ တန်ဖိုးက connection တစ်ခုချင်းစီကို ကိုယ်တိုင်ရေးစရာမလိုဘဲ GPU အများအပြားအတွက် သင့်တော်တဲ့ communication algorithm ကို အသုံးပြုနိုင်ခြင်း ဖြစ်ပါတယ်။
 
 ## 7. ဥပမာ — AllReduce နဲ့ Gradient Sharing
@@ -165,6 +218,19 @@ GPU 3: [7, 8]
 
 All GPUs receive: [16, 20]
 ```
+
+**Figure 5 — AllReduce SUM ဖြင့် gradient sharing လုပ်ပုံ ပုံ**
+
+```mermaid
+flowchart TD
+    A["GPU 0: [1, 2]"] --> R["NCCL AllReduce SUM"]
+    B["GPU 1: [3, 4]"] --> R
+    C["GPU 2: [5, 6]"] --> R
+    D["GPU 3: [7, 8]"] --> R
+    R --> E["All GPUs receive: [16, 20]"]
+```
+
+**ပုံရှင်းလင်းချက်** — ဘယ်ဘက်က GPU လေးလုံးက သူ့တန်ဖိုးတွေကို တစ်လုံးချင်းစီ ပေးပို့ပါတယ်။ အလယ်က NCCL AllReduce SUM က အဲဒီတန်ဖိုးတွေကို ပေါင်းပေးပါတယ်။ ညာဘက်မှာ GPU အားလုံးက ရလဒ် [16, 20] ကို တူညီစွာ ပြန်ရတာကို မြင်ရပါမယ်။
 
 ဒီဥပမာမှာ AllReduce က တန်ဖိုးတွေကို ပေါင်းပြီး participant အားလုံးဆီ reduced result ကို ပြန်ပေးပါတယ်။
 
@@ -254,6 +320,20 @@ These two questions are related, but they do not have the same answer. The first
 | How do we send data to a remote system's registered memory over the network with low CPU overhead? | **RDMA** |
 | How do we organize and optimize collective communication among many GPUs? | **NCCL** |
 
+**Figure 1 — The two questions and the technologies that answer them**
+
+```mermaid
+flowchart TD
+    Q["Two questions in GPU communication"] --> P["1. Which path should the data travel on (hardware / transport level)"]
+    Q --> O["2. How should data exchange be organized (software / algorithm level)"]
+    P --> N["NVLink / NVSwitch — GPU-to-GPU connection and switching"]
+    P --> C["PCIe — general-purpose connection"]
+    P --> R["DMA / RDMA — data transfer mechanisms"]
+    O --> X["NCCL — collective communication library"]
+```
+
+**Figure walkthrough** — The top node splits the problem into two different questions. The left branch is about hardware paths, answered by NVLink, NVSwitch, PCIe, DMA, and RDMA. The right branch is about organizing exchange among many GPUs, answered by NCCL.
+
 Keep these mappings in mind and you can clearly separate the role of each technology.
 
 ## 3. Expressway and Traffic Management Analogy
@@ -306,6 +386,17 @@ Frameworks / Applications
 
 This diagram is a conceptual overview. The actual software stack and transport selection depend on the platform and can be more complex.
 
+**Figure 2 — Layers of the software library and the hardware transports**
+
+```mermaid
+flowchart TD
+    A["Frameworks / Applications"] --> B["NCCL (API + collective algorithms)"]
+    B --> C["Transports — NVLink / NVSwitch / PCIe / DMA / RDMA"]
+    C --> D["GPU 0 ↔ GPU 1 ↔ ... ↔ GPU N (single node and/or multiple nodes)"]
+```
+
+**Figure walkthrough** — Applications sit on top, NCCL organizes the communication in the middle, the transports carry the data below, and the GPUs at the bottom exchange data on a single node or across nodes. NCCL plans the work; NVLink, PCIe, DMA, and RDMA move the data.
+
 ## 5. Why Is NCCL Important?
 
 Transferring data between two GPUs is not the same as organizing communication efficiently among many GPUs.
@@ -346,6 +437,22 @@ This figure is a simple conceptual illustration. Whether direct communication is
 
 With this approach, A can communicate for each destination separately. However, this approach cannot be said to be optimal for every workload.
 
+**Figure 3 — Approach A: one-to-one sending from GPU A to every other GPU**
+
+```mermaid
+flowchart LR
+    A["GPU A"] --> B["GPU B"]
+    A --> C["GPU C"]
+    A --> D["GPU D"]
+    A --> E["GPU E"]
+    A --> F["GPU F"]
+    A --> G["GPU G"]
+    A --> H["GPU H"]
+    A --> I["GPU I"]
+```
+
+**Figure walkthrough** — From GPU A on the left, eight separate arrows show eight separate sends. As the number of GPUs grows, this one-to-one pattern grows the number of transfers. The figure is conceptual; the cost of each connection depends on the topology.
+
 **Approach B — Multi-Step Communication**
 
 In some collective operations, data can be sent through intermediate participants.
@@ -366,6 +473,18 @@ This figure is also only a conceptual example. It does not mean NCCL always desi
 
 In practice, ring, tree, and other communication algorithms may be used depending on the operation, message size, topology, and system configuration.
 
+**Figure 4 — Approach B: multi-step communication through intermediate participants**
+
+```mermaid
+flowchart TD
+    A["GPU A"] --> B["GPU B"]
+    B --> C["GPU C"]
+    B --> D["GPU D"]
+    B --> E["Other participants"]
+```
+
+**Figure walkthrough** — Data leaves GPU A and passes through an intermediate participant (GPU B in this picture) before reaching the others. This does not mean NCCL always picks GPU B; in practice ring, tree, and other algorithms can be used depending on the situation.
+
 **Key lesson** — The value of NCCL is that a communication algorithm suited to many GPUs can be used without writing every connection by hand.
 
 ## 7. Example — AllReduce for Gradient Sharing
@@ -382,6 +501,19 @@ GPU 3: [7, 8]
 
 All GPUs receive: [16, 20]
 ```
+
+**Figure 5 — Gradient sharing with AllReduce SUM**
+
+```mermaid
+flowchart TD
+    A["GPU 0: [1, 2]"] --> R["NCCL AllReduce SUM"]
+    B["GPU 1: [3, 4]"] --> R
+    C["GPU 2: [5, 6]"] --> R
+    D["GPU 3: [7, 8]"] --> R
+    R --> E["All GPUs receive: [16, 20]"]
+```
+
+**Figure walkthrough** — On the left, each of the four GPUs contributes its own values. In the middle, NCCL AllReduce SUM adds them together. On the right, every GPU receives the same result, [16, 20].
 
 In this example, AllReduce sums the values and returns the reduced result to all participants.
 
@@ -445,3 +577,4 @@ Most important note: NVLink provides the connection that carries data. RDMA supp
 - Section 4 ရှိ "Conceptual architecture" diagram သည် source transcript တွင် reference သာ ပါရှိပြီး မူရင်းပုံကို မဖမ်းမိသဖြင့် concept ကို ကိုယ်စားပြုသော ရိုးရှင်း diagram ဖြင့် ဖော်ပြထားသည် — actual stack နှင့် transport selection သည် platform ပေါ်မူတည်ကြောင်း source caveat ကို ထိန်းထားသည်။
 - AllReduce SUM ဥပမာ ဂဏန်းများ ([1,2]…[7,8] → [16,20]) ၊ Approach A/B diagrams နှင့် ၎င်းတို့၏ conceptual/topology-dependent caveats များကို source အတိုင်း ထိန်းထားသည်။
 - "NCCL က transfer အရေအတွက်ကို အမြဲမလျှော့ချပေး" ဆိုသော caveat ကို source အတိုင်း ထိန်းထားသည်။
+- Mermaid figures (Figure 1–5) နှင့် ၎င်းတို့၏ ပုံရှင်းလင်းချက်များကို မြန်မာဘာသာ version နှင့် English Version နှစ်ခုလုံးတွင် အဆင့်တူ ထည့်သွင်းထားသည် — မူရင်းစာသားနှင့် ASCII diagrams များ မပြောင်းလဲပါ။

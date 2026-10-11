@@ -52,6 +52,20 @@ RTX
 
 ဆိုတာကို သိထားရင် လုံလောက်ပါတယ်။
 
+**Figure 1 — RTX architecture ထဲက specialized cores သုံးမျိုး**
+
+```mermaid
+flowchart TD
+    RTX["NVIDIA RTX GPU Platform"] --> RTC["RT Cores"]
+    RTX --> TC["Tensor Cores"]
+    RTX --> CC["CUDA Cores"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough):**
+- အပေါ်ဆုံးက NVIDIA RTX platform ကို ဗဟိုပြုပြီး အောက်က cores သုံးမျိုးကို ကြည့်ပါ။
+- RT Cores၊ Tensor Cores နဲ့ CUDA Cores ဆိုတာ RTX GPU တွေမှာ ပါဝင်တဲ့ specialized processing elements တွေ ဖြစ်ပါတယ်။
+- ဒီ cores တွေရဲ့ အသေးစိတ် လုပ်ဆောင်ချက်တွေကို နောက်လာမယ့် GPU architecture section မှာ ဆက်လေ့လာပါမယ်။
+
 ## 4. RTX — One Platform, Multiple Target Markets
 
 RTX ဟာ gaming တစ်ခုတည်းအတွက်ပဲ မဟုတ်ပါဘူး။
@@ -72,6 +86,20 @@ RTX technology ကို target market အလိုက် optimize လုပ်�
 - Gaming + Professional Workstation + Certain Data Center Graphics/Visualization Workloads
 
 ဆိုတဲ့ context နဲ့ နားလည်နိုင်ပါတယ်။
+
+**Figure 2 — RTX: platform တစ်ခုတည်း၊ target markets အမျိုးမျိုး**
+
+```mermaid
+flowchart TD
+    RTX["NVIDIA RTX Platform"] --> G["Gaming"]
+    RTX --> P["Professional Workstation"]
+    RTX --> DC["Data Center Graphics / Visualization"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough):**
+- အပေါ်က RTX platform တစ်ခုတည်းကနေ အောက်ကို သုံးခု ခွဲကြည့်ပါ။
+- Gaming၊ Professional Workstation နဲ့ Data Center graphics/visualization ဆိုပြီး target market သုံးမျိုးအတွက် ထုတ်ကုန်တွေ ရှိပါတယ်။
+- ဒါကြောင့် RTX ကို gaming အတွက်ပဲလို့ မမှတ်ဘဲ graphics-oriented market တွေအတွက် ပူးပေါင်းအသုံးပြုနိုင်တဲ့ platform အဖြစ် နားလည်ပါ။
 
 ## 5. NVIDIA L40
 
@@ -153,6 +181,23 @@ Traditional model မှာ—
 
 ဒီလို architecture နဲ့ users တွေက powerful GPU system ကို remote/virtual environment ကနေ access လုပ်နိုင်ပါတယ်။
 ဒါကြောင့် physical workstation အများကြီး ဝယ်ပေးရမယ့် requirement ကို လျှော့ချနိုင်တဲ့ architecture ဖြစ်ပါတယ်။
+
+**Figure 3 — Centralized GPU server မှ virtual workstations များဖြင့် users များကို ဝန်ဆောင်မှုပေးပုံ**
+
+```mermaid
+flowchart TD
+    GS["GPU Server — NVIDIA GPU"] --> V1["Virtual Workstation 1"]
+    GS --> V2["Virtual Workstation 2"]
+    GS --> V3["Virtual Workstation 3"]
+    V1 --> U1["User 1"]
+    V2 --> U2["User 2"]
+    V3 --> U3["User 3"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough):**
+- အပေါ်ဆုံးက GPU Server တစ်ခုတည်းမှာ NVIDIA GPU resources ကို စုစည်းထားပါတယ်။
+- အလယ်အဆင့်မှာ အဲဒီ resources ကို virtual workstations သုံးခုအဖြစ် ခွဲဝေပေးပါတယ်။
+- အောက်ဆုံးက User 1 မှ User 3 တွေဟာ မိမိတို့ virtual workstation ကတစ်ဆင့် remote ကနေ အသုံးပြုနိုင်ပြီး user တစ်ယောက်ချင်းစီအတွက် physical workstation သီးခြားဝယ်စရာ မလိုတော့ပါဘူး။
 
 ## 8. NVIDIA Virtual Workstation
 
@@ -332,6 +377,21 @@ NVIDIA certification အတွက် product name တစ်ခုကိုတွ
 
 ဒီလို workload-based mapping ကို မှတ်ထားရင် certification questions တွေမှာ product name ကိုကြည့်ပြီး use case ကို ခွဲခြားရတာ ပိုလွယ်လာပါလိမ့်မယ်။
 
+**Figure 4 — Workload အလိုက် GPU platform ရွေးချယ်မှု map**
+
+```mermaid
+flowchart TD
+    W["Workload ရွေးချယ်မှု"] --> G1["Gaming, 3D Rendering, Visualization — RTX"]
+    W --> V1["Virtual Workstation — RTX / vGPU-oriented Solution"]
+    W --> A1["Large-scale AI Training / HPC — Data Center GPU"]
+    W --> E1["Edge / Embedded AI — Jetson"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough):**
+- အပေါ်က workload ကစပြီး မိမိ workload နဲ့ ကိုက်ညီတဲ့ လမ်းကြောင်းကို အောက်ကနေ ရွေးပါ။
+- Gaming၊ 3D rendering၊ visualization နဲ့ virtual workstation တွေအတွက် RTX ဘက်ကို ကြည့်ပါ။
+- Large-scale AI training နဲ့ HPC အတွက် Data Center GPU ကို ရွေးပြီး edge/embedded AI အတွက်ကတော့ Jetson ကို စဉ်းစားပါ။
+
 ## 16. Final Mental Model
 
 ```
@@ -423,6 +483,20 @@ RTX
  └── CUDA Cores
 ```
 
+**Figure 1 — The three specialized cores in the RTX architecture model**
+
+```mermaid
+flowchart TD
+    RTX["NVIDIA RTX GPU platform"] --> RTC["RT Cores"]
+    RTX --> TC["Tensor Cores"]
+    RTX --> CC["CUDA Cores"]
+```
+
+**Figure walkthrough (ပုံရှင်းလင်းချက်):**
+- Look at the top box, the NVIDIA RTX platform, then follow the three arrows down.
+- RT Cores, Tensor Cores, and CUDA Cores are the specialized processing elements inside RTX GPUs.
+- What each core does in detail is covered later in the GPU architecture section.
+
 ## 4. RTX — One Platform, Multiple Target Markets
 
 RTX is not limited to gaming.
@@ -441,6 +515,20 @@ At a high level:
 Therefore, RTX can be understood in the context of:
 
 - Gaming + Professional Workstation + Certain Data Center Graphics/Visualization Workloads
+
+**Figure 2 — RTX: one platform, multiple target markets**
+
+```mermaid
+flowchart TD
+    RTX["NVIDIA RTX platform"] --> G["Gaming"]
+    RTX --> P["Professional workstation"]
+    RTX --> DC["Data center graphics / visualization"]
+```
+
+**Figure walkthrough (ပုံရှင်းလင်းချက်):**
+- Start from the single RTX platform box at the top and split downward into three markets.
+- Products exist for gaming, professional workstations, and data-center graphics/visualization.
+- So RTX is not only for gaming — it is one graphics-oriented platform adapted for several markets.
 
 ## 5. NVIDIA L40
 
@@ -519,6 +607,23 @@ An alternative approach is to centralize the GPU resources and provide users wit
 
 Users can remotely access the centralized NVIDIA GPU resources through virtual workstations.
 This can reduce the need to provide a dedicated high-end physical workstation to every individual user.
+
+**Figure 3 — Serving many users with virtual workstations on a centralized GPU server**
+
+```mermaid
+flowchart TD
+    GS["GPU server — NVIDIA GPU"] --> V1["Virtual workstation 1"]
+    GS --> V2["Virtual workstation 2"]
+    GS --> V3["Virtual workstation 3"]
+    V1 --> U1["User 1"]
+    V2 --> U2["User 2"]
+    V3 --> U3["User 3"]
+```
+
+**Figure walkthrough (ပုံရှင်းလင်းချက်):**
+- The top box is one GPU server holding the centralized NVIDIA GPU resources.
+- The middle level splits those resources into three virtual workstations.
+- At the bottom, User 1 to User 3 connect remotely through their own virtual workstation — no separate physical workstation per user is needed.
 
 ## 8. NVIDIA Virtual Workstation
 
@@ -697,6 +802,21 @@ Then:
 
 This workload-based mapping is more useful for certification questions than simply memorizing product names.
 
+**Figure 4 — Workload-to-GPU-platform selection map**
+
+```mermaid
+flowchart TD
+    W["Choose by workload"] --> G1["Gaming, 3D rendering, visualization — RTX"]
+    W --> V1["Virtual workstation — RTX / vGPU-oriented solution"]
+    W --> A1["Large-scale AI training / HPC — Data Center GPU"]
+    W --> E1["Edge / embedded AI — Jetson"]
+```
+
+**Figure walkthrough (ပုံရှင်းလင်းချက်):**
+- Start at the top box and pick the branch that matches your workload.
+- For gaming, 3D rendering, visualization, and virtual workstations, look at the RTX branch.
+- For large-scale AI training and HPC choose Data Center GPUs; for edge/embedded AI consider Jetson.
+
 ## 16. Final Mental Model
 
 ```
@@ -746,3 +866,4 @@ Once you understand this distinction, you can approach the next physical-layer c
 - The source gives no L40 specifications (memory, performance); only its role as a data-center GPU for professional visualization and graphics-intensive workloads is stated. No specs are claimed here.
 - The workload → GPU platform mapping (RTX / Data Center GPU / Jetson) is a high-level decision aid from the source, not a product-by-product specification table.
 - Ray tracing details are explicitly deferred by the source to the later GPU architecture section; they are not covered here.
+- Mermaid figures (Figure 1–4) with figure walkthroughs added inline in both the Myanmar and English sections; figure numbering matches across the two sections; all existing text and ASCII diagrams preserved.

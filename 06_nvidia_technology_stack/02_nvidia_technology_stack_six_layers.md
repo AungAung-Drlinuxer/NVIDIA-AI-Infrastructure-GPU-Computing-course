@@ -57,6 +57,22 @@ Monitoring / Management
 Applications / Solutions
 ```
 
+**Figure 1 — NVIDIA Six-Layer Architecture (Layer 1 မှ Layer 6 အထိ)**
+
+```mermaid
+flowchart TD
+    L6["Layer 6 — Applications / Vertical Solutions (Clara, Merlin, NVIDIA NIM)"] --> L5["Layer 5 — Monitoring and Management (NVIDIA-SMI, DCGM, Base Command Manager)"]
+    L5 --> L4["Layer 4 — Core Libraries / GPU Programming (CUDA Libraries, NCCL)"]
+    L4 --> L3["Layer 3 — OS / Drivers / Virtualization (DGX OS, GPU Drivers, GPU Virtualization)"]
+    L3 --> L2["Layer 2 — Data Movement / Communication (NVLink, RDMA, InfiniBand)"]
+    L2 --> L1["Layer 1 — Physical Infrastructure (CPU, GPU, Systems, Nodes, Networks)"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough):**
+- ပုံကို အောက်ဆုံးက Layer 1 (Physical Infrastructure) ကစပြီး အပေါ်ကို တက်ဖတ်ပါ — hardware မရှိရင် အပေါ်က layer တွေ အလုပ်မလုပ်နိုင်ပါဘူး။
+- မြားတွေက "အပေါ် layer တွေဟာ အောက်က layer တွေအပေါ်မှာ တည်ဆောက်ထားတယ်" ဆိုတဲ့ အဓိပ္ပာယ် ဖြစ်ပါတယ်။
+- Layer 4 မှာ CUDA Libraries နဲ့ NCCL က GPU programming အတွက် အဓိကကျပြီး အပေါ်ဆုံး Layer 6 မှာတော့ Clara၊ Merlin၊ NVIDIA NIM လို AI solutions တွေ ရှိပါတယ်။
+
 ## 3. Layer 1 — Physical Layer
 
 အောက်ဆုံး layer က Physical Layer ဖြစ်ပါတယ်။
@@ -141,6 +157,21 @@ GPU 0 ───────── GPU 1
 မှတ်ရန်
 
 - Layer 2 = How does data move between devices?
+
+**Figure 2 — Layer 2: device တွေကြား data movement / communication ပုံ**
+
+```mermaid
+flowchart TD
+    G0["GPU 0"] -->|"NVLink"| G1["GPU 1"]
+    G0 --> HC["High-Speed Communication"]
+    G1 --> HC
+    HC -->|"RDMA / InfiniBand"| ON["Other GPU / Node"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough):**
+- GPU 0 နဲ့ GPU 1 ကြားက မြားဟာ NVLink ကို သုံးပြီး GPU နှစ်လုံး တိုက်ရိုက် မြန်ဆန်စွာ ဆက်သွယ်တာကို ပြပါတယ်။
+- GPU နှစ်လုံးစလုံးက High-Speed Communication ဆိုတဲ့ အလယ် box ကတစ်ဆင့် data တွေ ပို့ပါတယ်။
+- နောက်ဆုံးမှာ RDMA / InfiniBand ကတစ်ဆင့် အခြား GPU သို့မဟုတ် node ဆီ ဆက်သွယ်ပါတယ်။
 
 ## 5. Layer 3 — Operating System, Drivers and Virtualization
 
@@ -260,6 +291,22 @@ Multi-GPU AI training မှာ GPU တစ်လုံးက computation လု�
 
 - CUDA = GPU programming/computing ecosystem
 - NCCL = Multi-GPU collective communication
+
+**Figure 3 — NCCL ဖြင့် multi-GPU collective communication ပုံ**
+
+```mermaid
+flowchart LR
+    G0["GPU 0"] --> NC["NCCL"]
+    G1["GPU 1"] --> NC
+    G2["GPU 2"] --> NC
+    G3["GPU 3"] --> NC
+    NC --> CC["Collective Communication / Synchronization"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough):**
+- ဘယ်ဘက်က GPU လေးလုံး (GPU 0 မှ GPU 3) က သူတို့ရဲ့ data တွေကို အလယ်က NCCL box ဆီ ပို့ပါတယ်။
+- NCCL က GPU တွေကြား collective communication နဲ့ synchronization ကို စီစဉ်ပေးပါတယ်။
+- ရလဒ်အနေနဲ့ GPU အားလုံးဟာ AI workload တစ်ခုတည်းအတွက် တူညီတဲ့ data အခြေအနေကို မျှဝေသုံးစွဲနိုင်ပါတယ်။
 
 ## 9. Layer 5 — Monitoring and Management
 
@@ -404,6 +451,22 @@ AI Workload
 ```
 
 ဒီ integration ကြောင့် GPU workloads တွေကို containerized environment နဲ့ orchestration platform တွေထဲမှာ run လုပ်နိုင်ပါတယ်။
+
+**Figure 4 — GPU hardware ကနေ containerized AI workload အထိ software layering ပုံ**
+
+```mermaid
+flowchart TD
+    HW["NVIDIA GPU"] --> DRV["GPU Driver / CUDA"]
+    DRV --> RT["Container Runtime"]
+    RT --> DK["Docker"]
+    DK --> K8S["Kubernetes"]
+    K8S --> WL["AI Workload"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough):**
+- အောက်ဆုံးက NVIDIA GPU hardware ကစပြီး တစ်ဆင့်ချင်း အပေါ်ကို ကြည့်ပါ။
+- GPU Driver / CUDA က hardware နဲ့ software ကြား ချိတ်ဆက်ပေးပြီး Container Runtime က container တွေ run ဖို့ အခြေခံပေးပါတယ်။
+- အပေါ်ဆုံးမှာ Docker နဲ့ Kubernetes ကတစ်ဆင့် AI Workload ကို deploy နှင့် manage လုပ်နိုင်ပါတယ်။
 
 ## 16. ML Frameworks — TensorFlow and PyTorch
 
@@ -724,6 +787,22 @@ Monitoring / Management
 Applications / Solutions
 ```
 
+**Figure 1 — The NVIDIA six-layer architecture (Layer 1 to Layer 6)**
+
+```mermaid
+flowchart TD
+    L6["Layer 6 — Applications / Vertical Solutions (Clara, Merlin, NVIDIA NIM)"] --> L5["Layer 5 — Monitoring and Management (NVIDIA-SMI, DCGM, Base Command Manager)"]
+    L5 --> L4["Layer 4 — Core Libraries / GPU Programming (CUDA Libraries, NCCL)"]
+    L4 --> L3["Layer 3 — OS / Drivers / Virtualization (DGX OS, GPU Drivers, GPU Virtualization)"]
+    L3 --> L2["Layer 2 — Data Movement / Communication (NVLink, RDMA, InfiniBand)"]
+    L2 --> L1["Layer 1 — Physical Infrastructure (CPU, GPU, Systems, Nodes, Networks)"]
+```
+
+**Figure walkthrough (ပုံရှင်းလင်းချက်):**
+- Read the figure from the bottom up: start at Layer 1 (Physical Infrastructure). Without hardware, the software layers above cannot run.
+- The arrows mean "each upper layer is built on top of the layer below it."
+- Layer 4 holds CUDA Libraries and NCCL for GPU programming, while the top Layer 6 holds AI solutions such as Clara, Merlin, and NVIDIA NIM.
+
 ## 3. Layer 1 — Physical Layer
 
 The bottom layer is the Physical Layer.
@@ -806,6 +885,21 @@ The main objectives of this layer are:
 Remember
 
 - Layer 2 = How does data move between devices?
+
+**Figure 2 — Layer 2: data movement and communication between devices**
+
+```mermaid
+flowchart TD
+    G0["GPU 0"] -->|"NVLink"| G1["GPU 1"]
+    G0 --> HC["High-Speed Communication"]
+    G1 --> HC
+    HC -->|"RDMA / InfiniBand"| ON["Other GPU / Node"]
+```
+
+**Figure walkthrough (ပုံရှင်းလင်းချက်):**
+- The arrow between GPU 0 and GPU 1 shows a direct, fast connection using NVLink.
+- Both GPUs send data through the central High-Speed Communication box.
+- From there, RDMA / InfiniBand connects to other GPUs or nodes.
 
 ## 5. Layer 3 — Operating System, Drivers and Virtualization
 
@@ -926,6 +1020,22 @@ Remember
 
 - CUDA = GPU programming / computing ecosystem
 - NCCL = Multi-GPU collective communication
+
+**Figure 3 — Multi-GPU collective communication with NCCL**
+
+```mermaid
+flowchart LR
+    G0["GPU 0"] --> NC["NCCL"]
+    G1["GPU 1"] --> NC
+    G2["GPU 2"] --> NC
+    G3["GPU 3"] --> NC
+    NC --> CC["Collective communication / synchronization"]
+```
+
+**Figure walkthrough (ပုံရှင်းလင်းချက်):**
+- On the left, the four GPUs (GPU 0 to GPU 3) send their data to the central NCCL box.
+- NCCL coordinates collective communication and synchronization between the GPUs.
+- As a result, all GPUs share the same data state for one AI workload.
 
 ## 9. Layer 5 — Monitoring and Management
 
@@ -1063,6 +1173,22 @@ AI Workload
 ```
 
 This allows GPU-accelerated workloads to be deployed and orchestrated in containerized environments.
+
+**Figure 4 — Software layering from GPU hardware up to a containerized AI workload**
+
+```mermaid
+flowchart TD
+    HW["NVIDIA GPU"] --> DRV["GPU Driver / CUDA"]
+    DRV --> RT["Container runtime"]
+    RT --> DK["Docker"]
+    DK --> K8S["Kubernetes"]
+    K8S --> WL["AI workload"]
+```
+
+**Figure walkthrough (ပုံရှင်းလင်းချက်):**
+- Start at the bottom with the NVIDIA GPU hardware and move up one step at a time.
+- GPU Driver / CUDA bridges hardware and software, and the container runtime is what lets containers run.
+- At the top, Docker and Kubernetes let you deploy and manage the AI workload.
 
 ## 16. ML Frameworks — TensorFlow and PyTorch
 
@@ -1324,3 +1450,4 @@ This six-layer model provides a useful associate-level mental model for understa
 - Source transcript says “Slam”; context clearly refers to **Slurm** (Simple Linux Utility for Resource Management). Corrected in both language versions.
 - The six-layer model is explicitly a learning model from the source, not an official or exhaustive NVIDIA classification (stated in the source itself).
 - The layer assignment of products (Clara, Merlin, NVIDIA NIM, DCGM, Base Command Manager, NCCL, etc.) follows the source; product scope and current naming (e.g., Base Command Manager) may change over time (needs verification against current NVIDIA documentation).
+- Mermaid figures (Figure 1–4) with figure walkthroughs added inline in both the Myanmar and English sections; figure numbering matches across the two sections; all existing text and ASCII diagrams preserved.

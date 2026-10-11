@@ -35,6 +35,17 @@ Customers  → Users / Applications
 
 **Chef = GPU** — စားဖိုမှူးက တကယ်ချက်ပြုတ်ပြီး ဟင်းလျာများကို ဖန်တီးပါသည်။ အလားတူပင် GPU က AI computation၊ Model training၊ Inference၊ Tensor နှင့် matrix operations များကို လုပ်ဆောင်ပါသည်။
 
+> **Figure 1 — စားသောက်ဆိုင် ဥပမာဖြင့် AI Data Center ၏ Data လမ်းကြောင်း**
+
+```mermaid
+flowchart LR
+    P["Pantry / Storage - data များ သိမ်းဆည်းသည်"] --> C["Chef / GPU - computation လုပ်သည်"]
+    C --> W["Waiter / Network - data များ သယ်ပို့သည်"]
+    W --> U["Customers / Users နှင့် Applications"]
+```
+
+**ပုံရှင်းလင်းချက်** — ဘယ်ဘက်က Pantry / Storage ကနေ စပါတယ်။ မီးဖိုချောင်မှာ pantry က ပစ္စည်းပေးသလို storage က data များကို ပေးအပ်ပါတယ်။ အလယ်က Chef / GPU က အဲဒီ data ကို အသုံးပြုပြီး computation လုပ်ပါတယ်။ ပြီးရင် Waiter / Network က ရလဒ်များကို သယ်ပို့ပေးပြီး၊ ညာဘက်အဆုံးက Customers / Users နှင့် Applications ဆီ ရောက်ရှိပါတယ်။
+
 ## 3. Waiter = Network
 
 စားပွဲထိုးက ချက်ပြုတ်ပြီးသား အစားအစာများကို ဧည့်သည်ဆီ ရောက်အောင် ကူညီပေးပါသည်။ ဤအချက်သည် network ၏ အခန်းကဏ္ဍနှင့် ဆင်တူပါသည်။
@@ -170,6 +181,21 @@ GPU Node 1
 
 GPU node အများအပြားသည် နောက်ကွယ်တွင်ရှိသော storage node အများအပြားကို တစ်ပြိုင်နက် ဝင်ရောက်အသုံးပြုနိုင်ပါသည်။
 
+> **Figure 2 — Parallel File System ဖြင့် Shared Storage ဝင်ရောက်အသုံးပြုပုံ**
+
+```mermaid
+flowchart TD
+    G1["GPU Node 1"] --> PFS["Parallel File System"]
+    G2["GPU Node 2"] --> PFS
+    G3["GPU Node 3"] --> PFS
+    G4["GPU Node 4"] --> PFS
+    PFS --> S1["Storage Node 1"]
+    PFS --> S2["Storage Node 2"]
+    PFS --> S3["Storage Node 3"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဘက်မှာ GPU Node လေးခုက Parallel File System ဆီ တစ်ပြိုင်နက် ချိတ်ဆက်နေတာ မြင်ရပါမယ်။ အောက်ဘက်မှာတော့ Parallel File System ကနေတစ်ဆင့် Storage Node သုံးခုကို ခွဲဝေ ဝင်ရောက်အသုံးပြုနိုင်ပါတယ်။ ဒါကြောင့် GPU node အများကြီးက data တူညီသည်ကို တစ်ပြိုင်နက် အမြန်နှုန်းမြင့်စွာ ဝင်ရောက်ကြည့်ရှုနိုင်တဲ့ ပုံစံဖြစ်ပါတယ်။
+
 ## 11. Parallel File System ကို ဘာကြောင့် သုံးသနည်း
 
 AI cluster တစ်ခုတွင် GPU node အများအပြား ပါရှိနိုင်ပါသည်။ ဥပမာ —
@@ -296,6 +322,20 @@ Object Storage / Archive
 
 အခြေခံအကြံမှာ data ကို ၎င်း၏ access လိုအပ်ချက်နှင့် ကိုက်ညီသော storage tier ပေါ်တွင် ထားရှိခြင်း ဖြစ်ပါသည်။
 
+> **Figure 3 — Tiered Storage တွင် Hot, Warm, Cold Data ထားရှိပုံ**
+
+```mermaid
+flowchart TD
+    D["AI Data"] --> H["Hot Data - အသုံးအများဆုံး"]
+    D --> W["Warm Data - ရံဖန် အသုံးပြု"]
+    D --> C["Cold Data - ရှားပါးစွာ အသုံးပြု"]
+    H --> T1["NVMe / Parallel File System"]
+    W --> T2["Shared / Parallel Storage"]
+    C --> T3["Object Storage / Archive"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက AI Data ကနေ data အမျိုးအစား သုံးမျိုး ခွဲထွက်သွားတာ မြင်ရပါမယ်။ ဘယ်ဘက်က Hot Data (အသုံးအများဆုံး) ကို NVMe / Parallel File System လို fast storage မှာ ထားပါတယ်။ အလယ်က Warm Data (ရံဖန် အသုံးပြု) ကို Shared / Parallel Storage မှာ ထားပါတယ်။ ညာဘက်က Cold Data (ရှားပါးစွာ အသုံးပြု) ကိုတော့ Object Storage / Archive မှာ ထားပါတယ်။
+
 ## 20. Hot, Warm နှင့် Cold Data
 
 **Hot Data** — လက်ရှိ အသုံးပြုနေဆဲ data ဖြစ်ပါသည်။ ဥပမာ — လက်ရှိ training datasets များ၊ active model data များ၊ အကြိမ်ကြိမ် ဝင်ရောက်အသုံးပြုသော data များ။ ဤ data ကို အောက်ပါတွင် ထားရှိနိုင်ပါသည် —
@@ -357,6 +397,21 @@ Object Storage
                        Object Storage
                         Long-Term Data
 ```
+
+> **Figure 4 — ပြည့်စုံသော AI Storage Architecture တွင် Data စီးဆင်းပုံ**
+
+```mermaid
+flowchart TD
+    A["AI Workload"] --> B["GPU"]
+    B --> C["NVMe - Local Fast"]
+    B --> D["Parallel File System - Shared Fast"]
+    B --> E["NFS - Config / Scripts"]
+    C --> F["Object Storage - Long-Term Data"]
+    D --> F
+    E --> F
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက AI Workload က GPU ဆီ ရောက်သွားပါတယ်။ ပြီးရင် GPU ကနေ storage သုံးမျိုးဆီ လမ်းကြောင်းသုံးခု ခွဲထွက်သွားပါတယ် — NVMe (local မြန်ဆုံး)၊ Parallel File System (shared မြန်ဆုံး)၊ NFS (config / scripts)။ အောက်ဆုံးမှာ ဒီသုံးခုလုံးကနေ data ရေရှည်သိမ်းဆည်းရာ Object Storage ဆီ စီးဆင်းသွားတာကို တွေ့ရပါမယ်။
 
 ## 23. စားသောက်ဆိုင် ဥပမာ အပြည့်အစုံ
 
@@ -502,6 +557,17 @@ Customers  → Users / Applications
 
 **Chef = GPU** — The chef performs the actual cooking and creates the dishes. Similarly, the GPU performs: AI computation, Model training, Inference, Tensor and matrix operations.
 
+> **Figure 1 — The Data Path of an AI Data Center Shown as a Restaurant**
+
+```mermaid
+flowchart LR
+    P["Pantry / Storage - keeps the data"] --> C["Chef / GPU - performs computation"]
+    C --> W["Waiter / Network - carries the data"]
+    W --> U["Customers / Users and Applications"]
+```
+
+**Figure walkthrough** — Start on the left with Pantry / Storage. Just as the pantry supplies ingredients in a kitchen, storage supplies the data. In the middle, Chef / GPU uses that data to perform computation. Then Waiter / Network carries the results, and they reach the Customers / Users and Applications on the far right.
+
 ## 3. Waiter = Network
 
 The waiter helps move the prepared food to the customers. This is similar to the role of the network.
@@ -637,6 +703,21 @@ GPU Node 1
 
 Multiple GPU nodes can access multiple storage nodes behind the scenes.
 
+> **Figure 2 — Shared Storage Access Through a Parallel File System**
+
+```mermaid
+flowchart TD
+    G1["GPU Node 1"] --> PFS["Parallel File System"]
+    G2["GPU Node 2"] --> PFS
+    G3["GPU Node 3"] --> PFS
+    G4["GPU Node 4"] --> PFS
+    PFS --> S1["Storage Node 1"]
+    PFS --> S2["Storage Node 2"]
+    PFS --> S3["Storage Node 3"]
+```
+
+**Figure walkthrough** — At the top, four GPU nodes connect to the Parallel File System at the same time. At the bottom, the Parallel File System spreads access across three storage nodes. This is how many GPU nodes can look at the same data simultaneously at high speed.
+
 ## 11. Why Use Parallel File Systems?
 
 An AI cluster may contain many GPU nodes. For example:
@@ -763,6 +844,20 @@ Object Storage / Archive
 
 The basic idea is to place data on the storage tier that matches its access requirements.
 
+> **Figure 3 — Placing Hot, Warm, and Cold Data in Tiered Storage**
+
+```mermaid
+flowchart TD
+    D["AI Data"] --> H["Hot Data - used the most"]
+    D --> W["Warm Data - used occasionally"]
+    D --> C["Cold Data - rarely used"]
+    H --> T1["NVMe / Parallel File System"]
+    W --> T2["Shared / Parallel Storage"]
+    C --> T3["Object Storage / Archive"]
+```
+
+**Figure walkthrough** — At the top, AI Data splits into three data types. On the left, Hot Data (used the most) goes to fast storage such as NVMe / Parallel File System. In the middle, Warm Data (used occasionally) goes to Shared / Parallel Storage. On the right, Cold Data (rarely used) goes to Object Storage / Archive.
+
 ## 20. Hot, Warm, and Cold Data
 
 **Hot Data** — Data that is actively being used. For example: Current training datasets, Active model data, Frequently accessed data. This data can be kept on:
@@ -824,6 +919,21 @@ A high-level AI-centric storage architecture can look like:
                        Object Storage
                         Long-Term Data
 ```
+
+> **Figure 4 — Data Flow in a Complete AI Storage Architecture**
+
+```mermaid
+flowchart TD
+    A["AI Workload"] --> B["GPU"]
+    B --> C["NVMe - Local Fast"]
+    B --> D["Parallel File System - Shared Fast"]
+    B --> E["NFS - Config / Scripts"]
+    C --> F["Object Storage - Long-Term Data"]
+    D --> F
+    E --> F
+```
+
+**Figure walkthrough** — At the top, the AI Workload reaches the GPU. From the GPU, three paths split into three storage types: NVMe (local fast), Parallel File System (shared fast), and NFS (config / scripts). At the bottom, all three flow into Object Storage for long-term data.
 
 ## 23. Full Restaurant Analogy
 
@@ -941,3 +1051,4 @@ The goal is to create an optimized end-to-end solution: Compute + Network + Stor
 - Structure normalized to the course convention: a single top-of-file header and blockquote (the duplicate blockquote that previously sat inside the Burmese section was removed), an explicit `## English Version` heading added above the existing English content, `## မြန်မာဘာသာ version` placed first, and matching `## 1.`–`## 26.` numbering in both language sections. All existing paragraphs, ASCII diagrams, lists, and tables are preserved unchanged in meaning.
 - The five self-check questions per language were written strictly from this module's own content; no storage products, performance numbers, commands, or URLs were added beyond the source's own example (Amazon S3 as an Object Storage example).
 - Claims needing verification: the source's framing caveats about NFS usage (discussed mainly for configuration/script sharing and smaller distributed data, not as the highest-performance layer for large AI training datasets) are preserved as given. The qualitative statements that NVMe is "very fast" with capacity limited by the physical server, and that Object Storage suits massive long-term data, are kept as general characterizations rather than specifications.
+- Mermaid figures (Figure 1–4) with figure walkthroughs were added inline in both the Myanmar and English sections; figure numbering and structure match across both sections. All existing text and ASCII diagrams are unchanged.

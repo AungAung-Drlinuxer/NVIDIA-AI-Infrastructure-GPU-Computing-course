@@ -50,6 +50,20 @@ Monitoring ဆိုတာ failure တွေကို ရှာဖွေရု�
 
 GPU infrastructure monitoring strategy တစ်ခုမှာ အောက်ပါ categories တွေ ပါဝင်ပါတယ်။
 
+**Figure 1 — Monitor လုပ်သင့်သော အဓိက categories များ ပုံ**
+
+```mermaid
+flowchart TD
+    M["GPU infrastructure monitoring"] --> U["GPU utilization (GPU ဘယ်လောက် အလုပ်လုပ်နေသလဲ)"]
+    M --> MEM["GPU memory (total / used / free)"]
+    M --> T["Temperature (အပူချိန်)"]
+    M --> P["Power consumption (စွမ်းအင်သုံးစွဲမှု)"]
+    M --> H["GPU health နှင့် errors"]
+    M --> O["CPU / memory / storage / network"]
+```
+
+**ပုံရှင်းလင်းချက်** — အလယ်က node က monitoring strategy တစ်ခုလုံးကို ကိုယ်စားပြုပြီး ပတ်ဝန်းကျင်က branch ခြောက်ခုက စောင့်ကြည့်ရမယ့် category တွေ ဖြစ်ပါတယ်။ GPU utilization, memory, temperature, power တွေက GPU ရဲ့ ကိုယ်ပိုင်အခြေအနေတွေ ဖြစ်ပြီး နောက်ဆုံး branch ကတော့ GPU တစ်ခုတည်းနဲ့ မလုံလောက်ဘဲ CPU, storage, network တွေပါ စစ်ဆေးရမယ်ဆိုတာကို သတိပေးထားခြင်း ဖြစ်ပါတယ်။
+
 ### 3.1 GPU utilization
 
 GPU utilization က GPU က အလုပ်ကို ဘယ်လောက် active ဖြစ်ဖြစ် လုပ်နေသလဲဆိုတာ ပြနိုင်ပါတယ်။
@@ -170,6 +184,18 @@ Continuous monitoring အတွက် NVIDIA က DCGM Exporter ကို ပေ�
 
 Simplified architecture —
 
+**Figure 2 — GPU telemetry စီးဆင်းပုံ (monitoring architecture) ပုံ**
+
+```mermaid
+flowchart TD
+    A["NVIDIA GPUs"] --> B["DCGM"]
+    B --> C["DCGM Exporter (Prometheus-compatible format)"]
+    C --> D["Prometheus (metrics များကို collect ပြီး time series အဖြစ် သိမ်းဆည်းသည်)"]
+    D --> E["Grafana dashboards နှင့် alerts"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက NVIDIA GPUs ကနေ စပြီး data တစ်ဆင့်ချင်း အောက်ကို ဆင်းသွားပုံကို ဖတ်ပါ။ DCGM က GPU telemetry ကို စုဆောင်းပေးပါတယ်။ DCGM Exporter က အဲဒီ metrics တွေကို Prometheus ဖတ်နိုင်တဲ့ format နဲ့ ထုတ်ပေးပါတယ်။ နောက်ဆုံးမှာ Prometheus က သိမ်းဆည်းပြီး Grafana က dashboards နဲ့ alerts တွေအဖြစ် ပြသပေးပါတယ်။
+
 ```
 NVIDIA GPUs
      │
@@ -200,6 +226,20 @@ BCM က ဘာတွေ လုပ်ပေးသလဲ —
 - Operational visibility အတွက် dashboards
 - Slurm ကဲ့သို့ workload managers တွေနဲ့ integration
 - Support ရှိတဲ့ environments တွေမှာ heterogeneous clusters တွေကို စီမံခန့်ခွဲခြင်း
+
+**Figure 3 — Base Command Manager (BCM) ရဲ့ cluster-level တာဝန်များ ပုံ**
+
+```mermaid
+flowchart TD
+    BCM["Base Command Manager (BCM)"] --> A["Cluster နှင့် node provisioning"]
+    BCM --> B["Infrastructure configuration နှင့် administration"]
+    BCM --> C["Cluster health နှင့် utilization monitoring"]
+    BCM --> D["Operational visibility dashboards"]
+    BCM --> E["Slurm ကဲ့သို့ workload managers နှင့် integration"]
+    BCM --> F["Heterogeneous clusters စီမံခန့်ခွဲခြင်း"]
+```
+
+**ပုံရှင်းလင်းချက်** — အလယ်က BCM node ကနေ ဘေးက branch ခြောက်ခုဆီ ကြည့်ရင် BCM က GPU တစ်လုံးချင်းစီကို မဟုတ်ဘဲ cluster တစ်ခုလုံးရဲ့ lifecycle — provisioning, configuration, monitoring, dashboards, scheduler integration — ကို ကိုင်တွယ်တာကို မြင်ရပါမယ်။ ဒါကြောင့် BCM က nvidia-smi နဲ့ DCGM တို့နဲ့ မတူဘဲ ပိုမိုကျယ်ပြန့်တဲ့ cluster management platform ဖြစ်ပါတယ်။
 
 ဥပမာ — Server 64 လုံးနဲ့ server တစ်လုံးစီမှာ GPU ရှစ်လုံး ပါဝင်တဲ့ AI cluster တစ်ခုကို စဉ်းစားကြည့်ပါ။ Administrator က —
 
@@ -238,6 +278,20 @@ AI training job တစ်ခု နှေးကွေးနေတဲ့ GPU serv
 3. CPU, storage နဲ့ network metrics တွေကို စစ်ဆေးပြီး workload က အခြား resource တစ်ခုကို စောင်းနေသလား ဆုံးဖြတ်ပါ။
 4. Deploy လုပ်ထားရင် BCM ကဲ့သို့ cluster management platform ကနေ node status, cluster utilization နဲ့ workload-management context ကို ကြည့်ပါ။
 5. Metrics တွေကို application နဲ့ scheduler logs တွေနဲ့ ချိတ်ဆက်ပြီး ဖြစ်နိုင်ချေရှိတဲ့ အကြောင်းရင်းကို သတ်မှတ်ပါ။
+
+**Figure 4 — နှေးကွေးနေတဲ့ AI training job ကို စုံစမ်းတဲ့ monitoring workflow ပုံ**
+
+```mermaid
+flowchart TD
+    S0["Training job နှေးကွေးနေသည်"] --> S1["1. NVIDIA-SMI — GPU utilization / memory / temperature / power ပြန်ကြည့်သည်"]
+    S1 --> S2["2. DCGM — GPU health / telemetry / diagnostics စစ်ဆေးသည်"]
+    S2 --> S3["3. CPU / storage / network metrics စစ်ဆေးသည်"]
+    S3 --> S4["4. BCM ကဲ့သို့ platform မှ node status နှင့် workload-management context ကြည့်သည်"]
+    S4 --> S5["5. Metrics များကို application နှင့် scheduler logs နှင့် ချိတ်ဆက်သည်"]
+    S5 --> S6["ဖြစ်နိုင်ချေရှိသော အကြောင်းရင်း သတ်မှတ်သည်"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက ပြဿနာ (training job နှေးနေခြင်း) ကစပြီး အောက်ကို တစ်ဆင့်ချင်း လိုက်ကြည့်ပါ။ ပထမ NVIDIA-SMI နဲ့ အမြန်ကြည့်၊ ပြီးရင် DCGM နဲ့ health/telemetry စစ်၊ နောက် CPU, storage, network ကို ချဲ့ကြည့်၊ cluster context ကို BCM နဲ့ ကြည့်၊ နောက်ဆုံး logs တွေနဲ့ ချိတ်ဆက်ပြီး အကြောင်းရင်းကို သတ်မှတ်ပါတယ်။ ဒီအစီအစဉ်အတိုင်း လုပ်ခြင်းက GPU ကြောင့်ပဲလို့ ကြိုတင်ယူဆခြင်းထက် ပိုမိုယုံကြည်ရပါတယ်။
 
 နှေးကွေးနေတဲ့ training job ဟာ GPU ကြောင့်သာ ဖြစ်ရမယ်လို့ ယူဆခြင်းထက် ဒီနည်းလမ်းက ပိုမိုယုံကြည်ရပါတယ်။
 
@@ -331,6 +385,20 @@ Monitoring is not only about detecting failures. It also helps administrators id
 ## 3. What Should We Monitor?
 
 A comprehensive GPU infrastructure monitoring strategy includes several categories.
+
+**Figure 1 — The main categories to monitor**
+
+```mermaid
+flowchart TD
+    M["GPU infrastructure monitoring"] --> U["GPU utilization (how actively the GPU works)"]
+    M --> MEM["GPU memory (total / used / free)"]
+    M --> T["Temperature"]
+    M --> P["Power consumption"]
+    M --> H["GPU health and errors"]
+    M --> O["CPU / memory / storage / network"]
+```
+
+**Figure walkthrough** — The center node is the whole monitoring strategy; the six surrounding branches are the categories to watch. Utilization, memory, temperature, and power describe the GPU itself, while the last branch reminds you that CPU, storage, and network must be checked too — GPU metrics alone are not a complete view.
 
 ### 3.1 GPU utilization
 
@@ -452,6 +520,18 @@ For continuous monitoring, NVIDIA provides DCGM Exporter, which exposes GPU tele
 
 A simplified architecture looks like this:
 
+**Figure 2 — How GPU telemetry flows (monitoring architecture)**
+
+```mermaid
+flowchart TD
+    A["NVIDIA GPUs"] --> B["DCGM"]
+    B --> C["DCGM Exporter (Prometheus-compatible format)"]
+    C --> D["Prometheus (collects metrics and stores them as time series)"]
+    D --> E["Grafana dashboards and alerts"]
+```
+
+**Figure walkthrough** — Read the figure from the top: NVIDIA GPUs are the source, DCGM collects the telemetry, and DCGM Exporter exposes the metrics in a Prometheus-compatible format. Prometheus stores them as time series, and Grafana turns them into dashboards and alerts at the bottom.
+
 ```
 NVIDIA GPUs
      │
@@ -482,6 +562,20 @@ What does BCM do?
 - Dashboards for operational visibility.
 - Integration with workload managers such as Slurm.
 - Management of heterogeneous clusters across supported environments.
+
+**Figure 3 — The cluster-level responsibilities of Base Command Manager (BCM)**
+
+```mermaid
+flowchart TD
+    BCM["Base Command Manager (BCM)"] --> A["Cluster and node provisioning"]
+    BCM --> B["Infrastructure configuration and administration"]
+    BCM --> C["Cluster health and utilization monitoring"]
+    BCM --> D["Operational visibility dashboards"]
+    BCM --> E["Integration with workload managers such as Slurm"]
+    BCM --> F["Management of heterogeneous clusters"]
+```
+
+**Figure walkthrough** — Look at the six branches around the central BCM node: BCM covers the whole cluster lifecycle — provisioning, configuration, monitoring, dashboards, and scheduler integration — not a single GPU. That is why BCM is a broader cluster management platform than nvidia-smi or DCGM.
 
 Example — imagine an AI cluster with 64 servers and eight GPUs per server. The administrator needs to:
 
@@ -520,6 +614,20 @@ Consider a GPU server where an AI training job is running slowly. A sensible inv
 3. Check CPU, storage, and network metrics to determine whether the workload is waiting for another resource.
 4. Use the cluster management platform, such as BCM where deployed, to inspect node status, cluster utilization, and workload-management context.
 5. Correlate the metrics with the application and scheduler logs to determine the likely cause.
+
+**Figure 4 — Monitoring workflow for investigating a slow AI training job**
+
+```mermaid
+flowchart TD
+    S0["Training job is running slowly"] --> S1["1. NVIDIA-SMI — review GPU utilization / memory / temperature / power"]
+    S1 --> S2["2. DCGM — inspect GPU health / telemetry / diagnostics"]
+    S2 --> S3["3. Check CPU / storage / network metrics"]
+    S3 --> S4["4. BCM-style platform — node status and workload-management context"]
+    S4 --> S5["5. Correlate metrics with application and scheduler logs"]
+    S5 --> S6["Determine the likely cause"]
+```
+
+**Figure walkthrough** — Start at the top with the problem (the slow training job) and follow the chain downward: a quick NVIDIA-SMI check first, then DCGM for health and telemetry, then CPU/storage/network to see whether another resource is the bottleneck, then cluster context from BCM, and finally log correlation to name the likely cause. Following this order is more reliable than blaming the GPU immediately.
 
 This approach is more reliable than assuming a slow training job must be caused by the GPU.
 
@@ -572,3 +680,4 @@ Key takeaway: use NVIDIA-SMI for quick GPU checks, DCGM for more comprehensive G
 - The sports-car dashboard mapping, the 64-server × 8-GPU cluster example, and the monitoring-workflow sequence are illustrative, as presented in the source.
 - Source caveats preserved: high GPU utilization does not prove workload efficiency; monitoring tools do not schedule workloads (Slurm/Kubernetes do); GPU-level monitoring must be complemented by CPU/storage/network monitoring.
 - Capability matrix entries are source-level claims and vary by product version and deployment — needs verification per environment before relying on any single row.
+- Mermaid figures (Figures 1–4) and their walkthroughs were added inline in both the Myanmar and English sections at matching positions and numbering; existing text and ASCII diagrams are unchanged.

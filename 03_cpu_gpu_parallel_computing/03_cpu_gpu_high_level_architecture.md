@@ -31,6 +31,27 @@ CPU ထဲမှာ အဓိကပါဝင်တာတွေက—
 - **Cache** — core နားမှာရှိတဲ့ အလွန်မြန်သော memory ငယ် (L1, L2, L3)
 - **Memory Interface** — CPU ကို system memory (RAM) နှင့် ချိတ်ဆက်ပေးသည်
 
+အောက်ပါ **Figure 1** မှာ CPU ရဲ့ အဓိက အစိတ်အပိုင်း သုံးခုကို ပုံနဲ့ ကြည့်နိုင်ပါတယ်။
+
+**Figure 1: CPU High-Level Architecture — အဓိက အစိတ်အပိုင်း သုံးခု**
+
+```mermaid
+flowchart TD
+    A["CPU"] --> B["Cores"]
+    A --> C["Cache"]
+    A --> D["Memory Interface"]
+    B --> E["ALU + Control Unit"]
+    C --> F["L1 / L2 / L3 Cache"]
+    D --> G["System RAM"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 1)**
+
+- အပေါ်ဆုံးက CPU ကနေ အဓိက အစိတ်အပိုင်း သုံးခု ခွဲထွက်သွားတာကို ကြည့်ပါ — cores, cache, memory interface။
+- Cores အောက်က ALU နဲ့ Control Unit က instruction တွေကို လုပ်ဆောင်ပေးပါတယ်။
+- Cache အောက်က L1 / L2 / L3 က core နားမှာရှိတဲ့ မြန်တဲ့ memory ငယ်တွေ ဖြစ်ပါတယ်။
+- Memory interface က CPU ကို system RAM နဲ့ ချိတ်ဆက်ပေးပါတယ်။
+
 ## 3. CPU Cores
 
 Modern CPU မှာ core အနည်းငယ် ဒါပေမယ့် တစ်ခုချင်းစီ powerful ဖြစ်ပါတယ်။
@@ -72,6 +93,25 @@ Cache ရဲ့ ရည်ရွယ်ချက်—
 - မကြာခဏသုံးတဲ့ data ကို core နားမှာ ထားပေးခြင်း
 - Memory access စောင့်ရတဲ့အချိန် လျှော့ချခြင်း
 - တစ်စက္ကန့်အတွင်း လုပ်ဆောင်နိုင်တဲ့ instruction အရေအတွက် တိုးစေခြင်း
+
+အောက်ပါ **Figure 2** မှာ cache အဆင့်တွေကို အမြန်ဆုံးမှ အနှေးဆုံးအထိ အပေါ်ကနေ အောက်ကို ကြည့်နိုင်ပါတယ်။
+
+**Figure 2: CPU Cache Hierarchy — L1 မှ System RAM အထိ**
+
+```mermaid
+flowchart TD
+    A["CPU Core"] --> B["L1 Cache — အမြန်ဆုံး၊ အသေးဆုံး"]
+    B --> C["L2 Cache — မြန်၊ သေး"]
+    C --> D["L3 Cache — ပိုကြီး၊ core များ မျှဝေ"]
+    D --> E["System RAM — စွမ်းဆောင်ရည်ကြီး၊ ပိုနှေး"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 2)**
+
+- အပေါ်ဆုံးက CPU core ကနေ စပြီး အောက်ကို တစ်ဆင့်ချင်း ဆင်းကြည့်ပါ။
+- L1 cache က အမြန်ဆုံး၊ အသေးဆုံး၊ core တစ်ခုချင်းအတွက် သီးသန့် ဖြစ်ပါတယ်။
+- L2 က ပိုကြီးလာပြီး L3 က core များကြား မျှဝေသုံးတဲ့ ပိုကြီးတဲ့ cache ဖြစ်ပါတယ်။
+- အောက်ဆုံးက system RAM — စွမ်းဆောင်ရည် အကြီးဆုံးပေမယ့် cache ထက် နှေးပါတယ်။
 
 ## 5. ALU — Arithmetic Logic Unit
 
@@ -143,6 +183,26 @@ GPU ထဲမှာ အဓိကပါဝင်တာတွေက—
 - **VRAM (Video Memory)** — သီးသန့် high-bandwidth memory
 - **Memory Interface** — processing unit များကို VRAM နှင့် ချိတ်ဆက်ပေးသည်
 
+အောက်ပါ **Figure 3** မှာ GPU ရဲ့ အဓိက အစိတ်အပိုင်း သုံးခုကို ပုံနဲ့ ကြည့်နိုင်ပါတယ်။
+
+**Figure 3: GPU High-Level Architecture — Parallel Units, VRAM နှင့် Memory Interface**
+
+```mermaid
+flowchart TD
+    A["GPU"] --> B["Parallel Processing Units များစွာ"]
+    A --> C["VRAM — Video Memory"]
+    A --> D["High-Bandwidth Memory Interface"]
+    B --> E["Streaming Multiprocessor / CUDA Cores"]
+    C --> F["Model Data, Activation, Intermediate Result များ သိမ်း"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 3)**
+
+- အပေါ်ဆုံးက GPU ကနေ အဓိက အစိတ်အပိုင်း သုံးခု ခွဲထွက်ပါတယ် — parallel processing units, VRAM, memory interface။
+- Parallel processing units အောက်က NVIDIA GPU တွေမှာ ပါတဲ့ Streaming Multiprocessor / CUDA cores တွေကို ရည်ညွှန်းပါတယ်။
+- VRAM က သီးသန့် high-bandwidth memory ဖြစ်ပြီး model data, activation, intermediate result တွေကို သိမ်းပါတယ်။
+- Memory interface က processing unit တွေကို VRAM နဲ့ ချိတ်ဆက်ပေးပါတယ်။
+
 ## 9. GPU Processing Units
 
 GPU မှာ ရိုးရှင်းတဲ့ processing unit များစွာက တပြိုင်နက် အလုပ်လုပ်ပါတယ်။
@@ -212,6 +272,24 @@ Core နည်းနည်း Powerful    Unit များစွာ Parallel
 Cache hierarchy ကြီး       High-bandwidth VRAM
 ```
 
+အောက်ပါ **Figure 4** မှာ CPU နဲ့ GPU ရဲ့ design goal မတူရတဲ့ အကြောင်းရင်းကို နှိုင်းယှဉ် ကြည့်နိုင်ပါတယ်။
+
+**Figure 4: CPU နှင့် GPU Design Goal မတူရခြင်း အကြောင်းရင်း**
+
+```mermaid
+flowchart TD
+    A["CPU Design Goal"] --> B["ရှုပ်ထွေးသော instruction ကို task တစ်ခုချင်း အမြန် လုပ်ဆောင်"]
+    B --> C["Core နည်းနည်း Powerful + Cache Hierarchy ကြီး"]
+    D["GPU Design Goal"] --> E["ရိုးရှင်းသော operation များစွာ တပြိုင်နက် လုပ်ဆောင်"]
+    E --> F["Unit များစွာ Parallel + High-Bandwidth VRAM"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 4)**
+
+- ဘယ်ဘက်လမ်းက CPU ရဲ့ design goal — ရှုပ်ထွေးတဲ့ instruction တွေကို task တစ်ခုချင်းအတွက် အမြန်ဆုံး လုပ်ဆောင်ဖို့ ဖြစ်ပါတယ်။
+- ညာဘက်လမ်းက GPU ရဲ့ design goal — ရိုးရှင်းတဲ့ operation အများကြီးကို တပြိုင်နက် လုပ်ဆောင်ဖို့ ဖြစ်ပါတယ်။
+- အောက်ဆုံး node တွေက ဒီ goal တွေကြောင့် ဖြစ်လာတဲ့ hardware ပုံစံတွေ — CPU မှာ core နည်းနည်း powerful နဲ့ cache ကြီး၊ GPU မှာ unit များစွာနဲ့ high-bandwidth VRAM ဖြစ်ပါတယ်။
+
 ## 13. CPU vs GPU Architecture နှိုင်းယှဉ်ချက်
 
 | Feature | CPU | GPU |
@@ -241,6 +319,26 @@ Cache hierarchy ကြီး       High-bandwidth VRAM
 
 - CPU က data ပြင်ဆင်ပြီး workflow ကို ထိန်းချုပ်ပါတယ်။
 - GPU က အလုပ်လုပ်မယ့် data ကို VRAM ထဲ သိမ်းပြီး parallel process လုပ်ပါတယ်။
+
+အောက်ပါ **Figure 5** မှာ CPU / RAM နဲ့ GPU / VRAM တို့ စနစ်တစ်ခုအတွင်း ဘယ်လို ပေါင်းလုပ်သလဲ ကြည့်နိုင်ပါတယ်။
+
+**Figure 5: CPU / System RAM နှင့် GPU / VRAM အတူတကွ အလုပ်လုပ်ပုံ**
+
+```mermaid
+flowchart TD
+    A["System"] --> B["CPU"]
+    A --> C["GPU"]
+    B --> D["System RAM"]
+    C --> E["VRAM"]
+    D --> F["AI Application"]
+    E --> F
+```
+
+**ပုံရှင်းလင်းချက် (Figure 5)**
+
+- အပေါ်ဆုံးက system ကနေ CPU နဲ့ GPU ဆီ ခွဲသွားတာကို ကြည့်ပါ။
+- CPU က system RAM နဲ့ အလုပ်လုပ်ပြီး GPU က သီးသန့် VRAM နဲ့ အလုပ်လုပ်ပါတယ်။
+- အောက်ဆုံးမှာ နှစ်ခုလုံး AI application အတွက် ပေါင်းလုပ်ဆောင်ပေးပါတယ် — CPU က data ပြင်ဆင်ပြီး workflow ထိန်းချုပ်၊ GPU က VRAM ထဲ data သိမ်းပြီး parallel process လုပ်ပါတယ်။
 
 ## 15. Exam Memory Points
 
@@ -305,6 +403,27 @@ The main parts are:
 - **Cache** — small, extremely fast memory close to the cores (L1, L2, L3)
 - **Memory Interface** — connects the CPU to system memory (RAM)
 
+See **Figure 1** for a picture of the three main parts of a CPU.
+
+**Figure 1: High-Level CPU Architecture — The Three Main Parts**
+
+```mermaid
+flowchart TD
+    A["CPU"] --> B["Cores"]
+    A --> C["Cache"]
+    A --> D["Memory Interface"]
+    B --> E["ALU + Control Unit"]
+    C --> F["L1 / L2 / L3 Cache"]
+    D --> G["System RAM"]
+```
+
+**Figure walkthrough (Figure 1)**
+
+- Look at the top: the CPU splits into its three main parts — cores, cache, and the memory interface.
+- Under the cores, the ALU and the Control Unit execute instructions.
+- Under the cache, L1 / L2 / L3 are the fast small memories close to the cores.
+- The memory interface connects the CPU to system RAM.
+
 ## 3. CPU Cores
 
 A modern CPU has a small number of powerful cores.
@@ -348,6 +467,25 @@ Purpose of cache:
 - Keep frequently used data close to the core
 - Reduce waiting time for memory access
 - Increase instructions executed per second
+
+**Figure 2** shows the cache levels from the fastest at the top to the slowest at the bottom.
+
+**Figure 2: CPU Cache Hierarchy — From L1 to System RAM**
+
+```mermaid
+flowchart TD
+    A["CPU Core"] --> B["L1 Cache — Fastest, Smallest"]
+    B --> C["L2 Cache — Fast, Small"]
+    C --> D["L3 Cache — Larger, Shared Between Cores"]
+    D --> E["System RAM — Large Capacity, Slower"]
+```
+
+**Figure walkthrough (Figure 2)**
+
+- Start at the CPU core at the top and move down one step at a time.
+- L1 cache is the fastest and smallest, private to each core.
+- L2 is larger, and L3 is even larger and shared between the cores.
+- At the bottom is system RAM — the largest capacity, but slower than cache.
 
 ## 5. ALU — Arithmetic Logic Unit
 
@@ -422,6 +560,26 @@ The main parts are:
 - **VRAM (Video Memory)** — dedicated high-bandwidth memory
 - **Memory Interface** — connects processing units to VRAM
 
+See **Figure 3** for a picture of the three main parts of a GPU.
+
+**Figure 3: High-Level GPU Architecture — Parallel Units, VRAM, and Memory Interface**
+
+```mermaid
+flowchart TD
+    A["GPU"] --> B["Many Parallel Processing Units"]
+    A --> C["VRAM — Video Memory"]
+    A --> D["High-Bandwidth Memory Interface"]
+    B --> E["Streaming Multiprocessor / CUDA Cores"]
+    C --> F["Stores Model Data, Activations, Intermediate Results"]
+```
+
+**Figure walkthrough (Figure 3)**
+
+- At the top, the GPU splits into its three main parts: parallel processing units, VRAM, and the memory interface.
+- Under the parallel units, NVIDIA GPUs use Streaming Multiprocessors / CUDA cores.
+- VRAM is dedicated high-bandwidth memory that stores model data, activations, and intermediate results.
+- The memory interface connects the processing units to VRAM.
+
 ## 9. GPU Processing Units
 
 A GPU contains many simpler processing units working at the same time.
@@ -491,6 +649,24 @@ Few powerful cores         Many parallel units
 Large cache hierarchy      High-bandwidth VRAM
 ```
 
+**Figure 4** compares why the CPU and the GPU have different design goals.
+
+**Figure 4: Why the CPU and GPU Design Goals Differ**
+
+```mermaid
+flowchart TD
+    A["CPU Design Goal"] --> B["Execute Complex Instructions Fast per Task"]
+    B --> C["Few Powerful Cores + Large Cache Hierarchy"]
+    D["GPU Design Goal"] --> E["Execute Many Simple Operations Simultaneously"]
+    E --> F["Many Parallel Units + High-Bandwidth VRAM"]
+```
+
+**Figure walkthrough (Figure 4)**
+
+- The left path is the CPU design goal: run complex instructions fast for each task.
+- The right path is the GPU design goal: run massive numbers of simple operations at the same time.
+- The bottom nodes are the hardware shapes that follow from those goals — few powerful cores with large caches in the CPU, many parallel units with high-bandwidth VRAM in the GPU.
+
 ## 13. CPU vs GPU Architecture Comparison
 
 | Feature | CPU | GPU |
@@ -520,6 +696,26 @@ Large cache hierarchy      High-bandwidth VRAM
 
 - The CPU prepares data and controls the workflow.
 - The GPU stores working data in VRAM and processes it in parallel.
+
+**Figure 5** shows how the CPU / RAM side and the GPU / VRAM side cooperate inside one system.
+
+**Figure 5: CPU / System RAM and GPU / VRAM Working Together**
+
+```mermaid
+flowchart TD
+    A["System"] --> B["CPU"]
+    A --> C["GPU"]
+    B --> D["System RAM"]
+    C --> E["VRAM"]
+    D --> F["AI Application"]
+    E --> F
+```
+
+**Figure walkthrough (Figure 5)**
+
+- At the top, the system splits into the CPU and the GPU.
+- The CPU works with system RAM; the GPU works with its own dedicated VRAM.
+- At the bottom, both feed the AI application — the CPU prepares data and controls the workflow, while the GPU stores working data in VRAM and processes it in parallel.
 
 ## 15. Exam Memory Points
 
@@ -560,3 +756,4 @@ One-line summary: The CPU is built for fast sequential execution with large cach
 - Correction: English section 6 previously began with a Burmese sentence followed by the same sentence in parentheses; it is now the plain English sentence "The ALU performs the calculations; the Control Unit decides what happens and in which order." The Burmese equivalent remains in the Burmese section 6.
 - The five self-check questions per language were written strictly from this module's own content; no specifications, commands, URLs, or benchmark numbers were added.
 - Claims needing verification: none material. Statements such as "thousands of" GPU processing units and the RAM-vs-VRAM capacity/bandwidth comparisons are qualitative architectural characterizations from the source, not model-specific specifications, and are kept as such.
+- Figures added in this pass: Mermaid figures (Figure 1–5) with captions and figure walkthroughs (ပုံရှင်းလင်းချက်) were inserted inline in both language sections with matching numbering; no existing text or ASCII diagrams were changed.

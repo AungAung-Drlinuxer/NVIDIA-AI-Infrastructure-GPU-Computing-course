@@ -46,6 +46,26 @@ NVIDIA Spectrum-X Ethernet—
 GPU Server → ConnectX NIC / SuperNIC → Spectrum Switches → NIC / SuperNIC → GPU Server
 ```
 
+**Figure 1 — Quantum InfiniBand vs Spectrum-X Ethernet Data Paths**
+
+```mermaid
+flowchart LR
+    G1["GPU Server"] --> A1["ConnectX HCA"]
+    A1 --> Q["Quantum InfiniBand Switches"]
+    Q --> A2["ConnectX HCA"]
+    A2 --> G2["GPU Server"]
+    G3["GPU Server"] --> N1["ConnectX NIC / SuperNIC"]
+    N1 --> S["Spectrum Switches"]
+    S --> N2["NIC / SuperNIC"]
+    N2 --> G4["GPU Server"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. ဒီပုံမှာ data path နှစ်ခုကို အပေါ်အောက် နှိုင်းယှဉ်ပြထားပါတယ်။
+2. အပေါ်က Quantum InfiniBand path ဖြစ်ပြီး GPU Server → ConnectX HCA → Quantum InfiniBand Switches → ConnectX HCA → GPU Server ဆိုပြီး သွားပါတယ်။
+3. အောက်က Spectrum-X Ethernet path ဖြစ်ပြီး GPU Server → ConnectX NIC / SuperNIC → Spectrum Switches → NIC / SuperNIC → GPU Server ဆိုပြီး သွားပါတယ်။
+4. နှစ်ခုလုံးက GPU clusters အတွက် high-speed networking ပေးပေမယ့် fabric နဲ့ management ဘက်မှာ ကွာခြားပါတယ်။
+
 ဒီ diagrams တွေက ရိုးရှင်းစွာ ဖော်ပြတာ ဖြစ်ပါတယ်။ တကယ့် deployments တွေမှာ switches အများကြီး၊ network rails အမျိုးမျိုး၊ topologies အမျိုးမျိုးနဲ့ storage၊ management နဲ့ GPU-to-GPU traffic တွေအတွက် သီးခြား networks တွေ အသုံးပြုနိုင်ပါတယ်။
 
 ## 4. အမြင့်ဆုံး speed တူညီသလား
@@ -96,6 +116,24 @@ Spectrum-X က AI-specific networking optimization နဲ့ management ကိ�
 
 အရေးကြီးတဲ့ ကွာခြားချက်—InfiniBand management နဲ့ Ethernet management က မတူညီပေမယ့် fabric နှစ်ခုလုံးက management-free မဟုတ်ပါဘူး။ နှစ်ခုလုံးအတွက် သင့်တော်တဲ့ configuration၊ monitoring၊ troubleshooting နဲ့ lifecycle management လိုအပ်ပါတယ်။
 
+**Figure 2 — InfiniBand Management vs Ethernet Management**
+
+```mermaid
+flowchart TD
+    SM["Subnet Manager — OpenSM / NVIDIA UFM"] --> IB["InfiniBand Subnet"]
+    IB --> D["Device discovery"]
+    IB --> R["Routing configuration"]
+    TOOLS["Ethernet switch OS + Management tools"] --> EN["Ethernet Network"]
+    EN --> MO["Monitoring + Operational procedures"]
+    EN --> SX["Spectrum-X AI optimization"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. ဘယ်ဘက်က InfiniBand management ဖြစ်ပြီး Subnet Manager (OpenSM / NVIDIA UFM) က InfiniBand Subnet ကို စီမံပါတယ်။
+2. ဒီ Subnet အတွင်းမှာ device discovery နဲ့ routing configuration ဆိုပြီး အဓိကလုပ်ငန်းတွေ ရှိပါတယ်။
+3. ညာဘက်က Ethernet management ဖြစ်ပြီး Ethernet switch OS နဲ့ management tools တွေက Ethernet Network ကို စီမံပါတယ်။
+4. Ethernet ဘက်မှာ monitoring, operational procedures တွေအပြင် Spectrum-X ရဲ့ AI-specific optimization လည်း ရှိပါတယ်။ နှစ်ခုလုံးက management-free မဟုတ်ပါဘူး။
+
 ## 7. Spectrum-X က ပုံမှန် TCP/IP Ethernet သက်သက်လား
 
 မဟုတ်ပါဘူး။ ဒါက အရေးကြီးတဲ့ technical clarification ဖြစ်ပါတယ်။
@@ -105,6 +143,30 @@ Ethernet က underlying link နဲ့ switching technology ကို ပေး�
 RoCE က Ethernet ပေါ်မှာ RDMA-based data transfer ကို ခွင့်ပြုပြီး hardware နဲ့ software က support လုပ်ရင် CPU overhead နဲ့ intermediate data copying တွေကို လျှော့ချပေးပါတယ်။
 
 ဒါကြောင့် Spectrum-X က ပုံမှန် TCP-based data transfers တွေပေါ်သာ အားကိုးမနေဘဲ high-performance RoCE networking ကို ပံ့ပိုးနိုင်ပါတယ်—[NVIDIA Spectrum-X documentation](https://docs.nvidia.com/networking/display/kubernetes2670/spectrum-x/spectrum-x.html)။
+
+**Figure 3 — Spectrum-X ရဲ့ Layered Networking Flow (TCP/IP vs RoCE)**
+
+```mermaid
+flowchart TD
+    APP["Application"]
+    TCP["TCP/IP — ordinary networking"]
+    ROCE["RoCE — RDMA over Converged Ethernet"]
+    ETH["Ethernet Link / Switching"]
+    NIC["ConnectX NIC / SuperNIC"]
+    SW["Spectrum Switches"]
+    APP --> TCP
+    APP --> ROCE
+    TCP --> ETH
+    ROCE --> ETH
+    ETH --> NIC
+    NIC --> SW
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. အပေါ်ဆုံးက Application ကနေ လမ်းကြောင်းနှစ်ခု ခွဲထွက်သွားတာ မြင်ရပါမယ်။
+2. ဘယ်ဘက်က TCP/IP — ordinary networking လမ်းကြောင်း ဖြစ်ပါတယ်။
+3. ညာဘက်က RoCE — RDMA over Converged Ethernet လမ်းကြောင်းဖြစ်ပြီး high-performance AI communication အတွက် ဖြစ်ပါတယ်။
+4. နှစ်ခုလုံးက Ethernet Link / Switching အောက်ကို ဆင်းသွားပြီး ConnectX NIC / SuperNIC ကတစ်ဆင့် Spectrum Switches ဆီ ရောက်ပါတယ်။ Spectrum-X ဆိုတာ TCP/IP သက်သက် မဟုတ်ပါဘူး။
 
 ## 8. ကုန်ကျစရိတ်နဲ့ operational trade-offs
 
@@ -132,6 +194,31 @@ Spectrum-X Ethernet က အဖွဲ့အစည်းတစ်ခုက ရှ�
 | Network လိုအပ်ချက် သိပ်မမြင့်တဲ့ အသေးစား environment | Specialized fabric မတိုင်မီ conventional Ethernet ကို အကဲဖြတ်ပါ |
 
 ဒီတွေက universal rules တွေ မဟုတ်ဘဲ စတင်စဉ်းစားရမယ့် အချက်တွေသာ ဖြစ်ပါတယ်။ ရည်ရွယ်ထားတဲ့ workload ကို benchmark လုပ်ပြီး support လုပ်တဲ့ reference architecture ကို validate လုပ်ပြီးမှ fabric ကို ရွေးချယ်ပါ။
+
+**Figure 4 — Fabric ရွေးချယ်မှု လမ်းကြောင်း**
+
+```mermaid
+flowchart TD
+    N["Network requirement"]
+    A["Tightly coupled HPC / AI training, performance ကို ဦးစားပေး"]
+    B["Ethernet standards + existing Ethernet operations"]
+    C["Ethernet ပေါ်မှာ RDMA လိုအပ်"]
+    D["အသေးစား environment, network demand နည်း"]
+    A --> IB["Quantum InfiniBand"]
+    B --> SX["Spectrum-X Ethernet"]
+    C --> RC["Supported RoCE deployment"]
+    D --> EN["Conventional Ethernet ကို အရင်အကဲဖြတ်"]
+    N --> A
+    N --> B
+    N --> C
+    N --> D
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. ထိပ်ဆုံးက Network requirement ကနေ အခြေအနေလေးမျိုး ခွဲထွက်သွားပါတယ်။
+2. Tightly coupled HPC/AI training အတွက်ဆိုရင် Quantum InfiniBand ကို စဉ်းစားပါ။
+3. Ethernet standards နဲ့ ရှိပြီးသား Ethernet operations ပေါ် တည်ဆောက်ချင်ရင် Spectrum-X Ethernet ကို စဉ်းစားပါ။
+4. Ethernet ပေါ်မှာ RDMA လိုအပ်ရင် supported RoCE deployment ကို စဉ်းစားပြီး၊ network demand နည်းတဲ့ အသေးစား environment အတွက် conventional Ethernet ကို အရင် အကဲဖြတ်ပါ။
 
 ## 10. Exam Notes
 
@@ -213,6 +300,26 @@ NVIDIA Spectrum-X Ethernet:
 GPU Server → ConnectX NIC / SuperNIC → Spectrum Switches → NIC / SuperNIC → GPU Server
 ```
 
+**Figure 1 — Quantum InfiniBand vs Spectrum-X Ethernet Data Paths**
+
+```mermaid
+flowchart LR
+    G1["GPU Server"] --> A1["ConnectX HCA"]
+    A1 --> Q["Quantum InfiniBand Switches"]
+    Q --> A2["ConnectX HCA"]
+    A2 --> G2["GPU Server"]
+    G3["GPU Server"] --> N1["ConnectX NIC / SuperNIC"]
+    N1 --> S["Spectrum Switches"]
+    S --> N2["NIC / SuperNIC"]
+    N2 --> G4["GPU Server"]
+```
+
+**Figure walkthrough**
+1. The figure compares two data paths, one above the other.
+2. The top path is Quantum InfiniBand: GPU Server → ConnectX HCA → Quantum InfiniBand Switches → ConnectX HCA → GPU Server.
+3. The bottom path is Spectrum-X Ethernet: GPU Server → ConnectX NIC / SuperNIC → Spectrum Switches → NIC / SuperNIC → GPU Server.
+4. Both provide high-speed networking for GPU clusters, but they differ in fabric technology and management.
+
 These are simplified diagrams. Real deployments may use multiple switches, multiple network rails, different topologies, and separate networks for storage, management, and GPU-to-GPU traffic.
 
 ## 4. Is the Maximum Speed the Same?
@@ -263,6 +370,24 @@ Spectrum-X also supports AI-specific networking optimization and management. It 
 
 Important distinction: InfiniBand management and Ethernet management differ, but neither fabric is completely management-free. Both need appropriate configuration, monitoring, troubleshooting, and lifecycle management.
 
+**Figure 2 — InfiniBand Management vs Ethernet Management**
+
+```mermaid
+flowchart TD
+    SM["Subnet Manager — OpenSM / NVIDIA UFM"] --> IB["InfiniBand Subnet"]
+    IB --> D["Device discovery"]
+    IB --> R["Routing configuration"]
+    TOOLS["Ethernet switch OS + Management tools"] --> EN["Ethernet Network"]
+    EN --> MO["Monitoring + Operational procedures"]
+    EN --> SX["Spectrum-X AI optimization"]
+```
+
+**Figure walkthrough**
+1. On the left is InfiniBand management: a Subnet Manager (OpenSM / NVIDIA UFM) manages the InfiniBand Subnet.
+2. Inside that subnet, the main tasks are device discovery and routing configuration.
+3. On the right is Ethernet management: the Ethernet switch OS and management tools manage the Ethernet Network.
+4. On the Ethernet side there is monitoring and operational procedures plus Spectrum-X AI-specific optimization. Neither fabric is management-free.
+
 ## 7. Is Spectrum-X Just Ordinary TCP/IP Ethernet?
 
 No. This is a key technical clarification.
@@ -272,6 +397,30 @@ Ethernet provides the underlying link and switching technology. TCP/IP is common
 RoCE allows RDMA-based data transfer over Ethernet, reducing CPU overhead and intermediate data copying when the hardware and software support it.
 
 Thus, Spectrum-X can support high-performance RoCE networking rather than relying exclusively on ordinary TCP-based data transfers — [NVIDIA Spectrum-X documentation](https://docs.nvidia.com/networking/display/kubernetes2670/spectrum-x/spectrum-x.html).
+
+**Figure 3 — Spectrum-X Layered Networking Flow (TCP/IP vs RoCE)**
+
+```mermaid
+flowchart TD
+    APP["Application"]
+    TCP["TCP/IP — ordinary networking"]
+    ROCE["RoCE — RDMA over Converged Ethernet"]
+    ETH["Ethernet Link / Switching"]
+    NIC["ConnectX NIC / SuperNIC"]
+    SW["Spectrum Switches"]
+    APP --> TCP
+    APP --> ROCE
+    TCP --> ETH
+    ROCE --> ETH
+    ETH --> NIC
+    NIC --> SW
+```
+
+**Figure walkthrough**
+1. At the top, the Application splits into two paths.
+2. The left path is TCP/IP — ordinary networking.
+3. The right path is RoCE — RDMA over Converged Ethernet, used for high-performance AI communication.
+4. Both descend into Ethernet Link / Switching and reach the Spectrum Switches through the ConnectX NIC / SuperNIC. Spectrum-X is not just plain TCP/IP.
 
 ## 8. Cost and Operational Trade-offs
 
@@ -299,6 +448,31 @@ A practical comparison should include:
 | Small environment with modest network demands | Evaluate conventional Ethernet before adopting a specialized fabric |
 
 These are starting points, not universal rules. Benchmark the intended workload and validate the supported reference architecture before selecting the fabric.
+
+**Figure 4 — Fabric Selection Paths**
+
+```mermaid
+flowchart TD
+    N["Network requirement"]
+    A["Dedicated HPC / AI training, performance first"]
+    B["Ethernet standards + existing Ethernet operations"]
+    C["Need for RDMA on Ethernet"]
+    D["Small environment, modest network demands"]
+    A --> IB["Quantum InfiniBand"]
+    B --> SX["Spectrum-X Ethernet"]
+    C --> RC["Supported RoCE deployment"]
+    D --> EN["Evaluate conventional Ethernet first"]
+    N --> A
+    N --> B
+    N --> C
+    N --> D
+```
+
+**Figure walkthrough**
+1. At the top, the Network requirement splits into four situations.
+2. For tightly coupled HPC/AI training, consider Quantum InfiniBand.
+3. When building around Ethernet standards and existing Ethernet operations, consider Spectrum-X Ethernet.
+4. When you need RDMA on Ethernet, consider a supported RoCE deployment; for a small environment with modest demands, evaluate conventional Ethernet first.
 
 ## 10. Exam Notes
 
@@ -343,3 +517,4 @@ Latency, tail latency, effective bandwidth, congestion handling, application per
 - The unit correction in section 4 is preserved from the source transcript: 800 Gb/s (gigabits per second) ≠ 800 GB/s; 800 Gb/s ÷ 8 = 100 GB/s theoretical raw data rate. The X800 end-to-end 800 Gb/s figure matches NVIDIA's official announcement (March 2024).
 - The task attribution mentions msg_2565 for this module, but msg_2565 contains no Module 09 content (its body begins with Module 10); Module 09 is complete within msg_2563 and ends at Review Question Q6 as supplied.
 - ConnectX-8 "up to 800 Gb/s InfiniBand or Ethernet depending on product and operating mode" is preserved from the transcript; exact per-SKU support is product-dependent (needs verification per configuration).
+- Mermaid figures (Figure 1–4) with figure walkthroughs were added inline in both the Myanmar and English sections; all existing text and ASCII diagrams are unchanged.

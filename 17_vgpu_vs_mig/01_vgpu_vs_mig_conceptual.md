@@ -27,11 +27,50 @@ AI infrastructure မှာ GPU ဟာ ဈေးအကြီးဆုံးန�
 
 NVIDIA ရဲ့ ဖြေရှင်းချက် နှစ်ခုကတော့ **NVIDIA vGPU** နဲ့ **NVIDIA MIG** ဖြစ်ပါတယ်။ ဒီနှစ်ခုဟာ တူညီတဲ့ပြဿနာကို မတူညီတဲ့ mechanism တွေနဲ့ ဖြေရှင်းတာဖြစ်ပါတယ်။
 
+**Figure 1 — GPU တစ်လုံးကို workload များစွာကြား မျှဝေအသုံးပြုရမည့် ပြဿနာ**
+
+```mermaid
+flowchart TD
+    G["Physical GPU တစ်လုံး — ဈေးကြီးသော resource"]
+    G --> W1["VM များစွာ"]
+    G --> W2["User များစွာ"]
+    G --> W3["Container workload များစွာ"]
+    W1 --> P["Sharing mechanism လိုအပ်ခြင်း"]
+    W2 --> P
+    W3 --> P
+    P --> S1["NVIDIA vGPU — Virtual GPU Device များ"]
+    P --> S2["NVIDIA MIG — Hardware-supported Instances များ"]
+```
+
+**ပုံရှင်းလင်းချက်:**
+- အပေါ်ဆုံး node က Physical GPU တစ်လုံးကို VM၊ User နဲ့ Container workload တွေကြား မျှဝေရမယ့် အခြေအနေကို ပြပါတယ်။
+- အလယ်က "Sharing mechanism လိုအပ်ခြင်း" node က ဒီပြဿနာကို ဖြေရှင်းဖို့ နည်းလမ်း ရွေးချယ်ရမယ့် နေရာဖြစ်ပါတယ်။
+- အောက်ဆုံးမှာ NVIDIA ရဲ့ ဖြေရှင်းချက်နှစ်ခုဖြစ်တဲ့ vGPU နဲ့ MIG ဆီ ဘယ်လိုခွဲထွက်သွားသလဲဆိုတာ တွေ့ရပါမယ်။
+
 ## 3. vGPU နဲ့ MIG ဆိုတာ ဘာလဲ — Mechanism
 
 **NVIDIA vGPU** က GPU Virtualization Software နဲ့ Driver များကို အသုံးပြုပြီး VM များထံ **Virtual GPU Device** တွေ ပေးအပ်ပါတယ်။ VM တစ်ခုချင်းစီဟာ သတ်မှတ်ထားတဲ့ vGPU Device ကို အသုံးပြုနိုင်ပြီး၊ ပုံမှန် vGPU Deployment တွင် Hypervisor က အဓိကအစိတ်အပိုင်းအဖြစ် ပါဝင်ပါတယ်။
 
 **NVIDIA MIG** ကတော့ Physical GPU တစ်လုံးကို **Hardware-supported Instances** များအဖြစ် ခွဲခြားပါတယ်။ သတ်မှတ်ထားတဲ့ Compute နဲ့ Memory Resource များကို Instance တစ်ခုချင်းစီထံ ပေးအပ်ပါတယ်။ Bare-metal Linux နဲ့ Containers တွေအတွက် အသုံးဝင်ပြီး၊ VM အသုံးပြုမှုကတော့ သက်ဆိုင်ရာ Platform က MIG ကို Support လုပ်ပုံပေါ် မူတည်ပါတယ်။
+
+**Figure 2 — vGPU နှင့် MIG ရဲ့ mechanism ကွာခြားပုံ**
+
+```mermaid
+flowchart TD
+    P["Physical GPU"]
+    P --> V["vGPU နည်းလမ်း"]
+    V --> VS["GPU Virtualization Software + Drivers + Hypervisor"]
+    VS --> VD["Virtual GPU Devices"]
+    VD --> VM["VM များ"]
+    P --> M["MIG နည်းလမ်း"]
+    M --> MI["Hardware-supported Instances"]
+    MI --> BM["Bare-metal Linux နှင့် Containers"]
+```
+
+**ပုံရှင်းလင်းချက်:**
+- ဘယ်ဘက်/အပေါ်ဘက်လမ်းကြောင်းက vGPU ဖြစ်ပြီး GPU Virtualization Software၊ Drivers နဲ့ Hypervisor ကတစ်ဆင့် Virtual GPU Device တွေကို VM တွေဆီ ပေးပါတယ်။
+- ညာဘက်/အောက်ဘက်လမ်းကြောင်းက MIG ဖြစ်ပြီး Physical GPU ကို hardware level ကနေ directly ခွဲပြီး Bare-metal Linux နဲ့ Containers တွေကို ပေးပါတယ်။
+- နှစ်ခုလုံးရဲ့ အစက Physical GPU တစ်ခုတည်းဖြစ်ပေမယ့် ခွဲဝေပုံချင်း မတူတာကို သတိပြုကြည့်ပါ။
 
 **Exam မှတ်စု:** vGPU = Virtual GPU Device for VMs; MIG = Hardware-supported GPU partitioning into multiple instances.
 
@@ -108,6 +147,21 @@ Physical GPU: A100 40GB
 
 A100 40GB အတွက် အထက်ပါ Profile ပေါင်းစပ်မှုကို Supported Configuration ဥပမာအဖြစ် အသုံးပြုနိုင်ပါတယ်။ သို့သော် Instance ဖန်တီးနိုင်ခြင်းက Profile နဲ့ Placement Rules ကိုက်ညီမှုအပေါ် မူတည်ပါတယ်။
 
+**Figure 3 — A100 40GB ပေါ်က MIG Profile layout ဥပမာများ**
+
+```mermaid
+flowchart TD
+    G["Physical GPU — A100 40GB"]
+    G --> A["Option A — 7g.40gb: Instance တစ်ခုတည်း (~40 GB)"]
+    G --> B["Option B — 3g.20gb နှစ်ခု: Instance 1 (~20 GB) + Instance 2 (~20 GB)"]
+    G --> C["Option C — Mixed: 1g.5gb + 2g.10gb + 4g.20gb"]
+```
+
+**ပုံရှင်းလင်းချက်:**
+- GPU တစ်လုံးကို Option A အတိုင်း Instance တစ်ခုတည်းအဖြစ် အသုံးပြုနိုင်သလို၊ Option B အတိုင်း အညီအမျှ နှစ်ခုခွဲနိုင်ပါတယ်။
+- Option C ကတော့ profile အမျိုးမျိုးကို ရောနှောဖွဲ့စည်းတဲ့ ဥပမာဖြစ်ပါတယ်။
+- ဒီ layout တွေအားလုံးဟာ GPU က support လုပ်ထားတဲ့ MIG Profile တွေထဲကနေသာ ရွေးချယ်ရတာဖြစ်ကြောင်း ပုံက သတိပေးပါတယ်။
+
 **အရေးကြီးချက်:** MIG ကို အသုံးပြုရာမှာ GPU Memory ကို လိုသလို 5 GB, 10 GB, 30 GB စသည်ဖြင့် မည်သည့်ပမာဏမဆို သီးခြားခွဲပေးနိုင်တာ မဟုတ်ပါဘူး။ GPU က Support လုပ်ထားတဲ့ Profile များထဲကနေ ရွေးချယ်ရပါတယ်။ ထို့အပြင် Memory ပမာဏတစ်ခုတည်းနဲ့ Compute Resource ကို ဆုံးဖြတ်လို့ မရပါဘူး။
 
 ## 7. Isolation Model
@@ -126,6 +180,22 @@ MIG က hardware-supported partitioning ကြောင့် instance ကြာ
 - **MIG** — Supported MIG Instances တွေကို Container များက တိုက်ရိုက်အသုံးပြုနိုင်ပါတယ်။ Bare-metal Linux Environment ပေါ်က Containerized AI Workload တွေအတွက် သင့်တော်ပါတယ်။
 
 ဆိုလိုတာက vGPU မှာ container workload က VM ကို ဖြတ်သန်းပြီး သွားတာဖြစ်ပြီး၊ MIG မှာတော့ container က physical GPU ရဲ့ hardware partition ကို တိုက်ရိုက်အသုံးပြုတာ ဖြစ်ပါတယ်။
+
+**Figure 4 — Container workload များအတွက် vGPU နှင့် MIG လမ်းကြောင်း ကွာခြားပုံ**
+
+```mermaid
+flowchart LR
+    C1["Container workload"] --> VM1["VM"]
+    VM1 --> VD1["vGPU Device"]
+    VD1 --> H1["Hypervisor + Physical GPU"]
+    C2["Container workload"] --> MI1["MIG Instance"]
+    MI2["Physical GPU Hardware Partition"] --> MI1
+```
+
+**ပုံရှင်းလင်းချက်:**
+- အပေါ်လမ်းကြောင်းမှာ container က VM ထဲမှာ run ပြီး VM ရဲ့ vGPU Device ကတစ်ဆင့် Hypervisor က စီမံတဲ့ GPU ကို အသုံးပြုပါတယ်။
+- အောက်လမ်းကြောင်းမှာတော့ container က MIG Instance ကတစ်ဆင့် Physical GPU ရဲ့ hardware partition ကို တိုက်ရိုက် အသုံးပြုပါတယ်။
+- VM ကို ဖြတ်သန်းရမလား မဖြတ်ရဘူးလားဆိုတာ ဒီနှစ်လမ်းကြောင်းရဲ့ အဓိက ကွာခြားချက်ဖြစ်ပါတယ်။
 
 ## 9. GPU Model က MIG Support ကို ဆုံးဖြတ်ပေးတယ်
 
@@ -240,11 +310,50 @@ you need a deliberate sharing mechanism. Giving the whole GPU to one workload wa
 
 NVIDIA provides two solutions: **NVIDIA vGPU** and **NVIDIA MIG**. They solve the same problem with different mechanisms.
 
+**Figure 1 — The problem: sharing one GPU across many workloads**
+
+```mermaid
+flowchart TD
+    G["One physical GPU — an expensive resource"]
+    G --> W1["Many VMs"]
+    G --> W2["Many users"]
+    G --> W3["Many container workloads"]
+    W1 --> P["A sharing mechanism is needed"]
+    W2 --> P
+    W3 --> P
+    P --> S1["NVIDIA vGPU — virtual GPU devices"]
+    P --> S2["NVIDIA MIG — hardware-supported instances"]
+```
+
+**Figure walkthrough:**
+- The top node shows one physical GPU that must be shared among VMs, users, and container workloads.
+- The middle node shows that a deliberate sharing mechanism is required to solve this problem.
+- The bottom nodes show the two NVIDIA solutions the problem branches into: vGPU and MIG.
+
 ## 3. What Are vGPU and MIG? — Mechanism
 
 **NVIDIA vGPU** uses GPU Virtualization Software and drivers to present **virtual GPU devices** to VMs. Each VM can use its own assigned vGPU device, and the hypervisor is a central component of a normal vGPU deployment.
 
 **NVIDIA MIG** (Multi-Instance GPU) splits a physical GPU into **hardware-supported instances**. Each instance receives its own dedicated compute and memory resources. It is useful for bare-metal Linux and containers; using it with VMs depends on how the platform supports MIG.
+
+**Figure 2 — How the vGPU and MIG mechanisms differ**
+
+```mermaid
+flowchart TD
+    P["Physical GPU"]
+    P --> V["vGPU approach"]
+    V --> VS["GPU Virtualization Software + Drivers + Hypervisor"]
+    VS --> VD["Virtual GPU devices"]
+    VD --> VM["VMs"]
+    P --> M["MIG approach"]
+    M --> MI["Hardware-supported instances"]
+    MI --> BM["Bare-metal Linux and containers"]
+```
+
+**Figure walkthrough:**
+- The upper path is vGPU: GPU virtualization software, drivers, and the hypervisor present virtual GPU devices to VMs.
+- The lower path is MIG: the physical GPU is split at the hardware level and used by bare-metal Linux and containers directly.
+- Both paths start from the same physical GPU, but the way it is divided is completely different — watch how each path branches.
 
 **Exam note:** vGPU = virtual GPU devices for VMs; MIG = hardware-supported GPU partitioning into multiple instances.
 
@@ -321,6 +430,21 @@ Physical GPU: A100 40GB
 
 For the A100 40GB, the combination above can be used as an example of a supported configuration. Whether instances can actually be created depends on matching the profile and placement rules.
 
+**Figure 3 — Example MIG profile layouts on an A100 40GB**
+
+```mermaid
+flowchart TD
+    G["Physical GPU — A100 40GB"]
+    G --> A["Option A — 7g.40gb: one instance (~40 GB)"]
+    G --> B["Option B — two 3g.20gb: Instance 1 (~20 GB) + Instance 2 (~20 GB)"]
+    G --> C["Option C — mixed: 1g.5gb + 2g.10gb + 4g.20gb"]
+```
+
+**Figure walkthrough:**
+- Option A uses the whole GPU as one instance; Option B splits it evenly into two instances.
+- Option C mixes profiles of different sizes in one GPU.
+- All three layouts come from the profiles the GPU supports — you cannot carve memory into arbitrary sizes.
+
 **Important:** MIG cannot split GPU memory into arbitrary amounts such as 5 GB, 10 GB, or 30 GB on demand. You must choose from the profiles the GPU supports. Memory size alone also does not determine the compute resources.
 
 ## 7. Isolation Model
@@ -339,6 +463,22 @@ MIG gives stronger isolation between instances because of hardware-supported par
 - **MIG** — Containers can use supported MIG instances directly. This suits containerized AI workloads on bare-metal Linux environments.
 
 In short, container workloads under vGPU go through a VM, while container workloads under MIG use a hardware partition of the physical GPU directly.
+
+**Figure 4 — Different paths for container workloads under vGPU and MIG**
+
+```mermaid
+flowchart LR
+    C1["Container workload"] --> VM1["VM"]
+    VM1 --> VD1["vGPU device"]
+    VD1 --> H1["Hypervisor + physical GPU"]
+    C2["Container workload"] --> MI1["MIG instance"]
+    MI2["Physical GPU hardware partition"] --> MI1
+```
+
+**Figure walkthrough:**
+- In the upper path the container runs inside a VM and uses the VM's vGPU device, with the hypervisor managing the GPU.
+- In the lower path the container uses a hardware partition of the physical GPU directly through a MIG instance.
+- Whether the path goes through a VM is the key difference between the two approaches.
 
 ## 9. The GPU Model Determines MIG Support
 
@@ -435,3 +575,4 @@ In real deployments, combine workload requirements, security, performance, GPU c
 - MIG profile names (1g.5gb, 2g.10gb, 3g.20gb, 4g.20gb, 7g.40gb) and the mixed-profile example are taken from the source; exact usable memory may differ slightly from the profile name, as noted in the operations module.
 - The source states some supported configurations offer MIG-backed vGPU alongside time-sliced vGPU; kept as supplied, referenced to https://docs.nvidia.com/vgpu/ for verification.
 - The opening comparison material (direct comparison table, instance-count caveat, technology choice) arrived as a continuation fragment without its original module header; it is merged into this module's conceptual sections.
+- Beginner-friendly Mermaid figures (Figure 1–4, each with a figure walkthrough) were added inline in both the Myanmar and English sections; existing text and ASCII diagrams are unchanged.

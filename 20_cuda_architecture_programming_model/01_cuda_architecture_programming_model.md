@@ -61,6 +61,23 @@ CUDA သည် GPU hardware နှင့် AI နှင့် data-processing a
 
 ဤ diagram သည် conceptual view ဖြစ်ပြီး strict installation သို့မဟုတ် execution sequence မဟုတ်ပါ။ Component အချို့သည် overlap ဖြစ်နိုင်ပြီး framework များက libraries နှင့် runtime APIs များစွာကို ခေါ်ဆိုနိုင်ပါတယ်။ ဥပမာ NCCL သည် general-purpose GPU computation library မဟုတ်ဘဲ အဓိကအားဖြင့် communication library ဖြစ်ပါတယ်။
 
+**Figure 1 — NVIDIA GPU Software Stack အတွင်း CUDA ၏ နေရာ**
+
+```mermaid
+flowchart TD
+    A["Applications / AI Models — Python / AI Application Code"]
+    A --> F["Higher-Level Frameworks — PyTorch / TensorFlow"]
+    F --> L["GPU Libraries နှင့် Runtime — CUDA Runtime / cuBLAS / cuDNN / NCCL"]
+    L --> C["CUDA Programming Platform — Programming Model / Compiler / APIs"]
+    C --> D["NVIDIA GPU Driver"]
+    D --> H["NVIDIA GPU Hardware"]
+```
+
+**ပုံရှင်းလင်းချက်:**
+- အပေါ်ဆုံးက application code ကနေ စပြီး အောက်ကို တစ်ဆင့်ချင်း ဆင်းကြည့်ပါ။
+- အလယ်ဘက်မှာ CUDA Programming Platform ရှိပြီး ၎င်းအပေါ်မှာ libraries/runtime နဲ့ frameworks တွေ တည်ရှိပါတယ်။
+- အောက်ဆုံးနှစ်ဆင့်က GPU driver နဲ့ physical GPU hardware ဖြစ်ပြီး computation အမှန်တကယ် လုပ်ဆောင်ရာ နေရာဖြစ်ပါတယ်။
+
 **Layer များကို နားလည်ခြင်း**
 
 1. **GPU Hardware** — Physical NVIDIA GPU သည် computation ကို လုပ်ဆောင်ပါတယ်။ ၎င်းရဲ့ processing resources, memory နှင့် specialized hardware က ဘယ် operation တွေကို accelerate လုပ်နိုင်မလဲ ဆုံးဖြတ်ပေးပါတယ်။
@@ -164,6 +181,23 @@ Computed Result
 
 Exact call path သည် framework version, operation, installed libraries နှင့် device configuration ပေါ် မူတည်ပါတယ်။
 
+**Figure 2 — PyTorch Application Run လုပ်သောအခါ ဖြတ်သန်းရသည့် လမ်းကြောင်း**
+
+```mermaid
+flowchart TD
+    P["Python Application — Input tensors ဖန်တီး/load"]
+    P --> T["PyTorch Tensor Operations"]
+    T --> G["GPU-Enabled Implementation — ဥပမာ cuBLAS"]
+    G --> C["CUDA Runtime နှင့် GPU Driver"]
+    C --> H["NVIDIA GPU — Computation"]
+    H --> R["Computed Result"]
+```
+
+**ပုံရှင်းလင်းချက်:**
+- အပေါ်က Python code က operation ကို ဖော်ပြပေမယ့် ကိုယ်တိုင် CUDA kernel မဖြစ်သွားပါဘူး။
+- အလယ်မှာ PyTorch က matrix operation ကို optimized GPU implementation ဖြစ်တဲ့ cuBLAS ကဲ့သို့ library ဆီ dispatch လုပ်ပါတယ်။
+- အောက်ဘက်မှာ CUDA runtime နဲ့ driver ကတစ်ဆင့် GPU က computation လုပ်ပြီး result ပြန်ရပါတယ်။
+
 **Example: PyTorch**
 
 ```python
@@ -224,6 +258,27 @@ Painter 4                             |--------|
 
 CUDA က GPU ပေါ်တွင် parallel work ကို ဖော်ပြပြီး စီစဉ်ရန် tools များ ပေးပါတယ်။
 
+**Figure 3 — Fence-painting Analogy: Sequential နှင့် Parallel ကွာခြားပုံ**
+
+```mermaid
+flowchart LR
+    F["ခြံစည်းရိုး — Computation အပြည့်အစုံ"]
+    F --> D["အပိုင်းများခွဲခြင်း — Programming model"]
+    D --> P1["Painter 1 — Task A"]
+    D --> P2["Painter 2 — Task B"]
+    D --> P3["Painter 3 — Task C"]
+    D --> P4["Painter 4 — Task D"]
+    P1 --> R["ပြီးစီးသော ခြံစည်းရိုး — Result"]
+    P2 --> R
+    P3 --> R
+    P4 --> R
+```
+
+**ပုံရှင်းလင်းချက်:**
+- ဘယ်ဘက်ဆုံးက ခြံစည်းရိုးတစ်ခုလုံးက computation အပြည့်အစုံကို ကိုယ်စားပြုပါတယ်။
+- အလယ်က programming model အတိုင်း အပိုင်းတွေခွဲပြီး painter တစ်ယောက်စီက သီးခြား task တစ်ခုစီ လုပ်ကြပါတယ်။
+- အပိုင်းတွေ လွတ်လပ်စွာ ဆေးသုတ်နိုင်ရင် အလုပ်က ပိုမြန်မြန် ပြီးပြီး ညာဘက်ဆုံးက result ရပါတယ်။
+
 **အရေးကြီးသော ကန့်သတ်ချက်** — GPU က operation တိုင်းအတွက် physical worker တစ်ယောက်စီ ဖန်တီးပေးခြင်း မဟုတ်ပါ။ GPU threads များကို hardware execution resources များပေါ်တွင် schedule လုပ်ပြီး threads များစွာကို အချိန်ကာလတစ်ခုအတွင်း အုပ်စုလိုက် execute လုပ်နိုင်ပါတယ်။ ရလဒ်သည် memory bandwidth, synchronization, task dependencies, workload size နှင့် အလုပ်ခွဲဝေမှု ထိရောက်မှုအပေါ်လည်း မူတည်ပါတယ်။
 
 ## 7. Programming Model အနေဖြင့် CUDA
@@ -249,6 +304,25 @@ Start
                |
           Combine Results
 ```
+
+**Figure 4 — Programming Model: Sequential Code နှင့် Parallel Algorithm**
+
+```mermaid
+flowchart TD
+    S["Start — ပြဿနာကို လေ့လာခြင်း"]
+    S --> P["လွတ်လပ်စွာ လုပ်ဆောင်နိုင်သော အလုပ်များ ခွဲခြားဖော်ပြခြင်း"]
+    P --> A["Task A"]
+    P --> B["Task B"]
+    P --> C["Task C"]
+    A --> R["Combine Results"]
+    B --> R
+    C --> R
+```
+
+**ပုံရှင်းလင်းချက်:**
+- Sequential code ကတော့ Step 1 → Step 2 → Step 3 → Step 4 လို တစ်ဆင့်ပြီးတစ်ဆင့် ဖြစ်ပါတယ်။
+- ဒီပုံကတော့ parallel algorithm မှာ အလုပ်တွေကို Task A, B, C အဖြစ် ခွဲပြီး တစ်ပြိုင်နက် လုပ်နိုင်ပုံကို ပြပါတယ်။
+- အောက်ဆုံးမှာ ရလဒ်တွေကို Combine Results မှာ ပြန်ပေါင်းစပ်ပါတယ်။
 
 CUDA က developer များ parallel work ကို ဖော်ပြနိုင်ရန် programming concepts များ ပေးပါတယ်။ CUDA C/C++ အတွက် အသုံးများသော concepts များမှာ —
 
@@ -393,6 +467,23 @@ A simplified NVIDIA GPU software stack looks like this:
 
 This is a conceptual view, not a strict installation or execution sequence. Some components overlap, and frameworks may invoke multiple libraries and runtime APIs. NCCL, for example, is primarily a communication library rather than a general-purpose GPU computation library.
 
+**Figure 1 — Where CUDA sits in the NVIDIA GPU software stack**
+
+```mermaid
+flowchart TD
+    A["Applications / AI models — Python / AI application code"]
+    A --> F["Higher-level frameworks — PyTorch / TensorFlow"]
+    F --> L["GPU libraries and runtime — CUDA Runtime / cuBLAS / cuDNN / NCCL"]
+    L --> C["CUDA programming platform — programming model / compiler / APIs"]
+    C --> D["NVIDIA GPU driver"]
+    D --> H["NVIDIA GPU hardware"]
+```
+
+**Figure walkthrough:**
+- Start at the top with the application code and read downward one layer at a time.
+- In the middle sits the CUDA programming platform, with libraries/runtime and frameworks stacked above it.
+- The bottom two layers are the GPU driver and the physical GPU hardware, where the computation actually happens.
+
 **Understanding the layers**
 
 1. **GPU hardware** — The physical NVIDIA GPU performs the computation. Its processing resources, memory, and specialized hardware determine which operations it can accelerate.
@@ -496,6 +587,23 @@ Computed Result
 
 The exact call path depends on the framework version, operation, installed libraries, and device configuration.
 
+**Figure 2 — The path a PyTorch application travels at runtime**
+
+```mermaid
+flowchart TD
+    P["Python application — create/load input tensors"]
+    P --> T["PyTorch tensor operations"]
+    T --> G["GPU-enabled implementation — e.g. cuBLAS"]
+    G --> C["CUDA runtime and GPU driver"]
+    C --> H["NVIDIA GPU — computation"]
+    H --> R["Computed result"]
+```
+
+**Figure walkthrough:**
+- At the top, the Python code expresses the operation but does not become a CUDA kernel by itself.
+- In the middle, PyTorch dispatches the matrix operation to an optimized GPU implementation such as cuBLAS.
+- Toward the bottom, the CUDA runtime and driver support execution, the GPU computes, and the result comes back.
+
 **Example: PyTorch**
 
 ```python
@@ -556,6 +664,27 @@ In this analogy:
 
 CUDA provides tools for expressing and organizing parallel work on the GPU.
 
+**Figure 3 — The fence-painting analogy: sequential vs parallel**
+
+```mermaid
+flowchart LR
+    F["The fence — the complete computation"]
+    F --> D["Divide into sections — the programming model"]
+    D --> P1["Painter 1 — Task A"]
+    D --> P2["Painter 2 — Task B"]
+    D --> P3["Painter 3 — Task C"]
+    D --> P4["Painter 4 — Task D"]
+    P1 --> R["Completed fence — the result"]
+    P2 --> R
+    P3 --> R
+    P4 --> R
+```
+
+**Figure walkthrough:**
+- On the far left, the whole fence stands for the complete computation.
+- In the middle, the programming model divides it into sections, and each painter handles one independent task.
+- If the sections can be painted independently, the work finishes sooner — the completed fence on the right is the result.
+
 **An important limitation** — A GPU does not literally create one physical worker for every operation. GPU threads are scheduled onto hardware execution resources, and many threads may execute in groups over time. The result also depends on memory bandwidth, synchronization, task dependencies, workload size, and how effectively the work is divided.
 
 ## 7. CUDA as a Programming Model
@@ -581,6 +710,25 @@ Start
                |
           Combine Results
 ```
+
+**Figure 4 — Programming model: sequential code vs a parallel algorithm**
+
+```mermaid
+flowchart TD
+    S["Start — study the problem"]
+    S --> P["Identify work that can run independently"]
+    P --> A["Task A"]
+    P --> B["Task B"]
+    P --> C["Task C"]
+    A --> R["Combine results"]
+    B --> R
+    C --> R
+```
+
+**Figure walkthrough:**
+- Sequential code would run Step 1 → Step 2 → Step 3 → Step 4, one after another.
+- This figure shows a parallel algorithm: the work is split into Task A, B, and C, which can run at the same time.
+- At the bottom, the results of the tasks are combined again.
 
 CUDA provides programming concepts that help developers express this parallel work. For CUDA C/C++, common concepts include:
 
@@ -673,3 +821,4 @@ In modern AI development, a common approach is to use a high-level framework for
 - The comparison table (direct CUDA programming vs higher-level frameworks) and the component table (CUDA, PyTorch, TensorFlow, cuBLAS, cuDNN, NCCL, RAPIDS) are reproduced from the source without added specifications or benchmarks.
 - The source contains 10 review questions without answers; 5 were selected and given concise answers to match the course format.
 - The ROCm/AMD statement is kept as supplied: AMD has its own GPU computing ecosystem; no portability or performance claims were added.
+- Beginner-friendly Mermaid figures (Figure 1–4, each with a figure walkthrough) were added inline in both the Myanmar and English sections; existing text and ASCII diagrams are unchanged.

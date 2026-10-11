@@ -49,6 +49,24 @@ Modern AI Data Center
 
 ဆိုတဲ့ flow ကို မှတ်ထားနိုင်ပါတယ်။
 
+**Figure 1 — NVIDIA technology evolution အဆင့်များ (1993 မှ Modern AI Data Center အထိ)**
+
+```mermaid
+flowchart TD
+    A["1993 — NVIDIA စတင်တည်ထောင်ခြင်း"] --> B["Graphics / Gaming"]
+    B --> C["GPU Innovation"]
+    C --> D["Programmable GPU"]
+    D --> E["CUDA"]
+    E --> F["Parallel Computing"]
+    F --> G["AI / ML / HPC"]
+    G --> H["Modern AI Data Center"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough):**
+- အပေါ်ဆုံးက 1993 ခုနှစ် NVIDIA စတင်တည်ထောင်ချိန်ကစပြီး မြားတွေအတိုင်း အောက်ကို တစ်ဆင့်ချင်း ကြည့်ပါ။
+- အလယ်က **CUDA** box ဟာ GPU ကို general-purpose computing အတွက် စတင်အသုံးပြုနိုင်စေတဲ့ အရေးကြီးဆုံး အလှည့်အပြောင်း (turning point) ဖြစ်ပါတယ်။
+- အောက်ဆုံးက Modern AI Data Center ဆိုတာ ဒီနေ့ခေတ် NVIDIA platform တွေ ရောက်ရှိနေတဲ့ နေရာဖြစ်ပါတယ်။
+
 ### 3. NVIDIA NV1
 
 1995 ခုနှစ်မှာ NVIDIA က **NV1** ဆိုတဲ့ graphics product ကို ထုတ်လုပ်ခဲ့ပါတယ်။
@@ -155,6 +173,22 @@ CPU
 
 ဒီအချက်ကြောင့် GPU ဟာ graphics processor တစ်ခုတည်းကနေ parallel computing accelerator တစ်ခုအဖြစ် ပြောင်းလဲလာပါတယ်။
 
+**Figure 2 — CUDA-based application တစ်ခုတွင် CPU နှင့် GPU အလုပ်ခွဲဝေပုံ**
+
+```mermaid
+flowchart LR
+    APP["Application"] --> CPU["CPU — Control / Sequential Work"]
+    CPU -->|"parallel work ပို့ပေးခြင်း"| GPU["GPU"]
+    GPU --> P["Parallel Computation"]
+    GPU --> M["Matrix / Vector Operations"]
+    GPU --> L["Large-Scale Data Processing"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough):**
+- ဘယ်ဘက်က Application က အလုပ်စတင်ပြီး CPU က control နဲ့ sequential အလုပ်တွေကို လုပ်ပါတယ်။
+- မြားပေါ်က စာသားအတိုင်း parallel အလုပ်တွေကို GPU ဆီ ပို့ပေးပါတယ်။
+- GPU ဘက်က box သုံးခုမှာ ပြထားတဲ့ parallel computation၊ matrix/vector operations နဲ့ large-scale data processing တွေကို တစ်ချိန်တည်းမှာ လုပ်ဆောင်ပါတယ်။
+
 ### 7. Parallel Computing နှင့် HPC
 
 AI workload တွေမှာ computation အများကြီးကို တစ်ချိန်တည်းမှာ လုပ်ဆောင်ဖို့လိုပါတယ်။
@@ -235,6 +269,24 @@ NVIDIA ရဲ့ AI dominance ဟာ GPU hardware တစ်ခုတည်းက
 ```
 
 ဒါကြောင့် NVIDIA ရဲ့ AI ecosystem ကို နားလည်တဲ့အခါ GPU တစ်ခုတည်းကို မကြည့်ဘဲ entire technology stack ကို ကြည့်ဖို့လိုပါတယ်။
+
+**Figure 3 — NVIDIA AI Platform ရဲ့ အဓိက အစိတ်အပိုင်းများ**
+
+```mermaid
+flowchart TD
+    N["NVIDIA AI Platform"] --> HW["GPU — Hardware"]
+    N --> CU["CUDA — Programming Platform"]
+    N --> SO["Software"]
+    HW --> PC["Parallel Computing"]
+    CU --> PC
+    SO --> PC
+    PC --> AIML["AI / ML / HPC"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough):**
+- အပေါ်ဆုံး box က NVIDIA AI Platform ဟာ GPU hardware၊ CUDA နဲ့ Software ဆိုတဲ့ အစိတ်အပိုင်း သုံးခုနဲ့ တည်ဆောက်ထားတာကို ပြပါတယ်။
+- အောက်ကို ဆင်းကြည့်ရင် အစိတ်အပိုင်း သုံးခုစလုံးဟာ Parallel Computing ဆိုတဲ့ အလယ်ခံအဆင့်ဆီ ပေါင်းဆုံပါတယ်။
+- နောက်ဆုံး box က ဒီ platform က ဘာအတွက် အသုံးဝင်သလဲဆိုတာ ဖြစ်ပါတယ် — AI / ML / HPC ပါ။
 
 ### 10. DGX — Multi-GPU System
 
@@ -402,6 +454,29 @@ Blackwell
 Future Architectures
 ```
 
+**Figure 4 — NVIDIA Technology Evolution Timeline (1993 မှ နောက်ပိုင်း architectures အထိ)**
+
+```mermaid
+flowchart TD
+    T1["1993 — NVIDIA Founded"] --> T2["1995 — NV1"]
+    T2 --> T3["GeForce 256 — GPU Concept"]
+    T3 --> T4["Programmable GPU"]
+    T4 --> T5["CUDA"]
+    T5 --> T6["Parallel Computing"]
+    T6 --> T7["Tesla — GPU Computing / HPC"]
+    T7 --> T8["DGX — Multi-GPU AI Systems"]
+    T8 --> T9["Data Center GPUs"]
+    T9 --> T10["AI / Deep Learning"]
+    T10 --> T11["Modern AI Platforms"]
+    T11 --> T12["Blackwell"]
+    T12 --> T13["Future Architectures"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough):**
+- box တွေကို အပေါ်ကနေ အောက်ကို ဖတ်ရင် 1993 ခုနှစ်ကနေ ယနေ့အထိ အချိန်အစဉ်အတိုင်း ဖြစ်ပါတယ်။
+- အလယ်ပိုင်းက CUDA ကနေစပြီး GPU ဟာ general parallel computing platform အဖြစ် ပြောင်းလဲလာတာကို တွေ့ရပါမယ်။
+- နောက်ဆုံးက Blackwell နဲ့ Future Architectures ဟာ NVIDIA ရဲ့ ဆက်လက်တိုးတက်နေမှုကို ပြပါတယ် — product name အားလုံးကို ကျက်မှတ်စရာ မလိုပါဘူး။
+
 ### 15. အရေးကြီးဆုံး Concept
 
 NVIDIA ရဲ့ history ကို product name အများကြီးအနေနဲ့ပဲ မမှတ်ပါနဲ့။
@@ -547,6 +622,24 @@ Therefore, when understanding NVIDIA's technology evolution, remember this flow:
 
 `Gaming → Graphics → GPU → Programmability → CUDA → Parallel Computing → AI/HPC`
 
+**Figure 1 — NVIDIA technology evolution stages (1993 to the modern AI data center)**
+
+```mermaid
+flowchart TD
+    A["1993 — NVIDIA founded"] --> B["Graphics / Gaming"]
+    B --> C["GPU innovation"]
+    C --> D["Programmable GPU"]
+    D --> E["CUDA"]
+    E --> F["Parallel computing"]
+    F --> G["AI / ML / HPC"]
+    G --> H["Modern AI data center"]
+```
+
+**Figure walkthrough (ပုံရှင်းလင်းချက်):**
+- Start at the top with NVIDIA's founding in 1993 and follow the arrows downward one step at a time.
+- The **CUDA** box in the middle marks the turning point that made the GPU usable for general-purpose computing.
+- The bottom box, the modern AI data center, is where NVIDIA platforms stand today.
+
 ### 3. NVIDIA NV1
 
 In 1995, NVIDIA released a graphics product called **NV1**. This was one of NVIDIA's early graphics technologies and an important step that began expanding NVIDIA's graphics innovation.
@@ -646,6 +739,22 @@ CPU
 
 Because of this, the GPU transformed from a single graphics processor into a parallel computing accelerator.
 
+**Figure 2 — Division of work between the CPU and the GPU in a CUDA-based application**
+
+```mermaid
+flowchart LR
+    APP["Application"] --> CPU["CPU — control / sequential work"]
+    CPU -->|"sends parallel work"| GPU["GPU"]
+    GPU --> P["Parallel computation"]
+    GPU --> M["Matrix / vector operations"]
+    GPU --> L["Large-scale data processing"]
+```
+
+**Figure walkthrough (ပုံရှင်းလင်းချက်):**
+- The application starts on the left; the CPU handles control flow and sequential work.
+- Follow the labeled arrow: the parallel portion of the work is handed over to the GPU.
+- On the right, the GPU runs parallel computation, matrix/vector operations, and large-scale data processing at the same time.
+
 ### 7. Parallel Computing and HPC
 
 AI workloads require large numbers of computations to be performed at the same time. For example, a Neural Network involves many computations such as:
@@ -720,6 +829,24 @@ Roughly—
 ```
 
 Therefore, when understanding NVIDIA's AI ecosystem, you should look at the entire technology stack, not just a single GPU.
+
+**Figure 3 — The main components of the NVIDIA AI platform**
+
+```mermaid
+flowchart TD
+    N["NVIDIA AI Platform"] --> HW["GPU — hardware"]
+    N --> CU["CUDA — programming platform"]
+    N --> SO["Software"]
+    HW --> PC["Parallel computing"]
+    CU --> PC
+    SO --> PC
+    PC --> AIML["AI / ML / HPC"]
+```
+
+**Figure walkthrough (ပုံရှင်းလင်းချက်):**
+- The top box shows that the platform is built from three parts: GPU hardware, CUDA, and software.
+- Follow the arrows down: all three feed into parallel computing.
+- The final box shows the workloads this serves: AI, ML, and HPC.
 
 ### 10. DGX — Multi-GPU System
 
@@ -881,6 +1008,29 @@ Blackwell
 Future Architectures
 ```
 
+**Figure 4 — NVIDIA technology evolution timeline (1993 onward)**
+
+```mermaid
+flowchart TD
+    T1["1993 — NVIDIA founded"] --> T2["1995 — NV1"]
+    T2 --> T3["GeForce 256 — GPU concept"]
+    T3 --> T4["Programmable GPU"]
+    T4 --> T5["CUDA"]
+    T5 --> T6["Parallel computing"]
+    T6 --> T7["Tesla — GPU computing / HPC"]
+    T7 --> T8["DGX — multi-GPU AI systems"]
+    T8 --> T9["Data center GPUs"]
+    T9 --> T10["AI / deep learning"]
+    T10 --> T11["Modern AI platforms"]
+    T11 --> T12["Blackwell"]
+    T12 --> T13["Future architectures"]
+```
+
+**Figure walkthrough (ပုံရှင်းလင်းချက်):**
+- Read the boxes from top to bottom — they follow the real time order from 1993 to today.
+- Watch the middle of the chain: CUDA is where the GPU turns into a general parallel-computing platform.
+- The chain ends with Blackwell and future architectures — the point is the continuous path, not memorizing every product name.
+
 ### 15. The Most Important Concept
 
 Do not memorize NVIDIA's history as a long list of product names. Understand the **evolution of the technology**.
@@ -990,3 +1140,4 @@ Understanding this concept will make it much easier to continue studying the NVI
 - Preserved from source without change: 1993 founding, 1995 NV1, GeForce 256 "GPU" term, CUDA, Tesla, DGX, Blackwell, Rubin / Vera Rubin references.
 - Needs verification: the Tesla product-family timing ("2017 timeframe") derives from a garbled transcript token; check the intended date against NVIDIA's official Tesla documentation before treating it as fact.
 - Historical accuracy check: this module makes no Mellanox acquisition claim. If one is added later, NVIDIA acquired Mellanox in **2020** (not 2022).
+- Mermaid figures (Figure 1–4) with figure walkthroughs added inline in both the Myanmar and English sections; figure numbering matches across the two sections; all existing text and ASCII diagrams preserved.

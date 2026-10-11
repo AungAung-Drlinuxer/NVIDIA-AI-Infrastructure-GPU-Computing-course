@@ -65,6 +65,19 @@ NCCL မှာ အသုံးများတဲ့ operations တွေက—
 - Gathered data အားလုံးကို အားလုံးဆီ ပြန်ဖြန့်ဝေခြင်း — AllGather
 - Reduced result ကို အစိတ်အပိုင်းခွဲပြီး ဖြန့်ဝေခြင်း — ReduceScatter
 
+**Figure 1 — NCCL collective operations တွေရဲ့ data flow ပုံ**
+
+```mermaid
+flowchart TD
+    A["Process များ၏ data / gradient များ"] --> B["AllReduce — reduce လုပ်ပြီး result ကို participant အားလုံးဆီ ပြန်ဖြန့်ဝေသည်"]
+    A --> C["Broadcast — process တစ်ခုမှ data ကို အခြား process များဆီ ဖြန့်ဝေသည်"]
+    A --> D["Reduce — result ကို participant တစ်ခုတည်းဆီ ပေးသည်"]
+    A --> E["AllGather — process များဆီက data များကို စုစည်းပြီး အားလုံးဆီ ဖြန့်ဝေသည်"]
+    A --> F["ReduceScatter — data ကို reduce လုပ်ပြီး result ကို process များကြား ခွဲဝေသည်"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဆုံး node က process အများအပြားဆီက ဝင်လာတဲ့ data တွေ၊ gradient တွေကို ကိုယ်စားပြုပါတယ်။ အောက်က branch ငါးခုက operation တစ်ခုချင်းစီရဲ့ result ကို ဘယ်သူတွေဆီ ရောက်သွားသလဲဆိုတာ ခွဲပြထားခြင်း ဖြစ်ပါတယ်။ AllReduce က ရလဒ်ကို အားလုံးဆီ ပြန်ပေးပြီး Reduce က တစ်ခုတည်းဆီသာ ပေးတဲ့အချက်ကို အဓိက နှိုင်းယှဉ်ကြည့်ပါ။
+
 ## 5. NCCL vs NVLink, NVSwitch, PCIe နဲ့ RDMA
 
 ဒီ technology တွေဟာ တစ်ခုနဲ့တစ်ခု အစားထိုးသုံးလို့ မရပါဘူး။ အဆင့် (layer) မတူတဲ့ အခန်းကဏ္ဍတွေ ဖြစ်ပါတယ်။
@@ -77,6 +90,22 @@ NCCL မှာ အသုံးများတဲ့ operations တွေက—
 | **PCIe** | Hardware interconnect | GPU နဲ့ အခြား devices တွေကြား general-purpose connection |
 | **RDMA** | Data-transfer technology | Network ပေါ်က remote registered memory နဲ့ CPU overhead နည်းနည်းနဲ့ data transfer လုပ်ခြင်း |
 
+**Figure 2 — NCCL (software) နဲ့ hardware interconnect တွေရဲ့ အဆင့်များ (layering) ပုံ**
+
+```mermaid
+flowchart TD
+    A["Frameworks / Applications (ဥပမာ PyTorch)"] --> B["NCCL — software library (API + collective algorithms)"]
+    B --> C["Communication transports"]
+    C --> D["NVLink / NVSwitch — GPU များကြား high-bandwidth connection"]
+    C --> E["PCIe — GPU နှင့် အခြား devices ကြား general-purpose connection"]
+    C --> F["RDMA — network ပေါ်က remote memory သို့ data transfer"]
+    D --> G["GPU အများအပြား (single node နှင့်/သို့မဟုတ် multi-node)"]
+    E --> G
+    F --> G
+```
+
+**ပုံရှင်းလင်းချက်** — ဒီပုံကို အပေါ်ကနေ အောက်ကို ဖတ်ကြည့်ပါ — အပေါ်ဆုံးက software အဆင့် (Framework တွေနဲ့ NCCL) ဖြစ်ပြီး အောက်ဆုံးက hardware အဆင့် (GPU တွေနဲ့ transports တွေ) ဖြစ်ပါတယ်။ NCCL က communication ကို စီစဉ်ပေးတဲ့ software ဖြစ်ပြီး အောက်က NVLink, PCIe, RDMA တွေက data ကို တကယ်သယ်ဆောင်ပေးတဲ့ အောက်ခံ layer တွေ ဖြစ်ကြောင်း မြင်ရပါမယ်။ ဒါကြောင့် ဒီ technology တွေဟာ အစားထိုးသုံးလို့ မရဘဲ အတူတကွ အလုပ်လုပ်ကြတာ ဖြစ်ပါတယ်။
+
 **Certification အတွက် မှတ်သားရန်** — NCCL က communication library၊ NVLink နဲ့ PCIe က interconnects၊ NVSwitch က switching fabric၊ RDMA က remote-memory data-transfer technology။ ဒါတွေက အတူတကွ အလုပ်လုပ်ပေမဲ့ အပြန်အလှန် အစားထိုးလို့ မရပါဘူး။
 
 ## 6. Topology-Aware Communication Optimization
@@ -84,6 +113,18 @@ NCCL မှာ အသုံးများတဲ့ operations တွေက—
 Topology-aware optimization ဆိုတာ system ရဲ့ topology — GPU တွေ ဘယ်လို ချိတ်ဆက်ထားသလဲ၊ ဘယ် GPU တွေက NVLink မျှဝေသလဲ၊ ဘယ်အဆင့်တွေက node ကျော်ပြီး network ကနေ သွားရသလဲ — ကို ကြည့်ပြီး သင့်တော်တဲ့ communication algorithm နဲ့ လမ်းကြောင်းကို ရွေးချယ်ခြင်းကို ဆိုလိုပါတယ်။
 
 NCCL က workload နဲ့ topology အတွက် သင့်တော်တဲ့ collective algorithms တွေကို အသုံးပြုပြီး communication ကို optimize လုပ်ဖို့ ကူညီပေးပါတယ်။ Configuration ပေါ်မူတည်ပြီး NVLink, PCIe သို့မဟုတ် network transports တွေကို အသုံးချနိုင်ပါတယ်။ အမြန်ဆုံးရရှိနိုင်တဲ့ path တွေကို ဦးစားပေးအသုံးပြုပြီး GPU တွေ မလိုအပ်ဘဲ စောင့်နေရတဲ့အချိန်ကို လျှော့ချပေးနိုင်ပါတယ်။
+
+**Figure 3 — Topology-aware optimization လုပ်ဆောင်ပုံ ပုံ**
+
+```mermaid
+flowchart LR
+    A["NCCL"] --> B["System topology ကို ကြည့်သည် (GPU များ ဘယ်လို ချိတ်ဆက်ထားသလဲ)"]
+    B --> C["Operation ၊ message size ပေါ်မူတည်၍ algorithm ရွေးသည် (ဥပမာ ring / tree)"]
+    C --> D["အမြန်ဆုံး path ကို ဦးစားပေးသည် (NVLink → PCIe → network)"]
+    D --> E["Communication ပြီးဆုံးပြီး GPU စောင့်ချိန် လျှော့ချသည်"]
+```
+
+**ပုံရှင်းလင်းချက်** — ဒီပုံကို ဘယ်ဘက်ကနေ ညာဘက်ကို တစ်ဆင့်ချင်း ဖတ်ကြည့်ပါ — ပထမ NCCL က system topology ကို လေ့လာပါတယ်။ ပြီးရင် operation နဲ့ message size ပေါ်မူတည်ပြီး algorithm (ring, tree စသည်) ကို ရွေးပါတယ်။ ပြီးရင် ရနိုင်သမျှထဲက အမြန်ဆုံး path တွေကို ဦးစားပေးပြီး နောက်ဆုံးမှာ GPU တွေ စောင့်နေရချိန် လျှော့ချပေးပါတယ်။
 
 သတိပြုရန်—
 
@@ -119,6 +160,23 @@ GPU 3 -> Local Gradients
             v
      Model Update
 ```
+
+**Figure 4 — NCCL AllReduce ဖြင့် gradient sharing လုပ်ပုံ ပုံ**
+
+```mermaid
+flowchart TD
+    G0["GPU 0 — local gradients"] --> AR["NCCL AllReduce"]
+    G1["GPU 1 — local gradients"] --> AR
+    G2["GPU 2 — local gradients"] --> AR
+    G3["GPU 3 — local gradients"] --> AR
+    AR --> S["Synchronized gradients (တူညီသော တန်ဖိုးများ)"]
+    S --> M0["GPU 0 — model update"]
+    S --> M1["GPU 1 — model update"]
+    S --> M2["GPU 2 — model update"]
+    S --> M3["GPU 3 — model update"]
+```
+
+**ပုံရှင်းလင်းချက်** — ဘယ်ဘက်မှာ GPU လေးလုံးက တစ်လုံးချင်းစီ local gradient တွေ တွက်ထားတာကို မြင်ရပါမယ်။ အလယ်က NCCL AllReduce က အဲဒီ gradient တွေကို reduce လုပ်ပြီး ရလဒ်ကို GPU အားလုံးဆီ ပြန်ပေးပါတယ်။ ညာဘက်မှာ GPU တစ်လုံးစီက synchronized gradients — တူညီတဲ့ တန်ဖိုးတွေ — နဲ့ model update လုပ်နိုင်တာကို ပြထားပါတယ်။
 
 ဒီဥပမာမှာ AllReduce က value တွေကို reduce လုပ်ပြီး reduced result ကို participant အားလုံးဆီ ပြန်ပေးပါတယ်။ ဒါကြောင့် GPU အားလုံးဟာ synchronized gradients တူညီတဲ့တန်ဖိုးတွေနဲ့ model update လုပ်နိုင်ပါတယ်။
 
@@ -254,6 +312,19 @@ These operations fit patterns such as data-parallel training. For example:
 - Returning gathered data to everyone — AllGather
 - Splitting a reduced result into pieces — ReduceScatter
 
+**Figure 1 — Data flow of the NCCL collective operations**
+
+```mermaid
+flowchart TD
+    A["Data / gradients from many processes"] --> B["AllReduce — reduce values and return the result to all participants"]
+    A --> C["Broadcast — distribute data from one process to the other processes"]
+    A --> D["Reduce — deliver the result to a single participant"]
+    A --> E["AllGather — gather data from the processes and give it to all"]
+    A --> F["ReduceScatter — reduce data and split the result among the processes"]
+```
+
+**Figure walkthrough** — The top node stands for the data and gradients held by many processes. Each of the five branches shows where one operation's result ends up. Compare AllReduce, which returns the result to every participant, with Reduce, which delivers it to a single participant only.
+
 ## 5. NCCL vs NVLink, NVSwitch, PCIe, and RDMA
 
 These technologies are not interchangeable. They play different roles at different layers.
@@ -266,6 +337,22 @@ These technologies are not interchangeable. They play different roles at differe
 | **PCIe** | Hardware interconnect | General-purpose connection between the GPU and other devices |
 | **RDMA** | Data-transfer technology | Low-CPU-overhead data transfer to remote registered memory across a network |
 
+**Figure 2 — Layering of NCCL (software) and the hardware interconnects**
+
+```mermaid
+flowchart TD
+    A["Frameworks / Applications (for example PyTorch)"] --> B["NCCL — software library (API + collective algorithms)"]
+    B --> C["Communication transports"]
+    C --> D["NVLink / NVSwitch — high-bandwidth connection between GPUs"]
+    C --> E["PCIe — general-purpose connection between the GPU and other devices"]
+    C --> F["RDMA — data transfer to remote memory across a network"]
+    D --> G["Many GPUs (single node and/or multiple nodes)"]
+    E --> G
+    F --> G
+```
+
+**Figure walkthrough** — Read the figure from top to bottom. The top layers are software (frameworks and NCCL); the bottom layers are hardware and transports that actually carry data. NCCL organizes the communication, while NVLink, PCIe, and RDMA move the bytes. That is why these technologies work together instead of replacing one another.
+
 **Remember for certification** — NCCL is the communication library; NVLink and PCIe are interconnects; NVSwitch is a switching fabric; RDMA is a remote-memory data-transfer technology. They work together but are not interchangeable.
 
 ## 6. Topology-Aware Communication Optimization
@@ -273,6 +360,18 @@ These technologies are not interchangeable. They play different roles at differe
 Topology-aware optimization means selecting the right communication algorithm and path based on the system's topology — how the GPUs are connected, which GPUs share NVLink, and which steps must cross nodes over the network.
 
 NCCL helps optimize communication by using collective algorithms suited to the workload and topology. Depending on the configuration, it can use NVLink, PCIe, or network transports. Prioritizing the fastest available paths reduces the time GPUs spend waiting instead of computing.
+
+**Figure 3 — How topology-aware optimization works**
+
+```mermaid
+flowchart LR
+    A["NCCL"] --> B["Looks at the system topology (how the GPUs are connected)"]
+    B --> C["Chooses an algorithm per operation and message size (for example ring / tree)"]
+    C --> D["Prioritizes the fastest available paths (NVLink → PCIe → network)"]
+    D --> E["Communication finishes with less GPU waiting time"]
+```
+
+**Figure walkthrough** — Follow the figure from left to right: first NCCL inspects the topology, then it selects a suitable algorithm, then it prefers the fastest available paths, and only then does the communication finish. The algorithm can be a ring, a tree, or another pattern depending on the situation.
 
 Caveats:
 
@@ -308,6 +407,23 @@ GPU 3 -> Local Gradients
             v
      Model Update
 ```
+
+**Figure 4 — Gradient sharing with NCCL AllReduce**
+
+```mermaid
+flowchart TD
+    G0["GPU 0 — local gradients"] --> AR["NCCL AllReduce"]
+    G1["GPU 1 — local gradients"] --> AR
+    G2["GPU 2 — local gradients"] --> AR
+    G3["GPU 3 — local gradients"] --> AR
+    AR --> S["Synchronized gradients (identical values)"]
+    S --> M0["GPU 0 — model update"]
+    S --> M1["GPU 1 — model update"]
+    S --> M2["GPU 2 — model update"]
+    S --> M3["GPU 3 — model update"]
+```
+
+**Figure walkthrough** — On the left, each of the four GPUs computes its own local gradients. In the middle, NCCL AllReduce reduces those gradients and returns the result to every GPU. On the right, each GPU updates the model with the same synchronized gradient values.
 
 In this example, AllReduce reduces the values and returns the reduced result to all participants. Every GPU can therefore update the model with the same synchronized gradients.
 
@@ -390,3 +506,4 @@ Remember for certification: NCCL is the communication library; NVLink and PCIe a
 - Reduce operation ၏ ရှင်းလင်းချက်ကို source ၏ "AllReduce vs Reduce" review question အပေါ် အခြေခံ၍ ဖြည့်စွက်ရှင်းလင်းထားခြင်းဖြစ်ပြီး AllReduce ၏ အဓိပ္ပာယ်နှင့် ဆန့်ကျင်ဘက်မဟုတ်ကြောင်း စစ်ဆေးပြီးဖြစ်သည်။
 - `torch.distributed.is_nccl_available()` ၏ caveat (multi-node configuration ကို သက်သေမပြကြောင်း) ကို source အတိုင်း မပြောင်းလဲဘဲ ထိန်းထားသည်။ NCCL ≠ hardware interconnect၊ NCCL ≠ RDMA ဆိုသော caveats များကိုလည်း ထိန်းထားသည်။
 - Benchmark ဂဏန်းများ၊ command အသစ်များ မထည့်သွင်းပါ။ ပါဝင်သော code များမှာ source ပါ `torch.distributed.is_nccl_available()` သာ ဖြစ်သည်။
+- Mermaid figures (Figure 1–4) နှင့် ၎င်းတို့၏ ပုံရှင်းလင်းချက်များကို မြန်မာဘာသာ version နှင့် English Version နှစ်ခုလုံးတွင် အဆင့်တူ ထည့်သွင်းထားသည် — မူရင်းစာသားနှင့် ASCII diagrams များ မပြောင်းလဲပါ။

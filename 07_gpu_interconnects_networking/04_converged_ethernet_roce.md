@@ -45,6 +45,25 @@ Traditional network environment တစ်ခုကို စဉ်းစား�
     Switch       Switch       Switch
 ```
 
+**Figure 1 — Traditional Separate Networks Architecture**
+
+```mermaid
+flowchart TD
+    SRV["SERVER"]
+    N1["LAN NIC"] --> LAN["LAN Network"] --> SW1["Switch"]
+    N2["HPC NIC"] --> HPC["HPC Network"] --> SW2["Switch"]
+    N3["Storage NIC"] --> SAN["SAN Network"] --> SW3["Switch"]
+    SRV --> N1
+    SRV --> N2
+    SRV --> N3
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. အပေါ်ဆုံးက SERVER တစ်လုံးထဲကနေ NIC သုံးခု—LAN NIC, HPC NIC, Storage NIC ထွက်သွားတာ မြင်ရပါမယ်။
+2. NIC တစ်ခုချင်းစီက သီးခြား network တစ်ခုစီ—LAN Network, HPC Network, SAN Network ဆီ သွားပါတယ်။
+3. Network တစ်ခုချင်းစီအတွက် သီးခြား Switch တစ်ခုစီ ထပ်လိုအပ်ပါတယ်။
+4. ဒီလိုဆိုရင် NIC, cable, switch, network အားလုံး ပိုများလာပြီး management လည်း ပိုရှုပ်ထွေးလာပါတယ်။
+
 ဒီလိုဆိုရင်—Connector အမျိုးအစားများ, Cable အမျိုးအစားများ, NIC များ, Switch များ, Network များ ပိုများလာပါတယ်။
 
 ## 3. Separate Networks ရဲ့ Problem
@@ -106,6 +125,22 @@ Converged Ethernet မှာ physical infrastructure ကို ပိုပြ�
           ▼              ▼              ▼
        LAN Traffic    HPC Traffic    Storage Traffic
 ```
+
+**Figure 2 — Converged Ethernet: One Fabric, Many Traffic Types**
+
+```mermaid
+flowchart TD
+    F["Ethernet Fabric"]
+    F --> LAN["LAN Traffic"]
+    F --> HPC["HPC Traffic"]
+    F --> ST["Storage Traffic"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. အပေါ်ဆုံးက Ethernet Fabric တစ်ခုတည်းကို မြင်ရပါမယ်။
+2. ဒီ fabric အောက်ကနေ LAN Traffic, HPC Traffic, Storage Traffic ဆိုပြီး traffic သုံးမျိုး ခွဲထွက်သွားပါတယ်။
+3. Fabric က တစ်ခုတည်းဖြစ်ပေမယ့် သယ်ဆောင်ပေးတဲ့ traffic အမျိုးအစားက မျိုးစုံ ဖြစ်ပါတယ်။
+4. One fabric does not mean one traffic type — traffic တွေကို requirement အလိုက် logically သီးခြား စီမံနိုင်ဆဲ ဖြစ်ပါတယ်။
 
 ဒါကြောင့် Ethernet fabric တစ်ခုတည်းက traffic အမျိုးအစား အမျိုးမျိုးကို သယ်ဆောင်နိုင်ပါတယ်။
 
@@ -253,6 +288,24 @@ Ethernet
 RoCE
 ```
 
+**Figure 3 — RoCE Layered Data Flow (RDMA over Converged Ethernet)**
+
+```mermaid
+flowchart LR
+    M1["Memory — Server A"] --> RDMA1["RDMA"]
+    RDMA1 --> NIC1["NIC"]
+    NIC1 --> EF["Ethernet Fabric — RoCE"]
+    EF --> NIC2["NIC"]
+    NIC2 --> RDMA2["RDMA"]
+    RDMA2 --> M2["Memory — Server B"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. ဘယ်ဘက်ဆုံးက Server A ရဲ့ Memory ကနေ data စတင်ပါတယ်။
+2. Data က RDMA layer ကတစ်ဆင့် NIC ဆီ ရောက်သွားပါတယ် — CPU involvement ဒီနေရာမှာ လျော့ပါတယ်။
+3. အလယ်က Ethernet Fabric ပေါ်မှာ RoCE — RDMA over Converged Ethernet အနေနဲ့ data သွားပါတယ်။
+4. ညာဘက်ဆုံးမှာ NIC → RDMA → Memory (Server B) ဆိုပြီး ပြန်ဆင်းသွားပြီး memory-to-memory transfer ပြီးဆုံးပါတယ်။
+
 ဒါကြောင့် RoCE က Ethernet infrastructure ကို အသုံးပြုပြီး RDMA-style high-performance data transfer ကို လုပ်နိုင်စေပါတယ်။
 
 ## 13. RoCE ကို ဘာကြောင့်သုံးလဲ?
@@ -270,6 +323,22 @@ GPU Server 4 ─────┤
                   │
 GPU Server 5 ─────┘
 ```
+
+**Figure 4 — RoCE ကို အသုံးပြုတဲ့ GPU Server Cluster**
+
+```mermaid
+flowchart TD
+    G1["GPU Server 1"] --- EF["Ethernet Fabric — RoCE"]
+    G2["GPU Server 2"] --- EF
+    G3["GPU Server 3"] --- EF
+    G4["GPU Server 4"] --- EF
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. အလယ်က Ethernet Fabric — RoCE ဆိုတဲ့ shared fabric ကို မြင်ရပါမယ်။
+2. GPU Server 1 ကနေ GPU Server 4 အထိ server တွေအားလုံး ဒီ fabric တစ်ခုတည်းနဲ့ ချိတ်ဆက်ထားပါတယ်။
+3. Distributed AI training မှာ server တွေကြား data ဖလှယ်မှု များပြားတဲ့အတွက် ဒီ fabric ပေါ်မှာ high bandwidth + low latency လိုအပ်ပါတယ်။
+4. RoCE က ဒီ Ethernet fabric ပေါ်မှာ RDMA-style efficient data movement ကို ရရှိစေပါတယ်။
 
 Distributed AI training မှာ server တစ်ခုနဲ့တစ်ခု data exchange များပြားနိုင်ပါတယ်။ ဒါကြောင့်—High bandwidth + low latency + efficient data movement က အရေးကြီးပါတယ်။
 
@@ -459,6 +528,25 @@ If all of this traffic is built on separate network infrastructures—
     Switch       Switch       Switch
 ```
 
+**Figure 1 — Traditional Separate Networks Architecture**
+
+```mermaid
+flowchart TD
+    SRV["SERVER"]
+    N1["LAN NIC"] --> LAN["LAN Network"] --> SW1["Switch"]
+    N2["HPC NIC"] --> HPC["HPC Network"] --> SW2["Switch"]
+    N3["Storage NIC"] --> SAN["SAN Network"] --> SW3["Switch"]
+    SRV --> N1
+    SRV --> N2
+    SRV --> N3
+```
+
+**Figure walkthrough**
+1. At the top, one SERVER exposes three NICs: LAN NIC, HPC NIC, and Storage NIC.
+2. Each NIC leads to its own network — LAN Network, HPC Network, and SAN Network.
+3. Each network needs its own separate Switch.
+4. This multiplies NICs, cables, switches, and networks, and makes management more complex.
+
 This means—more connector types, more cable types, more NICs, more switches, more networks.
 
 ## 3. The Problem with Separate Networks
@@ -520,6 +608,22 @@ With Converged Ethernet, the physical infrastructure can be consolidated further
           ▼              ▼              ▼
        LAN Traffic    HPC Traffic    Storage Traffic
 ```
+
+**Figure 2 — Converged Ethernet: One Fabric, Many Traffic Types**
+
+```mermaid
+flowchart TD
+    F["Ethernet Fabric"]
+    F --> LAN["LAN Traffic"]
+    F --> HPC["HPC Traffic"]
+    F --> ST["Storage Traffic"]
+```
+
+**Figure walkthrough**
+1. At the top is a single Ethernet Fabric.
+2. From this fabric, three traffic types branch out: LAN Traffic, HPC Traffic, and Storage Traffic.
+3. The fabric is one, but the traffic types it carries are many.
+4. One fabric does not mean one traffic type — the traffic can still be logically separated and managed per requirement.
 
 So a single Ethernet fabric can carry many different traffic types.
 
@@ -669,6 +773,24 @@ Ethernet
 RoCE
 ```
 
+**Figure 3 — RoCE Layered Data Flow (RDMA over Converged Ethernet)**
+
+```mermaid
+flowchart LR
+    M1["Memory — Server A"] --> RDMA1["RDMA"]
+    RDMA1 --> NIC1["NIC"]
+    NIC1 --> EF["Ethernet Fabric — RoCE"]
+    EF --> NIC2["NIC"]
+    NIC2 --> RDMA2["RDMA"]
+    RDMA2 --> M2["Memory — Server B"]
+```
+
+**Figure walkthrough**
+1. On the far left, the data starts in Memory on Server A.
+2. The data passes through the RDMA layer to the NIC — CPU involvement is reduced here.
+3. In the middle, the data travels over the Ethernet Fabric as RoCE — RDMA over Converged Ethernet.
+4. On the far right it comes back through NIC → RDMA → Memory on Server B, completing the memory-to-memory transfer.
+
 So RoCE enables RDMA-style high-performance data transfer using Ethernet infrastructure.
 
 ## 13. Why Use RoCE?
@@ -686,6 +808,22 @@ GPU Server 4 ─────┤
                   │
 GPU Server 5 ─────┘
 ```
+
+**Figure 4 — A GPU Server Cluster Using RoCE**
+
+```mermaid
+flowchart TD
+    G1["GPU Server 1"] --- EF["Ethernet Fabric — RoCE"]
+    G2["GPU Server 2"] --- EF
+    G3["GPU Server 3"] --- EF
+    G4["GPU Server 4"] --- EF
+```
+
+**Figure walkthrough**
+1. In the middle is the shared Ethernet Fabric — RoCE.
+2. From GPU Server 1 through GPU Server 4, all servers connect to this single fabric.
+3. Distributed AI training generates heavy data exchange between servers, so this fabric needs high bandwidth and low latency.
+4. RoCE enables RDMA-style efficient data movement over this Ethernet fabric.
 
 In distributed AI training, there can be heavy data exchange between servers. So—High bandwidth + low latency + efficient data movement matter.
 
@@ -839,3 +977,4 @@ Converged Data Center
 - Correction made (already present in the source text and preserved): the source transcript's phonetic spelling of "rock" is corrected to the standard term **RoCE — RDMA over Converged Ethernet**.
 - Needs verification: the example bandwidth levels "40 / 100 / 200 / 400 Gbps" (section 8) are source examples, not a specification of Converged Ethernet in general. The statement "at least two connections can come out of each server" (section 6) is a source claim about typical redundancy practice and is deployment-dependent.
 - Needs verification: the source's "DGX / SGX server" and "OpenSim" terminology (section 17) appears in the transcript without explanation and may contain transcription artifacts; no NVIDIA-specific architecture details were added.
+- Mermaid figures (Figure 1–4) with figure walkthroughs were added inline in both the Myanmar and English sections; all existing text and ASCII diagrams are unchanged.

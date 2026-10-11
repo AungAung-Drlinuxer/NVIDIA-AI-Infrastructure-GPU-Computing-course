@@ -33,6 +33,22 @@ AI-centric data center တစ်ခုမှာ server တစ်လုံးတ�
          Network
 ```
 
+**Figure 1 — AI Data Center ထဲက Nodes တွေနဲ့ Network ဆက်သွယ်ပုံ**
+
+```mermaid
+flowchart TD
+    N1["Node 1"] --- NET["Network"]
+    N2["Node 2"] --- NET
+    N3["Node 3"] --- NET
+    NET --> T["Application, Compute, Storage, Management traffic"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. အပေါ်ဆုံးမှာ Node 1, Node 2, Node 3 ဆိုတဲ့ server/node သုံးလုံးကို မြင်ရပါမယ်။
+2. Node တိုင်းဟာ အလယ်က Network ဆိုတဲ့ node ကတစ်ဆင့် တစ်ခုနဲ့တစ်ခု ချိတ်ဆက်ထားပါတယ်။
+3. အောက်ဆုံး node က node တွေကြား ပို့ဆောင်ရမယ့် traffic အမျိုးအစားတွေ (Application, Compute, Storage, Management) ကို ပြထားပါတယ်။
+4. Node အရေအတွက် များလာလည်း ဒီ Network ကတစ်ဆင့်ပဲ ဆက်သွယ်ကြတာ ဖြစ်ပါတယ်။
+
 ဒီ nodes တွေကြားမှာ—
 
 - Application traffic
@@ -151,6 +167,23 @@ Storage Network    → OK
 Management Network → FAILURE
 OOB Network        → OK
 ```
+
+**Figure 2 — Network ခွဲထားခြင်းကြောင့် Failure Isolation ဖြစ်ပုံ**
+
+```mermaid
+flowchart TD
+    SRV["Server / Data Center"]
+    SRV --- C["Compute Network — OK"]
+    SRV --- S["Storage Network — OK"]
+    SRV --- M["Management Network — FAILURE"]
+    SRV --- O["OOB Network — OK"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. အလယ်က Server / Data Center ကနေ network လေးခု ထွက်သွားတာကို မြင်ရပါမယ်။
+2. Management Network တစ်ခုတည်း FAILURE ဖြစ်နေပေမယ့် Compute, Storage, OOB network တွေက OK ဖြစ်နေဆဲ ဖြစ်ပါတယ်။
+3. OOB Network က OK ဖြစ်နေသေးတဲ့အတွက် ပျက်နေတဲ့ management path ကို ကျော်ပြီး server ကို remotely စီမံနိုင်သေးပါတယ်။
+4. Network တစ်ခုတည်း မသုံးဘဲ ခွဲထားခြင်းက ပြဿနာတစ်ခုကို network တစ်ခုတည်းအတွင်း ကန့်သတ်ထားနိုင်တာ ဖြစ်ပါတယ်။
 
 လိုမျိုး fault isolation ပိုကောင်းလာနိုင်ပါတယ်။
 
@@ -358,6 +391,27 @@ BMC ဟာ host Operating System နဲ့ သီးခြား management capa
              Network
 ```
 
+**Figure 3 — BMC ကတစ်ဆင့် OOB Management Path**
+
+```mermaid
+flowchart TD
+    SRV["Server"]
+    CPU["CPU"]
+    OS["Operating System"]
+    BMC["BMC — Baseboard Management Controller"]
+    OOB["OOB Management Network"]
+    SRV --- CPU
+    CPU --> OS
+    SRV --- BMC
+    BMC --> OOB
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. Server အတွင်းမှာ CPU ကနေ Operating System အလုပ်လုပ်တဲ့ path တစ်ခု ရှိပါတယ်။
+2. အောက်ဘက်မှာ BMC — Baseboard Management Controller ဆိုတဲ့ သီးခြား management controller ရှိပါတယ်။
+3. BMC က host OS နဲ့ သီးခြားဖြစ်ပြီး OOB Management Network ကတစ်ဆင့် ထွက်သွားပါတယ်။
+4. Host OS crash ဖြစ်နေရင်တောင် BMC path ကတစ်ဆင့် hardware ကို remotely manage လုပ်နိုင်ပါတယ်။
+
 ဒါကြောင့် host OS က crash ဖြစ်နေရင်တောင် BMC-based management path ကနေ hardware ကို remotely manage လုပ်နိုင်တဲ့ capability ရှိနိုင်ပါတယ်။
 
 ## 17. OOB Management နဲ့ ဘာတွေ လုပ်နိုင်သလဲ?
@@ -409,6 +463,29 @@ OOB management ကို အသုံးပြုပြီး server infrastruct
 2. **Storage** — Data access between compute nodes and storage
 3. **In-Band Management** — Configuration, deployment, monitoring, OS-level management
 4. **Out-of-Band Management** — Independent remote management and recovery
+
+**Figure 4 — AI Data Center ရဲ့ Network Fabric လေးမျိုး**
+
+```mermaid
+flowchart TD
+    A["AI Data Center Network"]
+    C["Compute Fabric"]
+    S["Storage Fabric"]
+    M["Management"]
+    IB["In-Band Management"]
+    OOB["Out-of-Band Management"]
+    A --> C
+    A --> S
+    A --> M
+    M --> IB
+    M --> OOB
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. ထိပ်ဆုံးက AI Data Center Network ကနေ ခွဲထွက်သွားတဲ့ အဓိကအပိုင်း သုံးခု—Compute, Storage, Management ကို မြင်ရပါမယ်။
+2. Compute Fabric က node တွေကြား communication အတွက် ဖြစ်ပါတယ်။
+3. Storage Fabric က compute nodes တွေနဲ့ storage ကြား data access အတွက် ဖြစ်ပါတယ်။
+4. Management က နောက်ထပ် In-Band Management (OS အလုပ်လုပ်ချိန် စီမံရေး) နဲ့ Out-of-Band Management (OS မအလုပ်လုပ်ချိန် remote recovery) ဆိုပြီး နှစ်ခု ထပ်ခွဲထားပါတယ်။
 
 ## 20. Simple Memory Trick
 
@@ -487,6 +564,22 @@ An AI-centric data center does not have just a single server — it can have man
             │
          Network
 ```
+
+**Figure 1 — Nodes and the Network in an AI Data Center**
+
+```mermaid
+flowchart TD
+    N1["Node 1"] --- NET["Network"]
+    N2["Node 2"] --- NET
+    N3["Node 3"] --- NET
+    NET --> T["Application, Compute, Storage, Management traffic"]
+```
+
+**Figure walkthrough**
+1. At the top you see three servers/nodes: Node 1, Node 2, and Node 3.
+2. Every node connects to the central node labeled Network, so the nodes can reach each other.
+3. The bottom node shows the traffic types carried between nodes: Application, Compute, Storage, and Management traffic.
+4. Even when there are many nodes, they all communicate through this Network.
 
 Between these nodes, we have to carry:
 
@@ -602,6 +695,23 @@ Storage Network    → OK
 Management Network → FAILURE
 OOB Network        → OK
 ```
+
+**Figure 2 — Failure Isolation with Separated Networks**
+
+```mermaid
+flowchart TD
+    SRV["Server / Data Center"]
+    SRV --- C["Compute Network — OK"]
+    SRV --- S["Storage Network — OK"]
+    SRV --- M["Management Network — FAILURE"]
+    SRV --- O["OOB Network — OK"]
+```
+
+**Figure walkthrough**
+1. In the middle, the Server / Data Center connects to four separate networks.
+2. Only the Management Network has failed; the Compute, Storage, and OOB networks are still OK.
+3. Because the OOB Network is still OK, you can bypass the broken management path and manage the server remotely.
+4. Splitting the networks keeps one problem limited to one network instead of taking everything down.
 
 In particular, if you have an Out-of-Band Management Network, you can still access the system remotely even while an operating network is having problems.
 
@@ -805,6 +915,27 @@ The BMC provides a management capability separate from the host Operating System
              Network
 ```
 
+**Figure 3 — The OOB Management Path through the BMC**
+
+```mermaid
+flowchart TD
+    SRV["Server"]
+    CPU["CPU"]
+    OS["Operating System"]
+    BMC["BMC — Baseboard Management Controller"]
+    OOB["OOB Management Network"]
+    SRV --- CPU
+    CPU --> OS
+    SRV --- BMC
+    BMC --> OOB
+```
+
+**Figure walkthrough**
+1. Inside the Server, one path runs from the CPU to the Operating System.
+2. Below it sits the BMC — Baseboard Management Controller, a separate management controller.
+3. The BMC is independent of the host OS and connects out through the OOB Management Network.
+4. Even if the host OS has crashed, the BMC path still lets you manage the hardware remotely.
+
 So even if the host OS has crashed, a BMC-based management path can still let you manage the hardware remotely.
 
 ## 17. What Can You Do with OOB Management?
@@ -856,6 +987,29 @@ Now you can remember the four network fabrics in an AI-centric data center like 
 2. **Storage** — Data access between compute nodes and storage
 3. **In-Band Management** — Configuration, deployment, monitoring, OS-level management
 4. **Out-of-Band Management** — Independent remote management and recovery
+
+**Figure 4 — The Four Network Fabrics in an AI Data Center**
+
+```mermaid
+flowchart TD
+    A["AI Data Center Network"]
+    C["Compute Fabric"]
+    S["Storage Fabric"]
+    M["Management"]
+    IB["In-Band Management"]
+    OOB["Out-of-Band Management"]
+    A --> C
+    A --> S
+    A --> M
+    M --> IB
+    M --> OOB
+```
+
+**Figure walkthrough**
+1. At the top, the AI Data Center Network splits into three main parts: Compute, Storage, and Management.
+2. The Compute Fabric handles communication between nodes.
+3. The Storage Fabric handles data access between compute nodes and storage.
+4. Management splits further into In-Band Management (normal management while the OS runs) and Out-of-Band Management (remote recovery when the OS is down).
 
 ## 20. Simple Memory Trick
 
@@ -911,3 +1065,4 @@ And: `Separate the traffic to isolate performance, latency, failures, security, 
 - No content removed: all paragraphs, lists, ASCII diagrams, and the In-Band vs OOB comparison table are preserved in both language sections.
 - Needs verification: the In-Band vs OOB table rows "OS required — No host OS dependency for core BMC access" and "Remote power control — Common BMC capability" are broadly true for BMC-equipped servers but are vendor/implementation-dependent (verify per server vendor and BMC firmware).
 - The note is conceptual; it asserts no commands, benchmark numbers, or model-specific specifications.
+- Mermaid figures (Figure 1–4) with figure walkthroughs were added inline in both the Myanmar and English sections; all existing text and ASCII diagrams are unchanged.

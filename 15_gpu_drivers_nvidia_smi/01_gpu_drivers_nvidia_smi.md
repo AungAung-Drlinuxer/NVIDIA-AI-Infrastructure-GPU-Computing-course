@@ -58,6 +58,17 @@ AI, machine learning, High-Performance Computing (HPC) နဲ့ graphics အပ
 +------------------------------------+
 ```
 
+**ပုံ ၁ (Figure 1) — Application ကနေ GPU hardware အထိ software layers များ**
+
+```mermaid
+flowchart TD
+    A["Applications: AI / ML / HPC / Graphics"] --> B["CUDA / GPU Libraries / APIs"]
+    B --> C["NVIDIA GPU Driver"]
+    C --> D["NVIDIA GPU Hardware"]
+```
+
+**ပုံရှင်းလင်းချက်** — Application တွေက GPU ကို တိုက်ရိုက် မထိနိုင်ဘဲ CUDA, GPU libraries ဒါမှမဟုတ် APIs ကတစ်ဆင့် တောင်းဆိုပြီး NVIDIA GPU Driver က GPU hardware ကို စီမံ ခိုင်းစေပါတယ်။ Driver မပါရင် hardware တပ်ထားပေမယ့် software က GPU ကို အသုံးပြု၍ မရနိုင်ပါဘူး။
+
 ဒီ diagram က simplified ဖြစ်ပါတယ်။ Application က CUDA, graphics API သို့မဟုတ် အခြား supported interface သုံးခြင်းပေါ် မူတည်ပြီး exact software path ကွဲပြားနိုင်ပါတယ်။
 
 ## 3. GPU Driver က ကြိုတင် install လုပ်ပြီးသားလား?
@@ -96,6 +107,21 @@ Installation procedure က platform အလိုက် ကွဲပြားပ�
 7. Installation procedure က reboot လိုအပ်ရင် reboot လုပ်ပါ။
 8. `nvidia-smi` နဲ့ installation ကို verify လုပ်ပါ။
 
+**ပုံ ၂ (Figure 2) — NVIDIA GPU driver installation workflow**
+
+```mermaid
+flowchart TD
+    S1["GPU model နဲ့ OS သတ်မှတ်"] --> S2["NVIDIA documentation စစ်ဆေး"]
+    S2 --> S3["prerequisite များ လေ့လာ"]
+    S3 --> S4["compatible driver version ရွေး"]
+    S4 --> S5["supported installation method ရွေး"]
+    S5 --> S6["install နှင့် configuration ပြီးမြောက်အောင် လုပ်"]
+    S6 --> S7["လိုအပ်ရင် reboot"]
+    S7 --> S8["nvidia-smi ဖြင့် verify"]
+```
+
+**ပုံရှင်းလင်းချက်** — အဆင့်တွေကို အပေါ်ကနေ အောက်ဘက် အစဉ်လိုက် လုပ်သွားရုံ ဖြစ်ပါတယ် — အရင် GPU model နဲ့ OS ကို သိဖို့၊ တရားဝင် NVIDIA documentation ကြည့်ဖို့၊ version နဲ့ installation method မှန်မှန် ရွေးဖို့ လုပ်ပြီး install ပြီးမှ နောက်ဆုံးအဆင့်မှာ `nvidia-smi` နဲ့ တကယ် အလုပ်လုပ်/မလုပ် verify လုပ်ပါတယ်။
+
 **အရေးကြီးသော စဉ်းစားရန်အချက်များ**
 
 - Specific operating system နဲ့ driver branch အတွက် ညွှန်ကြားချက်ကို လိုက်နာပါ။
@@ -133,6 +159,21 @@ Successful command တစ်ခုက ပုံမှန်အားဖြင့
 - GPU utilization
 - Active GPU process များ
 - Compute mode နဲ့ supported hardware ပေါ်မှာ MIG အချက်အလက်
+
+**ပုံ ၃ (Figure 3) — nvidia-smi run ကြည့်တဲ့အခါ ဘာတွေ စစ်ဆေးနိုင်သလဲ**
+
+```mermaid
+flowchart TD
+    CMD["nvidia-smi run"] --> V["Driver version နှင့် CUDA compatibility"]
+    CMD --> G["GPU index နှင့် name"]
+    CMD --> T["GPU temperature"]
+    CMD --> M["GPU memory usage"]
+    CMD --> U["GPU utilization"]
+    CMD --> P["Active GPU processes"]
+    CMD --> C["Compute mode နှင့် MIG info"]
+```
+
+**ပုံရှင်းလင်းချက်** — `nvidia-smi` တစ်ချက် run လိုက်ရုံနဲ့ ပုံမှာ ခွဲပြထားသလို အချက်အလက် အုပ်စုတွေ တစ်ပြိုင်နက် ကြည့်ရပါတယ် — driver version၊ GPU index/name၊ temperature၊ memory usage၊ utilization၊ active processes နဲ့ compute mode/MIG အချက်အလက်တွေ ဖြစ်ပါတယ်။ ပြသတဲ့ field တွေက GPU model, driver နဲ့ platform ပေါ် မူတည်ပါတယ်။
 
 ပြသတဲ့ field တွေက GPU model, driver နဲ့ platform ပေါ် မူတည်ပါတယ်။
 
@@ -335,6 +376,18 @@ lspci | grep -i nvidia
 nvidia-smi
 ```
 
+**ပုံ ၄ (Figure 4) — nvidia-smi မအောင်မြင်ရင် စစ်ဆေးမယ့် အစဉ်လိုက် flow**
+
+```mermaid
+flowchart LR
+    A["cat /etc/os-release"] --> B["uname -r"]
+    B --> C["lspci ဖြင့် NVIDIA PCI device စစ်"]
+    C --> D["nvidia-smi"]
+    D --> E["output ဖြင့် root cause ကျဉ်းမြောင်း"]
+```
+
+**ပုံရှင်းလင်းချက်** — ဘယ်ဘက်ကနေ ညာဘက် တစ်ဆင့်ချင်း စစ်ပါ — အရင် OS version (`cat /etc/os-release`) ကြည့်၊ ပြီး running kernel (`uname -r`) ကြည့်၊ NVIDIA PCI device ကို system က မြင်/မမြင် စစ် (`lspci | grep -i nvidia`)၊ နောက်ဆုံးမှ `nvidia-smi` ကိုယ်တိုင် run ကြည့်ပါ။ Command တစ်ခု မအောင်မြင်တိုင်း root cause မဟုတ်သေးဘဲ ရရှိတဲ့ output နဲ့ ပြဿနာကို တဖြည်းဖြည်း ကျဉ်းမြောင်းအောင် လုပ်ရတာ ဖြစ်ပါတယ်။
+
 Command တစ်ခုက result မရခြင်းက root cause ကို တစ်ခုတည်း မသတ်မှတ်ပေးပါဘူး။ Output ကို သုံးပြီး စုံစမ်းမှုကို ကျဉ်းမြောင်းအောင် လုပ်ပါ။
 
 ## 10. အဓိက အကျဉ်းချုပ်
@@ -432,6 +485,17 @@ The exact capabilities depend on the GPU model, driver version, operating system
 +------------------------------------+
 ```
 
+**Figure 1 — Software layers from the application down to the GPU hardware**
+
+```mermaid
+flowchart TD
+    A["Applications: AI / ML / HPC / Graphics"] --> B["CUDA / GPU Libraries / APIs"]
+    B --> C["NVIDIA GPU Driver"]
+    C --> D["NVIDIA GPU Hardware"]
+```
+
+**Figure walkthrough** — Applications cannot touch the GPU directly; they request work through CUDA, GPU libraries, or APIs, and the NVIDIA GPU driver manages and drives the GPU hardware. Without the driver, the hardware may be installed but software cannot use it.
+
 This diagram is simplified. The exact software path depends on the application and whether it uses CUDA, graphics APIs, or other supported interfaces.
 
 ## 3. Are GPU Drivers Already Installed?
@@ -467,6 +531,21 @@ The installation procedure varies by platform. Supported environments may includ
 6. Install the driver and complete any required configuration.
 7. Reboot if required by the installation procedure.
 8. Verify the installation using `nvidia-smi`.
+
+**Figure 2 — NVIDIA GPU driver installation workflow**
+
+```mermaid
+flowchart TD
+    S1["Identify GPU model and OS"] --> S2["Check official NVIDIA documentation"]
+    S2 --> S3["Review prerequisites"]
+    S3 --> S4["Select compatible driver version"]
+    S4 --> S5["Choose supported installation method"]
+    S5 --> S6["Install driver and complete configuration"]
+    S6 --> S7["Reboot if required"]
+    S7 --> S8["Verify with nvidia-smi"]
+```
+
+**Figure walkthrough** — Follow the steps from top to bottom: first identify the GPU model and OS, check the official NVIDIA documentation, pick the right driver version and installation method, install and configure, and finally verify with `nvidia-smi` that everything actually works.
 
 **Important installation considerations**
 
@@ -505,6 +584,21 @@ A successful command typically displays information such as:
 - GPU utilization.
 - Active GPU processes.
 - Compute mode and, on supported hardware, MIG information.
+
+**Figure 3 — What you can inspect in one nvidia-smi run**
+
+```mermaid
+flowchart TD
+    CMD["Run nvidia-smi"] --> V["Driver version and CUDA compatibility"]
+    CMD --> G["GPU index and name"]
+    CMD --> T["GPU temperature"]
+    CMD --> M["GPU memory usage"]
+    CMD --> U["GPU utilization"]
+    CMD --> P["Active GPU processes"]
+    CMD --> C["Compute mode and MIG info"]
+```
+
+**Figure walkthrough** — A single `nvidia-smi` run shows all the groups in the figure at once: the driver version, the GPU index and name, temperature, memory usage, utilization, active processes, and compute mode/MIG information. The displayed fields depend on the GPU model, driver, and platform.
 
 The displayed fields depend on the GPU model, driver, and platform.
 
@@ -701,6 +795,18 @@ lspci | grep -i nvidia
 nvidia-smi
 ```
 
+**Figure 4 — First-check flow when nvidia-smi fails**
+
+```mermaid
+flowchart LR
+    A["cat /etc/os-release"] --> B["uname -r"]
+    B --> C["Check NVIDIA PCI devices with lspci"]
+    C --> D["nvidia-smi"]
+    D --> E["Narrow the root cause from the output"]
+```
+
+**Figure walkthrough** — Work from left to right: check the OS version (`cat /etc/os-release`), then the running kernel (`uname -r`), then whether the system sees the NVIDIA PCI device (`lspci | grep -i nvidia`), and finally run `nvidia-smi` itself. A failing command does not by itself identify the root cause — use the output to narrow the investigation down step by step.
+
 The absence of a result from one command does not, by itself, identify the root cause. Use the output to narrow down the investigation.
 
 ## 10. Key Takeaways
@@ -749,3 +855,4 @@ A: No. MIG is available only on specific supported GPU models; a `N/A` MIG field
 - The Tesla T4's displayed 15360MiB versus 16GB physical memory reflects reporting/reservation behavior of the driver, as stated in the lesson.
 - The lesson states the Tesla T4 does not support MIG; this is consistent with NVIDIA's documented MIG support matrix (A100/H100-class and select other GPUs), but check the current support list for any model-specific exceptions.
 - Query field availability and process visibility vary with driver version and platform, as noted in the lesson.
+- Mermaid figures (Figures 1–4) with figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline to both language sections; all existing text, ASCII diagrams, and review notes are unchanged.

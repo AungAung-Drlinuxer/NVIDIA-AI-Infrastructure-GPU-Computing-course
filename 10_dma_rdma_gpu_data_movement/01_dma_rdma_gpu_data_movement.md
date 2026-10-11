@@ -53,6 +53,16 @@ Network Device
    copies data
 ```
 
+**ပုံ ၁ (Figure 1) — DMA မပါတဲ့အခါ CPU က data-copying middleman ဖြစ်ပုံ**
+
+```mermaid
+flowchart TD
+    N["Network Device"] -->|"data ဝင်လာ"| C["CPU"]
+    C -->|"CPU ကိုယ်တိုင် copy လုပ်ရသည်"| M["System Memory"]
+```
+
+**ပုံရှင်းလင်းချက်** — ပုံမှာ Network Device ကနေ လာတဲ့ data ကို CPU က ကြားကနေ ဖတ်ပြီး System Memory ထဲ တစ်ကြောင်းချင်း copy လုပ်နေရတာ ဖြစ်ပါတယ်။ ဒါကြောင့် CPU က application logic အစား data ရွှေ့ရာမှာ အချိန်ကုန်ပြီး data များလာရင် CPU က bottleneck ဖြစ်လာနိုင်ပါတယ်။
+
 ဒါက conceptual illustration ဖြစ်ပြီး modern device တိုင်းရဲ့ တကယ့် data path ကို ဖော်ပြတာ မဟုတ်ပါဘူး။ Modern computer systems တွေက high-throughput I/O အတွက် ပုံမှန် DMA-capable devices တွေ အသုံးပြုပါတယ်။
 
 ဒီနည်းလမ်းက ဘာကြောင့် မထိရောက်တာလဲ—
@@ -87,6 +97,23 @@ Typical operation တစ်ခုက အောက်ပါအတိုင်း 
 3. Device ရဲ့ DMA engine က data ကို လွှဲပြောင်းပါတယ်။
 4. Device ဒါမှမဟုတ် controller က interrupt ဒါမှမဟုတ် completion queue မှတစ်ဆင့် ပြီးစီးကြောင်း အချက်ပေးပါတယ်။
 5. CPU က result ပေါ် မှီခိုတဲ့ အလုပ်တွေကို ပြန်လည် ဆောင်ရွက်ပါတယ်။
+
+**ပုံ ၂ (Figure 2) — DMA transfer တစ်ခု အဆင့်ဆင့် လုပ်ဆောင်ပုံ**
+
+```mermaid
+sequenceDiagram
+    participant C as "CPU / Driver"
+    participant O as "OS / Driver"
+    participant D as "DMA-capable Device"
+    participant M as "System Memory"
+    C->>O: "data transfer request"
+    O->>M: "memory region ပြင်ဆင်ပြီး transfer configure"
+    O->>D: "DMA operation စတင်"
+    D->>M: "DMA engine က data လွှဲပြောင်း"
+    D->>C: "interrupt သို့မဟုတ် completion queue ဖြင့် ပြီးကြောင်း အချက်ပေး"
+```
+
+**ပုံရှင်းလင်းချက်** — ပုံအတိုင်း CPU က transfer ကို request လုပ်ပြီး configure လုပ်ပေးပေမယ့် data ကိုယ်တိုင်ကိုတော့ Device ရဲ့ DMA engine က System Memory ထဲ လွှဲပေးတာ ဖြစ်ပါတယ်။ ပြီးမှ device က interrupt ဒါမှမဟုတ် completion queue ကနေ CPU ကို ပြီးစီးကြောင်း ပြန်ပြောပြပါတယ်။ ဒါကြောင့် CPU က control path မှာ ပါနေဆဲဖြစ်ပေမယ့် byte တိုင်း copy လုပ်စရာ မလိုတော့ပါဘူး။
 
 CPU က control path ရဲ့ အစိတ်အပိုင်းအဖြစ် ကျန်ရှိနေဆဲ ဖြစ်ပေမယ့် CPU instructions တွေဖြင့် byte တိုင်းကို copy လုပ်စရာ မလိုတော့ပါဘူး။
 
@@ -124,6 +151,21 @@ Host 1                                Host 2
 │ Network Adapter    │◄────────────►│ Network Adapter    │
 └────────────────────┘   Network    └────────────────────┘
 ```
+
+**ပုံ ၃ (Figure 3) — Local DMA နဲ့ Remote DMA (RDMA) ကွာခြားပုံ**
+
+```mermaid
+flowchart LR
+    subgraph H1["Host 1"]
+        DV1["Device"] --- ME1["Memory"]
+    end
+    subgraph H2["Host 2"]
+        ME2["Memory"] --- DV2["Device"]
+    end
+    DV1 ---|"RDMA: hosts ကြား registered memory ကြား ဖလှယ်"| DV2
+```
+
+**ပုံရှင်းလင်းချက်** — Host 1 အတွင်းမှာ Device နဲ့ Memory ကြား လွှဲတာက Local DMA ဖြစ်ပြီး တစ် host အတွင်းမှာပဲ အလုပ်လုပ်ပါတယ်။ Host 1 နဲ့ Host 2 ကြားမှာတော့ RDMA adapter တွေက support လုပ်တဲ့ network မှတစ်ဆင့် registered memory တွေကြား data ဖလှယ်ပေးတာကြောင့် host တစ်ခုက နောက် host တစ်ခုရဲ့ memory ကို ဝင်ရောက်ခွင့် ရလာပါတယ်။
 
 Local DMA က host တစ်ခုအတွင်းမှာ devices တွေ data လွှဲပြောင်းရာမှာ ကူညီပေမယ့် host တစ်ခုက နောက် host တစ်ခုရဲ့ memory ကို ဝင်ရောက်ခွင့် ပေးတဲ့ mechanism ကို ၎င်းတစ်ခုတည်းနဲ့ မပေးပါဘူး။
 
@@ -210,6 +252,23 @@ Supported Network Adapter
     ▼
 Network
 ```
+
+**ပုံ ၄ (Figure 4) — GPUDirect RDMA မပါနှင့် ပါတဲ့ data path နှိုင်းယှဉ်ပုံ**
+
+```mermaid
+flowchart TD
+    subgraph A["GPUDirect RDMA မပါ"]
+        G1["GPU Memory"] --> H1["Host Memory staging buffer"]
+        H1 --> N1["Network Adapter"]
+        N1 --> W1["Network"]
+    end
+    subgraph B["GPUDirect RDMA ပါ"]
+        G2["GPU Memory"] --> N2["Supported Network Adapter"]
+        N2 --> W2["Network"]
+    end
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ပိုင်းမှာ GPU Memory က data ကို အရင် Host Memory (staging / bounce buffer) ထဲ တစ်ဆင့် ချပြီးမှ Network Adapter ဆီ ရောက်တဲ့အတွက် copy အပို ဖြစ်ပါတယ်။ အောက်ပိုင်းမှာတော့ support လုပ်တဲ့ Network Adapter က GPU Memory နဲ့ တိုက်ရိုက် ဖလှယ်လို့ host-memory copy တစ်ဆင့် လျှော့ချနိုင်ပါတယ်။
 
 ဒီ diagrams တွေက data path ကို ရိုးရှင်းစွာ ဖော်ပြတာ ဖြစ်ပါတယ်။ တကယ့် implementation က hardware topology၊ drivers၊ memory registration နဲ့ platform support ပေါ် မူတည်ပါတယ်။ Setup နဲ့ control operations တွေမှာ CPU က ပါဝင်နေဆဲ ဖြစ်နိုင်ပါတယ်။
 
@@ -329,6 +388,16 @@ Network Device
    copies data
 ```
 
+**Figure 1 — Without DMA: the CPU becomes a data-copying middleman**
+
+```mermaid
+flowchart TD
+    N["Network Device"] -->|"data arrives"| C["CPU"]
+    C -->|"CPU copies every byte"| M["System Memory"]
+```
+
+**Figure walkthrough** — The data arriving from the network device must be read and copied into system memory one piece at a time by the CPU itself. The CPU therefore spends its time moving data instead of running application logic, and the CPU can become the bottleneck when the data volume grows.
+
 This is a conceptual illustration, not a description of every modern device's actual data path. Modern computer systems normally use DMA-capable devices for high-throughput I/O.
 
 Why this approach is inefficient:
@@ -363,6 +432,23 @@ A typical operation works like this:
 3. The device's DMA engine transfers the data.
 4. The device or controller signals completion, often through an interrupt or completion queue.
 5. The CPU resumes any work that depends on the result.
+
+**Figure 2 — How a DMA transfer works, step by step**
+
+```mermaid
+sequenceDiagram
+    participant C as "CPU / Driver"
+    participant O as "OS / Driver"
+    participant D as "DMA-capable Device"
+    participant M as "System Memory"
+    C->>O: "data transfer request"
+    O->>M: "prepare memory region and configure transfer"
+    O->>D: "start DMA operation"
+    D->>M: "DMA engine transfers the data"
+    D->>C: "signal completion through interrupt or completion queue"
+```
+
+**Figure walkthrough** — As the figure shows, the CPU requests and configures the transfer, but the data itself is moved into system memory by the device's DMA engine. The device then signals completion through an interrupt or completion queue. The CPU is still part of the control path, but it no longer copies every byte.
 
 The CPU remains part of the control path, but it does not have to copy each byte through CPU instructions.
 
@@ -400,6 +486,21 @@ Host 1                                Host 2
 │ Network Adapter    │◄────────────►│ Network Adapter    │
 └────────────────────┘   Network    └────────────────────┘
 ```
+
+**Figure 3 — Local DMA versus Remote DMA (RDMA)**
+
+```mermaid
+flowchart LR
+    subgraph H1["Host 1"]
+        DV1["Device"] --- ME1["Memory"]
+    end
+    subgraph H2["Host 2"]
+        ME2["Memory"] --- DV2["Device"]
+    end
+    DV1 ---|"RDMA: exchange between registered memory across hosts"| DV2
+```
+
+**Figure walkthrough** — Moving data between a device and memory inside Host 1 is local DMA, and it only works within one host. Between Host 1 and Host 2, RDMA adapters exchange data between registered memory regions over a supported network, which is what gives one host access to another host's memory.
 
 Local DMA helps devices transfer data within a host. It does not, by itself, provide a mechanism for one host to access another host's memory.
 
@@ -487,6 +588,23 @@ Supported Network Adapter
 Network
 ```
 
+**Figure 4 — Data path comparison: without and with GPUDirect RDMA**
+
+```mermaid
+flowchart TD
+    subgraph A["Without GPUDirect RDMA"]
+        G1["GPU Memory"] --> H1["Host Memory staging buffer"]
+        H1 --> N1["Network Adapter"]
+        N1 --> W1["Network"]
+    end
+    subgraph B["With GPUDirect RDMA"]
+        G2["GPU Memory"] --> N2["Supported Network Adapter"]
+        N2 --> W2["Network"]
+    end
+```
+
+**Figure walkthrough** — In the top diagram, the data from GPU memory is staged through host memory (a staging / bounce buffer) before it reaches the network adapter, which adds an extra copy. In the bottom diagram, the supported network adapter exchanges data directly with GPU memory, avoiding that host-memory copy.
+
 These diagrams simplify the data path. The actual implementation depends on hardware topology, drivers, memory registration, and platform support. Setup and control operations may still involve the CPU.
 
 ## 10. How GPUDirect Storage Fits In
@@ -559,3 +677,4 @@ No. The CPU may still configure transfers, set up memory access, authorize opera
 - `<Cite refs={...}/>` markers appearing in the source transcript were reply-UI artifacts and were dropped; no content was attached to them.
 - All diagrams and the DMA/RDMA/GPUDirect comparison table are preserved from the source transcript; no benchmark numbers are claimed anywhere in this module.
 - The source transcript for Module 10 is complete (sections 1–12 ending at Review Question Q7) and required no cross-message merging.
+- Mermaid figures (Figures 1–4) with figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline to both language sections; all existing text, ASCII diagrams, and review notes are unchanged.

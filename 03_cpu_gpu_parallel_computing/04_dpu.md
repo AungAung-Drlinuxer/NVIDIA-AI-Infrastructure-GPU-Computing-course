@@ -31,6 +31,27 @@ DPU က data movement နှင့် infrastructure task တွေကို က
 
 အဓိက idea က ရိုးရှင်းပါတယ်— CPU နဲ့ GPU က specialized infrastructure hardware က ထိရောက်စွာ ကိုင်တွယ်နိုင်တဲ့ task တွေအတွက် resource မဖြုန်းသင့်ပါဘူး။
 
+အောက်ပါ **Figure 1** မှာ data center ထဲက CPU, GPU နဲ့ DPU သုံးခုရဲ့ အခန်းကဏ္ဍ ကွဲပြားပုံကို ကြည့်နိုင်ပါတယ်။
+
+**Figure 1: Data Center ထဲမှာ CPU, GPU နှင့် DPU ရဲ့ အခန်းကဏ္ဍ**
+
+```mermaid
+flowchart TD
+    A["Data Center"] --> B["CPU"]
+    A --> C["GPU"]
+    A --> D["DPU"]
+    B --> E["Application, General Tasks"]
+    C --> F["AI Compute, Parallel Workloads"]
+    D --> G["Data Movement, Infrastructure Offload"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 1)**
+
+- အပေါ်ဆုံးက data center ကနေ compute device သုံးခု ခွဲထွက်သွားတာကို ကြည့်ပါ။
+- CPU က application နဲ့ general task တွေကို ကိုင်တွယ်ပါတယ်။
+- GPU က AI compute နဲ့ parallel workload တွေကို ဆောင်ရွက်ပါတယ်။
+- DPU က data movement နဲ့ infrastructure offload ကို တာဝန်ယူပါတယ်။
+
 ## 3. လေကြောင်း နှိုင်းယှဉ်ချက် — CPU, GPU နှင့် DPU
 
 AI data center ကို လေဆိပ်စနစ်တစ်ခုလို စဉ်းစားကြည့်ပါ။
@@ -40,6 +61,27 @@ AI data center ကို လေဆိပ်စနစ်တစ်ခုလို 
 - **DPU = မြေပြင်ဝန်ထမ်းများ၊ ခရီးဆောင်အိတ် ကိုင်တွယ်ခြင်း၊ ဆီဖြည့်ခြင်း၊ စားသောက်ဖွယ်ရာ၊ logistics** — အားလုံး ထိရောက်စွာ ရွေ့လျားနေစေသည်
 
 လေယာဉ် (GPU) က ပျံသန်းဖို့ (AI computation) ဒီဇိုင်းထုတ်ထားပေမယ့် နောက်ခံမှာ data movement နှင့် infrastructure အလုပ်တွေ ကိုင်တွယ်ပေးတဲ့ ground services (DPU) မပါဘဲ ထိရောက်စွာ မလည်ပတ်နိုင်ပါဘူး။
+
+အောက်ပါ **Figure 2** မှာ ဒီ လေကြောင်း နှိုင်းယှဉ်ချက်ကို ပုံနဲ့ ကြည့်နိုင်ပါတယ်။
+
+**Figure 2: လေကြောင်း နှိုင်းယှဉ်ချက် — CPU, GPU နှင့် DPU**
+
+```mermaid
+flowchart TD
+    A["AI Data Center = လေဆိပ်စနစ်"] --> B["CPU = လေကြောင်း လုပ်ငန်း စီမံခန့်ခွဲသူ"]
+    A --> C["GPU = လေယာဉ်"]
+    A --> D["DPU = Ground Services / Logistics"]
+    B --> E["ဆုံးဖြတ်ချက်နှင့် ညှိနှိုင်းမှု"]
+    C --> F["ဝန်လေးတဲ့ Payload — AI Computation"]
+    D --> G["ခရီးဆောင်အိတ်၊ ဆီဖြည့်ခြင်း၊ Data Movement"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 2)**
+
+- AI data center ကို လေဆိပ်စနစ်တစ်ခုလို မြင်ပြီး အောက်က node သုံးခုက တာဝန်သုံးမျိုးကို ပြပါတယ်။
+- CPU က လေကြောင်း လုပ်ငန်း စီမံခန့်ခွဲသူလို ဆုံးဖြတ်ချက်နဲ့ ညှိနှိုင်းမှုတွေ လုပ်ပါတယ်။
+- GPU က လေယာဉ်လို ဝန်လေးတဲ့ payload (AI computation) ကို သယ်ဆောင်ပါတယ်။
+- DPU က ground services / logistics လို ခရီးဆောင်အိတ်၊ ဆီဖြည့်ခြင်း၊ data movement တွေကို ကိုင်တွယ်ပေးပါတယ်။
 
 ## 4. CPU vs GPU vs DPU
 
@@ -110,6 +152,26 @@ Infrastructure
     DPU ───► Network processing
 ```
 
+အောက်ပါ **Figure 3** မှာ DPU offload မပါဘဲနဲ့ ပါရင် network processing လမ်းကြောင်း ဘယ်လို ကွာသွားသလဲ နှိုင်းယှဉ် ကြည့်နိုင်ပါတယ်။
+
+**Figure 3: DPU Offload မပါဘဲနှင့် ပါရင် Network Processing လမ်းကြောင်း ကွာခြားပုံ**
+
+```mermaid
+flowchart TD
+    A["DPU Offload မပါဘဲ"] --> B["CPU က Application + Network Processing နှစ်ခုလုံး လုပ်"]
+    B --> C["Infrastructure Task တွေက Application Workload နဲ့ ယှဉ်ပြိုင်"]
+    D["DPU Offload ပါရင်"] --> E["CPU က Application Workload ပဲ အာရုံစိုက်"]
+    D --> F["DPU က Network Processing ကို ကိုင်တွယ်"]
+    E --> G["အလုပ် ခွဲဝေ လုပ်ဆောင်"]
+    F --> G
+```
+
+**ပုံရှင်းလင်းချက် (Figure 3)**
+
+- ဘယ်ဘက်အစက DPU offload မပါဘဲ — CPU တစ်ခုတည်းက application ရော network processing ပါ လုပ်ရပြီး infrastructure task တွေက application workload နဲ့ ယှဉ်ပြိုင်နေပါတယ်။
+- DPU offload ပါရင် — CPU က application workload ပဲ အာရုံစိုက်ပြီး DPU က network processing ကို ကိုင်တွယ်ပါတယ်။
+- အောက်ဆုံးမှာ အလုပ်ခွဲဝေလိုက်လို့ ယှဉ်ပြိုင်မှု မရှိဘဲ နှစ်ခုလုံး ထိရောက်စွာ လုပ်ဆောင်နိုင်တာကို ပြပါတယ်။
+
 ## 7. Security Workloads
 
 Security က DPU-based infrastructure offload အသုံးဝင်နိုင်တဲ့ နောက်ထပ်နေရာတစ်ခုဖြစ်ပါတယ်။ ဥပမာ—
@@ -144,6 +206,30 @@ DPU က အောက်ပါနေရာများအတွက် hardware ac
 - Encryption
 - Load balancing
 - Data movement
+
+အောက်ပါ **Figure 4** မှာ DPU က control tower / ground services အဖြစ် ဘယ်နေရာတွေအတွက် offload ပေးနိုင်သလဲ ကြည့်နိုင်ပါတယ်။
+
+**Figure 4: DPU က Control Tower / Ground Services အဖြစ် Offload ပေးနိုင်သော နေရာများ**
+
+```mermaid
+flowchart TD
+    A["DPU — Control Tower / Ground Services"] --> B["Networking"]
+    A --> C["Storage"]
+    A --> D["Security / Encryption"]
+    A --> E["Load Balancing"]
+    A --> F["Data Movement"]
+    B --> G["CPU နှင့် GPU ကို Application / Compute Workload ပေါ် အာရုံစိုက်စေ"]
+    C --> G
+    D --> G
+    E --> G
+    F --> G
+```
+
+**ပုံရှင်းလင်းချက် (Figure 4)**
+
+- အပေါ်ဆုံးက DPU ကို control tower / ground services အဖြစ် ထားပြီး အောက်က နေရာ ငါးခုအတွက် offload ပေးနိုင်တာကို ပြပါတယ် — networking, storage, security / encryption, load balancing, data movement။
+- အောက်ဆုံး node က ဒီ offload ကြောင့် CPU နဲ့ GPU က application / compute workload ပေါ် အာရုံစိုက်နိုင်တာကို ဆိုလိုပါတယ်။
+- DPU က CPU / GPU ကို အစားထိုးတာ မဟုတ်ဘဲ ကူညီပေးတဲ့ ground services အခန်းကဏ္ဍ ဖြစ်တာကို မှတ်ပါ။
 
 ## 9. အကျဉ်းချုပ်
 
@@ -205,6 +291,27 @@ Conceptually:
 
 The idea is simple: the CPU and GPU should not waste resources on tasks that can be handled efficiently by dedicated infrastructure hardware.
 
+See **Figure 1** for a picture of the different roles of the CPU, GPU, and DPU inside a data center.
+
+**Figure 1: Roles of the CPU, GPU, and DPU in a Data Center**
+
+```mermaid
+flowchart TD
+    A["Data Center"] --> B["CPU"]
+    A --> C["GPU"]
+    A --> D["DPU"]
+    B --> E["Application, General Tasks"]
+    C --> F["AI Compute, Parallel Workloads"]
+    D --> G["Data Movement, Infrastructure Offload"]
+```
+
+**Figure walkthrough (Figure 1)**
+
+- At the top, the data center splits into three compute devices.
+- The CPU handles applications and general tasks.
+- The GPU handles AI compute and parallel workloads.
+- The DPU takes care of data movement and infrastructure offload.
+
 ## 3. Flight Analogy — CPU, GPU and DPU
 
 Think of an AI data center as an airport system.
@@ -214,6 +321,27 @@ Think of an AI data center as an airport system.
 - **DPU = Ground crew, baggage handling, refueling, catering, logistics** — keeps everything moving efficiently
 
 The aircraft (GPU) is designed for flying (AI computation). But an aircraft cannot operate efficiently without ground services (DPU) that handle data movement and infrastructure work behind the scenes.
+
+**Figure 2** shows this flight analogy as a picture.
+
+**Figure 2: The Flight Analogy — CPU, GPU, and DPU**
+
+```mermaid
+flowchart TD
+    A["AI Data Center = Airport System"] --> B["CPU = Flight Operations Manager"]
+    A --> C["GPU = Aircraft"]
+    A --> D["DPU = Ground Services / Logistics"]
+    B --> E["Decisions and Coordination"]
+    C --> F["Heavy Payload — AI Computation"]
+    D --> G["Baggage, Refueling, Data Movement"]
+```
+
+**Figure walkthrough (Figure 2)**
+
+- Think of the AI data center as an airport system; the three nodes below show the three roles.
+- The CPU is like the flight operations manager, making decisions and coordinating.
+- The GPU is like the aircraft, carrying the heavy payload (AI computation).
+- The DPU is like ground services and logistics, handling baggage, refueling, and data movement.
 
 ## 4. CPU vs GPU vs DPU
 
@@ -286,6 +414,26 @@ Infrastructure
     DPU ───► Network processing
 ```
 
+**Figure 3** compares the network-processing path without and with DPU offload.
+
+**Figure 3: Network Processing Without and With DPU Offload**
+
+```mermaid
+flowchart TD
+    A["Without DPU Offload"] --> B["CPU Does Application + Network Processing"]
+    B --> C["Infrastructure Tasks Compete with Application Workloads"]
+    D["With DPU Offload"] --> E["CPU Focuses on Application Workloads"]
+    D --> F["DPU Handles Network Processing"]
+    E --> G["Work Split Between Devices"]
+    F --> G
+```
+
+**Figure walkthrough (Figure 3)**
+
+- The first path is without DPU offload: one CPU does both application work and network processing, so infrastructure tasks compete with application workloads.
+- With DPU offload, the CPU focuses on application workloads while the DPU handles network processing.
+- At the bottom, the work is split, so the two no longer compete and both run efficiently.
+
 ## 7. Security Workloads
 
 Security is another important area where DPU-based infrastructure offload can be useful. Examples include:
@@ -318,6 +466,30 @@ A DPU may therefore provide hardware acceleration and offload for areas such as:
 - Encryption
 - Load balancing
 - Data movement
+
+**Figure 4** shows the areas where the DPU can provide offload as the control tower / ground services.
+
+**Figure 4: Offload Areas of the DPU as Control Tower / Ground Services**
+
+```mermaid
+flowchart TD
+    A["DPU — Control Tower / Ground Services"] --> B["Networking"]
+    A --> C["Storage"]
+    A --> D["Security / Encryption"]
+    A --> E["Load Balancing"]
+    A --> F["Data Movement"]
+    B --> G["CPU and GPU Focus on Application / Compute Workloads"]
+    C --> G
+    D --> G
+    E --> G
+    F --> G
+```
+
+**Figure walkthrough (Figure 4)**
+
+- The DPU at the top acts as the control tower / ground services and can offload five areas: networking, storage, security / encryption, load balancing, and data movement.
+- The bottom node means that, thanks to this offload, the CPU and GPU can focus on application and compute workloads.
+- Remember: the DPU does not replace the CPU or GPU — it plays a supporting ground-services role.
 
 ## 9. Summary
 
@@ -354,3 +526,4 @@ Remember: The CPU thinks and coordinates, the GPU computes, and the DPU moves an
 - Structure normalized to the course convention: a single top-of-file header and blockquote, `## မြန်မာဘာသာ version` placed before `## English Version`, and identical `## N.` section numbering (1–10) in both language sections. All existing paragraphs, ASCII diagrams, lists, and tables are preserved unchanged in meaning.
 - The four self-check questions per language were written strictly from this module's own content; no specifications, commands, URLs, or benchmark numbers were added.
 - Claims needing verification: none material. The offload capability lists (networking, storage, security) are generic infrastructure tasks from the source; no DPU product-specific specifications (for example, BlueField model details) or performance numbers were introduced.
+- Figures added in this pass: Mermaid figures (Figure 1–4) with captions and figure walkthroughs (ပုံရှင်းလင်းချက်) were inserted inline in both language sections with matching numbering; no existing text or ASCII diagrams were changed.

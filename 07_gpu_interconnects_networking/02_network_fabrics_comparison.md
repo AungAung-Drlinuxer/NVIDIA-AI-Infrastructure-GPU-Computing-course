@@ -33,6 +33,27 @@ Exam မှာ ဒီ topic ကနေ question ထွက်နိုင်ပါ
 | In-Band Management | Cluster/OS management | Ethernet, VLAN/VXLAN/EVPN | Reliable, secure, isolated management |
 | OOB Management | Remote hardware management/recovery | Dedicated physical management network | Always available + strong security |
 
+**Figure 1 — Network Fabric ၄ မျိုးရဲ့ အဓိကတာဝန်များ**
+
+```mermaid
+flowchart TD
+    F["AI Data Center Network Fabrics"]
+    C["Compute — GPU နှင့် Node ကြား communication"]
+    S["Storage — Compute nodes နှင့် Storage ကြား"]
+    IB["In-Band Management — Cluster / OS management"]
+    OOB["OOB Management — Remote hardware management"]
+    F --> C
+    F --> S
+    F --> IB
+    F --> OOB
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. ထိပ်ဆုံးက AI Data Center Network Fabrics ကနေ fabric လေးမျိုး ခွဲထွက်သွားတာ မြင်ရပါမယ်။
+2. ပထမဆုံး Compute က GPU တွေနဲ့ node တွေကြား ဆက်သွယ်ရေးအတွက် ဖြစ်ပါတယ်။
+3. ဒုတိယ Storage က compute nodes တွေနဲ့ storage system ကြား data သယ်ဆောင်ရေးအတွက် ဖြစ်ပါတယ်။
+4. တတိယ In-Band Management က ပုံမှန် cluster/OS management အတွက်၊ စတုတ္ထ OOB Management က hardware-level remote management အတွက် ဖြစ်ပါတယ်။
+
 ## 3. Compute Network — Purpose
 
 Compute network ရဲ့ အဓိကရည်ရွယ်ချက်က—**GPU-to-GPU communication within a node or across nodes** ဖြစ်ပါတယ်။
@@ -44,6 +65,23 @@ AI workload တွေမှာ GPU အများကြီး ပါဝင်�
 - Compute node တစ်ခုနဲ့တစ်ခု
 
 communication လုပ်ရပါတယ်။ ဒါကြောင့် compute network ဟာ AI workload ရဲ့ backbone တစ်ခုဖြစ်လာပါတယ်။
+
+**Figure 2 — Compute Fabric ပေါ်က GPU/Node communication**
+
+```mermaid
+flowchart LR
+    G1["GPU in Node 1"] --- CF["Compute Fabric"]
+    G2["GPU in Node 2"] --- CF
+    G3["GPU in Node 3"] --- CF
+    CF --- R["လိုအပ်ချက် — Very High Throughput + Ultra-Low Latency + Scalability"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. ဘယ်ဘက်က GPU ပါတဲ့ node သုံးခုက အလယ်က Compute Fabric နဲ့ ချိတ်ဆက်ထားပါတယ်။
+2. GPU တွေဟာ တစ်ခုနဲ့တစ်ခု၊ server တစ်လုံးနဲ့တစ်လုံး ဒီ fabric ကတစ်ဆင့် communication လုပ်ကြပါတယ်။
+3. ညာဘက် node က compute fabric အတွက် အဓိကလိုအပ်ချက်တွေ—very high throughput, ultra-low latency နဲ့ scalability ကို ပြထားပါတယ်။
+4. AI workload မှာ node တွေ များလာလည်း performance မကျအောင် ဒီဇိုင်းလုပ်ရမှာ ဖြစ်ပါတယ်။
+
 
 အထူးသဖြင့်—AI Training, AI Inference, Distributed AI workloads တွေအတွက် အရေးကြီးပါတယ်။
 
@@ -190,6 +228,31 @@ Isolation အတွက်—VLAN, VXLAN, EVPN စတဲ့ technologies တွ�
         Servers  Servers  Servers
 ```
 
+**Figure 3 — In-Band Management Network အတွက် Leaf-Spine Architecture**
+
+```mermaid
+flowchart TD
+    SP["Spine"]
+    L1["Leaf 1"]
+    L2["Leaf 2"]
+    L3["Leaf 3"]
+    S1["Servers"]
+    S2["Servers"]
+    S3["Servers"]
+    SP --- L1
+    SP --- L2
+    SP --- L3
+    L1 --- S1
+    L2 --- S2
+    L3 --- S3
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. အပေါ်ဆုံးမှာ Spine ဆိုတဲ့ core switch layer ကို မြင်ရပါတယ်။
+2. Spine အောက်မှာ Leaf 1, Leaf 2, Leaf 3 ဆိုတဲ့ access switch တွေ ရှိပါတယ်။
+3. Leaf တစ်ခုချင်းစီအောက်မှာ Servers တွေ ချိတ်ဆက်ထားပါတယ်။
+4. Server တွေ တိုးလာရင် Leaf ထပ်ထည့်၊ traffic များလာရင် Spine capacity တိုးခြင်းနဲ့ ဒီဇိုင်းကို ချဲ့နိုင်ပါတယ်။
+
 ## 14. In-Band Management — Key Considerations
 
 - **Reliability** — Management traffic က reliable ဖြစ်ရပါမယ်။
@@ -237,6 +300,23 @@ Administrator
       ▼
     Server
 ```
+
+**Figure 4 — OS Crash ဖြစ်ချိန်မှာ OOB Network ကတစ်ဆင့် BMC Access**
+
+```mermaid
+flowchart TD
+    AD["Administrator"] --> OOB["OOB Network"]
+    OOB --> BMC["BMC"]
+    BMC --> SRV["Server"]
+    OS["Server OS — CRASH, SSH မရနိုင်တော့ပါ"]
+    OS --- BMC
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. ဘယ်ဘက်က Administrator က OOB Network ကတစ်ဆင့် ချိတ်ဆက်ပါတယ်။
+2. OOB Network က BMC ကို ဆက်သွယ်ပြီး BMC က Server hardware ကို စီမံပေးပါတယ်။
+3. Server OS က CRASH ဖြစ်နေလို့ SSH လို ပုံမှန်လမ်းကြောင်းက မရနိုင်တော့ပါဘူး။
+4. BMC က OS နဲ့ သီးခြားဖြစ်တဲ့အတွက် ဒီလမ်းကြောင်းကတစ်ဆင့် power control, console, recovery တွေ လုပ်နိုင်ဆဲ ဖြစ်ပါတယ်။
 
 လိုမျိုး access လုပ်နိုင်ပါတယ်။
 
@@ -451,6 +531,27 @@ Exam questions can come from this topic.
 | In-Band Management | Cluster/OS management | Ethernet, VLAN/VXLAN/EVPN | Reliable, secure, isolated management |
 | OOB Management | Remote hardware management/recovery | Dedicated physical management network | Always available + strong security |
 
+**Figure 1 — Main Responsibilities of the Four Network Fabrics**
+
+```mermaid
+flowchart TD
+    F["AI Data Center Network Fabrics"]
+    C["Compute — GPU and Node communication"]
+    S["Storage — Compute nodes and Storage"]
+    IB["In-Band Management — Cluster / OS management"]
+    OOB["OOB Management — Remote hardware management"]
+    F --> C
+    F --> S
+    F --> IB
+    F --> OOB
+```
+
+**Figure walkthrough**
+1. At the top, the AI Data Center Network Fabrics split into four fabrics.
+2. First, Compute handles communication between GPUs and nodes.
+3. Second, Storage carries data between compute nodes and the storage system.
+4. Third, In-Band Management covers normal cluster/OS management; fourth, OOB Management covers hardware-level remote management.
+
 ## 3. Compute Network — Purpose
 
 The main purpose of the Compute network is **GPU-to-GPU communication within a node or across nodes**.
@@ -462,6 +563,23 @@ AI workloads can involve a large number of GPUs. The GPUs have to communicate—
 - between compute nodes
 
 That is why the Compute network becomes a backbone of the AI workload.
+
+**Figure 2 — GPU/Node Communication over the Compute Fabric**
+
+```mermaid
+flowchart LR
+    G1["GPU in Node 1"] --- CF["Compute Fabric"]
+    G2["GPU in Node 2"] --- CF
+    G3["GPU in Node 3"] --- CF
+    CF --- R["Requirements — Very High Throughput + Ultra-Low Latency + Scalability"]
+```
+
+**Figure walkthrough**
+1. On the left, three GPU-bearing nodes connect to the central Compute Fabric.
+2. The GPUs communicate with one another and between servers through this fabric.
+3. The right node lists the main compute-fabric requirements: very high throughput, ultra-low latency, and scalability.
+4. As the number of nodes grows in an AI workload, the fabric is designed so performance does not collapse.
+
 
 It is especially important for AI Training, AI Inference, and Distributed AI workloads.
 
@@ -608,6 +726,31 @@ For isolation—technologies such as VLAN, VXLAN, and EVPN can be used.
         Servers  Servers  Servers
 ```
 
+**Figure 3 — Leaf-Spine Architecture for the In-Band Management Network**
+
+```mermaid
+flowchart TD
+    SP["Spine"]
+    L1["Leaf 1"]
+    L2["Leaf 2"]
+    L3["Leaf 3"]
+    S1["Servers"]
+    S2["Servers"]
+    S3["Servers"]
+    SP --- L1
+    SP --- L2
+    SP --- L3
+    L1 --- S1
+    L2 --- S2
+    L3 --- S3
+```
+
+**Figure walkthrough**
+1. At the top is the Spine, the core switch layer.
+2. Below the Spine sit three access switches: Leaf 1, Leaf 2, and Leaf 3.
+3. Under each Leaf, servers are connected.
+4. When servers grow you add Leafs, and when traffic grows you add Spine capacity — the design scales out.
+
 ## 14. In-Band Management — Key Considerations
 
 - **Reliability** — Management traffic must be reliable.
@@ -655,6 +798,23 @@ Administrator
       ▼
     Server
 ```
+
+**Figure 4 — BMC Access through the OOB Network When the OS Crashes**
+
+```mermaid
+flowchart TD
+    AD["Administrator"] --> OOB["OOB Network"]
+    OOB --> BMC["BMC"]
+    BMC --> SRV["Server"]
+    OS["Server OS — CRASHED, SSH no longer available"]
+    OS --- BMC
+```
+
+**Figure walkthrough**
+1. On the left, the Administrator connects through the OOB Network.
+2. The OOB Network reaches the BMC, and the BMC manages the Server hardware.
+3. The Server OS has crashed, so the normal path (SSH) is no longer available.
+4. Because the BMC is separate from the OS, this path still supports power control, console access, and recovery.
 
 ## 16. OOB Management Functions
 
@@ -842,3 +1002,4 @@ Compute fabric moves compute traffic fast; Storage fabric moves data between com
 - English sentences inside the Burmese body (section 5 scalability note, section 22 one-line questions, section 24 memory trick, section 25 key exam points) were translated into Burmese; the unchanged English originals remain in the English section. Tables and ASCII diagrams are technical/term-level content and are preserved verbatim in both sections.
 - No content removed; section numbering 1–25 matches across both language sections.
 - Needs verification: "multi-GB-level throughput" per compute node (section 9) is a design guideline, not a specification — actual requirements depend on the storage platform and workload. The comparison tables give qualitative levels (e.g., "Extremely high", "Ultra-low") without absolute figures.
+- Mermaid figures (Figure 1–4) with figure walkthroughs were added inline in both the Myanmar and English sections; all existing text and ASCII diagrams are unchanged.

@@ -87,6 +87,22 @@ Bullet Train Track
     └── High-Speed Train
 ```
 
+**Figure 1 — Highway vs Bullet Train Analogy ကို Networking နဲ့ ယှဉ်ကြည့်ခြင်း**
+
+```mermaid
+flowchart LR
+    E["Ethernet"] --- H["Highway — traffic အမျိုးမျိုး သွားနိုင်"]
+    IB["InfiniBand"] --- B["Dedicated bullet-train track"]
+    H --- J["General purpose, flexible"]
+    B --- K["Specialized, high performance"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. ဘယ်ဘက်က Ethernet ကို Highway နဲ့ နှိုင်းယှဉ်ထားပါတယ်။ Highway ပေါ်မှာ car, truck, bus စတဲ့ traffic အမျိုးမျိုး သွားနိုင်ပါတယ်။
+2. ညာဘက်က InfiniBand ကို bullet train အတွက် သီးသန့်တည်ဆောက်ထားတဲ့ track နဲ့ နှိုင်းယှဉ်ထားပါတယ်။
+3. Highway က general purpose ဖြစ်ပြီး flexible ဖြစ်သလို Ethernet ကလည်း အသုံးပြုရ ပေါ့ပါးကျယ်ပြန့်ပါတယ်။
+4. Bullet-train track က specialized ဖြစ်သလို InfiniBand ကလည်း high-performance workload အတွက် အထူးတည်ဆောက်ထားခြင်း ဖြစ်ပါတယ်။
+
 ဒီ analogy ကို networking မှာ အသုံးပြုရင်—Ethernet → Highway၊ InfiniBand → Dedicated high-performance transport လို့ မှတ်နိုင်ပါတယ်။
 
 ## 5. Ethernet vs InfiniBand — Basic Idea
@@ -177,6 +193,22 @@ Ethernet
 Network
 ```
 
+**Figure 2 — Ethernet ရဲ့ TCP/IP Data Path**
+
+```mermaid
+flowchart TD
+    A["Application"] --> T["TCP/IP"]
+    T --> E["Ethernet"]
+    E --> N["Network"]
+    N --> P["Protocol processing overhead ရှိနိုင်"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. အပေါ်ဆုံးက Application က data ကို စတင်ပို့ပါတယ်။
+2. Data က TCP/IP stack ကတစ်ဆင့် Ethernet ဆီ ရောက်သွားပါတယ်။
+3. Ethernet ကနေ Network ပေါ်ကို data ထွက်သွားပါတယ်။
+4. အောက်ဆုံး node က ဒီလမ်းကြောင်းမှာ protocol processing overhead ရှိနိုင်တယ်ဆိုတာ သတိပေးထားခြင်း ဖြစ်ပါတယ်။
+
 TCP/IP processing မှာ protocol processing overhead ရှိနိုင်ပါတယ်။
 
 ## 14. InfiniBand and RDMA
@@ -215,6 +247,25 @@ Application / Memory
         ▼
      Network
 ```
+
+**Figure 3 — Traditional Network Path vs RDMA Path**
+
+```mermaid
+flowchart TD
+    A1["Application"] --> CPU["CPU"]
+    CPU --> ST["Network Stack"]
+    ST --> NIC1["NIC"]
+    NIC1 --> NET1["Network — Traditional path"]
+    A2["Application / Memory"] --> RDMA["RDMA"]
+    RDMA --> NIC2["NIC"]
+    NIC2 --> NET2["Network — RDMA path"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. အပေါ်တစ်ဝက်က traditional path ဖြစ်ပြီး Application → CPU → Network Stack → NIC → Network လို့ ဆင်းသွားပါတယ်။
+2. ဒီလမ်းကြောင်းမှာ CPU နဲ့ network stack processing ပါဝင်ရပါတယ်။
+3. အောက်တစ်ဝက်က RDMA path ဖြစ်ပြီး Application / Memory ကနေ တိုက်ရိုက် NIC ကတစ်ဆင့် Network ဆီ သွားပါတယ်။
+4. RDMA မှာ CPU involvement ပိုနည်းတဲ့အတွက် processing overhead လျော့ပြီး low latency, high performance ရနိုင်ပါတယ်။
 
 လိုမျိုး CPU involvement နည်းနိုင်ပါတယ်။ ဒီလို processing overhead လျော့နည်းခြင်းက low latency နဲ့ high performance ကို support ပေးနိုင်ပါတယ်။
 
@@ -339,6 +390,25 @@ Data center တစ်ခုက technology တစ်မျိုးတည်း�
    / General        / Compute       General
    Networking        Fabric         Networking
 ```
+
+**Figure 4 — တစ်ခုတည်းသော Data Center ထဲမှာ Ethernet နဲ့ InfiniBand အတူသုံးပုံ**
+
+```mermaid
+flowchart TD
+    DC["AI DATA CENTER"]
+    E1["Ethernet — Management / General Networking"]
+    IBF["InfiniBand — GPU Fabric / Compute Fabric"]
+    E2["Ethernet — Storage / General Networking"]
+    DC --> E1
+    DC --> IBF
+    DC --> E2
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. ထိပ်ဆုံးက AI DATA CENTER ကနေ network သုံးခု ခွဲထွက်သွားတာ မြင်ရပါမယ်။
+2. ဘယ်ဘက် Ethernet က management နဲ့ general networking အတွက် ဖြစ်ပါတယ်။
+3. အလယ် InfiniBand က GPU fabric / compute fabric အတွက် ဖြစ်ပြီး GPU-to-GPU communication ကို သယ်ပေးပါတယ်။
+4. ညာဘက် Ethernet က storage နဲ့ general networking အတွက် ဖြစ်ပါတယ်။ ဒီလို နှစ်မျိုးလုံးကို complementary အနေနဲ့ အတူသုံးနိုင်ပါတယ်။
 
 - **Ethernet** ကို အောက်ပါတွေအတွက် အသုံးပြုနိုင်ပါတယ်— Management, External connectivity, General data center networking, User/application access
 - **InfiniBand** ကို အောက်ပါတွေအတွက် အသုံးပြုနိုင်ပါတယ်— GPU-to-GPU communication, Distributed AI training, HPC workloads, High-performance cluster interconnect
@@ -482,6 +552,22 @@ Bullet Train Track
     └── High-Speed Train
 ```
 
+**Figure 1 — The Highway vs Bullet Train Analogy Mapped to Networking**
+
+```mermaid
+flowchart LR
+    E["Ethernet"] --- H["Highway — carries many traffic types"]
+    IB["InfiniBand"] --- B["Dedicated bullet-train track"]
+    H --- J["General purpose, flexible"]
+    B --- K["Specialized, high performance"]
+```
+
+**Figure walkthrough**
+1. On the left, Ethernet is compared to a Highway, where cars, trucks, and buses all travel.
+2. On the right, InfiniBand is compared to a dedicated bullet-train track.
+3. The highway is general purpose and flexible, just as Ethernet is widely usable and adaptable.
+4. The bullet-train track is specialized, just as InfiniBand is purpose-built for high-performance workloads.
+
 Applying this analogy to networking—remember it as Ethernet → Highway, InfiniBand → Dedicated high-performance transport.
 
 ## 5. Ethernet vs InfiniBand — Basic Idea
@@ -572,6 +658,22 @@ Ethernet
 Network
 ```
 
+**Figure 2 — The TCP/IP Data Path on Ethernet**
+
+```mermaid
+flowchart TD
+    A["Application"] --> T["TCP/IP"]
+    T --> E["Ethernet"]
+    E --> N["Network"]
+    N --> P["Protocol processing overhead possible"]
+```
+
+**Figure walkthrough**
+1. At the top, the Application starts sending data.
+2. The data passes through the TCP/IP stack down to Ethernet.
+3. From Ethernet, the data goes out onto the Network.
+4. The bottom node warns that this path can involve protocol processing overhead.
+
 TCP/IP processing can involve protocol processing overhead.
 
 ## 14. InfiniBand and RDMA
@@ -610,6 +712,25 @@ Application / Memory
         ▼
      Network
 ```
+
+**Figure 3 — Traditional Network Path vs RDMA Path**
+
+```mermaid
+flowchart TD
+    A1["Application"] --> CPU["CPU"]
+    CPU --> ST["Network Stack"]
+    ST --> NIC1["NIC"]
+    NIC1 --> NET1["Network — Traditional path"]
+    A2["Application / Memory"] --> RDMA["RDMA"]
+    RDMA --> NIC2["NIC"]
+    NIC2 --> NET2["Network — RDMA path"]
+```
+
+**Figure walkthrough**
+1. The top half is the traditional path: Application → CPU → Network Stack → NIC → Network.
+2. On this path, the CPU and the network stack are involved in processing.
+3. The bottom half is the RDMA path: Application / Memory goes straight through the NIC to the Network.
+4. With less CPU involvement, RDMA reduces processing overhead and supports low latency and high performance.
 
 CPU involvement can be reduced. This reduced processing overhead supports low latency and high performance.
 
@@ -735,6 +856,25 @@ A data center does not necessarily need to choose only one technology. You could
    Networking        Fabric         Networking
 ```
 
+**Figure 4 — Using Ethernet and InfiniBand Together in One Data Center**
+
+```mermaid
+flowchart TD
+    DC["AI DATA CENTER"]
+    E1["Ethernet — Management / General Networking"]
+    IBF["InfiniBand — GPU Fabric / Compute Fabric"]
+    E2["Ethernet — Storage / General Networking"]
+    DC --> E1
+    DC --> IBF
+    DC --> E2
+```
+
+**Figure walkthrough**
+1. At the top, the AI DATA CENTER splits into three networks.
+2. The left Ethernet network carries management and general networking traffic.
+3. The middle InfiniBand network is the GPU fabric / compute fabric, carrying GPU-to-GPU communication.
+4. The right Ethernet network handles storage and general networking. The two technologies complement each other.
+
 - **Ethernet** could be used for: Management, External connectivity, General data center networking, User/application access
 - **InfiniBand** could be used for: GPU-to-GPU communication, Distributed AI training, HPC workloads, High-performance cluster interconnect
 
@@ -801,3 +941,4 @@ In other words — Ethernet is a flexible highway that can carry all kinds of tr
 - Correction made (already present in the source text and preserved): the source transcript's "RDM" is corrected to the standard term **RDMA — Remote Direct Memory Access**.
 - Needs verification: the latency examples "~10–100 microseconds" (Ethernet) and "~1–2 microseconds" (InfiniBand) and the "up to 400 Gbps" figure are source examples only — actual values depend on hardware, topology, workload, and configuration (flagged in the text itself).
 - No commands, benchmark numbers beyond the source examples above, or compatibility claims were added.
+- Mermaid figures (Figure 1–4) with figure walkthroughs were added inline in both the Myanmar and English sections; all existing text and ASCII diagrams are unchanged.

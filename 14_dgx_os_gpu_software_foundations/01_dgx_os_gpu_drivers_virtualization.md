@@ -39,6 +39,18 @@ Technology stack ရဲ့ ရိုးရှင်းတဲ့ ပုံကတ�
 +--------------------------------------+
 ```
 
+**ပုံ ၁ (Figure 1) — NVIDIA stack မှာ Layer 3 ရပ်တည်ပုံ**
+
+```mermaid
+flowchart TD
+    A["AI Applications and Frameworks"] --> B["AI Libraries and Developer Tools"]
+    B --> C["Layer 3: OS, Drivers, Virtualization"]
+    C --> D["Layer 2: Data Movement and I/O"]
+    D --> E["Layer 1: Physical Infrastructure"]
+```
+
+**ပုံရှင်းလင်းချက်** — အောက်ခြေကနေ အပေါ်ဘက်ကို ဖတ်ကြည့်ပါ — အောက်ဆုံး Layer 1 မှာ GPU, CPU, NIC, storage လို physical hardware ရှိပြီး Layer 2 က data ကို ထိရောက်စွာ ရွှေ့ပေးပါတယ်။ Layer 3 က OS, driver, virtualization ဖြင့် ဒီ hardware ကို software က စီမံ အသုံးပြုနိုင်အောင် ချိတ်ဆက်ပေးပြီး အပေါ်ဆုံးမှာတော့ AI libraries နဲ့ AI applications တွေ အလုပ်လုပ်ပါတယ်။
+
 Layer တစ်ခုချင်းစီမှာ တာဝန် မတူညီပါဘူး—
 
 - **Physical infrastructure** — GPU, CPU, memory, network adapter နဲ့ storage ကို ပေးပါတယ်။
@@ -113,6 +125,25 @@ NVIDIA DGX OS customization
 DGX platform for AI / ML / Analytics
 ```
 
+**ပုံ ၂ (Figure 2) — Ubuntu LTS ကနေ DGX OS ဖြစ်လာပုံ**
+
+```mermaid
+flowchart TD
+    U["Ubuntu Linux LTS"] --> C["NVIDIA DGX OS customization"]
+    C --> K["DGX-oriented kernel and configuration"]
+    C --> D["NVIDIA GPU drivers"]
+    C --> T["CUDA software components"]
+    C --> L["AI and GPU communication libraries"]
+    C --> X["Container and system utilities"]
+    K --> P["DGX platform for AI / ML / Analytics"]
+    D --> P
+    T --> P
+    L --> P
+    X --> P
+```
+
+**ပုံရှင်းလင်းချက်** — Ubuntu LTS ကို အခြေခံပြီး NVIDIA က DGX OS customization လုပ်ထားတာ ဖြစ်ပါတယ်။ Customization ကနေ DGX-oriented kernel/configuration၊ GPU drivers၊ CUDA components၊ communication libraries နဲ့ container utilities တွေ ထွက်လာပြီး အားလုံးပေါင်းပြီးမှ DGX platform ပေါ်မှာ AI, ML, analytics workload တွေ အလုပ်လုပ်နိုင်တာ ဖြစ်ပါတယ်။ ဒါက conceptual view သာ ဖြစ်ပါတယ်။
+
 ဒါက conceptual view သာဖြစ်ပြီး complete package manifest မဟုပ်ပါဘူး။ တကယ် ပါဝင်တဲ့အကြောင်းအရာက install လုပ်ထားတဲ့ DGX OS release ပေါ် မူတည်ပါတယ်။
 
 **Course ပါ version အချက်အလက်**
@@ -135,6 +166,20 @@ Lesson မှာ DGX software environment နဲ့ သက်ဆိုင်တ�
 | Additional system utilities | System configuration, monitoring နဲ့ platform operation များကို support ရန် |
 
 Component တစ်ခုချင်းစီရဲ့ ရရှိနိုင်မှုနဲ့ version အတိအကျက DGX OS release နဲ့ installation method ပေါ် မူတည်ပါတယ်။
+
+**ပုံ ၃ (Figure 3) — DGX software component တွေ အလွှာလိုက် ဆက်စပ်ပုံ**
+
+```mermaid
+flowchart TD
+    DOCK["Docker Engine container"] --> APP["AI Application"]
+    APP --> CUDA["CUDA Toolkit / cuDNN"]
+    APP --> NC["NCCL"]
+    CUDA --> DRV["NVIDIA GPU Driver"]
+    NC --> DRV
+    DRV --> GPU["NVIDIA GPU Hardware"]
+```
+
+**ပုံရှင်းလင်းချက်** — AI Application က Docker container ထဲမှာ ရှိနေနိုင်ပြီး CUDA Toolkit/cuDNN နဲ့ NCCL လို library တွေကို သုံးပြီး အလုပ်လုပ်ပါတယ်။ ဒီ library တွေ အားလုံးက NVIDIA GPU Driver ကတစ်ဆင့် GPU hardware ကို ခိုင်းစေတာ ဖြစ်ပါတယ်။ Docker Engine က application ကို container ထဲ ထည့်ပေးပေမယ့် compatible host GPU driver နဲ့ GPU access configuration လိုအပ်ချက် မပျောက်သွားပါဘူး။
 
 **GPU driver**
 
@@ -186,6 +231,20 @@ Instructor က virtualization ကိုလည်း Layer 3 ထဲက နော�
 | GPU driver | Software ကို supported GPU များနဲ့ ဆက်သွယ် အသုံးပြုနိုင်စေခြင်း |
 | Hypervisor | Virtual machine များ ဖန်တီး စီမံပြီး virtualized hardware resource များ ခွဲဝပေးခြင်း |
 | GPU virtualization technology | GPU resource များကို workload များအတွက် share, partition သို့မဟုတ် assign လုပ်နိုင်တဲ့ supported နည်းလမ်းများ ပေးခြင်း |
+
+**ပုံ ၄ (Figure 4) — DGX OS, GPU driver, Hypervisor တို့ရဲ့ တာဝန် ခွဲခြားပုံ**
+
+```mermaid
+flowchart TD
+    VM["Virtual Machines"] --> HV["Hypervisor"]
+    HV --> HOST["DGX OS host environment"]
+    SW["Software and applications"] --> DRV["GPU driver"]
+    DRV --> HOST
+    HOST --> HW["DGX hardware"]
+    GV["GPU virtualization technology"] --- HW
+```
+
+**ပုံရှင်းလင်းချက်** — DGX OS က host operating-system environment ကို စီမံပြီး DGX hardware ပေါ်မှာ ရပ်တည်ပါတယ်။ GPU driver က software ကို GPU သုံးခွင့် ပေးပါတယ်။ Hypervisor ကတော့ virtual machine တွေ ဖန်တီး စီမံတာဖြစ်လို့ DGX OS ရဲ့ နောက်တစ်မျိုး အမည် မဟုတ်ပါဘူး။ GPU virtualization technology ကတော့ GPU resource တွေကို workload တွေအတွက် share, partition သို့မဟုတ် assign လုပ်ပေးနိုင်တဲ့ နည်းလမ်း ဖြစ်ပါတယ်။
 
 Hypervisor ဆိုတာ DGX OS ရဲ့ နောက်တစ်မျိုး အမည် မဟုတ်ပါဘူး။ သူတို့က ပြဿနာ မတူညီပါဘူး။
 
@@ -290,6 +349,18 @@ A simplified view of the technology stack is:
 +--------------------------------------+
 ```
 
+**Figure 1 — Where Layer 3 sits in the NVIDIA stack**
+
+```mermaid
+flowchart TD
+    A["AI Applications and Frameworks"] --> B["AI Libraries and Developer Tools"]
+    B --> C["Layer 3: OS, Drivers, Virtualization"]
+    C --> D["Layer 2: Data Movement and I/O"]
+    D --> E["Layer 1: Physical Infrastructure"]
+```
+
+**Figure walkthrough** — Read the figure from the bottom up: Layer 1 at the bottom holds the physical hardware (GPUs, CPUs, NICs, storage), and Layer 2 moves data between those components efficiently. Layer 3 connects this hardware to software through the OS, drivers, and virtualization, and the AI libraries and applications run on top.
+
 Each layer has a different responsibility.
 
 - **Physical infrastructure:** Provides the GPUs, CPUs, memory, network adapters, and storage.
@@ -360,6 +431,25 @@ NVIDIA DGX OS customization
 DGX platform for AI / ML / Analytics
 ```
 
+**Figure 2 — How DGX OS is built on Ubuntu LTS**
+
+```mermaid
+flowchart TD
+    U["Ubuntu Linux LTS"] --> C["NVIDIA DGX OS customization"]
+    C --> K["DGX-oriented kernel and configuration"]
+    C --> D["NVIDIA GPU drivers"]
+    C --> T["CUDA software components"]
+    C --> L["AI and GPU communication libraries"]
+    C --> X["Container and system utilities"]
+    K --> P["DGX platform for AI / ML / Analytics"]
+    D --> P
+    T --> P
+    L --> P
+    X --> P
+```
+
+**Figure walkthrough** — NVIDIA builds DGX OS as a customization on top of Ubuntu LTS. From that customization come the DGX-oriented kernel and configuration, GPU drivers, CUDA software components, communication libraries, and container utilities, which together let AI, ML, and analytics workloads run on the DGX platform. This is a conceptual view only.
+
 This is a conceptual view rather than a complete package manifest. The actual contents depend on the installed DGX OS release.
 
 **Version information from the course**
@@ -382,6 +472,20 @@ The lesson names several components commonly associated with a DGX software envi
 | Additional system utilities | Support system configuration, monitoring, and platform operations |
 
 The precise availability and version of each component depend on the DGX OS release and installation method.
+
+**Figure 3 — How the DGX software components layer on each other**
+
+```mermaid
+flowchart TD
+    DOCK["Docker Engine container"] --> APP["AI Application"]
+    APP --> CUDA["CUDA Toolkit / cuDNN"]
+    APP --> NC["NCCL"]
+    CUDA --> DRV["NVIDIA GPU Driver"]
+    NC --> DRV
+    DRV --> GPU["NVIDIA GPU Hardware"]
+```
+
+**Figure walkthrough** — An AI application — possibly inside a Docker container — uses libraries such as the CUDA Toolkit/cuDNN and NCCL. All of these libraries reach the GPU hardware through the NVIDIA GPU driver. Docker Engine packages the application, but it does not remove the need for a compatible host GPU driver and proper GPU access configuration.
 
 **GPU driver** — The NVIDIA GPU driver enables supported software to use the GPU. It is a key compatibility component between the OS, GPU hardware, and the NVIDIA computing stack.
 
@@ -417,6 +521,20 @@ The instructor also introduces virtualization as another subject within Layer 3.
 | GPU driver | Enables software to communicate with and use supported GPUs |
 | Hypervisor | Creates and manages virtual machines and allocates virtualized hardware resources |
 | GPU virtualization technology | Enables supported ways to share, partition, or assign GPU resources to workloads |
+
+**Figure 4 — Separating the roles of DGX OS, the GPU driver, and a hypervisor**
+
+```mermaid
+flowchart TD
+    VM["Virtual Machines"] --> HV["Hypervisor"]
+    HV --> HOST["DGX OS host environment"]
+    SW["Software and applications"] --> DRV["GPU driver"]
+    DRV --> HOST
+    HOST --> HW["DGX hardware"]
+    GV["GPU virtualization technology"] --- HW
+```
+
+**Figure walkthrough** — DGX OS manages the host operating-system environment and sits directly on the DGX hardware. The GPU driver lets software use the GPU. A hypervisor creates and manages virtual machines, so it is not another name for DGX OS. GPU virtualization technology provides supported ways to share, partition, or assign GPU resources to workloads.
 
 A hypervisor is not simply another name for DGX OS. They solve different problems.
 
@@ -488,3 +606,4 @@ A: NVIDIA validates driver/CUDA/library compatibility, which reduces manual comp
 - The component table (GPU driver, CUDA Toolkit, cuDNN, NCCL, Docker Engine) names components commonly associated with a DGX software environment; exact availability and versions depend on the DGX OS release and installation method (needs verification per release).
 - The stack and Ubuntu-relationship diagrams are conceptual views, not package manifests.
 - The `cat /etc/os-release`, `uname -r`, `nvidia-smi`, `docker --version` commands are illustrative basic inspection examples; availability depends on installed software and permissions.
+- Mermaid figures (Figures 1–4) with figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline to both language sections; all existing text, ASCII diagrams, and review notes are unchanged.

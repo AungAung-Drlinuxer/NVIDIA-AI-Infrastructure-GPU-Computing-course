@@ -34,6 +34,27 @@ Conceptual Diagram —
 
 ဒီ Diagram က သဘောတရားကို နားလည်ဖို့ ရေးထားတာဖြစ်ပြီး GPU အားလုံးမှာ Core အမျိုးအစားသုံးမျိုးလုံး ပါဝင်တယ်လို့ မဆိုလိုပါဘူး။ အမှန်တကယ် ပါဝင်တဲ့ Hardware Units တွေဟာ GPU Model နဲ့ Architecture အလိုက် ကွာခြားနိုင်ပါတယ်။
 
+အောက်ပါ **Figure 1** မှာ GPU အတွင်းက core အမျိုးအစား သုံးမျိုးရဲ့ အဓိက အလုပ်တွေကို ပုံနဲ့ ကြည့်နိုင်ပါတယ်။
+
+**Figure 1: GPU အတွင်းက Core အမျိုးအစား သုံးမျိုးရဲ့ အဓိက အလုပ်**
+
+```mermaid
+flowchart TD
+    A["GPU"] --> B["CUDA Cores"]
+    A --> C["Tensor Cores"]
+    A --> D["RT Cores"]
+    B --> E["General & Parallel Computing"]
+    C --> F["AI Matrix Operations"]
+    D --> G["Ray Tracing Operations"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 1)**
+
+- အပေါ်ဆုံးက GPU တစ်လုံးကနေ core အမျိုးအစား သုံးမျိုး ခွဲထွက်သွားတာကို ကြည့်ပါ။
+- CUDA Cores က general & parallel computing အတွက် အသုံးဝင်ပါတယ်။
+- Tensor Cores က AI matrix operation တွေကို အရှိန်မြှင့်ပေးပါတယ်။
+- RT Cores က ray tracing operation တွေကို အရှိန်မြှင့်ပေးပါတယ်။ (GPU အားလုံး သုံးမျိုးလုံး ပါဝင်တယ်လို့ မဆိုလိုပါဘူး — GPU model နဲ့ architecture ပေါ် မူတည်ပါတယ်။)
+
 ## 3. Human Brain နဲ့ နှိုင်းယှဉ်ကြည့်ခြင်း
 
 လူ့ဦးနှောက်ကို Unit တစ်ခုတည်းအဖြစ် မြင်နိုင်ပေမဲ့ အတွင်းမှာ မတူညီတဲ့ လုပ်ဆောင်ချက်တွေနဲ့ ဆက်စပ်နေတဲ့ Brain Regions တွေ ရှိပါတယ်။
@@ -48,6 +69,29 @@ Conceptual Diagram —
 ## 4. School နဲ့ Teachers ဥပမာ
 
 GPU Cores တွေကို ပိုနားလည်လွယ်ဖို့ ကျောင်းတစ်ကျောင်းနဲ့ နှိုင်းယှဉ်ကြည့်ရအောင်။ ကျောင်းတစ်ကျောင်းမှာ Principal, General Teachers နဲ့ Specialist Teachers တွေ ရှိတယ်လို့ ယူဆပါ။
+
+အောက်ပါ **Figure 2** မှာ ဒီ school ဥပမာကို ပုံနဲ့ ကြည့်နိုင်ပါတယ်။
+
+**Figure 2: School ဥပမာ — GPU Core အမျိုးအစားများကို ဆရာများနှင့် နှိုင်းယှဉ်ပုံ**
+
+```mermaid
+flowchart TD
+    A["School"] --> B["Principal"]
+    A --> C["General Teachers"]
+    A --> D["Math Specialist"]
+    A --> E["Art Specialist"]
+    B --> F["Software Stack — အလုပ်ခွဲဝေ စီမံ"]
+    C --> G["CUDA Cores — General Computing"]
+    D --> H["Tensor Cores — AI Matrix Operations"]
+    E --> I["RT Cores — Ray Tracing"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 2)**
+
+- ကျောင်းတစ်ကျောင်းကို principal, general teachers, math specialist, art specialist ဆိုပြီး ခွဲထားတာကို ကြည့်ပါ။
+- General teachers တွေက CUDA Cores နဲ့ တူပြီး ဘာသာရပ်မျိုးစုံ သင်နိုင်သလို general computing အမျိုးမျိုး လုပ်နိုင်ပါတယ်။
+- Math specialist က Tensor Cores နဲ့ တူပြီး AI matrix operation တွေမှာ အထူးကျွမ်းကျင်ပါတယ်။
+- Art specialist က RT Cores နဲ့ တူပြီး ray tracing အတွက် အထူးပြုပါတယ်။ Principal ကတော့ software stack ကတစ်ဆင့် အလုပ်ခွဲဝေ စီမံပေးပါတယ်။
 
 ### 4.1 General Teachers — CUDA Cores
 
@@ -96,6 +140,25 @@ Deep Learning Model တစ်ခုမှာ Matrix Operations များစ�
 - **CUDA** — NVIDIA GPU Computing အတွက် Programming Platform နဲ့ Software Ecosystem ဖြစ်တယ်။
 - **AI Frameworks** — PyTorch လို Framework တွေက Model Operations တွေကို သတ်မှတ်ပြီး Supported Hardware နဲ့ Software Libraries တွေကတစ်ဆင့် လုပ်ဆောင်စေတယ်။
 - **Graphics APIs** — Graphics Applications တွေက GPU ကို အသုံးပြုနိုင်ဖို့ Interface ပေးတယ်။
+
+အောက်ပါ **Figure 3** မှာ application ကနေ GPU hardware အထိ software path ကို တစ်ဆင့်ချင်း ကြည့်နိုင်ပါတယ်။
+
+**Figure 3: NVIDIA Software Stack — Hardware ကို အသုံးပြုဖို့ Software Path**
+
+```mermaid
+flowchart TD
+    A["Application / AI Framework"] --> B["CUDA / Graphics APIs"]
+    B --> C["NVIDIA Driver"]
+    C --> D["GPU Hardware"]
+    D --> E["CUDA Cores / Tensor Cores / RT Cores"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 3)**
+
+- အပေါ်ဆုံးက application / AI framework ကနေ စပြီး အောက်ကို တစ်ဆင့်ချင်း ကြည့်ပါ။
+- CUDA programming platform နဲ့ graphics APIs တွေက GPU ကို အသုံးပြုနိုင်ဖို့ interface ပေးပါတယ်။
+- NVIDIA driver က operating system နဲ့ GPU hardware ကြား ဆက်သွယ်မှုကို ပံ့ပိုးပါတယ်။
+- အောက်ဆုံးမှာ GPU hardware ထဲက core အမျိုးအစားတွေ အလုပ်လုပ်ပါတယ်။ (ဒါက software path ကို အကြမ်းပြတာဖြစ်ပြီး driver တစ်ခုတည်းက core တစ်ခုချင်းကို ကိုယ်တိုင်ရွေးမပေးပါဘူး။)
 
 **သတိပြုရန်** — Principal ဥပမာဟာ Software Stack ရဲ့ အခန်းကဏ္ဍကို အကြမ်းဖျဉ်း နားလည်စေဖို့သာ ဖြစ်ပါတယ်။ Driver တစ်ခုတည်းက Core တစ်ခုချင်းစီကို ကိုယ်တိုင်ရွေးချယ်စီမံပေးတာ မဟုတ်ပါဘူး။ အမှန်တကယ် အလုပ်ဖြန့်ဝေမှုမှာ GPU Hardware Scheduler, Compiler, Runtime, Libraries နဲ့ Application တို့ရဲ့ အခန်းကဏ္ဍတွေ ပါဝင်ပါတယ်။
 
@@ -157,6 +220,30 @@ Ray tracing နဲ့ DLSS ဖွင့်ထားတဲ့ compatible GeForce 
 - **Tensor Cores** — DLSS အတွက် supported AI operations တွေကို image reconstruct/upscale လုပ်ရာမှာ အသုံးပြုပါတယ်။ DLSS Frame Generation က AI နဲ့ အခြား GPU hardware features တွေကို အသုံးပြုပြီး ထပ်ဆောင်း frames တွေ ထုတ်ပေးနိုင်ပါတယ် (implementation ပေါ် မူတည်)။
 - **RT Cores** — Ray tracing enabled ဖြစ်တဲ့အခါ reflections နဲ့ lighting ကဲ့သို့ effects တွေအတွက် သက်ဆိုင်ရာ ray-tracing calculations တွေကို အရှိန်မြှင့်ပေးပါတယ်။
 
+အောက်ပါ **Figure 4** မှာ Cyberpunk 2077 ကစားချိန် core သုံးမျိုး ဘယ်လို ပေါင်းပါဝင်သလဲ ကြည့်နိုင်ပါတယ်။
+
+**Figure 4: Cyberpunk 2077 ဥပမာ — Core သုံးမျိုး ပေါင်းပါဝင်ပုံ**
+
+```mermaid
+flowchart TD
+    A["Cyberpunk 2077 on GeForce RTX"] --> B["CUDA Cores"]
+    A --> C["Tensor Cores"]
+    A --> D["RT Cores"]
+    B --> E["Shader / General Graphics Rendering"]
+    C --> F["DLSS AI Upscaling / Frame Generation"]
+    D --> G["Ray-Tracing Reflections / Lighting"]
+    E --> H["Gaming Experience"]
+    F --> H
+    G --> H
+```
+
+**ပုံရှင်းလင်းချက် (Figure 4)**
+
+- အပေါ်ဆုံးက game workload ကနေ core သုံးမျိုးဆီ ခွဲသွားတာကို ကြည့်ပါ။
+- CUDA Cores က shader operations အပါအဝင် general graphics rendering ကို ဆောင်ရွက်ပါတယ်။
+- Tensor Cores က DLSS AI upscaling / frame generation အတွက် supported AI operations တွေကို အရှိန်မြှင့်ပေးပါတယ်။
+- RT Cores က ray tracing ဖွင့်ထားချိန် reflections / lighting အတွက် ray-tracing calculations တွေကို အရှိန်မြှင့်ပေးပြီး သုံးခုပေါင်း gaming experience တစ်ခုတည်းကို ဖန်တီးပေးပါတယ်။
+
 အဓိကအချက်က — ဒီ components တွေဟာ gaming experience တစ်ခုတည်းအတွက် အတူပါဝင်ကူညီကြတာဖြစ်ပါတယ်။ Game တိုင်းမှာ အလုပ်ကို သီးခြားအဆင့်သုံးဆင့်အဖြစ် ခွဲဝေထားတာ မဟုတ်ပါဘူး — တကယ့် execution က rendering engine နဲ့ graphics pipeline ပေါ် မူတည်ပါတယ်။ NVIDIA ရဲ့ RTX 4090 specifications မှာ CUDA Cores, fourth-generation Tensor Cores, third-generation RT Cores နဲ့ DLSS features support တွေကို ဖော်ပြထားပါတယ်။
 
 ## 11. GPU Families တွေမှာ ဒီ Cores တွေ ရှိသလား?
@@ -202,6 +289,30 @@ GPU တစ်လုံံးမှာ CUDA Cores ပိုများတယ်�
 - Memory capacity နဲ့ bandwidth
 - Software libraries နဲ့ kernel optimizations
 - တကယ့် workload နဲ့ benchmark
+
+အောက်ပါ **Figure 5** မှာ core count တစ်ခုတည်းနဲ့ performance မခန့်မှန်းနိုင်ရတဲ့ အကြောင်းရင်းတွေကို ကြည့်နိုင်ပါတယ်။
+
+**Figure 5: Core Count တစ်ခုတည်းနဲ့ Performance မခန့်မှန်းနိုင်ခြင်း**
+
+```mermaid
+flowchart TD
+    A["CUDA Core Count များရုံနဲ့ မလုံလောက်"] --> B["GPU Architecture / Generation"]
+    A --> C["Memory Capacity / Bandwidth"]
+    A --> D["Precision / Clock / Power Limits"]
+    A --> E["Software Libraries / Kernel Optimization"]
+    A --> F["Actual Workload / Benchmark"]
+    B --> G["Performance အစစ်"]
+    C --> G
+    D --> G
+    E --> G
+    F --> G
+```
+
+**ပုံရှင်းလင်းချက် (Figure 5)**
+
+- အပေါ်ဆုံးက core count များရုံနဲ့ မလုံလောက်ဘူးဆိုတဲ့ အဓိကအချက်ကို ထားပါတယ်။
+- အောက်က factor ငါးခု — GPU architecture / generation, memory capacity / bandwidth, precision / clock / power limits, software libraries / kernel optimization, actual workload / benchmark — အားလုံးကို ထည့်စဉ်းစားရပါမယ်။
+- အောက်ဆုံးက performance အစစ်ကို ဒီ factor အားလုံး ပေါင်းပြီးမှ အကဲဖြတ်နိုင်တာကို ပြပါတယ်။
 
 ဥပမာ — RTX 4090 ကို consumer graphics, gaming နဲ့ creator workloads တွေအတွက် ဒီဇိုင်းထုတ်ထားပြီး A100 ကို data-center AI နဲ့ HPC အတွက် ဒီဇိုင်းထုတ်ထားပါတယ်။ သူတို့ရဲ့ CUDA Core counts တွေကိုသာ နှိုင်းယှဉ်မယ်ဆိုရင် architecture နဲ့ workload ကွာခြားချက်ကြီးတွေကို လွဲချော်သွားပါလိမ့်မယ်။ GPU family တစ်ခုတည်းအတွင်းမှာတောင် core count က performance ရဲ့ ပြည့်စုံတဲ့ ခန့်မှန်းချက် မဟုတ်ပါဘူး။
 
@@ -278,6 +389,27 @@ Conceptual Diagram:
 
 This diagram illustrates the concept only. Not every GPU contains all three types of cores; the available components depend on the model and architecture.
 
+See **Figure 1** for a picture of the main jobs of the three core types inside a GPU.
+
+**Figure 1: The Three Core Types Inside a GPU and Their Main Jobs**
+
+```mermaid
+flowchart TD
+    A["GPU"] --> B["CUDA Cores"]
+    A --> C["Tensor Cores"]
+    A --> D["RT Cores"]
+    B --> E["General & Parallel Computing"]
+    C --> F["AI Matrix Operations"]
+    D --> G["Ray Tracing Operations"]
+```
+
+**Figure walkthrough (Figure 1)**
+
+- Look at the top: one GPU splits into three core types.
+- CUDA Cores are useful for general and parallel computing.
+- Tensor Cores accelerate AI matrix operations.
+- RT Cores accelerate ray-tracing operations. (Not every GPU includes all three — it depends on the GPU model and architecture.)
+
 ## 3. Human Brain Analogy
 
 The human brain has different regions associated with different functions. For example, the frontal lobe is involved in planning, decision-making, behavior, and voluntary movement, while the occipital lobe plays a major role in visual processing.
@@ -287,6 +419,29 @@ Similarly, a GPU contains different hardware components that contribute to diffe
 ## 4. School Analogy
 
 Imagine a school with a principal, general teachers, and specialist teachers.
+
+**Figure 2** shows this school analogy as a picture.
+
+**Figure 2: The School Analogy — GPU Core Types Compared to Teachers**
+
+```mermaid
+flowchart TD
+    A["School"] --> B["Principal"]
+    A --> C["General Teachers"]
+    A --> D["Math Specialist"]
+    A --> E["Art Specialist"]
+    B --> F["Software Stack — Assigns the Work"]
+    C --> G["CUDA Cores — General Computing"]
+    D --> H["Tensor Cores — AI Matrix Operations"]
+    E --> I["RT Cores — Ray Tracing"]
+```
+
+**Figure walkthrough (Figure 2)**
+
+- The school is split into a principal, general teachers, a math specialist, and an art specialist.
+- General teachers match CUDA Cores: they can teach many subjects, just as CUDA Cores handle many kinds of general computing.
+- The math specialist matches Tensor Cores, specialized in AI matrix operations.
+- The art specialist matches RT Cores, specialized for ray tracing. The principal represents the software stack assigning the work.
 
 ### 4.1 CUDA Cores — General Teachers
 
@@ -331,6 +486,25 @@ A school principal assigns responsibilities based on each teacher's role. In a G
 - **CUDA** — The programming platform and software ecosystem for NVIDIA GPU computing.
 - **AI Frameworks** — Frameworks such as PyTorch express model operations and execute them through supported hardware and software libraries.
 - **Graphics APIs** — Provide interfaces through which graphics applications use the GPU.
+
+**Figure 3** shows the software path from the application down to the GPU hardware.
+
+**Figure 3: The NVIDIA Software Stack — The Software Path to the Hardware**
+
+```mermaid
+flowchart TD
+    A["Application / AI Framework"] --> B["CUDA / Graphics APIs"]
+    B --> C["NVIDIA Driver"]
+    C --> D["GPU Hardware"]
+    D --> E["CUDA Cores / Tensor Cores / RT Cores"]
+```
+
+**Figure walkthrough (Figure 3)**
+
+- Start at the top with the application / AI framework and move down one step at a time.
+- The CUDA programming platform and graphics APIs provide the interfaces for using the GPU.
+- The NVIDIA driver supports communication between the operating system and the GPU hardware.
+- At the bottom, the core types inside the GPU hardware do the work. (This shows the software path in general; the driver does not individually assign every operation to one core.)
 
 **Caution** — The principal analogy is simplified. The driver does not independently assign every operation to an individual core. Actual execution and scheduling involve the GPU hardware scheduler, compiler, runtime, libraries, and the application.
 
@@ -392,6 +566,30 @@ Imagine playing Cyberpunk 2077 on a compatible GeForce RTX GPU with ray tracing 
 - **Tensor Cores** accelerate supported DLSS AI operations to reconstruct or upscale an image. DLSS Frame Generation can also generate additional frames using AI and other GPU hardware features, depending on the supported implementation.
 - **RT Cores** accelerate relevant ray-tracing calculations for effects such as reflections and lighting when ray tracing is enabled on supported hardware.
 
+**Figure 4** shows how all three core types contribute when playing Cyberpunk 2077.
+
+**Figure 4: The Cyberpunk 2077 Example — All Three Core Types Contributing**
+
+```mermaid
+flowchart TD
+    A["Cyberpunk 2077 on GeForce RTX"] --> B["CUDA Cores"]
+    A --> C["Tensor Cores"]
+    A --> D["RT Cores"]
+    B --> E["Shader / General Graphics Rendering"]
+    C --> F["DLSS AI Upscaling / Frame Generation"]
+    D --> G["Ray-Tracing Reflections / Lighting"]
+    E --> H["Gaming Experience"]
+    F --> H
+    G --> H
+```
+
+**Figure walkthrough (Figure 4)**
+
+- At the top, the game workload splits toward the three core types.
+- CUDA Cores handle general graphics rendering, including shader operations.
+- Tensor Cores accelerate supported DLSS AI operations for upscaling / frame generation.
+- RT Cores accelerate ray-tracing calculations for reflections and lighting when ray tracing is enabled; together, the three shape one gaming experience.
+
 The key point is that these components can contribute to the same overall gaming experience. The work is not divided into three completely independent stages in every game; the actual execution depends on the rendering engine and graphics pipeline. NVIDIA's RTX 4090 specifications list CUDA Cores, fourth-generation Tensor Cores, and third-generation RT Cores, along with support for DLSS features.
 
 ## 11. Which GPU Families Have These Cores?
@@ -437,6 +635,30 @@ Suppose one GPU has more CUDA Cores than another. That fact alone does not prove
 - Memory capacity and bandwidth.
 - Software libraries and kernel optimizations.
 - The actual workload and benchmark.
+
+**Figure 5** shows why a core count alone cannot predict performance.
+
+**Figure 5: Why Core Count Alone Cannot Predict Performance**
+
+```mermaid
+flowchart TD
+    A["More CUDA Cores Alone Is Not Enough"] --> B["GPU Architecture / Generation"]
+    A --> C["Memory Capacity / Bandwidth"]
+    A --> D["Precision / Clock / Power Limits"]
+    A --> E["Software Libraries / Kernel Optimization"]
+    A --> F["Actual Workload / Benchmark"]
+    B --> G["Real Performance"]
+    C --> G
+    D --> G
+    E --> G
+    F --> G
+```
+
+**Figure walkthrough (Figure 5)**
+
+- The top node holds the main point: a larger core count alone is not enough.
+- The five factors below — GPU architecture / generation, memory capacity / bandwidth, precision / clock / power limits, software libraries / kernel optimization, and the actual workload / benchmark — must all be considered.
+- The bottom node shows that real performance can only be judged by combining all of these factors.
 
 For example, the RTX 4090 is designed for consumer graphics, gaming, and creator workloads, while the A100 is designed for data-center AI and HPC. Comparing only their CUDA Core counts would miss the major architectural and workload differences. Even within the same GPU family, a larger core count is not a complete performance prediction; configuration and workload still matter.
 
@@ -490,3 +712,4 @@ Answer: No to both. Performance depends on architecture, precision, memory bandw
 - H100 row wording ("no dedicated RT Cores for its primary data-center design") is kept as stated in the source rather than being simplified.
 - Conceptual diagram caveat preserved: not every GPU contains all three core types; availability depends on model and architecture.
 - Human-brain and school analogies are kept flagged as conceptual aids, not claims about actual hardware operation (per source).
+- Figures added in this pass: Mermaid figures (Figure 1–5) with captions and figure walkthroughs (ပုံရှင်းလင်းချက်) were inserted inline in both language sections with matching numbering; no existing text or ASCII diagrams were changed.

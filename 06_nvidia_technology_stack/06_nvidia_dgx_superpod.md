@@ -35,6 +35,22 @@ DGX SuperPOD
 Large-scale AI Supercomputing
 ```
 
+**Figure 1 — DGX တစ်လုံးကနေ DGX SuperPOD အထိ တိုးချဲ့ပုံ**
+
+```mermaid
+flowchart TD
+    A["DGX — AI system တစ်ခု"] --> B["Multiple DGX Nodes"]
+    B -->|"interconnected"| C["DGX SuperPOD"]
+    C --> D["Large-scale AI Supercomputing"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough) —**
+
+1. အပေါ်ဆုံးက box က DGX တစ်လုံးတည်း — AI system တစ်ခုကို ကိုယ်စားပြုပါတယ်။
+2. ဒုတိယ box က DGX တစ်လုံးထက် ပိုများတဲ့ nodes တွေ စုလာတာကို ပြပါတယ်။
+3. မြားကြောင်းအတိုင်း ဆက်ကြည့်ရင် nodes တွေကို ချိတ်ဆက်လိုက်တာက DGX SuperPOD ဖြစ်လာပုံကို တွေ့ရပါမယ်။
+4. အောက်ဆုံး box က ဒီ SuperPOD ကနေ large-scale AI supercomputing ရရှိတာကို ပြပါတယ်။
+
 ဒါကြောင့် အကြမ်းဖျင်းပြောရရင်—
 
 - DGX SuperPOD = Multiple DGX systems working together as a large-scale AI computing infrastructure.
@@ -102,6 +118,32 @@ Node တစ်ခုချင်းစီက GPU compute resources တွေ ပ
                        Jump Box
 ```
 
+**Figure 2 — DGX SuperPOD cluster architecture ပုံ**
+
+```mermaid
+flowchart TD
+    SP["DGX SuperPOD"]
+    SP --> N1["DGX Node 1 — GPUs"]
+    SP --> N2["DGX Node 2 — GPUs"]
+    SP --> N3["DGX Node 3 — GPUs"]
+    N1 --> IB["InfiniBand High-speed Fabric"]
+    N2 --> IB
+    N3 --> IB
+    IB --> ST["Storage Systems"]
+    IB --> MG["Management"]
+    MG --> INB["In-Band Management"]
+    MG --> OOB["OOB Management"]
+    OOB --> JB["Jump Box"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough) —**
+
+1. အပေါ်ဆုံး box က DGX SuperPOD တစ်ခုလုံးကို ကိုယ်စားပြုပါတယ်။
+2. အောက်က box သုံးခုက DGX Node တွေဖြစ်ပြီး တစ်ခုချင်းစီမှာ GPUs ပါဝင်ပါတယ်။
+3. Node တွေအားလုံးက InfiniBand high-speed fabric ကို ဆက်သွယ်ထားပါတယ် — node တွေကြား အမြန်ဆုံးဆက်သွယ်နိုင်တဲ့ လမ်းကြောင်းပါ။
+4. Fabric ကနေတစ်ဆင့် Storage Systems နဲ့ Management ဆီ ဆက်သွယ်နိုင်ပါတယ်။
+5. Management က In-Band နဲ့ OOB ဆိုပြီး နှစ်မျိုးခွဲပြီး OOB ကနေတစ်ဆင့် Jump Box ကို အသုံးပြုပါတယ်။
+
 အရေးကြီးတဲ့အချက်က—SuperPOD ဟာ GPU servers တွေ ရိုးရိုးစုစည်းမှုသက်သက် မဟုတ်ပါဘူး။
 အောက်ပါ infrastructure တွေ ပါဝင်ပါတယ်—
 
@@ -128,6 +170,24 @@ DGX Node ───┤
             │
 DGX Node ───┘
 ```
+
+**Figure 3 — InfiniBand fabric က DGX nodes တွေကို ချိတ်ဆက်ပေးပုံ**
+
+```mermaid
+flowchart LR
+    N1["DGX Node 1"] --> F["InfiniBand Fabric"]
+    N2["DGX Node 2"] --> F
+    N3["DGX Node 3"] --> F
+    N4["DGX Node 4"] --> F
+    F --> C["Node-to-node communication"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough) —**
+
+1. ဘယ်ဘက်က box လေးခုက DGX Node တွေကို ကိုယ်စားပြုပါတယ်။
+2. Node တိုင်းက မြားနဲ့ အလယ်က InfiniBand Fabric ဆီ ဆက်သွယ်ထားပါတယ်။
+3. Fabric တစ်ခုတည်းကနေတစ်ဆင့် node တစ်ခုနဲ့တစ်ခု node-to-node communication လုပ်နိုင်ပါတယ်။
+4. DGX တစ်လုံးအတွင်းမှာတော့ GPU-to-GPU communication ဖြစ်ပြီး node တွေကြားမှာတော့ ဒီ fabric ကို အသုံးပြုပါတယ်။
 
 ဒါကြောင့် DGX systems အများကြီးက large distributed workloads တွေမှာ ပါဝင်နိုင်ပါတယ်။
 ဒီခွဲခြားချက်က အရေးကြီးပါတယ်—
@@ -272,6 +332,25 @@ Management Network
       ▼
 DGX Nodes
 ```
+
+**Figure 4 — Jump Box ကတစ်ဆင့် controlled administrative access ပုံ**
+
+```mermaid
+flowchart TD
+    A["Administrator"] --> J["Jump Box"]
+    J --> MN["Management Network"]
+    MN --> INB["In-Band Management — normal network path"]
+    MN --> OOB["OOB Management — separate path"]
+    INB --> N["DGX Nodes"]
+    OOB --> N
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough) —**
+
+1. အပေါ်ဆုံးက Administrator က DGX nodes တွေဆီကို တိုက်ရိုက်မသွားဘဲ အရင် Jump Box ကို အသုံးပြုပါတယ်။
+2. Jump Box ကနေ management network ကတစ်ဆင့် ဆက်သွယ်ပါတယ်။
+3. Management network က In-Band (normal network path) နဲ့ OOB (separate path) ဆိုပြီး နှစ်လမ်းခွဲသွားပါတယ်။
+4. နောက်ဆုံးမှာ လမ်းကြောင်းနှစ်ခုစလုံးက DGX Nodes တွေဆီ ရောက်ရှိပါတယ်။
 
 Administrator တွေက internal node တိုင်းကို တိုက်ရိုက် connect လုပ်ခွင့်ပေးမယ့်အစား သတ်မှတ်ထားတဲ့ administrative system ကနေ တစ်ဆင့် access ကို control လုပ်နိုင်ပါတယ်။
 
@@ -658,6 +737,22 @@ DGX SuperPOD
 Large-scale AI Supercomputing
 ```
 
+**Figure 1 — Scaling from one DGX to a DGX SuperPOD**
+
+```mermaid
+flowchart TD
+    A["DGX — one AI system"] --> B["Multiple DGX Nodes"]
+    B -->|"interconnected"| C["DGX SuperPOD"]
+    C --> D["Large-scale AI Supercomputing"]
+```
+
+**Figure walkthrough —**
+
+1. The top box is a single DGX — one AI system.
+2. The second box shows several DGX nodes gathered together.
+3. Following the arrows, connecting those nodes produces a DGX SuperPOD.
+4. The bottom box shows the result: large-scale AI supercomputing.
+
 So, at a high level:
 
 - DGX SuperPOD = Multiple DGX systems working together as a large-scale AI computing infrastructure.
@@ -725,6 +820,32 @@ A simplified architecture looks like this:
                        Jump Box
 ```
 
+**Figure 2 — DGX SuperPOD cluster architecture**
+
+```mermaid
+flowchart TD
+    SP["DGX SuperPOD"]
+    SP --> N1["DGX Node 1 — GPUs"]
+    SP --> N2["DGX Node 2 — GPUs"]
+    SP --> N3["DGX Node 3 — GPUs"]
+    N1 --> IB["InfiniBand High-speed Fabric"]
+    N2 --> IB
+    N3 --> IB
+    IB --> ST["Storage Systems"]
+    IB --> MG["Management"]
+    MG --> INB["In-Band Management"]
+    MG --> OOB["OOB Management"]
+    OOB --> JB["Jump Box"]
+```
+
+**Figure walkthrough —**
+
+1. The top box represents the whole DGX SuperPOD.
+2. The three boxes below are DGX nodes, each containing GPUs.
+3. All nodes connect to the InfiniBand high-speed fabric — the fast path between nodes.
+4. From the fabric, the system reaches the storage systems and the management layer.
+5. Management splits into in-band and out-of-band paths, with the out-of-band path leading to the jump box.
+
 The important point is that a SuperPOD is not simply a collection of GPU servers.
 It includes infrastructure for:
 
@@ -751,6 +872,24 @@ DGX Node ───┤
             │
 DGX Node ───┘
 ```
+
+**Figure 3 — How the InfiniBand fabric connects DGX nodes**
+
+```mermaid
+flowchart LR
+    N1["DGX Node 1"] --> F["InfiniBand Fabric"]
+    N2["DGX Node 2"] --> F
+    N3["DGX Node 3"] --> F
+    N4["DGX Node 4"] --> F
+    F --> C["Node-to-node communication"]
+```
+
+**Figure walkthrough —**
+
+1. The four boxes on the left represent DGX nodes.
+2. Each node connects with an arrow to the InfiniBand fabric in the middle.
+3. Through the single fabric, any node can communicate with any other node — node-to-node communication.
+4. Inside one DGX, GPUs talk GPU-to-GPU; between nodes, this fabric carries the traffic.
 
 This allows multiple DGX systems to participate in large distributed workloads.
 The distinction is important:
@@ -895,6 +1034,25 @@ Management Network
       ▼
 DGX Nodes
 ```
+
+**Figure 4 — Controlled administrative access through a jump box**
+
+```mermaid
+flowchart TD
+    A["Administrator"] --> J["Jump Box"]
+    J --> MN["Management Network"]
+    MN --> INB["In-Band Management — normal network path"]
+    MN --> OOB["OOB Management — separate path"]
+    INB --> N["DGX Nodes"]
+    OOB --> N
+```
+
+**Figure walkthrough —**
+
+1. At the top, the administrator does not connect to every node directly — the jump box comes first.
+2. From the jump box, access continues through the management network.
+3. The management network splits into the in-band path (the normal network path) and the out-of-band path (a separate path).
+4. Both paths end at the DGX nodes, so access stays controlled at every step.
 
 Instead of allowing administrators to connect directly to every internal node, access can be controlled through a designated administrative system.
 
@@ -1253,3 +1411,4 @@ Data-Center Infrastructure
 - The source module is single-language (English); the Burmese version is a faithful translation of the same content. No commands, specifications, or benchmark numbers were added.
 - The InfiniBand fabric between DGX nodes, and NVLink/NVSwitch within a system, are stated by the source as the example interconnects of the architecture described; actual SuperPOD generations may use other fabric options (needs verification per generation).
 - The source gives no POD scale figures (node counts, GPU counts); none are claimed here. DGX vs SuperPOD cost/complexity entries ("High" / "Very high") are qualitative values from the source.
+- Mermaid figures (Figure 1-4) with figure walkthroughs were added inline in both the Myanmar and English sections; the diagrams only restate concepts already covered in this module.

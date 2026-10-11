@@ -81,6 +81,25 @@ Head Chef က အလုပ်ညွှန်ကြားချက်ပေးသ
 | အလုပ်များကို တစ်ပြိုင်နက် လုပ်ခြင်း | Parallel execution |
 | ပြီးစီးသော French Fries | Computation result |
 
+**Figure 1 — Kitchen Analogy: CUDA ၏ အခန်းကဏ္ဍ**
+
+```mermaid
+flowchart LR
+    H["Head Chef — CPU / Host program"]
+    H --> T["Translation System — CUDA programming model"]
+    T --> C1["Trainee Cook 1"]
+    T --> C2["Trainee Cook 2"]
+    T --> C3["Trainee Cook 3"]
+    C1 --> R["French Fries — Computation result"]
+    C2 --> R
+    C3 --> R
+```
+
+**ပုံရှင်းလင်းချက်:**
+- ဘယ်ဘက်ဆုံးက Head Chef က CPU နဲ့ host-side program ကို ကိုယ်စားပြုပြီး အလုပ်ကို ညွှန်ကြားပါတယ်။
+- အလယ်က Translation System က CUDA programming model နဲ့ software toolchain ကို ကိုယ်စားပြုပြီး ညွှန်ကြားချက်တွေကို နားလည်နိုင်တဲ့ ပုံစံပြောင်းပေးပါတယ်။
+- ညာဘက်က Trainee Cooks တွေက GPU processing resources ကို ကိုယ်စားပြုပြီး အလုပ်တွေကို တစ်ပြိုင်နက် လုပ်ဆောင်ကြပါတယ်။
+
 **အရေးကြီးသော မှတ်ချက်:** CUDA သည် ဘာသာပြန် app တစ်ခုလို code ကို ရိုးရိုးဘာသာပြန်ပေးရုံသာ မဟုတ်ပါ။ GPU ကို program လုပ်နိုင်ရန် programming model, compiler, runtime နှင့် libraries များပါဝင်သော ecosystem ဖြစ်သည်။
 
 ထို့ပြင် GPU သည် Trainee Cooks များကဲ့သို့ အလုပ်တိုင်းကို CPU ထက် ပိုမြန်စွာ လုပ်နိုင်သည်ဟု မဆိုလိုပါ။ GPU သည် အလုပ်အမျိုးအစားအလိုက် parallel processing ကို ကောင်းစွာ အသုံးချနိုင်သောကြောင့် သင့်လျော်သည့် workload များတွင် အားသာချက်ရှိခြင်းဖြစ်သည်။
@@ -160,6 +179,23 @@ GPU execution ကို CPU က စီမံပေးသော်လည်း GP
 
 ဤ diagram သည် အယူအဆကို ရှင်းပြရန်ဖြစ်သည်။ အမှန်တကယ် data transfer, memory allocation နှင့် execution ordering တို့သည် application နှင့် CUDA API အသုံးပြုပုံအပေါ် မူတည်သည်။
 
+**Figure 2 — CUDA Application တစ်ခုရဲ့ Kernel Execution Flow**
+
+```mermaid
+flowchart TD
+    A["Application"]
+    A --> B["CPU / Host — Control and Setup"]
+    B --> C["CUDA Runtime / Libraries"]
+    C --> D["GPU Kernel Launch"]
+    D --> E["NVIDIA GPU / Device — Parallel Computation"]
+    E --> F["Results"]
+```
+
+**ပုံရှင်းလင်းချက်:**
+- အပေါ်ကနေ အောက်ကို ကြည့်ရင် application စပြီး CPU က control လုပ်ပုံကို စမြင်ရပါမယ်။
+- အလယ်မှာ CUDA Runtime/Libraries ကတစ်ဆင့် GPU kernel ကို launch လုပ်ပါတယ်။
+- အောက်ဆုံးမှာ GPU က parallel computation လုပ်ပြီး result ပြန်ရတဲ့အထိ ဖြစ်ပါတယ်။
+
 ## 7. Parallel Computing ဆိုတာဘာလဲ
 
 Parallel Computing ဆိုသည်မှာ ပြဿနာတစ်ခုကို အလုပ်ငယ်များအဖြစ် ခွဲပြီး သင့်လျော်သည့်အခါ အလုပ်များစွာကို တစ်ပြိုင်နက် လုပ်ဆောင်ခြင်းဖြစ်သည်။
@@ -173,6 +209,25 @@ Output: [2, 4, 6, 8, 10, ...]
 ```
 
 အလုပ်တစ်ခုချင်းစီသည် အခြား element များ၏ ရလဒ်ကို မစောင့်ရပါက element အများအပြားကို parallel အနေဖြင့် တွက်ချက်နိုင်သည်။
+
+**Figure 3 — Parallel Computing: Array တစ်ခုကို အလုပ်ငယ်များခွဲပြီး တွက်ခြင်း**
+
+```mermaid
+flowchart TD
+    I["Input Array — နံပါတ် 10,000"]
+    I --> S["Element တစ်ခုချင်းစီကို အလုပ်ငယ်များအဖြစ် ခွဲခြင်း"]
+    S --> T1["Element 1 × 2"]
+    S --> T2["Element 2 × 2"]
+    S --> TN["Element N × 2"]
+    T1 --> O["Output Array — ရလဒ်များ ပေါင်းစပ်ခြင်း"]
+    T2 --> O
+    TN --> O
+```
+
+**ပုံရှင်းလင်းချက်:**
+- အပေါ်ဆုံးက input array ကြီးကို အလုပ်ငယ်များအဖြစ် ခွဲလိုက်တာကို ပြပါတယ်။
+- အလယ်က element တစ်ခုချင်းစီရဲ့ တွက်ချက်မှုက တစ်ခုနဲ့တစ်ခု မစောင့်ဘဲ တစ်ပြိုင်နက် လုပ်နိုင်ပါတယ်။
+- အောက်ဆုံးမှာ ရလဒ်တွေကို output array အဖြစ် ပြန်ပေါင်းစပ်တာကို မြင်ရပါမယ်။
 
 CPU သည် parallelism ကို အသုံးမပြုနိုင်ဟု မဆိုလိုပါ။ CPU တွင်လည်း multiple cores နှင့် vector instructions များရှိသည်။ သို့သော် GPU များသည် parallel operations အများအပြားကို ထိရောက်စွာ လုပ်ဆောင်နိုင်ရန် ဒီဇိုင်းဆွဲထားသောကြောင့် အချို့သော workload များတွင် အထူးအားသာချက်ရှိသည်။
 
@@ -205,6 +260,25 @@ CUDA Kernel Launch
    |         |
 Threads   Threads
 ```
+
+**Figure 4 — CUDA Thread / Block / Grid အဆင့်အလိုက် ဖွဲ့စည်းပုံ**
+
+```mermaid
+flowchart TD
+    K["CUDA Kernel Launch"]
+    K --> G["Grid — Block အားလုံး၏ စုစည်းမှု"]
+    G --> B0["Block 0"]
+    G --> B1["Block 1"]
+    G --> BN["Block ..."]
+    B0 --> T0["Threads — အလုပ်အပိုင်းငယ်များ"]
+    B1 --> T1["Threads — Shared memory / Sync အသုံးပြုနိုင်"]
+    BN --> TN["Threads"]
+```
+
+**ပုံရှင်းလင်းချက်:**
+- အပေါ်ဆုံးက kernel launch တစ်ခုကနေ စပြီး grid တစ်ခုလုံး ဖြစ်လာပါတယ်။
+- Grid က block အများအပြားကို စုပေါင်းထားပြီး၊ block တစ်ခုချင်းစီက thread တွေကို စုပေါင်းထားပါတယ်။
+- Block အတွင်းက thread တွေဟာ shared memory နဲ့ synchronization ကို အသုံးပြုပြီး ပူးပေါင်းလုပ်ဆောင်နိုင်ပါတယ်။
 
 GPU က kernel ကို execute လုပ်သည့်အခါ thread များကို GPU hardware ပေါ်တွင် အချိန်ဇယားချပြီး လုပ်ဆောင်ပေးသည်။ Thread အားလုံးသည် အချိန်တစ်ခုတည်းတွင် တိတိကျကျ execute ဖြစ်ရမည်ဟု မဆိုလိုပါ။
 
@@ -363,6 +437,25 @@ In this analogy:
 | Doing the work at the same time | Parallel execution |
 | Finished French Fries | Computation result |
 
+**Figure 1 — The kitchen analogy: the role of CUDA**
+
+```mermaid
+flowchart LR
+    H["Head Chef — CPU / host program"]
+    H --> T["Translation system — CUDA programming model"]
+    T --> C1["Trainee Cook 1"]
+    T --> C2["Trainee Cook 2"]
+    T --> C3["Trainee Cook 3"]
+    C1 --> R["French Fries — computation result"]
+    C2 --> R
+    C3 --> R
+```
+
+**Figure walkthrough:**
+- On the far left, the Head Chef represents the CPU and the host-side program that assigns the work.
+- In the middle, the translation system stands for the CUDA programming model and software toolchain that convert the instructions into a usable form.
+- On the right, the trainee cooks represent GPU processing resources doing the work in parallel.
+
 **Important note:** CUDA is not simply a translation app that converts code. It is an ecosystem that includes a programming model, compiler, runtime, and libraries for programming the GPU.
 
 Also, the GPU — like the trainee cooks — is not faster than the CPU at every job. It has an advantage on suitable workloads because it can use parallel processing well for certain kinds of work.
@@ -442,6 +535,23 @@ Although the CPU manages GPU execution, it does not compute every piece of work 
 
 This diagram is conceptual. Actual data transfer, memory allocation, and execution ordering depend on the application and how the CUDA APIs are used.
 
+**Figure 2 — Kernel execution flow of a CUDA application**
+
+```mermaid
+flowchart TD
+    A["Application"]
+    A --> B["CPU / host — control and setup"]
+    B --> C["CUDA Runtime / Libraries"]
+    C --> D["GPU kernel launch"]
+    D --> E["NVIDIA GPU / device — parallel computation"]
+    E --> F["Results"]
+```
+
+**Figure walkthrough:**
+- Read from the top: the application starts and the CPU takes control and sets things up.
+- In the middle, the CUDA runtime and libraries launch the GPU kernel.
+- At the bottom, the GPU performs the parallel computation and the results come back.
+
 ## 7. What Is Parallel Computing?
 
 Parallel computing means splitting a problem into smaller tasks and, where possible, performing many of them at the same time.
@@ -455,6 +565,25 @@ Output: [2, 4, 6, 8, 10, ...]
 ```
 
 If each task does not wait for the results of other elements, many elements can be computed in parallel.
+
+**Figure 3 — Parallel computing: splitting an array into small tasks**
+
+```mermaid
+flowchart TD
+    I["Input array — 10,000 numbers"]
+    I --> S["Split into a small task per element"]
+    S --> T1["Element 1 × 2"]
+    S --> T2["Element 2 × 2"]
+    S --> TN["Element N × 2"]
+    T1 --> O["Output array — combine the results"]
+    T2 --> O
+    TN --> O
+```
+
+**Figure walkthrough:**
+- The top node shows the large input array being split into small tasks.
+- In the middle, each element's computation runs without waiting for the others — that is the parallel part.
+- At the bottom, the results are combined back into the output array.
 
 This does not mean the CPU cannot use parallelism — CPUs have multiple cores and vector instructions. But GPUs are designed to run many parallel operations efficiently, which gives them a special advantage on certain workloads.
 
@@ -487,6 +616,25 @@ CUDA Kernel Launch
    |         |
 Threads   Threads
 ```
+
+**Figure 4 — CUDA thread / block / grid hierarchy**
+
+```mermaid
+flowchart TD
+    K["CUDA kernel launch"]
+    K --> G["Grid — collection of all blocks"]
+    G --> B0["Block 0"]
+    G --> B1["Block 1"]
+    G --> BN["Block ..."]
+    B0 --> T0["Threads — small work portions"]
+    B1 --> T1["Threads — can use shared memory / sync"]
+    BN --> TN["Threads"]
+```
+
+**Figure walkthrough:**
+- Everything starts at the top with one kernel launch, which forms one grid.
+- The grid groups many blocks, and each block groups many threads.
+- Threads inside the same block can cooperate using shared memory and synchronization.
 
 When the GPU executes a kernel, the threads are scheduled onto GPU hardware. Not all threads execute at exactly the same instant.
 
@@ -574,3 +722,4 @@ They can be used together in one AI infrastructure.
 - The "CUDA 2006" style dates and version claims were not present in this module's source text; none were added. `nvcc` is described only as the CUDA C/C++ compiler driver, as in the source.
 - The conceptual execution-flow diagram and the kernel/grid/block diagram are reproduced from the source; the source explicitly marks them as conceptual, and this is preserved.
 - The source contains 10 review questions without answers; 5 were selected and given concise answers to match the course format. No technical claims were added beyond the source material.
+- Beginner-friendly Mermaid figures (Figure 1–4, each with a figure walkthrough) were added inline in both the Myanmar and English sections; existing text and ASCII diagrams are unchanged.

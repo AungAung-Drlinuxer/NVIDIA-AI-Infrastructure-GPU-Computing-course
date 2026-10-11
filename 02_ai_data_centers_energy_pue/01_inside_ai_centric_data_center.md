@@ -47,6 +47,23 @@ AI-centric Data Center ထဲမှာ အခြေခံအားဖြင့�
 
 **Fundamental 4 Blocks:** Compute · Network · Storage · Support Infrastructure
 
+> **Figure 1 — AI-Centric Data Center ရဲ့ Fundamental Building Blocks များ**
+
+```mermaid
+flowchart TD
+    A["AI-Centric Data Center"] --> B["Compute - AI workload များကို run ပေးသည်"]
+    A --> C["Network - data များကို ဆက်သွယ်ပေးသည်"]
+    A --> D["Storage - data များကို သိမ်းဆည်းပေးသည်"]
+    B --> E["Support Infrastructure"]
+    C --> E
+    D --> E
+    E --> F["Power"]
+    E --> G["Cooling"]
+    E --> H["Security"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဆုံး node ကနေ စကြည့်ပါ။ AI-Centric Data Center တစ်ခုကို အဓိက block သုံးခု — Compute၊ Network၊ Storage — အဖြစ် ခွဲထားတာကို မြင်ရပါမယ်။ ဒီသုံးခုကနေ မျဉ်းတွေဆင်းသွားပြီး Support Infrastructure မှာ ဆုံပါတယ်။ အောက်ဆုံး node သုံးခု — Power၊ Cooling၊ Security — က IT equipment တွေ အလုပ်လုပ်နိုင်အောင် ထောက်ပံ့ပေးတဲ့ facility infrastructure တွေ ဖြစ်ကြောင်း ပြသပါတယ်။
+
 ## 3. Compute
 
 AI-centric Data Center မှာ ပထမဆုံးလိုအပ်တာက Compute ဖြစ်ပါတယ်။
@@ -92,6 +109,25 @@ AI workload ကြီးလာတဲ့အခါ server တစ်လုံးတ
 
 လိုမျိုး multiple compute nodes အသုံးပြုနိုင်ပါတယ်။
 
+> **Figure 2 — Compute Node တစ်ခုနှင့် Distributed Workload**
+
+```mermaid
+flowchart TD
+    A["AI Request / AI Workload"] --> B["Compute Node"]
+    B --> C["CPU"]
+    B --> D["GPU"]
+    B --> E["Memory"]
+    B --> F["Local Storage"]
+    A --> G["Node 1"]
+    A --> H["Node 2"]
+    A --> I["Node 3"]
+    G --> J["Distributed Workload"]
+    H --> J
+    I --> J
+```
+
+**ပုံရှင်းလင်းချက်** — ဘယ်ဘက်အပေါ်က AI Request / AI Workload ကနေ စပါတယ်။ အလယ်က Compute Node တစ်ခုထဲမှာ CPU၊ GPU၊ Memory၊ Local Storage ဆိုပြီး component လေးခု ပါဝင်တာ မြင်ရပါမယ်။ အောက်ဘက်မှာတော့ workload ကြီးလာရင် Node 1၊ Node 2၊ Node 3 ဆိုပြီး ခွဲဝေပေးပြီး၊ နောက်ဆုံးမှာ Distributed Workload အဖြစ် ပေါင်းစည်းဆောင်ရွက်တာကို တွေ့ရပါမယ်။
+
 > **မှတ်ရန်** — Compute = AI workload ကို run/process လုပ်ပေးတဲ့ resources
 
 ## 4. Network
@@ -120,6 +156,21 @@ Network က—
 တို့အတွက် အရေးကြီးပါတယ်။
 
 AI infrastructure မှာ compute performance မြင့်ပေမယ့် network မကောင်းရင် nodes တွေ data စောင့်နေရပြီး overall performance ကျနိုင်ပါတယ်။
+
+> **Figure 3 — High-Speed Network ဖြင့် GPU Nodes များ ချိတ်ဆက်ပုံ**
+
+```mermaid
+flowchart LR
+    N1["GPU Node 1"] --> NET["High-Speed Network"]
+    N2["GPU Node 2"] --> NET
+    N3["GPU Node 3"] --> NET
+    N4["GPU Node 4"] --> NET
+    NET --> S["Storage Access"]
+    NET --> D["Data Transfer"]
+    NET --> P["Distributed / Parallel Processing"]
+```
+
+**ပုံရှင်းလင်းချက်** — ဘယ်ဘက်မှာ GPU Node လေးခုက High-Speed Network ကြီးတစ်ခုဆီ ချိတ်ဆက်ထားတာ မြင်ရပါမယ်။ Network က node တွေအကြား communication သာမက Storage Access နဲ့ Data Transfer ကိုလည်း ပေးပါတယ်။ ညာဘက်အဆုံးက Distributed / Parallel Processing က node တွေ ပူးပေါင်းဆောင်ရွက်တဲ့ အဆင့်ကို ဖော်ပြပါတယ်။
 
 > **မှတ်ရန်** — Network = Compute nodes, storage နှင့် infrastructure အကြား data ကို ဆက်သွယ်ပေးသော layer
 
@@ -339,6 +390,19 @@ Available Floor Space
 တစ်နည်းအားဖြင့်—**More GPU Density → More Power → More Heat → More Cooling**
 ပြီးတော့ GPU servers နဲ့ supporting infrastructure ပိုများလာတာနဲ့အမျှ Physical Space လည်း လိုအပ်လာပါတယ်။
 
+> **Figure 4 — GPU Density, Power, Heat, Cooling နှင့် Physical Space ဆက်စပ်ပုံ**
+
+```mermaid
+flowchart TD
+    A["More GPUs / GPU Density မြင့်လာခြင်း"] --> B["More Compute"]
+    A --> C["More Power"]
+    A --> D["More Physical Space"]
+    C --> E["More Heat"]
+    E --> F["More Cooling"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက GPU ပိုများလာခြင်းကနေ စပါတယ်။ ဒီကနေ လမ်းကြောင်းသုံးခု ခွဲထွက်သွားပါတယ် — Compute ပိုလိုခြင်း၊ Power ပိုလိုခြင်း၊ Physical Space ပိုလိုခြင်း။ ပြီးရင် Power ကနေ Heat ပိုများလာပြီး၊ Heat ကြောင့် Cooling ပိုလိုလာတဲ့ အဆင့်ဆင့် ဆက်စပ်မှုကို အောက်ဘက်မျဉ်းကြောင်းတစ်လျှောက် လိုက်ကြည့်နိုင်ပါတယ်။
+
 ## 13. Complete AI-Centric Data Center View
 
 ```
@@ -485,6 +549,23 @@ An AI-centric data center can be generalized into four fundamental blocks:
              Power / Cooling / Security
 ```
 
+> **Figure 1 — The Four Fundamental Building Blocks of an AI-Centric Data Center**
+
+```mermaid
+flowchart TD
+    A["AI-Centric Data Center"] --> B["Compute - runs AI workloads"]
+    A --> C["Network - connects nodes and data"]
+    A --> D["Storage - keeps AI data"]
+    B --> E["Support Infrastructure"]
+    C --> E
+    D --> E
+    E --> F["Power"]
+    E --> G["Cooling"]
+    E --> H["Security"]
+```
+
+**Figure walkthrough** — Start at the top node. An AI-centric data center is split into three main blocks — Compute, Network, and Storage. The lines from all three meet at Support Infrastructure. The bottom three nodes — Power, Cooling, and Security — are the facility infrastructure that keeps the IT equipment running.
+
 ## 3. Compute
 
 The first fundamental component is Compute.
@@ -525,6 +606,25 @@ For small workloads, one server may be sufficient. However, large AI workloads c
       Distributed Workload
 ```
 
+> **Figure 2 — A Compute Node and a Distributed Workload**
+
+```mermaid
+flowchart TD
+    A["AI Request / AI Workload"] --> B["Compute Node"]
+    B --> C["CPU"]
+    B --> D["GPU"]
+    B --> E["Memory"]
+    B --> F["Local Storage"]
+    A --> G["Node 1"]
+    A --> H["Node 2"]
+    A --> I["Node 3"]
+    G --> J["Distributed Workload"]
+    H --> J
+    I --> J
+```
+
+**Figure walkthrough** — Start at the top left with the AI request. The middle shows what one compute node contains: CPU, GPU, Memory, and Local Storage. The lower part shows a large workload being split across Node 1, Node 2, and Node 3, which then combine into one distributed workload.
+
 **Key Point** — Compute = The resources used to execute and process AI workloads.
 
 ## 4. Network
@@ -550,6 +650,21 @@ Networking supports:
 - Parallel processing
 
 If compute performance is very high but the network cannot move data fast enough, the compute resources may spend time waiting for data.
+
+> **Figure 3 — GPU Nodes Connected by a High-Speed Network**
+
+```mermaid
+flowchart LR
+    N1["GPU Node 1"] --> NET["High-Speed Network"]
+    N2["GPU Node 2"] --> NET
+    N3["GPU Node 3"] --> NET
+    N4["GPU Node 4"] --> NET
+    NET --> S["Storage Access"]
+    NET --> D["Data Transfer"]
+    NET --> P["Distributed / Parallel Processing"]
+```
+
+**Figure walkthrough** — On the left, four GPU nodes connect into one high-speed network. The network does more than node-to-node communication: it also provides storage access and data transfer. On the right, distributed / parallel processing is the step where the nodes work together.
 
 **Key Point** — Network = The communication layer connecting compute nodes, storage, and other infrastructure.
 
@@ -755,6 +870,19 @@ These three constraints are interconnected.
 A simplified relationship is: **More GPU Density → More Power → More Heat → More Cooling**
 At the same time, adding more GPU servers and supporting infrastructure increases the requirement for Physical Space.
 
+> **Figure 4 — How GPU Density, Power, Heat, Cooling, and Space Connect**
+
+```mermaid
+flowchart TD
+    A["More GPUs / Higher GPU Density"] --> B["More Compute"]
+    A --> C["More Power"]
+    A --> D["More Physical Space"]
+    C --> E["More Heat"]
+    E --> F["More Cooling"]
+```
+
+**Figure walkthrough** — Start at the top with more GPUs. Three branches follow: more compute, more power, and more physical space. Then follow the lower chain: more power produces more heat, and more heat requires more cooling.
+
 ## 13. Complete AI-Centric Data Center View
 
 ```
@@ -860,3 +988,4 @@ Answer — Power, Cooling, Physical infrastructure, Security, Monitoring, and Fa
 - All original paragraphs, lists, tables, and ASCII diagrams are preserved unchanged in meaning in both sections. The comparison table keeps its source hedging ("may be required", "can occur") — no absolute performance or capacity claims were introduced.
 - Self-check questions with concise answers added at the end of each language section (§16) per WRITING_RULES.md; the source's seven Exam Preparation Q&As are preserved in full.
 - Claims needing verification: none. The file makes no numeric power, cooling, or PUE claims; the four building blocks and three key constraints are conceptual groupings preserved from the source.
+- Mermaid figures (Figure 1–4) with figure walkthroughs were added inline in both the Myanmar and English sections; figure numbering and structure match across both sections. All existing text and ASCII diagrams are unchanged.

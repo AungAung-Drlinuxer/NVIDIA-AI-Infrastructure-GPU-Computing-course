@@ -70,6 +70,20 @@ Host 1 System RAM                           Host 2 System RAM
 Network Adapter ─────── Network ───────► Network Adapter
 ```
 
+**ပုံ ၁ (Figure 1) — Host-memory staging သုံးတဲ့ traditional data path**
+
+```mermaid
+flowchart LR
+    G1["GPU 1 Memory"] --> R1["Host 1 System RAM"]
+    R1 --> N1["Network Adapter"]
+    N1 --> NW["Network"]
+    NW --> N2["Network Adapter"]
+    N2 --> R2["Host 2 System RAM"]
+    R2 --> G2["GPU 2 Memory"]
+```
+
+**ပုံရှင်းလင်းချက်** — GPU 1 Memory က data ကို အရင် Host 1 System RAM ထဲ ချ၊ ပြီးမှ Network Adapter ကနေ Network ဖြတ်ပြီး Host 2 ဘက်ကို ပို့၊ ရောက်မှ Host 2 System RAM ကနေ GPU 2 Memory ထဲ ထပ်ချရပါတယ်။ RAM ကြား ချိန်းရတဲ့ extra copies တွေကြောင့် memory bandwidth နဲ့ CPU/software overhead ပိုကုန်စေနိုင်ပါတယ်။
+
 ဒါက host-memory staging အသုံးပြုတဲ့ path ရဲ့ conceptual example ဖြစ်ပါတယ်။ တကယ့် traditional data paths တွေက operating system၊ driver၊ communication library နဲ့ hardware ပေါ် မူတည်ပြီး ကွဲပြားနိုင်ပါတယ်။
 
 Host-memory staging က data copies အပိုတွေ ဖြစ်စေနိုင်ပြီး memory bandwidth စားသုံးပြီး CPU ဒါမှမဟုတ် software overhead တိုးစေနိုင်ပါတယ်။
@@ -93,6 +107,18 @@ GPU 1 Memory                                GPU 2 Memory
 Network Adapter ───────── Network ───────► Network Adapter
 ```
 
+**ပုံ ၂ (Figure 2) — GPUDirect RDMA ပါတဲ့ direct data path**
+
+```mermaid
+flowchart LR
+    G1["GPU 1 Memory"] --> N1["Network Adapter"]
+    N1 --> NW["Network"]
+    NW --> N2["Network Adapter"]
+    N2 --> G2["GPU 2 Memory"]
+```
+
+**ပုံရှင်းလင်းချက်** — ပုံ ၁ နဲ့ ယှဉ်ကြည့်ရင် System RAM အဆင့် မပါတော့ဘဲ GPU 1 Memory ကနေ Network Adapter ဖြတ်ပြီး တန်းပို့၊ လက်ခံတဲ့ဘက်မှာလည်း Network Adapter ကနေ GPU 2 Memory ထဲ တိုက်ရိုက် ရောက်ပါတယ်။ ဒါပေမယ့် setup၊ memory registration နဲ့ completion handling မှာ CPU က ပါဝင်နေဆဲ ဖြစ်ပါတယ်။
+
 Network adapters တွေက support လုပ်တဲ့ hardware paths တွေမှတစ်ဆင့် GPUs တွေရဲ့ memory နဲ့ data ဖလှယ်နိုင်ပါတယ်။
 
 အဓိက idea ကတော့—data ကို GPU memory နဲ့ network ကြား host RAM မှတစ်ဆင့် extra copy မလိုဘဲ ရွှေ့ပြောင်းနိုင်တယ် ဆိုတာ ဖြစ်ပါတယ်။
@@ -111,6 +137,22 @@ CPU-mediated data movement လျှော့ချလိုတဲ့ ရည်�
 2. Support လုပ်တဲ့ network adapter တစ်ခုက GPUDirect RDMA mechanism မှတစ်ဆင့် registered GPU memory ကို ဝင်ရောက်နိုင်ပါတယ်။
 3. Adapter က support လုပ်တဲ့ network တစ်ခုမှတစ်ဆင့် data ကို လွှဲပြောင်းပါတယ်။
 4. လက်ခံတဲ့ adapter က data ကို ပန်းတိုင်ဖြစ်တဲ့ GPU ရဲ့ memory ထဲ တိုက်ရိုက် ပို့ဆောင်ပေးနိုင်ပါတယ်။
+
+**ပုံ ၃ (Figure 3) — GPUDirect RDMA ဖြင့် data လွှဲပြောင်းပုံ အဆင့်ဆင့်**
+
+```mermaid
+sequenceDiagram
+    participant G1 as "GPU 1"
+    participant A1 as "Supported RDMA Adapter 1"
+    participant A2 as "Supported RDMA Adapter 2"
+    participant G2 as "GPU 2"
+    G1->>A1: "distributed communication operation အတွက် data ပြင်"
+    A1->>A1: "registered GPU memory ကို GPUDirect RDMA ဖြင့် ဝင်ရောက်"
+    A1->>A2: "supported network မှတစ်ဆင့် data လွှဲပြောင်း"
+    A2->>G2: "destination GPU memory ထဲ တိုက်ရိုက် ပို့ဆောင်"
+```
+
+**ပုံရှင်းလင်းချက်** — ပုံမှာ GPU 1 က operation အတွက် data ပြင်ပြီး RDMA Adapter 1 က registered GPU memory ကို GPUDirect RDMA ဖြင့် တိုက်ရိုက် ဖတ်ယူပါတယ်။ ပြီးရင် network ဖြတ်ပြီး RDMA Adapter 2 ကနေ GPU 2 Memory ထဲ တိုက်ရိုက် ပို့ဆောင်ပေးပါတယ်။ CPU ကတော့ setup၊ registration နဲ့ completion handling မှာ ပါဝင်နေဆဲ ဖြစ်ပါတယ်။
 
 GPU-to-GPU ဖလှယ်မှုကို ပုံမှန်အားဖြင့် NVIDIA NCCL ကဲ့သို့သော communication software တွေက စီစဉ်ဆောင်ရွက်ပါတယ်။ တိကျတဲ့ transfer direction နဲ့ mechanism က operation ပေါ် မူတည်ပါတယ်။
 
@@ -157,6 +199,20 @@ GPUDirect Storage
 
 Storage ◄────► Supported I/O Path ◄────► GPU Memory
 ```
+
+**ပုံ ၄ (Figure 4) — GPUDirect RDMA နဲ့ GPUDirect Storage ရဲ့ ရည်ရွယ်ချက် ကွာခြားပုံ**
+
+```mermaid
+flowchart LR
+    subgraph A["GPUDirect RDMA"]
+        GM1["GPU Memory"] --- NA["Network Adapter"] --- NW["Network"]
+    end
+    subgraph B["GPUDirect Storage"]
+        ST["Storage"] --- IO["Supported I/O Path"] --- GM2["GPU Memory"]
+    end
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ပိုင်း GPUDirect RDMA က GPU Memory နဲ့ Network ကြား data exchange အတွက် ဖြစ်ပြီး အောက်ပိုင်း GPUDirect Storage ကတော့ Storage ကနေ GPU Memory ထဲ data ရယူတဲ့ path အတွက် ဖြစ်ပါတယ်။ နှစ်ခုလုံးက host memory ကြား မလိုအပ်တဲ့ copy တွေ လျှော့ချပေးပေမယ့် ချိတ်ဆက်ပေးတဲ့ ပစ္စည်း မတူပါဘူး။
 
 ## 9. Self-Check Questions (မေးခွန်းနှင့် အဖြေများ)
 
@@ -248,6 +304,20 @@ Host 1 System RAM                           Host 2 System RAM
 Network Adapter ─────── Network ───────► Network Adapter
 ```
 
+**Figure 1 — Traditional data path using host-memory staging**
+
+```mermaid
+flowchart LR
+    G1["GPU 1 Memory"] --> R1["Host 1 System RAM"]
+    R1 --> N1["Network Adapter"]
+    N1 --> NW["Network"]
+    NW --> N2["Network Adapter"]
+    N2 --> R2["Host 2 System RAM"]
+    R2 --> G2["GPU 2 Memory"]
+```
+
+**Figure walkthrough** — The data from GPU 1 memory is first dropped into Host 1 system RAM, sent through the network adapter and the network to Host 2, and then copied from Host 2 system RAM into GPU 2 memory. Those extra copies through RAM consume memory bandwidth and add CPU or software overhead.
+
 This is a conceptual example of a path that uses host-memory staging. Actual traditional data paths vary by operating system, driver, communication library, and hardware.
 
 Host-memory staging can introduce additional data copies, consume memory bandwidth, and increase CPU or software overhead.
@@ -271,6 +341,18 @@ GPU 1 Memory                                GPU 2 Memory
 Network Adapter ───────── Network ───────► Network Adapter
 ```
 
+**Figure 2 — Direct data path with GPUDirect RDMA**
+
+```mermaid
+flowchart LR
+    G1["GPU 1 Memory"] --> N1["Network Adapter"]
+    N1 --> NW["Network"]
+    NW --> N2["Network Adapter"]
+    N2 --> G2["GPU 2 Memory"]
+```
+
+**Figure walkthrough** — Compared with Figure 1, the system RAM step is gone: GPU 1 memory sends data through the network adapter directly, and the receiving adapter delivers it into GPU 2 memory. The CPU is still involved in setup, memory registration, and completion handling.
+
 The network adapters can exchange data with the GPUs' memory through supported hardware paths.
 
 This is the key idea: the data can move between GPU memory and the network without requiring an extra copy through host RAM.
@@ -289,6 +371,22 @@ More precisely:
 2. A supported network adapter can access the registered GPU memory through the GPUDirect RDMA mechanism.
 3. The adapter transfers data across the supported network.
 4. The receiving adapter can deliver the data directly into the destination GPU's memory.
+
+**Figure 3 — Transferring data step by step with GPUDirect RDMA**
+
+```mermaid
+sequenceDiagram
+    participant G1 as "GPU 1"
+    participant A1 as "Supported RDMA Adapter 1"
+    participant A2 as "Supported RDMA Adapter 2"
+    participant G2 as "GPU 2"
+    G1->>A1: "prepare data for a distributed communication operation"
+    A1->>A1: "access registered GPU memory through GPUDirect RDMA"
+    A1->>A2: "transfer data across the supported network"
+    A2->>G2: "deliver data directly into the destination GPU memory"
+```
+
+**Figure walkthrough** — GPU 1 prepares the data for the operation, and RDMA Adapter 1 reads the registered GPU memory directly through the GPUDirect RDMA mechanism. The data crosses the supported network, and RDMA Adapter 2 delivers it directly into GPU 2's memory. The CPU remains involved in setup, registration, and completion handling.
 
 The GPU-to-GPU exchange is typically orchestrated by communication software such as NVIDIA NCCL. The exact transfer direction and mechanism depend on the operation.
 
@@ -336,6 +434,20 @@ GPUDirect Storage
 Storage ◄────► Supported I/O Path ◄────► GPU Memory
 ```
 
+**Figure 4 — Different purposes of GPUDirect RDMA and GPUDirect Storage**
+
+```mermaid
+flowchart LR
+    subgraph A["GPUDirect RDMA"]
+        GM1["GPU Memory"] --- NA["Network Adapter"] --- NW["Network"]
+    end
+    subgraph B["GPUDirect Storage"]
+        ST["Storage"] --- IO["Supported I/O Path"] --- GM2["GPU Memory"]
+    end
+```
+
+**Figure walkthrough** — The top diagram shows GPUDirect RDMA, which targets data exchange between GPU memory and the network. The bottom diagram shows GPUDirect Storage, which targets getting data from storage into GPU memory. Both reduce unnecessary copies through host memory, but they connect different components.
+
 ## 9. Self-Check Questions (Questions and Answers)
 
 **Q1. What kind of devices does GPUDirect RDMA let exchange data directly with GPU memory?**
@@ -364,3 +476,4 @@ GPUDirect RDMA targets data exchange between GPU memory and the network; GPUDire
 - The section-6 steps in the source carried stray `</box>` markup artifacts from the paste; they were converted into a plain numbered list without changing the three steps' content.
 - `<Cite refs={...}/>` reply-UI artifacts were dropped; no content was attached to them.
 - Example GPU memory sizes (24 GB / 40 GB / 80 GB) are the transcript's illustrative examples, not a specification claim.
+- Mermaid figures (Figures 1–4) with figure walkthroughs were added inline to both language sections; all existing text, ASCII diagrams, and review notes are unchanged.

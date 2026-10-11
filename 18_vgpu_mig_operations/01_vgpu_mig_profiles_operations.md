@@ -25,6 +25,20 @@ MIG Profile အမည်ကို အောက်ပါအတိုင်း ဖ
 
 ဒီနေရာမှာ `3g` ကို GPU Core 3 ခုလို့ မဖတ်ရပါဘူး။ ၎င်းဟာ သတ်မှတ်ထားတဲ့ MIG GPU Slice အရွယ်အစားကို ဖော်ပြတာဖြစ်ပါတယ်။ အတွင်းပိုင်းမှာ Streaming Multiprocessors (SMs) နဲ့ အခြား Hardware Resource များကို Profile အလိုက် ခွဲဝေပေးထားပါတယ်။
 
+**Figure 1 — MIG Profile အမည် ဖတ်ပုံ (ဥပမာ — 3g.20gb)**
+
+```mermaid
+flowchart TD
+    P["MIG Profile — 3g.20gb"]
+    P --> A["3g — GPU Compute Slice အချိုးအစား (SMs အပါအဝင်)"]
+    P --> B["20gb — Instance အတွက် GPU Memory အတန်းအစား"]
+```
+
+**ပုံရှင်းလင်းချက်:**
+- အပေါ်ဆုံး node က MIG Profile အမည် တစ်ခုလုံးကို ကိုယ်စားပြုပါတယ်။
+- ဘယ်ဘက်ခွဲက `3g` က GPU Compute Slice ရဲ့ အချိုးအစားကို ဖော်ပြတာဖြစ်ပြီး GPU Core 3 ခု မဟုတ်ပါဘူး။
+- ညာဘက်ခွဲက `20gb` က Instance အတွက် သတ်မှတ်ထားတဲ့ GPU Memory အတန်းအစားကို ဖော်ပြပါတယ်။
+
 **A100 40GB MIG Profile ဥပမာများ** — NVIDIA A100-SXM4-40GB မှာ အောက်ပါ Profile များကို တွေ့နိုင်ပါတယ်။
 
 | MIG Profile | GPU Memory | SM Allocation | Maximum Instances |
@@ -36,6 +50,23 @@ MIG Profile အမည်ကို အောက်ပါအတိုင်း ဖ
 | 7g.40gb | 40 GB အတန်းအစား | 7/7 | 1 |
 
 Profile အမည်ထဲက Memory ပမာဏဟာ သတ်မှတ်ထားတဲ့ အတန်းအစားကို ဖော်ပြတာဖြစ်ပြီး nvidia-smi မှာ မြင်ရတဲ့ Usable Memory ပမာဏဟာ အနည်းငယ်ကွာနိုင်ပါတယ်။ Profile တွေဟာလည်း GPU Model အားလုံးမှာ တူညီခြင်း မရှိပါဘူး။
+
+**Figure 2 — A100 40GB ရဲ့ Supported MIG Profiles များ**
+
+```mermaid
+flowchart TD
+    G["A100 40GB — Supported MIG Profiles"]
+    G --> P1["1g.5gb — SM 1/7 — အများဆုံး 7 instances"]
+    G --> P2["2g.10gb — SM 2/7 — အများဆုံး 3 instances"]
+    G --> P3["3g.20gb — SM 3/7 — အများဆုံး 2 instances"]
+    G --> P4["4g.20gb — SM 4/7 — အများဆုံး 1 instance"]
+    G --> P5["7g.40gb — SM 7/7 — အများဆုံး 1 instance"]
+```
+
+**ပုံရှင်းလင်းချက်:**
+- အပေါ်ဆုံး node က A100 40GB မှာ ရရှိနိုင်တဲ့ MIG Profile တွေအားလုံးကို စုပြထားတာဖြစ်ပါတယ်။
+- အောက်က node တစ်ခုချင်းစီမှာ Profile အမည်၊ SM allocation အချိုးအစားနဲ့ အများဆုံး ဖန်တီးနိုင်တဲ့ instance အရေအတွက် ပါပါတယ်။
+- Profile ကြီးလေလေ SM ပိုယူလေလေ ဖြစ်တဲ့အတွက် ဖန်တီးနိုင်တဲ့ instance အရေအတွက် ပိုနည်းသွားတာကို သတိပြုကြည့်ပါ။
 
 Source: NVIDIA Supported MIG Profiles (https://docs.nvidia.com/datacenter/tesla/mig-user-guide/latest/supported-mig-profiles.html)
 
@@ -131,6 +162,23 @@ nvidia-smi -L
 
 **သတိပြုရန်** — အထက်ပါ Profile ဥပမာကို MIG ကို Support လုပ်တဲ့ သင့်လျော်သော GPU ပေါ်မှာသာ အသုံးပြုပါ။ Tesla T4 သို့မဟုတ် A10G ပေါ်မှာ ဒီ MIG Configuration ကို ဖန်တီးလို့ မရပါဘူး။
 
+**Figure 3 — MIG Mode enable ပြီး Instance ဖန်တီးသည့် workflow**
+
+```mermaid
+flowchart TD
+    A["nvidia-smi — GPU Model နှင့် Driver စစ်ဆေး"]
+    A --> B["MIG Support ရှိ/မရှိ အတည်ပြု"]
+    B --> C["sudo nvidia-smi -i 0 -mig 1 — MIG Mode enable"]
+    C --> D["mig -lgip / mig -lgipp — Profile နှင့် Placement ကြည့်ရန်"]
+    D --> E["mig -cgi 3g.20gb,3g.20gb -C — Instance ဖန်တီး"]
+    E --> F["mig -lgi / nvidia-smi -L — ဖန်တီးထားသော Instance များ စစ်ဆေး"]
+```
+
+**ပုံရှင်းလင်းချက်:**
+- အဆင့်တွေကို အပေါ်ကနေ အောက်ကို အစဉ်လိုက် ကြည့်ပါ — GPU model စစ်တာကနေ စပါတယ်။
+- MIG Mode enable လုပ်ရုံနဲ့ instance တွေ မရသေးဘဲ၊ နောက်ဆုံးအဆင့်မတိုင်ခင် `mig -cgi ... -C` နဲ့ instance တွေကို သီးခြား ဖန်တီးရပါတယ်။
+- တစ်ဆင့်ချင်းစီမှာ အသုံးပြုရမယ့် command ကို node ထဲမှာ ရေးထားပါတယ်။
+
 Source: NVIDIA MIG Getting Started Guide (https://docs.nvidia.com/datacenter/tesla/mig-user-guide/getting-started-with-mig.html)
 
 ## 7. GPU အများအပြားရှိတဲ့ Server မှာ MIG
@@ -169,6 +217,22 @@ Server တစ်လုံးမှာ MIG ကို Support လုပ်တဲ�
 - Hardware-backed Resource Partitioning ကို ဦးစားပေးတဲ့အခါ
 
 အချို့ Supported Platform များမှာ MIG-backed vGPU ကို အသုံးပြုနိုင်တာကြောင့် ဒီနည်းပညာနှစ်ခုဟာ အမြဲတမ်း အပြန်အလှန်ဖယ်ထုတ်ရမယ့် ရွေးချယ်စရာတွေ မဟုတ်ပါဘူး။
+
+**Figure 4 — VM-based နှင့် Container-based Partitioning ရွေးချယ်ပုံ**
+
+```mermaid
+flowchart TD
+    W["Workload အမျိုးအစား စဉ်းစားရန်"]
+    W --> V["VM-based — VDI, Virtual Workstation, VM အတွင်း AI/ML"]
+    W --> M["Container-based — Bare-metal Containers, HPC, AI Inference"]
+    V --> HV["Hypervisor + vGPU Software ဖြင့် စီမံခန့်ခွဲ"]
+    M --> HP["Hardware-backed Partition — Dedicated Compute/Memory"]
+```
+
+**ပုံရှင်းလင်းချက်:**
+- အပေါ်ဆုံး node က ကိုယ့် workload က ဘယ်လိုအမျိုးအစားလဲဆိုတာ အရင်စဉ်းစားဖို့ ပြပါတယ်။
+- ဘယ်ဘက်ခွဲက VM ပေါ်မှာ run မယ့် workload တွေအတွက် vGPU လမ်းကြောင်းဖြစ်ပြီး Hypervisor က ဗဟိုကနေ စီမံပါတယ်။
+- ညာဘက်ခွဲက bare-metal container workload တွေအတွက် MIG လမ်းကြောင်းဖြစ်ပြီး hardware partition က dedicated resource ပေးပါတယ်။
 
 ## 10. Module Summary
 
@@ -228,6 +292,20 @@ A MIG profile name is read as follows. For example — `3g.20gb`:
 
 Here `3g` does not mean 3 GPU cores. It indicates the size of the allocated MIG GPU slice. Internally, Streaming Multiprocessors (SMs) and other hardware resources are divided according to the profile.
 
+**Figure 1 — Reading a MIG profile name (example — 3g.20gb)**
+
+```mermaid
+flowchart TD
+    P["MIG profile — 3g.20gb"]
+    P --> A["3g — GPU compute slice ratio (includes SMs)"]
+    P --> B["20gb — GPU memory class for the instance"]
+```
+
+**Figure walkthrough:**
+- The top node represents a complete MIG profile name.
+- The left branch shows that `3g` describes the compute slice ratio — it does not mean 3 GPU cores.
+- The right branch shows that `20gb` is the GPU memory class assigned to the instance.
+
 **A100 40GB MIG profile examples** — On an NVIDIA A100-SXM4-40GB you can find the following profiles:
 
 | MIG Profile | GPU Memory | SM Allocation | Maximum Instances |
@@ -239,6 +317,23 @@ Here `3g` does not mean 3 GPU cores. It indicates the size of the allocated MIG 
 | 7g.40gb | 40 GB class | 7/7 | 1 |
 
 The memory amount in the profile name indicates the designated class; the usable memory shown in nvidia-smi may differ slightly. Profiles are also not identical across all GPU models.
+
+**Figure 2 — Supported MIG profiles on an A100 40GB**
+
+```mermaid
+flowchart TD
+    G["A100 40GB — supported MIG profiles"]
+    G --> P1["1g.5gb — SM 1/7 — up to 7 instances"]
+    G --> P2["2g.10gb — SM 2/7 — up to 3 instances"]
+    G --> P3["3g.20gb — SM 3/7 — up to 2 instances"]
+    G --> P4["4g.20gb — SM 4/7 — up to 1 instance"]
+    G --> P5["7g.40gb — SM 7/7 — up to 1 instance"]
+```
+
+**Figure walkthrough:**
+- The top node lists the MIG profiles available on an A100 40GB.
+- Each lower node shows the profile name, its SM allocation ratio, and the maximum number of instances.
+- The bigger the profile, the more SMs it takes, and the fewer instances you can create — notice the counts going down as the profiles grow.
 
 Source: NVIDIA Supported MIG Profiles (https://docs.nvidia.com/datacenter/tesla/mig-user-guide/latest/supported-mig-profiles.html)
 
@@ -334,6 +429,23 @@ nvidia-smi -L
 
 **Caution** — Use the profile example above only on a suitable GPU that supports MIG. This MIG configuration cannot be created on a Tesla T4 or A10G.
 
+**Figure 3 — Workflow: enable MIG mode and create instances**
+
+```mermaid
+flowchart TD
+    A["nvidia-smi — check GPU model and driver"]
+    A --> B["Confirm MIG support"]
+    B --> C["sudo nvidia-smi -i 0 -mig 1 — enable MIG mode"]
+    C --> D["mig -lgip / mig -lgipp — view profiles and placements"]
+    D --> E["mig -cgi 3g.20gb,3g.20gb -C — create instances"]
+    E --> F["mig -lgi / nvidia-smi -L — verify created instances"]
+```
+
+**Figure walkthrough:**
+- Read the steps from top to bottom: it starts with checking the GPU model.
+- Enabling MIG mode does not give you instances yet — near the end, `mig -cgi ... -C` creates them separately.
+- Each node shows the command used at that step, so you can follow the figure like a checklist.
+
 Source: NVIDIA MIG Getting Started Guide (https://docs.nvidia.com/datacenter/tesla/mig-user-guide/getting-started-with-mig.html)
 
 ## 7. MIG on a Multi-GPU Server
@@ -372,6 +484,22 @@ But this calculation assumes every GPU can be fully populated with 7 instances. 
 - Environments that prefer hardware-backed resource partitioning
 
 Because some supported platforms offer MIG-backed vGPU, these two technologies are not always mutually exclusive options.
+
+**Figure 4 — Choosing between VM-based and container-based partitioning**
+
+```mermaid
+flowchart TD
+    W["Consider your workload type"]
+    W --> V["VM-based — VDI, virtual workstations, AI/ML inside VMs"]
+    W --> M["Container-based — bare-metal containers, HPC, AI inference"]
+    V --> HV["Managed by the hypervisor + vGPU software"]
+    M --> HP["Hardware-backed partition — dedicated compute/memory"]
+```
+
+**Figure walkthrough:**
+- The top node asks the first question: what kind of workload do you have?
+- The left branch is the vGPU path for workloads running in VMs, managed centrally by the hypervisor.
+- The right branch is the MIG path for bare-metal container workloads, where each instance gets dedicated hardware resources.
 
 ## 10. Module Summary
 
@@ -414,3 +542,4 @@ Because some supported platforms offer MIG-backed vGPU, these two technologies a
 - All commands (`nvidia-smi`, `-mig 1`, `mig -lgip`, `mig -lgipp`, `mig -cgi ... -C`, `mig -lgi`, `nvidia-smi -L`) are reproduced from the source material; they are presented as illustrative for MIG-capable GPUs (e.g. A100), not universal.
 - The 4 × 7 = 28 instance calculation is kept from the source with its explicit caveat that it is theoretical.
 - Licensing claims (possible NVIDIA vGPU software license requirement) are kept non-specific as in the source; verify against the current NVIDIA vGPU licensing documentation before deployment.
+- Beginner-friendly Mermaid figures (Figure 1–4, each with a figure walkthrough) were added inline in both the Myanmar and English sections; existing text and commands are unchanged.

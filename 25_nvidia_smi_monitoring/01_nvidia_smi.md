@@ -51,6 +51,19 @@ Administrator / Engineer
  Processes / Clock Status
 ```
 
+**Figure 1 — nvidia-smi အလုပ်လုပ်ပုံ (conceptual architecture) ပုံ**
+
+```mermaid
+flowchart TD
+    A["Administrator / Engineer"] --> B["nvidia-smi"]
+    B --> C["NVIDIA Management Library (NVML)"]
+    C --> D["NVIDIA GPU Driver"]
+    D --> E["NVIDIA GPU"]
+    E --> F["Utilization / Memory / Temperature / Power / Processes / Clock status"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက administrator/engineer က command ရိုက်ပုံကစပြီး အောက်ကို တစ်ဆင့်ချင်း ဆင်းကြည့်ပါ — nvidia-smi က NVML ကို အသုံးပြုပြီး NVML ကတဆင့် GPU driver နဲ့ GPU ဆီ သတင်းအချက်အလက် တောင်းပါတယ်။ အောက်ဆုံးမှာ ပြန်ရလာတဲ့ utilization, memory, temperature, power, processes, clock status တွေကို မြင်ရပါမယ်။
+
 nvidia-smi ဟာ GPU နဲ့ပတ်သက်တဲ့ information တွေကို query လုပ်ဖို့ NVIDIA Management Library (NVML) ကို အသုံးပြုနိုင်ပါတယ်။ အချို့ management operations တွေကိုလည်း supported hardware နဲ့ driver ပေါ်မူတည်ပြီး လုပ်ဆောင်နိုင်ပါတယ်။
 
 nvidia-smi ကို ဘယ်အချိန်မှာ အသုံးပြုသင့်သလဲ။
@@ -107,6 +120,18 @@ GPU driver က မှန်ကန်စွာ အလုပ်လုပ်နေ�
 ဥပမာ — `CUDA Version: 13.0`။ ဒီနေရာမှာ အရေးကြီးတဲ့ ကွာခြားချက်တစ်ခု ရှိပါတယ်။
 
 nvidia-smi မှာ ဖော်ပြထားတဲ့ CUDA Version ဟာ လက်ရှိ NVIDIA driver က support လုပ်နိုင်တဲ့ CUDA compatibility level ကို ဖော်ပြတာဖြစ်ပါတယ်။ System မှာ CUDA Toolkit version အဲဒီတန်ဖိုးအတိုင်း install လုပ်ထားတယ်လို့ မဆိုလိုပါဘူး။
+
+**Figure 2 — CUDA compatibility နဲ့ CUDA Toolkit version ရဲ့ ကွာခြားချက် ပုံ**
+
+```mermaid
+flowchart TD
+    A["nvidia-smi မှာ ပြသသော CUDA Version"] --> B["Driver က support လုပ်သော CUDA compatibility level"]
+    C["nvcc --version"] --> D["Install လုပ်ထားသော CUDA Toolkit compiler version"]
+    B --> E["တန်ဖိုးနှစ်ခု မတူနိုင်ပါ"]
+    D --> E
+```
+
+**ပုံရှင်းလင်းချက်** — ဘယ်ဘက်အပေါ်က nvidia-smi ပြတဲ့ CUDA Version က driver ရဲ့ compatibility level ကို ဖော်ပြတာဖြစ်ပါတယ်။ ဘယ်ဘက်အောက်က `nvcc --version` ကတော့ တကယ် install လုပ်ထားတဲ့ CUDA Toolkit compiler version ကို ပြတာ ဖြစ်ပါတယ်။ ညာဘက်က ဒီတန်ဖိုးနှစ်ခုဟာ မတူနိုင်ဘူးဆိုတာကို သတိပေးထားခြင်း ဖြစ်ပါတယ်။
 
 CUDA Toolkit compiler (nvcc) ရှိပြီး PATH ထဲမှာ ထည့်ထားတယ်ဆိုရင် `nvcc --version` ကို အသုံးပြုနိုင်ပါတယ်။
 
@@ -219,6 +244,18 @@ ps -fp 465464
 
 ဒီ command က Linux operating system ဘက်မှာ အဲဒီ PID ရဲ့ process details ကို စစ်ဆေးပေးပါတယ်။
 
+**Figure 3 — GPU process တစ်ခုကို ရှာပြီး စီမံခန့်ခွဲပုံ ပုံ**
+
+```mermaid
+flowchart TD
+    A["nvidia-smi — Processes section"] --> B["GPU index / PID / Process name / GPU memory ဖတ်သည်"]
+    B --> C["ps -fp PID — process details စစ်ဆေးသည်"]
+    C --> E["Shared server ဖြစ်ပါက workload owner နှင့် အရင် ညှိနှိုင်းသည်"]
+    E --> F["OS process-management tools ဖြင့်သာ process ရပ်သည်"]
+```
+
+**ပုံရှင်းလင်းချက်** — ပထမ nvidia-smi ရဲ့ Processes section ကနေ PID နဲ့ process အချက်အလက် ဖတ်ပါ။ ပြီးရင် `ps -fp` နဲ့ အဲဒီ process ရဲ့ အသေးစိတ်ကို စစ်ပါ။ Shared server ဆိုရင် workload owner နဲ့ အရင် ညှိနှိုင်းပြီးမှ နောက်ဆုံးအဆင့်အနေနဲ့ OS ရဲ့ process-management tools တွေနဲ့သာ process ကို ရပ်သင့်ပါတယ်။
+
 အရေးကြီးသော သတိပေးချက် — GPU ကို အသုံးပြုနေတဲ့ process ကို ရပ်တန့်မယ်ဆိုရင် nvidia-smi ကနေ အမြဲတမ်း တိုက်ရိုက် terminate လုပ်နိုင်တယ်လို့ မယူဆပါနဲ့။ ပုံမှန်အားဖြင့် process termination ကို OS process-management tools နဲ့ လုပ်ဆောင်ရပါတယ်။ Shared server မှာ process တစ်ခုကို မရပ်ခင် workload owner နဲ့ အရင်ညှိနှိုင်းသင့်ပါတယ်။
 
 ## 6. NVIDIA-SMI နဲ့ ဘာတွေကို စီမံခန့်ခွဲနိုင်သလဲ။
@@ -327,6 +364,20 @@ NVIDIA GPU Servers
         |
         +----> Alerting
 ```
+
+**Figure 4 — Enterprise GPU monitoring architecture ပုံ**
+
+```mermaid
+flowchart TD
+    A["NVIDIA GPU Servers"] --> B["NVIDIA DCGM"]
+    B --> C["DCGM Exporter"]
+    C --> D["Prometheus"]
+    D --> E["Grafana"]
+    E --> F["Dashboards"]
+    E --> G["Alerting"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက GPU servers တွေကနေ data စီးဆင်းပုံကို အောက်ကို လိုက်ကြည့်ပါ — DCGM က telemetry စုဆောင်းပေးပြီး DCGM Exporter က Prometheus format နဲ့ ထုတ်ပေးပါတယ်။ Prometheus က metrics တွေကို time series အဖြစ် သိမ်းပေးပြီး Grafana က နောက်ဆုံးမှာ dashboards နဲ့ alerting နှစ်မျိုးခွဲပြီး ပြသပေးပါတယ်။ ဒီ pipeline ကို တည်ဆောက်မှ ရေရှည် metrics တွေနဲ့ fleet-wide visibility ရနိုင်ပါမယ်။
 
 - NVIDIA-SMI — Individual node ရဲ့ GPU status ကို အမြန်စစ်ဆေးဖို့။
 - DCGM — GPU telemetry, health monitoring နဲ့ diagnostics အတွက်။
@@ -477,6 +528,19 @@ Administrator / Engineer
  Processes / Clock Status
 ```
 
+**Figure 1 — How nvidia-smi works (conceptual architecture)**
+
+```mermaid
+flowchart TD
+    A["Administrator / Engineer"] --> B["nvidia-smi"]
+    B --> C["NVIDIA Management Library (NVML)"]
+    C --> D["NVIDIA GPU Driver"]
+    D --> E["NVIDIA GPU"]
+    E --> F["Utilization / Memory / Temperature / Power / Processes / Clock status"]
+```
+
+**Figure walkthrough** — Start at the top with the administrator running the command and read downward: nvidia-smi asks NVML for information, NVML talks to the GPU driver, and the driver reaches the GPU. The bottom node lists the status information that comes back — utilization, memory, temperature, power, processes, and clock status.
+
 nvidia-smi can use the NVIDIA Management Library (NVML) to query GPU-related information. Some management operations can also be performed depending on the supported hardware and driver.
 
 When should you use nvidia-smi?
@@ -533,6 +597,18 @@ Example — `Driver Version: 580.95.05`. This value shows the NVIDIA driver vers
 Example — `CUDA Version: 13.0`. There is one important distinction here.
 
 The CUDA Version shown in nvidia-smi indicates the CUDA compatibility level supported by the current NVIDIA driver. It does not mean that the same CUDA Toolkit version is installed on the system.
+
+**Figure 2 — The difference between CUDA compatibility and the CUDA Toolkit version**
+
+```mermaid
+flowchart TD
+    A["CUDA Version shown in nvidia-smi"] --> B["Driver-supported CUDA compatibility level"]
+    C["nvcc --version"] --> D["Installed CUDA Toolkit compiler version"]
+    B --> E["The two values can differ"]
+    D --> E
+```
+
+**Figure walkthrough** — The top-left node is what nvidia-smi displays, and it reports the driver's compatibility level (top-right). The bottom-left node, `nvcc --version`, reports the CUDA Toolkit compiler actually installed (bottom-right). The final node reminds you that the two values can differ — checking one does not check the other.
 
 If the CUDA Toolkit compiler (nvcc) exists and is on your PATH, you can use `nvcc --version`.
 
@@ -645,6 +721,18 @@ ps -fp 465464
 
 This command inspects process details for that PID on the Linux operating system side.
 
+**Figure 3 — How to find and handle a GPU process**
+
+```mermaid
+flowchart TD
+    A["nvidia-smi — Processes section"] --> B["Read GPU index / PID / process name / GPU memory"]
+    B --> C["ps -fp PID — inspect process details"]
+    C --> E["On a shared server, coordinate with the workload owner first"]
+    E --> F["Stop the process only with OS process-management tools"]
+```
+
+**Figure walkthrough** — First read the PID and process details from the Processes section of nvidia-smi. Next, inspect the process with `ps -fp`. If the server is shared, coordinate with the workload owner before acting, and only at the final step stop the process using OS process-management tools.
+
 Important warning: do not assume a GPU-using process can always be terminated directly from nvidia-smi. Process termination is normally done with OS process-management tools. On a shared server, coordinate with the workload owner before stopping a process.
 
 ## 6. What Can You Manage with NVIDIA-SMI?
@@ -754,6 +842,20 @@ NVIDIA GPU Servers
         +----> Alerting
 ```
 
+**Figure 4 — Enterprise GPU monitoring architecture**
+
+```mermaid
+flowchart TD
+    A["NVIDIA GPU Servers"] --> B["NVIDIA DCGM"]
+    B --> C["DCGM Exporter"]
+    C --> D["Prometheus"]
+    D --> E["Grafana"]
+    E --> F["Dashboards"]
+    E --> G["Alerting"]
+```
+
+**Figure walkthrough** — Follow the flow from the GPU servers at the top: DCGM collects the telemetry, DCGM Exporter exposes it in Prometheus format, and Prometheus stores the metrics as time series. At the bottom, Grafana splits the results into dashboards for viewing and alerting for notifications. Building this pipeline is what turns one-shot checks into long-term, fleet-wide visibility.
+
 - NVIDIA-SMI — quick inspection of an individual node's GPU status.
 - DCGM — GPU telemetry, health monitoring, and diagnostics.
 - DCGM Exporter — exposes supported GPU metrics in Prometheus-compatible format.
@@ -860,3 +962,4 @@ If it shows `nvcc: command not found`, the CUDA Toolkit compiler may be missing 
 - The sample nvidia-smi table is reconstructed for teaching (source caveat kept): driver 580.95.05 / CUDA 13.0 / Tesla T4 numbers are illustrative and vary by system.
 - Source caveats preserved: nvidia-smi's CUDA Version is driver CUDA compatibility, not the installed CUDA Toolkit; `GPU-Util 97% ≠ best performance`; memory usage ≠ compute utilization; `Fan: N/A` does not mean a broken fan; GPU indices may change across reboots (use UUID/PCI Bus ID in scripts); process termination is an OS operation and shared workloads need coordination; monitoring ≠ scheduling.
 - The `nvcc --version` vs `cat /usr/local/cuda/version.json` comparison and the `nvidia-smi dmon -s pucm` example are source-provided; field availability is driver/platform-dependent — needs verification on the target system.
+- Mermaid figures (Figures 1–4) and their walkthroughs were added inline in both the Myanmar and English sections at matching positions and numbering; existing text and ASCII diagrams are unchanged.

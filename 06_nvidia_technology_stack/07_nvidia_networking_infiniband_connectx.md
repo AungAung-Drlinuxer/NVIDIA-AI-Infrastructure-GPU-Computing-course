@@ -72,6 +72,24 @@ High-level architecture:
        High-speed Network
 ```
 
+**Figure 1 — ConnectX adapter က server နဲ့ network ကြားမှာ ရှိပုံ**
+
+```mermaid
+flowchart TD
+    S["AI / HPC Server"] --> CX["ConnectX Adapter"]
+    CX --> IB["InfiniBand"]
+    CX --> EN["Ethernet / RoCE"]
+    IB --> NET["High-speed Network"]
+    EN --> NET
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough) —**
+
+1. အပေါ်ဆုံး box က AI / HPC Server ကို ပြပါတယ်။
+2. Server ရဲ့အောက်မှာ ချိတ်ဆက်ထားတာက ConnectX Adapter ဖြစ်ပါတယ်။
+3. Adapter ကနေ InfiniBand လမ်းကြောင်း သို့မဟုတ် Ethernet / RoCE လမ်းကြောင်း — နှစ်ခုထဲက တစ်ခုကို သုံးနိုင်ပါတယ်။
+4. လမ်းကြောင်းနှစ်ခုစလုံးက အောက်ဆုံးက high-speed network ဆီ ရောက်ရှိသွားပါတယ်။
+
 ဒါကြောင့် ConnectX ကို server နဲ့ high-performance network fabric ကြားက networking adapter လို့ conceptual အနေနဲ့ မှတ်နိုင်ပါတယ်။
 
 ## 4. HCA — Host Channel Adapter
@@ -99,6 +117,22 @@ InfiniBand Switch
   ▼
 Other Servers
 ```
+
+**Figure 2 — HCA က host ကို InfiniBand fabric နဲ့ ချိတ်ဆက်ပေးပုံ**
+
+```mermaid
+flowchart TD
+    S["Server"] -->|"PCIe"| H["HCA"]
+    H -->|"InfiniBand"| SW["InfiniBand Switch"]
+    SW --> O["Other Servers"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough) —**
+
+1. အပေါ်ဆုံးက Server က အောက်က HCA ဆီကို PCIe ကတစ်ဆင့် ချိတ်ဆက်ပါတယ်။
+2. HCA က Host Channel Adapter ဖြစ်ပြီး InfiniBand ကတစ်ဆင့် InfiniBand Switch ဆီ ဆက်သွယ်ပါတယ်။
+3. Switch ကနေတစ်ဆင့် တခြား servers တွေနဲ့ ဆက်သွယ်နိုင်ပါတယ်။
+4. ဒါကြောင့် HCA ရဲ့ role က host နဲ့ InfiniBand network ကြားက high-performance connection ဖြစ်ပါတယ်။
 
 ဒါကြောင့် HCA ရဲ့ role ကို—
 
@@ -195,6 +229,22 @@ Network Adapter
        ▼
     Memory
 ```
+
+**Figure 3 — DMA မပါဘဲနဲ့ DMA ပါတဲ့ data movement နှိုင်းယှဉ်ပုံ**
+
+```mermaid
+flowchart LR
+    NW1["Network"] -->|"CPU က data copy လုပ်ပေးရသည်"| CPU["CPU"]
+    CPU --> MEM1["Memory"]
+    NW2["Network Adapter"] -->|"DMA"| MEM2["Memory"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough) —**
+
+1. အပေါ်ကလမ်းကြောင်းက DMA မထိရောက်တဲ့အခါ ဖြစ်ပါတယ် — network က data က CPU ဆီအရင်ရောက်ပြီး CPU က memory ဆီ ကူးပေးရပါတယ်။
+2. ဒီလိုဆိုရင် CPU က data movement မှာ ပိုပြီးပါဝင်ရပြီး overhead များနိုင်ပါတယ်။
+3. အောက်ကလမ်းကြောင်းက DMA ပါတဲ့အခါ ဖြစ်ပြီး network adapter က memory ဆီကို တိုက်ရိုက် data ပို့နိုင်ပါတယ်။
+4. CPU ရဲ့ data copy လုပ်ရမှု လျော့သွားတဲ့အတွက် CPU က application အလုပ်တွေအတွက် ပိုပြီးကျန်နိုင်ပါတယ်။
 
 ဒီလိုနဲ့ CPU involvement / overhead ကို လျှော့ချနိုင်ပါတယ်။
 
@@ -323,6 +373,29 @@ Large-scale AI training မှာ workload ကို GPU/node အများက
                 │
        InfiniBand / RoCE
 ```
+
+**Figure 4 — AI training အတွင်း node တွေကြား data exchange ဖြစ်ပုံ**
+
+```mermaid
+sequenceDiagram
+    participant J as "AI Training Job"
+    participant D1 as "DGX Node 1"
+    participant D2 as "DGX Node 2"
+    participant F as "InfiniBand / RoCE Fabric"
+    J->>D1: workload ဖြန့်ဝေခြင်း
+    J->>D2: workload ဖြန့်ဝေခြင်း
+    D1->>F: data exchange
+    D2->>F: data exchange
+    F->>D1: data exchange
+    F->>D2: data exchange
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough) —**
+
+1. ဘယ်ဘက်က AI Training Job က workload ကို DGX nodes တွေဆီ ဖြန့်ဝေပေးပါတယ်။
+2. Training run နေစဉ်အတွင်း DGX Node 1 နဲ့ DGX Node 2 က အချင်းချင်း data ဖလှယ်ကြပါတယ်။
+3. ဒီ data exchange အားလုံးက InfiniBand / RoCE fabric ကတစ်ဆင့် ဖြတ်သန်းသွားပါတယ် (မြားကြောင်းတွေက နှစ်ဖက်သွား ဖလှယ်မှုကို ပြပါတယ်)။
+4. Fabric မြန်ရင် node တွေ data စောင့်ချိန် နည်းပြီး GPU တွေ computation ကို ပိုလုပ်နိုင်ပါတယ်။
 
 Training process အတွင်း node တွေကြား data exchange များတဲ့အတွက် high-speed networking က အရေးကြီးပါတယ်။
 
@@ -616,6 +689,24 @@ At a high level:
        High-speed Network
 ```
 
+**Figure 1 — Where the ConnectX adapter sits between the server and the network**
+
+```mermaid
+flowchart TD
+    S["AI / HPC Server"] --> CX["ConnectX Adapter"]
+    CX --> IB["InfiniBand"]
+    CX --> EN["Ethernet / RoCE"]
+    IB --> NET["High-speed Network"]
+    EN --> NET
+```
+
+**Figure walkthrough —**
+
+1. The top box is the AI / HPC server.
+2. Below the server sits the ConnectX adapter.
+3. From the adapter, traffic can use either the InfiniBand path or the Ethernet / RoCE path.
+4. Both paths end at the high-speed network at the bottom.
+
 A useful mental model is:
 
 - ConnectX = the high-performance networking adapter between the server and the network fabric.
@@ -644,6 +735,22 @@ InfiniBand Switch
   ▼
 Other Servers
 ```
+
+**Figure 2 — How an HCA connects a host to the InfiniBand fabric**
+
+```mermaid
+flowchart TD
+    S["Server"] -->|"PCIe"| H["HCA"]
+    H -->|"InfiniBand"| SW["InfiniBand Switch"]
+    SW --> O["Other Servers"]
+```
+
+**Figure walkthrough —**
+
+1. At the top, the server connects down to the HCA over PCIe.
+2. The HCA — the Host Channel Adapter — connects onward to an InfiniBand switch over InfiniBand.
+3. The switch then reaches other servers.
+4. So the HCA is the high-performance connection between the host and the InfiniBand network.
 
 The simplest way to remember it is:
 
@@ -732,6 +839,22 @@ Network Adapter
        ▼
     Memory
 ```
+
+**Figure 3 — Comparing data movement without and with DMA**
+
+```mermaid
+flowchart LR
+    NW1["Network"] -->|"CPU copies the data"| CPU["CPU"]
+    CPU --> MEM1["Memory"]
+    NW2["Network Adapter"] -->|"DMA"| MEM2["Memory"]
+```
+
+**Figure walkthrough —**
+
+1. The upper path is the case without effective DMA: data from the network reaches the CPU first, and the CPU copies it to memory.
+2. In that case the CPU is more involved in data movement, which adds overhead.
+3. The lower path is the DMA case: the network adapter transfers data directly to memory.
+4. With less CPU copying work, more CPU resources remain for application and compute work.
 
 The benefit is that CPU involvement and overhead can be reduced.
 
@@ -842,6 +965,29 @@ For example:
                 │
        InfiniBand / RoCE
 ```
+
+**Figure 4 — Data exchange between nodes during AI training**
+
+```mermaid
+sequenceDiagram
+    participant J as "AI Training Job"
+    participant D1 as "DGX Node 1"
+    participant D2 as "DGX Node 2"
+    participant F as "InfiniBand / RoCE Fabric"
+    J->>D1: distribute workload
+    J->>D2: distribute workload
+    D1->>F: data exchange
+    D2->>F: data exchange
+    F->>D1: data exchange
+    F->>D2: data exchange
+```
+
+**Figure walkthrough —**
+
+1. On the left, the AI training job distributes the workload to the DGX nodes.
+2. While the training runs, DGX Node 1 and DGX Node 2 exchange data with each other.
+3. All of this data exchange passes through the InfiniBand / RoCE fabric (the arrows show exchange in both directions).
+4. A faster fabric means nodes wait less for data, so the GPUs can spend more time computing.
 
 During training, the nodes may need to exchange data frequently.
 Therefore, high-speed networking is an important component of distributed AI training.
@@ -1079,3 +1225,4 @@ And:
 - Source correction preserved: the transcript says NVIDIA acquired Mellanox “in 2022”; the acquisition was completed in **2020** (already flagged in the source itself).
 - The HCA vs NIC distinction is presented as a simplified terminology model per the source; modern adapters can support multiple technologies and product naming varies.
 - No speed, latency, or bandwidth figures are claimed in this module; the source deliberately avoids fixed numbers.
+- Mermaid figures (Figure 1-4) with figure walkthroughs were added inline in both the Myanmar and English sections; the diagrams only restate concepts already covered in this module.

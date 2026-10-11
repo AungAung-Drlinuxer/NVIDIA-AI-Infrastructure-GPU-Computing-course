@@ -22,6 +22,24 @@ DGX System တစ်ခုကို GPU အများအပြား တပ်
 
 NVIDIA ရဲ့ DGX-1 ကို ၂၀၁၆ ခုနှစ်မှာ Deep Learning အတွက် အထူးရည်ရွယ်ထားတဲ့ Integrated System အဖြစ် မိတ်ဆက်ခဲ့ပါတယ်။ (Reference: NVIDIA DGX-1 announcement — https://nvidianews.nvidia.com/news/nvidia-launches-world-s-first-deep-learning-supercomputer)
 
+**Figure 1 — DGX system တစ်ခုထဲမှာ ပေါင်းစပ်ထားတဲ့ အဓိက components များ**
+
+```mermaid
+flowchart TD
+    D["NVIDIA DGX — Integrated AI Platform"] --> CPU["CPU — OS / Control / General Processing"]
+    D --> GPU["GPU — AI Training / Inference"]
+    D --> IC["GPU Interconnect — NVLink / NVSwitch"]
+    D --> MEM["System Memory / GPU Memory"]
+    D --> NET["Networking"]
+    D --> ST["Storage — Datasets / Checkpoints"]
+    D --> SW["NVIDIA Software Stack — Drivers / Libraries / Tools"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough):**
+- အပေါ်ဆုံးက DGX ဟာ GPU ပါတဲ့ server တစ်လုံးထက် ပိုတဲ့ integrated AI platform ဖြစ်တာကို မြင်ရပါမယ်။
+- အောက်က components ခုနစ်ခုကို တစ်ခုချင်းစီ ကြည့်ပါ — CPU က control အလုပ်၊ GPU က AI acceleration၊ GPU Interconnect က GPU ကြား ဆက်သွယ်ရေး ဖြစ်ပါတယ်။
+- Memory၊ Networking၊ Storage နဲ့ NVIDIA Software Stack တွေ မပါဘဲ DGX ဟာ ပြည့်စုံတဲ့ AI platform မဖြစ်နိုင်ပါဘူး။
+
 ## 2. DGX Systems ရဲ့ Evolution
 
 DGX Family ဟာ GPU Generations တွေ တိုးတက်လာတာနဲ့အမျှ CPU, GPU, Memory နဲ့ Interconnect Technologies တွေကိုလည်း တဖြည်းဖြည်း ပြောင်းလဲတိုးတက်လာခဲ့ပါတယ်။
@@ -40,6 +58,23 @@ DGX Family ဟာ GPU Generations တွေ တိုးတက်လာတာန
 
 အသေးစိတ် Product Support ကို NVIDIA DGX OS System List (https://docs.nvidia.com/dgx/dgx-os-7-user-guide/introduction.html) မှာ လေ့လာနိုင်ပါတယ်။
 
+**Figure 2 — DGX Systems များ၏ evolution timeline (2016 မှ 2025 အထိ)**
+
+```mermaid
+flowchart TD
+    T1["2016 — DGX-1"] --> T2["2018 — DGX-2 (16x V100, NVSwitch)"]
+    T2 --> T3["2020 — DGX A100 (Ampere + AMD EPYC)"]
+    T3 --> T4["2022 onward — DGX H100 / H200 (Hopper)"]
+    T4 --> T5["2023 onward — Grace Hopper / GH200 Systems"]
+    T5 --> T6["2024 onward — DGX B200 / GB200 Systems"]
+    T6 --> T7["2025 onward — DGX GB300, DGX Spark, DGX Station"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough):**
+- box တွေကို အပေါ်ကနေ အောက်ကို ဖတ်ရင် 2016 ခုနှစ် DGX-1 ကစပြီး generation အလိုက် အချိန်အစဉ်အတိုင်း ဖြစ်ပါတယ်။
+- တစ်ဆင့်ချင်းစီမှာ GPU generation အသစ်တွေ (Ampere၊ Hopper၊ Blackwell) နဲ့ CPU ပေါင်းစပ်မှုတွေ ပြောင်းလဲလာတာကို တွေ့ရပါမယ်။
+- အောက်ဆုံးမှာ DGX Spark နဲ့ DGX Station ဆိုပြီး desktop/deskside AI systems တွေပါ ထွက်လာတာကို တွေ့ရပါမယ်။
+
 ## 3. CPU နဲ့ GPU ကို ဘာကြောင့် ပေါင်းစပ်ထားသလဲ?
 
 AI Server တစ်ခုမှာ CPU နဲ့ GPU ဟာ မတူညီတဲ့ အလုပ်တွေကို ဆောင်ရွက်ပေးပါတယ်။
@@ -54,6 +89,21 @@ AI Server တစ်ခုမှာ CPU နဲ့ GPU ဟာ မတူညီတ�
 - GPU = Massively Parallel Accelerated Computing
 
 CPU နဲ့ GPU တို့ဟာ တစ်ခုကိုတစ်ခု အစားထိုးဖို့မဟုတ်ဘဲ Workload တစ်ခုလုံးကို ထိရောက်စွာ လုပ်ဆောင်နိုင်ဖို့ ပေါင်းစပ်ထားတာဖြစ်ပါတယ်။
+
+**Figure 3 — AI Server တစ်ခုတွင် CPU နှင့် GPU တို့၏ အခန်းကဏ္ဍ**
+
+```mermaid
+flowchart TD
+    W["AI Workload"] --> CPU["CPU — General-purpose Processing / System Control"]
+    W --> GPU["GPU — Massively Parallel Accelerated Computing"]
+    CPU --> R["Workload တစ်ခုလုံး ထိရောက်စွာ လုပ်ဆောင်နိုင်ခြင်း"]
+    GPU --> R
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough):**
+- အပေါ်က AI Workload တစ်ခုတည်းကို CPU နဲ့ GPU နှစ်ခုစလုံးက ကူညီဆောင်ရွက်ပေးပါတယ်။
+- ဘယ်ဘက်က CPU က OS၊ control နဲ့ general-purpose အလုပ်တွေကို လုပ်ပြီး ညာဘက်က GPU ကတော့ parallel matrix/tensor operations တွေကို အရှိန်မြှင့်ပေးပါတယ်။
+- နှစ်ခုစလုံး အောက်ဆုံး box ဆီ ပေါင်းဆုံမှ workload တစ်ခုလုံး ထိရောက်စွာ ပြီးမြောက်ပါတယ် — တစ်ခုကတစ်ခုကို အစားထိုးတာ မဟုတ်ပါဘူး။
 
 ## 4. NVIDIA DGX A100
 
@@ -132,6 +182,24 @@ Conceptual Architecture —
 **NVLink-C2C ဆိုတာ ဘာလဲ?** — NVLink-C2C (Chip-to-Chip) ဟာ Grace CPU နဲ့ GPU တို့ကြား High-bandwidth, Low-latency Communication နဲ့ Coherent Memory Access ကို ပံ့ပိုးပေးတဲ့ Interconnect Technology ဖြစ်ပါတယ်။ ဒါကြောင့် CPU နဲ့ GPU တို့ဟာ သက်ဆိုင်ရာ Memory Resources တွေကို ထိရောက်စွာ အသုံးပြုနိုင်ပါတယ်။ ဒါပေမဲ့ CPU RAM နဲ့ GPU HBM ဟာ Physical Memory အမျိုးအစားတူတူ ဖြစ်သွားတာ မဟုတ်ပါဘူး။
 
 Reference: NVIDIA NVLink-C2C (https://www.nvidia.com/en-sg/data-center/nvlink-c2c/)
+
+**Figure 4 — NVIDIA Grace Hopper Superchip ရဲ့ conceptual architecture**
+
+```mermaid
+flowchart TD
+    SC["NVIDIA Grace Hopper Superchip"] --> GC["Grace CPU — 72 Arm Neoverse V2 Cores"]
+    SC --> HG["Hopper GPU — GPU Compute"]
+    GC --> CM["CPU Memory (LPDDR5X)"]
+    HG --> HM["GPU HBM Memory"]
+    GC --> NV["NVLink-C2C Interconnect"]
+    HG --> NV
+    NV --> CO["Coherent CPU-GPU Memory Access"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough):**
+- အပေါ်ဆုံးက Superchip တစ်ခုတည်းထဲမှာ Grace CPU နဲ့ Hopper GPU နှစ်ခု ပေါင်းစပ်ထားတာကို မြင်ရပါမယ်။
+- ဘယ်ဘက်လမ်းကြောင်းက CPU memory (LPDDR5X) ဆီ၊ ညာဘက်လမ်းကြောင်းက GPU HBM memory ဆီ သွားပါတယ် — memory အမျိုးအစား မတူညီပါဘူး။
+- အောက်ဆုံးမှာ NVLink-C2C interconnect ကတစ်ဆင့် CPU နဲ့ GPU ကြား coherent memory access ရရှိပါတယ်။
 
 ## 8. Grace Blackwell — GB200 နဲ့ GB300
 
@@ -233,6 +301,24 @@ A DGX system is more than a server containing GPUs. Depending on the model, it i
 
 NVIDIA introduced DGX-1 in 2016 as an integrated system specifically designed for deep learning. (Reference: NVIDIA DGX-1 announcement — https://nvidianews.nvidia.com/news/nvidia-launches-world-s-first-deep-learning-supercomputer)
 
+**Figure 1 — The main components integrated inside a DGX system**
+
+```mermaid
+flowchart TD
+    D["NVIDIA DGX — integrated AI platform"] --> CPU["CPU — OS / control / general processing"]
+    D --> GPU["GPU — AI training / inference"]
+    D --> IC["GPU interconnect — NVLink / NVSwitch"]
+    D --> MEM["System memory / GPU memory"]
+    D --> NET["Networking"]
+    D --> ST["Storage — datasets / checkpoints"]
+    D --> SW["NVIDIA software stack — drivers / libraries / tools"]
+```
+
+**Figure walkthrough (ပုံရှင်းလင်းချက်):**
+- The top box shows that DGX is an integrated AI platform — more than a server that just contains GPUs.
+- Look at the seven components below one by one: the CPU handles control work, the GPU handles AI acceleration, and the GPU interconnect links the GPUs to each other.
+- Memory, networking, storage, and the NVIDIA software stack are all part of the platform — without them DGX would not be complete.
+
 ## 2. DGX Evolution
 
 | Period / Generation | Example | Key Characteristics |
@@ -249,6 +335,23 @@ This is a high-level summary of important generations, not an exhaustive launch 
 
 For current supported DGX systems, consult the NVIDIA DGX OS System List (https://docs.nvidia.com/dgx/dgx-os-7-user-guide/introduction.html).
 
+**Figure 2 — DGX systems evolution timeline (2016 to 2025)**
+
+```mermaid
+flowchart TD
+    T1["2016 — DGX-1"] --> T2["2018 — DGX-2 (16x V100, NVSwitch)"]
+    T2 --> T3["2020 — DGX A100 (Ampere + AMD EPYC)"]
+    T3 --> T4["2022 onward — DGX H100 / H200 (Hopper)"]
+    T4 --> T5["2023 onward — Grace Hopper / GH200 systems"]
+    T5 --> T6["2024 onward — DGX B200 / GB200 systems"]
+    T6 --> T7["2025 onward — DGX GB300, DGX Spark, DGX Station"]
+```
+
+**Figure walkthrough (ပုံရှင်းလင်းချက်):**
+- Read the boxes from top to bottom — they follow the time order from DGX-1 in 2016 onward.
+- At each step, a new GPU generation (Ampere, Hopper, Blackwell) and new CPU combinations arrive.
+- At the bottom, the family also grows beyond servers with desktop/deskside systems like DGX Spark and DGX Station.
+
 ## 3. Why Combine CPUs and GPUs?
 
 **CPU** — The CPU handles the operating system, application logic, system management, and general-purpose processing. It also helps coordinate AI workloads and data movement.
@@ -261,6 +364,21 @@ Memory aid:
 - GPU = Massively parallel accelerated computing.
 
 The CPU and GPU complement one another rather than serving as direct replacements for each other.
+
+**Figure 3 — The roles of the CPU and the GPU in an AI server**
+
+```mermaid
+flowchart TD
+    W["AI workload"] --> CPU["CPU — general-purpose processing / system control"]
+    W --> GPU["GPU — massively parallel accelerated computing"]
+    CPU --> R["The whole workload runs efficiently"]
+    GPU --> R
+```
+
+**Figure walkthrough (ပုံရှင်းလင်းချက်):**
+- One AI workload at the top is served by both the CPU and the GPU.
+- On the left, the CPU handles the OS, control, and general-purpose work; on the right, the GPU accelerates parallel matrix/tensor operations.
+- Both feed into the bottom box: the workload completes efficiently because the two complement each other rather than replace each other.
 
 ## 4. DGX A100
 
@@ -337,6 +455,24 @@ This is a conceptual diagram; actual physical layouts and memory configurations 
 **What is NVLink-C2C?** — NVLink-C2C (Chip-to-Chip) is a high-bandwidth, low-latency interconnect that supports coherent CPU-GPU memory access, so the CPU and GPU can use their respective memory resources efficiently. However, it does not turn CPU RAM and GPU HBM into identical physical memory.
 
 Reference: NVIDIA NVLink-C2C (https://www.nvidia.com/en-sg/data-center/nvlink-c2c/).
+
+**Figure 4 — Conceptual architecture of the NVIDIA Grace Hopper Superchip**
+
+```mermaid
+flowchart TD
+    SC["NVIDIA Grace Hopper Superchip"] --> GC["Grace CPU — 72 Arm Neoverse V2 cores"]
+    SC --> HG["Hopper GPU — GPU compute"]
+    GC --> CM["CPU memory (LPDDR5X)"]
+    HG --> HM["GPU HBM memory"]
+    GC --> NV["NVLink-C2C interconnect"]
+    HG --> NV
+    NV --> CO["Coherent CPU-GPU memory access"]
+```
+
+**Figure walkthrough (ပုံရှင်းလင်းချက်):**
+- The top box shows one Superchip combining a Grace CPU and a Hopper GPU.
+- The left path leads to CPU memory (LPDDR5X), the right path to GPU HBM memory — the two memory types stay different physical memory.
+- At the bottom, the NVLink-C2C interconnect provides coherent CPU-GPU memory access between them.
 
 ## 8. Grace Blackwell — GB200 and GB300
 
@@ -428,3 +564,4 @@ Answer: DGX Spark is the GB10 Grace Blackwell desktop system (20-core Arm CPU + 
 - Grace Hopper diagram is conceptual; NVLink-C2C coherent access does not unify CPU RAM and GPU HBM into one physical memory type (per source).
 - The DGX evolution table is a high-level generation summary, not an exhaustive launch chronology (per source caveat); product support must be checked against the NVIDIA DGX OS System List.
 - DGX-1 (2016), DGX-2 (16× V100 + NVSwitch), 72-core Grace / 144-core Grace Superchip figures are taken from the source lesson and match NVIDIA's documented configurations; no additional specs were introduced.
+- Mermaid figures (Figure 1–4) with figure walkthroughs added inline in both the Myanmar and English sections; figure numbering matches across the two sections; all existing text and ASCII diagrams preserved.

@@ -75,6 +75,26 @@ Administrator
         Workload Ecosystem
 ```
 
+ဒီ conceptual architecture ကို Mermaid ပုံအနေနဲ့ အောက်မှာ ကြည့်ပါ။
+
+```mermaid
+flowchart TD
+    A["Administrator"] --> B["Base View UI"]
+    A --> C["cmsh CLI"]
+    B --> D["BCM Head Node"]
+    C --> D
+    D --> E["GPU Nodes + DCGM"]
+    D --> F["CPU Nodes + Services"]
+    D --> G["Managed Network / Storage"]
+    E --> H["Slurm / Kubernetes / Run:ai Workload Ecosystem"]
+    F --> H
+    G --> H
+```
+
+**ပုံ ၁ (Figure 1) — BCM conceptual architecture**
+
+ပုံရှင်းလင်းချက် — အပေါ်ဆုံးက Administrator က Base View UI (web) သို့မဟုတ် cmsh CLI ကတစ်ဆင့် cluster ကို စီမံပါတယ်။ interface နှစ်ခုစလုံးက BCM Head Node ဆီ ရောက်ပြီး Head Node ထဲမှာ cluster management services, configuration database, APIs စတာတွေ ရှိပါတယ်။ Head Node ကနေ GPU Nodes, CPU Nodes နဲ့ managed network/storage resources တွေကို စီမံခန့်ခွဲပြီး အောက်ဆုံးမှာ Slurm, Kubernetes, Run:ai ကဲ့သို့ workload ecosystem က အလုပ်တွေကို run ပါတယ်။
+
 ဒီပုံဟာ conceptual architecture ဖြစ်ပါတယ်။ အမှန်တကယ် deployment မှာ components တွေ၊ integrations တွေ၊ management interfaces တွေက BCM version နဲ့ system design ပေါ်မူတည်ပြီး ကွာခြားနိုင်ပါတယ်။
 
 ### 4.1 BCM Head Node
@@ -144,6 +164,21 @@ Provisioning ဆိုတာ compute nodes တွေကို အသုံးပ
 - Node configuration ကို သတ်မှတ်ခြင်း။
 - လိုအပ်တဲ့ software နဲ့ management services တွေကို ပြင်ဆင်ခြင်း။
 - Node ကို cluster operation အတွက် အဆင်သင့်ဖြစ်အောင် ပြုလုပ်ခြင်း။
+
+Provisioning လုပ်ငန်းစဉ်ကို အဆင့်လိုက် ပုံအနေနဲ့ ကြည့်ပါ —
+
+```mermaid
+flowchart TD
+    A["Server hardware ကို cluster ထဲ မှတ်ပုံတင်"] --> B["Network နဲ့ boot/provisioning config ပြင်ဆင်"]
+    B --> C["Supported OS image တင်"]
+    C --> D["Node configuration သတ်မှတ်"]
+    D --> E["Software နဲ့ management services ပြင်ဆင်"]
+    E --> F["Node က cluster operation အတွက် အဆင်သင့်"]
+```
+
+**ပုံ ၂ (Figure 2) — Cluster provisioning workflow**
+
+ပုံရှင်းလင်းချက် — အပေါ်ကနေ အောက်ကို တစ်ဆင့်ချင်း လိုက်ကြည့်ပါ။ အရင်ဆုံး server hardware ကို cluster ထဲ မှတ်ပုံတင်ပါတယ်။ ပြီးရင် network နဲ့ boot/provisioning configuration ပြင်၊ supported OS image တင်၊ node configuration သတ်မှတ်၊ လိုအပ်တဲ့ software နဲ့ management services ပြင်ပြီး နောက်ဆုံးမှာ node က cluster operation အတွက် အဆင်သင့် ဖြစ်သွားပါတယ်။ ဒီအဆင့်တွေ အတူတူဖြစ်အောင် လုပ်ခြင်းက configuration drift ကို လျှော့ချပါတယ်။
 
 Provisioning က ဘာကြောင့်အရေးကြီးသလဲ — GPU server 20 လုံးကို manual configuration လုပ်မယ်ဆိုရင် node တစ်လုံးနဲ့တစ်လုံး configuration မတူညီနိုင်ပါဘူး (OS version, network interface configuration, driver version, shared storage configuration, required packages မတူခြင်း)။ Provisioning နဲ့ centralized configuration management ကို အသုံးပြုခြင်းက configuration drift ကို လျှော့ချဖို့ ကူညီပါတယ်။
 
@@ -256,6 +291,24 @@ BCM ဟာ simple CLI utility တစ်ခုမဟုတ်ပါဘူး။ C
 9. Operate and Maintain the Cluster
 ```
 
+Deployment workflow တစ်ခုလုံးကို ပုံအနေနဲ့ ကြည့်ပါ —
+
+```mermaid
+flowchart TD
+    A["1. Requirements ပြန်လည်စစ်ဆေး"] --> B["2. BCM version နဲ့ license ရွေးချယ်"]
+    B --> C["3. Management node ပြင်ဆင်"]
+    C --> D["4. BCM install"]
+    D --> E["5. Network နဲ့ cluster configure"]
+    E --> F["6. Managed nodes add/provision"]
+    F --> G["7. Storage နဲ့ workload integration configure"]
+    G --> H["8. Monitoring နဲ့ management validate"]
+    H --> I["9. Cluster ကို operate နဲ့ maintain"]
+```
+
+**ပုံ ၃ (Figure 3) — BCM deployment workflow**
+
+ပုံရှင်းလင်းချက် — ဒီပုံက section 13 က high-level deployment workflow ကို အဆင့် ၉ ဆင့်အဖြစ် ပြထားတာ ဖြစ်ပါတယ်။ အပေါ်က requirements ပြန်စစ်တာကနေ စပြီး version/license ရွေး၊ management node ပြင်၊ BCM install လုပ်၊ network နဲ့ cluster configure လုပ်၊ managed nodes တွေ ထည့်ပြီး provision လုပ်၊ storage နဲ့ workload integration ပြင်၊ monitoring ကို validate လုပ်၊ နောက်ဆုံးမှာ cluster ကို operate/maintain လုပ်ပါတယ်။ အဆင့်တစ်ခုချင်းစီကို ကျော်မသွားဘဲ အစဉ်လိုက် လုပ်ဆောင်ပါ။
+
 Deployment မစမီ စစ်ဆေးရမည့်အချက်များ — BCM version နဲ့ hardware compatibility၊ management network design၊ node provisioning network requirements၊ DNS/NTP နဲ့ required network services၊ management node sizing နဲ့ availability၊ license entitlement နဲ့ activation၊ OS နဲ့ driver compatibility၊ storage နဲ့ network integrations၊ Slurm/Kubernetes လို workload-management requirements၊ backup, access control နဲ့ upgrade plan။
 
 Official documentation: https://docs.nvidia.com/base-command-manager/
@@ -289,6 +342,22 @@ BCM ကို Prometheus နဲ့ Grafana တို့နဲ့ ပေါင်
           BCM manages cluster infrastructure
           and related management workflows
 ```
+
+ဒီ monitoring integration architecture ကို Mermaid ပုံအနေနဲ့ ကြည့်ပါ —
+
+```mermaid
+flowchart TD
+    A["GPU Servers: DCGM"] --> D["Metrics Export / Forward"]
+    B["CPU Nodes: Node Metrics"] --> D
+    C["Network / Storage: Device Metrics"] --> D
+    D --> E["Prometheus: time-series သိမ်းဆည်း"]
+    E --> F["Grafana: dashboards"]
+    F --> G["Dashboards / Alerts"]
+```
+
+**ပုံ ၄ (Figure 4) — Prometheus နဲ့ Grafana monitoring integration**
+
+ပုံရှင်းလင်းချက် — ဘယ်ဘက်က သုံးခု (GPU servers က DCGM၊ CPU nodes က node metrics၊ network/storage က device metrics) က metrics တွေကို export/forward လုပ်တဲ့ နေရာဆီ ပေါင်းလာပါတယ်။ အဲဒီကနေ Prometheus က scrape ပြီး time-series data အဖြစ် သိမ်းဆည်းပြီး Grafana ကတစ်ဆင့် dashboards နဲ့ alerts တွေ ရရှိပါတယ်။ BCM ကတော့ ဒီ pipeline ရဲ့ ဘေးမှာ cluster provisioning, inventory နဲ့ infrastructure management ကို ကိုင်တွယ်ပါတယ်။
 
 ဒီ architecture မှာ — DCGM က GPU health နဲ့ telemetry ကို ပေးပါတယ်။ Exporters/metrics forwarders တွေက metrics ကို monitoring platform ဆီ ပို့ပေးပါတယ်။ Prometheus က scrape ပြီး time-series data အဖြစ် သိမ်းဆည်းပါတယ်။ Grafana က dashboards နဲ့ visualizations ကို ဖော်ပြပါတယ်။ BCM က cluster provisioning, inventory နဲ့ infrastructure management ကို ကိုင်တွယ်ပါတယ်။
 
@@ -438,6 +507,26 @@ Administrator
         Workload Ecosystem
 ```
 
+This conceptual architecture as a Mermaid figure:
+
+```mermaid
+flowchart TD
+    A["Administrator"] --> B["Base View UI"]
+    A --> C["cmsh CLI"]
+    B --> D["BCM Head Node"]
+    C --> D
+    D --> E["GPU Nodes + DCGM"]
+    D --> F["CPU Nodes + Services"]
+    D --> G["Managed Network / Storage"]
+    E --> H["Slurm / Kubernetes / Run:ai Workload Ecosystem"]
+    F --> H
+    G --> H
+```
+
+**Figure 1 — BCM conceptual architecture**
+
+Figure walkthrough — At the top, the Administrator manages the cluster through the Base View UI (web) or the cmsh CLI. Both interfaces reach the BCM Head Node, which holds the cluster management services, the configuration database, and the APIs. The Head Node manages GPU nodes, CPU nodes, and managed network/storage resources, and at the bottom the Slurm, Kubernetes, and Run:ai workload ecosystem runs the actual jobs.
+
 This diagram is a conceptual architecture. In real deployments, components, integrations, and management interfaces can differ depending on the BCM version and system design.
 
 ### 4.1 BCM Head Node
@@ -505,6 +594,21 @@ Provisioning means preparing compute nodes into a usable state and managing them
 - Defining node configuration.
 - Preparing required software and management services.
 - Making nodes ready for cluster operation.
+
+The provisioning workflow step by step as a figure:
+
+```mermaid
+flowchart TD
+    A["Register server hardware into the cluster"] --> B["Prepare network and boot/provisioning config"]
+    B --> C["Apply supported OS image"]
+    C --> D["Define node configuration"]
+    D --> E["Prepare software and management services"]
+    E --> F["Node ready for cluster operation"]
+```
+
+**Figure 2 — Cluster provisioning workflow**
+
+Figure walkthrough — Follow the steps from top to bottom. First the server hardware is registered into the cluster. Then the network and boot/provisioning configuration is prepared, a supported OS image is applied, node configuration is defined, and the required software and management services are prepared. Finally the node is ready for cluster operation. Keeping these steps uniform is what helps reduce configuration drift.
 
 Why provisioning matters: manually configuring 20 GPU servers can leave every node different (OS version, network interface configuration, driver version, shared storage configuration, required packages). Provisioning and centralized configuration management help reduce configuration drift.
 
@@ -617,6 +721,24 @@ BCM is not a simple CLI utility. Being a cluster-management platform, it needs d
 9. Operate and Maintain the Cluster
 ```
 
+The whole deployment workflow as a figure:
+
+```mermaid
+flowchart TD
+    A["1. Review requirements"] --> B["2. Select BCM version and license"]
+    B --> C["3. Prepare management node"]
+    C --> D["4. Install BCM"]
+    D --> E["5. Configure network and cluster"]
+    E --> F["6. Add / provision managed nodes"]
+    F --> G["7. Configure storage and workload integration"]
+    G --> H["8. Validate monitoring and management"]
+    H --> I["9. Operate and maintain the cluster"]
+```
+
+**Figure 3 — BCM deployment workflow**
+
+Figure walkthrough — This figure shows the high-level deployment workflow from section 13 as nine steps. Start at the top with reviewing requirements, then select the BCM version and license, prepare the management node, install BCM, configure the network and cluster, add and provision managed nodes, configure storage and workload integration, validate monitoring and management, and finally operate and maintain the cluster. Work through the steps in order rather than skipping any.
+
 Check before deployment: BCM version and hardware compatibility; management network design; node provisioning network requirements; DNS, NTP, and required network services; management node sizing and availability; license entitlement and activation; OS and driver compatibility; storage and network integrations; workload-management requirements such as Slurm/Kubernetes; backup, access control, and upgrade plans.
 
 Official documentation: https://docs.nvidia.com/base-command-manager/
@@ -650,6 +772,22 @@ BCM can be combined with Prometheus and Grafana. The exact integration depends o
           BCM manages cluster infrastructure
           and related management workflows
 ```
+
+This monitoring integration architecture as a Mermaid figure:
+
+```mermaid
+flowchart TD
+    A["GPU Servers: DCGM"] --> D["Metrics Export / Forward"]
+    B["CPU Nodes: Node Metrics"] --> D
+    C["Network / Storage: Device Metrics"] --> D
+    D --> E["Prometheus: store time series"]
+    E --> F["Grafana: dashboards"]
+    F --> G["Dashboards / Alerts"]
+```
+
+**Figure 4 — Prometheus and Grafana monitoring integration**
+
+Figure walkthrough — On the left, three sources (DCGM on GPU servers, node metrics from CPU nodes, and device metrics from network/storage) feed into one metrics export/forward point. From there Prometheus scrapes and stores the data as time series, and Grafana turns it into dashboards and alerts. BCM sits beside this pipeline, handling cluster provisioning, inventory, and infrastructure management.
 
 In this architecture: DCGM provides GPU health and telemetry; exporters/forwarders send metrics to the monitoring platform; Prometheus scrapes and stores time-series data; Grafana shows dashboards and visualizations; BCM handles cluster provisioning, inventory, and infrastructure management.
 
@@ -732,3 +870,4 @@ Key takeaway: understand BCM as the AI data center's cluster-management platform
 - Source caveats preserved: head node ≠ compute node; a Base View utilization graph alone does not fully assess GPU performance; provisioning does not automate physical installation/cabling/power/cooling; BCM does not automatically collect every DCGM/device metric; BCM is not a universal scheduler (monitoring ≠ scheduling); BCM does not replace Slurm/Kubernetes/Run:ai functions.
 - Licensing figures (free-to-use: up to 8 accelerators per system, no separate node-count cap, no enterprise support) are quoted from the supplied notes and NVIDIA's licensing page — needs verification against https://docs.nvidia.com/base-command-manager/bcm-licensing-and-support/ before any purchase decision, since terms change.
 - Deployment workflow, monitoring-integration diagram, and the 8-server × 8-GPU scenario are conceptual/illustrative, per the source.
+- Mermaid figures (Figures 1–4) with figure walkthroughs were added to both the Myanmar and English sections; the figures restate only content already present in this module and add no new technical claims.

@@ -49,6 +49,29 @@ Reference Architecture ဟာ system တစ်ခုကို တည်ဆော
 
 ဆိုတာ ရှင်းပြပေးပါတယ်။
 
+**Figure 1 — Reference Architecture က blueprint လို အလုပ်လုပ်ပုံ**
+
+```mermaid
+flowchart TD
+    RA["Reference Architecture — blueprint"]
+    RA --> HW["Hardware Components"]
+    RA --> CO["Compute Systems"]
+    RA --> NW["Networking Design"]
+    RA --> ST["Storage Connectivity"]
+    RA --> DE["Deployment Considerations"]
+    RA --> IG["Integration Guidance"]
+    CO --> IM["System Implementation — structured starting point"]
+    NW --> IM
+    ST --> IM
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough) —**
+
+1. အပေါ်ဆုံး box က Reference Architecture ကိုယ်တိုင် — အိမ်ဆောက်တဲ့ blueprint လို စဉ်းစားနိုင်ပါတယ်။
+2. အောက်က box ခြောက်ခုက ဒီ blueprint မှာ ပါဝင်နိုင်တဲ့ အစိတ်အပိုင်းတွေ ဖြစ်ပါတယ် — hardware, compute, networking, storage, deployment နဲ့ integration guidance တို့ ဖြစ်ပါတယ်။
+3. Compute, networking နဲ့ storage သုံးခုက အောက်ဆုံးက system implementation ဆီ ဆက်သွယ်သွားပါတယ်။
+4. ဒါကြောင့် implementation team တွေ အစကနေ ပြန်design မလုပ်ရဘဲ structured starting point တစ်ခု ရရှိပါတယ်။
+
 > Reference Architecture = Infrastructure implementation အတွက် architectural blueprint
 
 ## 3. NVIDIA က Reference Architectures တွေ ဘာကြောင့် ပေးထားသလဲ?
@@ -127,6 +150,28 @@ Simplified Architecture —
            Storage Systems   Management
 ```
 
+**Figure 2 — DGX A100 SuperPOD reference architecture အကျဉ်းချုပ်ပုံ**
+
+```mermaid
+flowchart TD
+    SP["DGX A100 SuperPOD"]
+    SP --> N1["DGX Node 1"]
+    SP --> N2["DGX Node 2"]
+    SP --> N3["DGX Node 3"]
+    N1 --> NET["High-Speed Network"]
+    N2 --> NET
+    N3 --> NET
+    NET --> ST["Storage Systems"]
+    NET --> MG["Management"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough) —**
+
+1. အပေါ်ဆုံး box က DGX A100 SuperPOD တစ်ခုလုံးကို ကိုယ်စားပြုပါတယ်။
+2. ဒုတိယအဆင့်မှာ DGX Node သုံးခု ခွဲပြထားပါတယ် — node တစ်ခုချင်းစီက compute အလုပ်ကို လုပ်ပါတယ်။
+3. Node သုံးခုစလုံးက high-speed network ဆီ ဆက်သွယ်ထားပါတယ်။
+4. Network ကနေတစ်ဆင့် storage systems နဲ့ management ဆီ ရောက်ရှိပါတယ်။ ဒါက conceptual overview သာဖြစ်ပြီး topology အသေးစိတ် မပါဝင်ပါဘူး။
+
 ဒါဟာ conceptual overview သာဖြစ်ပြီး တကယ့် DGX A100 SuperPOD ရဲ့ complete deployment diagram မဟုတ်ပါဘူး။ Exact topology, switch layout, link count, storage configuration တွေကို သတ်မှတ်ပေးထားခြင်း မရှိပါဘူး။ အဲဒီအသေးစိတ်တွေကို သက်ဆိုင်ရာ NVIDIA Reference Architecture documentation ကနေ ရယူရပါမယ်။
 
 ## 7. SuperPOD Reference Architecture က ဘာကြောင့် အသုံးဝင်သလဲ?
@@ -160,6 +205,27 @@ SuperPOD တစ်ခု တည်ဆောက်ဖို့ DGX nodes တွ�
                            ▼
                   Multi-Node AI System
 ```
+
+**Figure 3 — Reference Architecture အောက်မှာ component တွေ ပေါင်းစပ်ပုံ**
+
+```mermaid
+flowchart TD
+    RA["NVIDIA Reference Architecture"]
+    RA --> CO["Compute — DGX / GPU"]
+    RA --> NW["Networking — ConnectX / Fabric"]
+    RA --> ST["Storage — Storage Systems"]
+    NW --> IB["InfiniBand / Ethernet"]
+    CO --> SYS["Multi-Node AI System"]
+    IB --> SYS
+    ST --> SYS
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough) —**
+
+1. အပေါ်ဆုံး box က NVIDIA Reference Architecture က component တွေ အားလုံးကို ဘယ်လိုပေါင်းစပ်ရမလဲ ဆိုတာ ညွှန်းပါတယ်။
+2. ဒုတိယအဆင့်မှာ compute (DGX / GPU), networking (ConnectX / fabric) နဲ့ storage ဆိုပြီး သုံးပိုင်းခွဲပြထားပါတယ်။
+3. Networking ဘက်က InfiniBand / Ethernet fabric ဆီ ဆက်သွယ်သွားပါတယ်။
+4. အောက်ဆုံးမှာ compute, network နဲ့ storage သုံးခု ပေါင်းစပ်ပြီး multi-node AI system တစ်ခု ဖြစ်လာပုံကို တွေ့ရပါမယ်။
 
 BlueField DPU, management infrastructure နဲ့ security controls တွေကိုလည်း သင့်တော်တဲ့ design အလိုက် ထည့်သွင်းနိုင်ပါတယ်။
 
@@ -202,6 +268,25 @@ Step 6: Validate Compatibility and Cost
               ▼
 Step 7: Adapt the Design to Requirements
 ```
+
+**Figure 4 — Recommended learning workflow အဆင့် ၇ ဆင့်**
+
+```mermaid
+flowchart TD
+    S1["Step 1 — Understand the Workload"] --> S2["Step 2 — Review the Reference Architecture"]
+    S2 --> S3["Step 3 — Identify Compute Requirements"]
+    S3 --> S4["Step 4 — Review Networking and Storage"]
+    S4 --> S5["Step 5 — Review Management and Security"]
+    S5 --> S6["Step 6 — Validate Compatibility and Cost"]
+    S6 --> S7["Step 7 — Adapt the Design to Requirements"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough) —**
+
+1. အပေါ်ဆုံးက Step 1 မှာ workload ကို အရင်နားလည်ပါ — ဘာအလုပ်လုပ်မှာလဲ ဆိုတာ ရှင်းမှ ကျန်တဲ့အဆင့်တွေ ဆက်သင့်ပါတယ်။
+2. Step 2 မှာ reference architecture ကို ပြန်ကြည့်ပြီး Step 3 မှာ compute requirements ကို သတ်မှတ်ပါတယ်။
+3. Step 4 နဲ့ Step 5 မှာ networking, storage, management နဲ့ security ကို ဆက်လေ့လာပါတယ်။
+4. Step 6 မှာ compatibility နဲ့ cost ကို စစ်ဆေးပြီး Step 7 မှာ ကိုယ့်လိုအပ်ချက်နဲ့ ကိုက်ညီအောင် design ကို ပြင်ဆင်ပါတယ်။ ဒီ workflow က general recommendation သာ ဖြစ်ပါတယ်။
 
 ဒီ workflow က လက်တွေ့ design လုပ်တဲ့အခါ အသုံးပြုနိုင်တဲ့ general recommendation ဖြစ်ပြီး transcript ထဲမှာ ဖော်ပြထားတဲ့ official step-by-step NVIDIA procedure တစ်ခုကို တိုက်ရိုက်ကူးယူထားတာ မဟုတ်ပါဘူး။
 
@@ -300,6 +385,29 @@ The goal is to provide a structured starting point rather than requiring every i
 - How they should be connected
 - How the complete structure should work
 
+**Figure 1 — How a Reference Architecture works as a blueprint**
+
+```mermaid
+flowchart TD
+    RA["Reference Architecture — blueprint"]
+    RA --> HW["Hardware Components"]
+    RA --> CO["Compute Systems"]
+    RA --> NW["Networking Design"]
+    RA --> ST["Storage Connectivity"]
+    RA --> DE["Deployment Considerations"]
+    RA --> IG["Integration Guidance"]
+    CO --> IM["System Implementation — structured starting point"]
+    NW --> IM
+    ST --> IM
+```
+
+**Figure walkthrough —**
+
+1. The top box is the Reference Architecture itself — think of it like the blueprint for building a house.
+2. The six boxes below are the parts a blueprint can cover: hardware, compute, networking, storage, deployment, and integration guidance.
+3. Compute, networking, and storage continue down to system implementation at the bottom.
+4. This is how an implementation team gets a structured starting point instead of designing everything from scratch.
+
 > Reference Architecture = an architectural blueprint for infrastructure implementation.
 
 ## 3. Why Does NVIDIA Provide Reference Architectures?
@@ -374,6 +482,28 @@ Simplified Architecture:
            Storage Systems   Management
 ```
 
+**Figure 2 — Simplified DGX A100 SuperPOD reference architecture**
+
+```mermaid
+flowchart TD
+    SP["DGX A100 SuperPOD"]
+    SP --> N1["DGX Node 1"]
+    SP --> N2["DGX Node 2"]
+    SP --> N3["DGX Node 3"]
+    N1 --> NET["High-Speed Network"]
+    N2 --> NET
+    N3 --> NET
+    NET --> ST["Storage Systems"]
+    NET --> MG["Management"]
+```
+
+**Figure walkthrough —**
+
+1. The top box represents the whole DGX A100 SuperPOD.
+2. The second level splits it into three DGX nodes — each node does compute work.
+3. All three nodes connect to the high-speed network.
+4. From the network, the design reaches the storage systems and the management layer. This is only a conceptual overview — it contains no topology details.
+
 This is a conceptual overview, not a complete deployment diagram for an actual DGX A100 SuperPOD. It does not specify the exact topology, switch layout, link count, or storage configuration. Those details must be obtained from the relevant NVIDIA Reference Architecture documentation.
 
 ## 7. Why Is the SuperPOD Reference Architecture Useful?
@@ -407,6 +537,27 @@ The components covered in previous modules can be connected conceptually as foll
                            ▼
                   Multi-Node AI System
 ```
+
+**Figure 3 — How the components fit together under a Reference Architecture**
+
+```mermaid
+flowchart TD
+    RA["NVIDIA Reference Architecture"]
+    RA --> CO["Compute — DGX / GPU"]
+    RA --> NW["Networking — ConnectX / Fabric"]
+    RA --> ST["Storage — Storage Systems"]
+    NW --> IB["InfiniBand / Ethernet"]
+    CO --> SYS["Multi-Node AI System"]
+    IB --> SYS
+    ST --> SYS
+```
+
+**Figure walkthrough —**
+
+1. The top box is the NVIDIA Reference Architecture, which guides how all the components are combined.
+2. The second level splits into three areas: compute (DGX / GPU), networking (ConnectX / fabric), and storage.
+3. The networking side continues into the InfiniBand / Ethernet fabric.
+4. At the bottom, compute, network, and storage join together into one multi-node AI system.
 
 BlueField DPU, management infrastructure, and security controls can also be incorporated as appropriate to the design. The most important concept is to understand the components as an integrated system, not merely as separate products.
 
@@ -447,6 +598,25 @@ Step 6: Validate Compatibility and Cost
               ▼
 Step 7: Adapt the Design to Requirements
 ```
+
+**Figure 4 — The seven steps of the recommended learning workflow**
+
+```mermaid
+flowchart TD
+    S1["Step 1 — Understand the Workload"] --> S2["Step 2 — Review the Reference Architecture"]
+    S2 --> S3["Step 3 — Identify Compute Requirements"]
+    S3 --> S4["Step 4 — Review Networking and Storage"]
+    S4 --> S5["Step 5 — Review Management and Security"]
+    S5 --> S6["Step 6 — Validate Compatibility and Cost"]
+    S6 --> S7["Step 7 — Adapt the Design to Requirements"]
+```
+
+**Figure walkthrough —**
+
+1. Start at Step 1: understand the workload first — once you know what work will run, the later steps make sense.
+2. Step 2 reviews the reference architecture, and Step 3 identifies the compute requirements.
+3. Steps 4 and 5 continue with networking, storage, management, and security.
+4. Step 6 validates compatibility and cost, and Step 7 adapts the design to the actual requirements. This workflow is a general recommendation only.
 
 This workflow is a general recommendation for practical design work. It is not presented as an official NVIDIA step-by-step procedure in the supplied transcript.
 
@@ -507,3 +677,4 @@ Answer: Understand the Workload → Review the Reference Architecture → Identi
 - The DGX A100 SuperPOD diagram is kept as a conceptual overview with the source caveat that it specifies no topology, switch layout, link count, or storage configuration.
 - The 7-step learning workflow is kept flagged as a general recommendation, not an official NVIDIA procedure (per source).
 - Certification caveat ("certified ≠ best/cheapest/most appropriate for every deployment") and cost caveat ("reference architecture ≠ guaranteed lowest cost") are preserved verbatim in meaning.
+- Mermaid figures (Figure 1-4) with figure walkthroughs were added inline in both the Myanmar and English sections; the diagrams only restate concepts already covered in this module.

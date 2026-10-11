@@ -33,6 +33,20 @@ Security + Sovereignty + Control
 
 ဖြစ်ပါတယ်။
 
+> **Figure 1 — Cloud နှင့် On-Prem ၏ အဓိကအားသာချက်များ**
+
+```mermaid
+flowchart TD
+    A["Cloud"] --> B["Scale / Flexible Scaling"]
+    A --> C["Flexibility"]
+    A --> D["Low Entry Cost"]
+    E["On-Prem"] --> F["Security"]
+    E --> G["Data Sovereignty"]
+    E --> H["Control"]
+```
+
+**ပုံရှင်းလင်းချက်** — ဘယ်ဘက်က Cloud ကို ကြည့်ရင် ၎င်းရဲ့ အဓိကအားသာချက် သုံးခု — Scale / Flexible Scaling၊ Flexibility၊ Low Entry Cost — ကို တွဲမြင်ရပါမယ်။ ညာဘက်က On-Prem မှာတော့ Security၊ Data Sovereignty၊ Control ဆိုပြီး အားသာချက် သုံးခု ရှိပါတယ်။ ဒီပုံက အမြဲတမ်း မှန်ကန်တဲ့ rule မဟုတ်ဘဲ မှတ်ရလွယ်အောင် ပြထားတဲ့ contrast သက်သက် ဖြစ်ပါတယ်။
+
 ### 3. Cloud Advantage #1 — Low Cost Barrier to Entry
 
 Cloud ရဲ့ အဓိကအားသာချက်တစ်ခုက—**Low cost barrier to entry** ဖြစ်ပါတယ်။
@@ -74,6 +88,21 @@ Decommission
 ```
 
 လိုမျိုးလုပ်နိုင်ပါတယ်။
+
+> **Figure 2 — On-Prem တည်ဆောက်ရတဲ့ လမ်းကြောင်းနှင့် Cloud အသုံးပြုပုံ နှိုင်းယှဉ်ချက်**
+
+```mermaid
+flowchart TD
+    A["On-Prem: GPU Servers ဝယ်ခြင်း"] --> B["Network နှင့် Storage ဝယ်ခြင်း"]
+    B --> C["Data Center တည်ဆောက်ခြင်း / Power / Cooling"]
+    C --> D["Monitoring နှင့် Operations"]
+    E["Cloud: GPU လိုအပ်ခြင်း"] --> F["Cloud GPU provision လုပ်ခြင်း"]
+    F --> G["Training run ခြင်း"]
+    G --> H["အသုံးပြုသလောက် ပေးချေခြင်း"]
+    H --> I["Decommission လုပ်ခြင်း"]
+```
+
+**ပုံရှင်းလင်းချက်** — ပုံမှာ လမ်းကြောင်းနှစ်ခု ကွာတာ မြင်ရပါမယ်။ အပေါ်ဘက်က On-Prem လမ်းကြောင်းဖြစ်ပြီး GPU Servers ဝယ်ခြင်းကနေ စပြီး Network / Storage ဝယ်ခြင်း၊ Data Center / Power / Cooling တည်ဆောက်ခြင်း၊ နောက်ဆုံး Monitoring နှင့် Operations အထိ အဆင့်ဆင့် ရင်းနှီးမြှုပ်နှံရတာ ပြပါတယ်။ အောက်ဘက်က Cloud လမ်းကြောင်းမှာတော့ GPU လိုအပ်ချက်ကနေ provision လုပ်ခြင်း၊ run ခြင်း၊ အသုံးပြုသလောက် ပေးချေခြင်း၊ decommission လုပ်ခြင်းဆိုပြီး ပိုတိုတောင်းပါတယ်။
 
 ### 4. Pay-As-You-Go
 
@@ -328,6 +357,20 @@ CLOUD
           ON-PREM
 ```
 
+> **Figure 3 — Cloud Training → On-Prem Production → Retraining စက်ဝန်း**
+
+```mermaid
+flowchart TD
+    C1["Cloud: Train Model"] --> M["Trained Model"]
+    M --> P["On-Prem: Production"]
+    P --> R["Need Retraining"]
+    R --> C2["Cloud: Retrain"]
+    C2 --> M2["Updated Model"]
+    M2 --> P2["On-Prem: Production"]
+```
+
+**ပုံရှင်းလင်းချက်** — ဘယ်ဘက်အပေါ်က Cloud မှာ model train လုပ်ခြင်းကနေ စပါတယ်။ Train ပြီးရင် Trained Model ကို On-Prem ဆီ ယူလာပြီး Production မှာ deploy လုပ်ပါတယ်။ ထုတ်လုပ်မှုအဆင့်မှာ Need Retraining လိုအပ်လာရင် ပြန်လည် Cloud မှာ retrain လုပ်ပြီး၊ Updated Model ကို ထပ်မံ On-Prem production ဆီ ပို့ပေးပါတယ်။ ဒီစက်ဝန်းကို အောက်ဘက်မှာ ပြန်ပြီး တစ်ပတ်လည်သွားတာ လိုက်ကြည့်နိုင်ပါတယ်။
+
 ဒါဟာ Hybrid Cloud / On-Prem architecture ရဲ့ practical example တစ်ခု ဖြစ်ပါတယ်။
 
 ### 17. Cloud + On-Prem Are Not Mutually Exclusive
@@ -408,6 +451,18 @@ One-line memory:
       Low entry cost      Compliance
 ```
 
+> **Figure 4 — Use Case ပေါ်မူတည်၍ Cloud သို့မဟုတ် On-Prem ရွေးချယ်ပုံ**
+
+```mermaid
+flowchart TD
+    A["Use Case / Business Requirement"] --> B["Flexibility ပိုလိုသလား?"]
+    A --> C["Control / Security ပိုလိုသလား?"]
+    B --> D["Cloud - Scale easily, Pay for usage, Low entry cost"]
+    C --> E["On-Prem - Security, Data sovereignty, Compliance"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက Use Case / Business Requirement ကနေ စပါတယ်။ ဘယ်ဘက်ကို လိုက်ရင် "Flexibility ပိုလိုသလား?" ဆိုတဲ့ မေးခွန်းကနေတစ်ဆင့် Cloud ဆီ ရောက်ပြီး၊ ၎င်းရဲ့ အားသာချက်တွေကို အောက်မှာ ဖတ်ရပါမယ်။ ညာဘက်ကို လိုက်ရင် "Control / Security ပိုလိုသလား?" ဆိုတဲ့ မေးခွန်းကနေ On-Prem ဆီ ရောက်ပြီး Security၊ Data sovereignty၊ Compliance တွေကို ရနိုင်ပါတယ်။ "ဘယ်ဟာပိုကောင်းသလဲ" မဟုတ်ဘဲ "ဒီ use case အတွက် ဘယ်ဟာပိုသင့်သလဲ" လို့ စဉ်းစားတဲ့ ပုံဖြစ်ပါတယ်။
+
 ဒါပေမယ့် real-world architecture မှာ—
 
 ```
@@ -468,6 +523,20 @@ According to this module's source framing, the key contrast for the exam is:
 - **Cloud** → Flexible scaling and low cost barrier to entry
 - **On-Prem** → Security, sovereignty, and control
 
+> **Figure 1 — The Main Strengths of Cloud and On-Prem**
+
+```mermaid
+flowchart TD
+    A["Cloud"] --> B["Scale / Flexible Scaling"]
+    A --> C["Flexibility"]
+    A --> D["Low Entry Cost"]
+    E["On-Prem"] --> F["Security"]
+    E --> G["Data Sovereignty"]
+    E --> H["Control"]
+```
+
+**Figure walkthrough** — On the left, look at Cloud and its three main strengths: Scale / Flexible Scaling, Flexibility, and Low Entry Cost. On the right, On-Prem has its own three strengths: Security, Data Sovereignty, and Control. This figure is a memory-friendly contrast, not an absolute rule.
+
 ### 3. Cloud Advantage #1 — Low Cost Barrier to Entry
 
 One of the main advantages of Cloud is the **low cost barrier to entry**.
@@ -507,6 +576,21 @@ Pay for Usage
    ↓
 Decommission
 ```
+
+> **Figure 2 — Comparing the On-Prem Build Path with the Cloud Path**
+
+```mermaid
+flowchart TD
+    A["On-Prem: Buy GPU Servers"] --> B["Buy Network and Storage"]
+    B --> C["Build Data Center / Power / Cooling"]
+    C --> D["Monitoring and Operations"]
+    E["Cloud: Need GPU"] --> F["Provision Cloud GPU"]
+    F --> G["Run Training"]
+    G --> H["Pay for Usage"]
+    H --> I["Decommission"]
+```
+
+**Figure walkthrough** — The figure shows two separate paths. The upper path is On-Prem: it starts with buying GPU servers, then buying network and storage, then building the data center with power and cooling, and finally monitoring and operations — every step needs upfront investment. The lower path is Cloud: from needing a GPU, you provision, run, pay for usage, and decommission — a much shorter path.
 
 ### 4. Pay-As-You-Go
 
@@ -761,6 +845,20 @@ CLOUD
           ON-PREM
 ```
 
+> **Figure 3 — The Cloud Training → On-Prem Production → Retraining Cycle**
+
+```mermaid
+flowchart TD
+    C1["Cloud: Train Model"] --> M["Trained Model"]
+    M --> P["On-Prem: Production"]
+    P --> R["Need Retraining"]
+    R --> C2["Cloud: Retrain"]
+    C2 --> M2["Updated Model"]
+    M2 --> P2["On-Prem: Production"]
+```
+
+**Figure walkthrough** — Start at the top left with training the model in the Cloud. When training finishes, the trained model moves to On-Prem and is deployed in production. If production later needs retraining, the cycle goes back to the Cloud for retraining, and the updated model is sent to On-Prem production again. Follow the arrows around to see the full loop.
+
 This is a practical example of a hybrid Cloud / On-Prem architecture.
 
 ### 17. Cloud + On-Prem Are Not Mutually Exclusive
@@ -841,6 +939,18 @@ Do not think of the question as "Which one is better?" Instead, think "Which one
       Low entry cost      Compliance
 ```
 
+> **Figure 4 — Choosing Cloud or On-Prem Based on the Use Case**
+
+```mermaid
+flowchart TD
+    A["Use Case / Business Requirement"] --> B["Need flexibility?"]
+    A --> C["Need control / security?"]
+    B --> D["Cloud - Scale easily, Pay for usage, Low entry cost"]
+    C --> E["On-Prem - Security, Data sovereignty, Compliance"]
+```
+
+**Figure walkthrough** — Start at the top with the use case / business requirement. Follow the left branch: if you need flexibility, the question leads to Cloud, where you can scale easily, pay for usage, and keep the entry cost low. Follow the right branch: if you need control / security, the question leads to On-Prem, with security, data sovereignty, and compliance. The point is to ask "which one fits this use case?" rather than "which one is better?"
+
 But in real-world architecture, you can also use a hybrid approach like this:
 
 ```
@@ -875,3 +985,4 @@ Cloud
 - Corrections made: header and topic-note blockquote updated to the course bilingual convention; the existing Burmese and English bodies moved under `## မြန်မာဘာသာ version` and `## English Version`; numbered section headings normalized to `###` under each language section (numbering unchanged, 1–21 in both); the stray emoji variation selector (U+FE0F) that followed the `↔` in the section 18 heading removed in both language sections.
 - Added five self-check questions with concise answers at the end of each language section.
 - Claims needing verification: none of this module's claims involve commands, benchmarks, or product specifications. The comparison table states general trade-offs; provider-specific capabilities (for example sovereign-cloud offerings) vary by vendor and should be checked against the provider's documentation before being cited in an exam answer.
+- Mermaid figures (Figure 1–4) with figure walkthroughs were added inline in both the Myanmar and English sections; figure numbering and structure match across both sections. All existing text and ASCII diagrams are unchanged.

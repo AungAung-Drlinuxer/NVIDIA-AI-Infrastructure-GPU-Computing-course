@@ -49,6 +49,24 @@ Data Center တစ်ခုမှာ electricity အားလုံးကို 
 3. **Power Conversion and Distribution** — UPS, Power distribution, Power conversion equipment
 4. **Other Facility Systems** — Lighting, Fire suppression systems, Monitoring systems, Indicators, Other building/facility equipment
 
+> **Figure 1 — Data Center တစ်ခုတွင် Electricity သုံးစွဲရာ နေရာများ**
+
+```mermaid
+flowchart TD
+    A["Data Center Power"] --> B["IT Equipment"]
+    A --> C["Cooling"]
+    A --> D["Power Conversion / Distribution"]
+    A --> E["Other Facility Systems"]
+    B --> B1["Servers / GPUs"]
+    B --> B2["Storage"]
+    B --> B3["Network"]
+    C --> C1["Chillers / Fans / Pumps"]
+    D --> D1["UPS / Power Distribution"]
+    E --> E1["Lighting / Fire / Monitoring"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက Data Center Power ကနေ စပါတယ်။ ဒီ power ကို အဓိက လေးစုခွဲသုံးပါတယ် — IT Equipment၊ Cooling၊ Power Conversion / Distribution နဲ့ Other Facility Systems။ အောက်ဆုံးအဆင့်မှာ တစ်စုချင်းစီရဲ့ ဥပမာပစ္စည်းတွေ — Servers / GPUs / Storage / Network၊ Chillers / Fans / Pumps၊ UPS / Power Distribution၊ Lighting / Fire / Monitoring — ကို တွေ့ရပါမယ်။ IT equipment အတွက် သုံးတဲ့ power နဲ့ ကျန် overhead power ကွာခြားပုံကို နားလည်ဖို့ ဒီပုံက အခြေခံပါတယ်။
+
 ### 3. Traditional Data Center တွေရဲ့ Power Distribution
 
 မူရင်းသင်ခန်းစာမှာ traditional/older data center တစ်ခုရဲ့ power distribution ကို ဥပမာအနေနဲ့—
@@ -73,6 +91,21 @@ Total Electricity = 100%
 ```
 
 ဒီလိုဆိုရင် Data Center ထဲကို ပေးလိုက်တဲ့ electricity ရဲ့ တစ်ဝက်ခန့်ကိုပဲ actual IT equipment က အသုံးပြုပြီး ကျန်တစ်ဝက်က supporting systems တွေမှာ သုံးနေရတာဖြစ်ပါတယ်။
+
+> **Figure 2 — Traditional Data Center ၏ Power Distribution ဥပမာ (50/50)**
+
+```mermaid
+flowchart TD
+    A["Total Electricity = 100%"] --> B["IT Equipment - 50%"]
+    A --> C["Overhead - 50%"]
+    B --> D["Servers / GPU / CPU"]
+    B --> E["Storage / Network"]
+    C --> F["Cooling"]
+    C --> G["Power Conversion"]
+    C --> H["Other Facility"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက Total Electricity 100% ကို ဘယ်ဘက်က IT Equipment 50% နဲ့ ညာဘက်က Overhead 50% ဆိုပြီး နှစ်စု ခွဲထားတာ မြင်ရပါမယ်။ ဘယ်ဘက်အောက်မှာ Servers / GPU / CPU နဲ့ Storage / Network ဆိုပြီး actual IT workload ကို run ပေးတဲ့ ပစ္စည်းတွေ ပါပါတယ်။ ညာဘက်အောက်မှာတော့ Cooling၊ Power Conversion နဲ့ Other Facility ဆိုပြီး supporting systems တွေ ပါပါတယ်။ ဒီပုံက ဥပမာသက်သက်ဖြစ်ပြီး data center တိုင်းရဲ့ တိကျတဲ့ ရာခိုင်နှုန်း မဟုတ်ပါဘူး။
 
 **အရေးကြီးတဲ့ Concept**
 
@@ -174,6 +207,20 @@ Overhead = Total Energy - IT Energy
 
 ဒါကြောင့် PUE 1.2 ဆိုတာ IT equipment energy ထက် overhead energy က 20% ဖြစ်တယ် လို့ နားလည်နိုင်ပါတယ်။
 
+> **Figure 3 — PUE = 1.2 အတွက် Energy ခွဲဝေသုံးစွဲပုံ**
+
+```mermaid
+flowchart TD
+    A["Total Energy = 1.2"] --> B["IT Equipment Energy = 1.0"]
+    A --> C["Overhead Energy = 0.2"]
+    B --> D["Servers / GPUs / Storage / Network"]
+    C --> E["Cooling / Power Conversion / Facility"]
+    B --> F["PUE = Total Energy / IT Energy = 1.2"]
+    C --> F
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက Total Energy = 1.2 ကို ဘယ်ဘက်က IT Equipment Energy = 1.0 နဲ့ ညာဘက်က Overhead Energy = 0.2 ဆိုပြီး ခွဲပြထားပါတယ်။ IT energy က servers, GPUs, storage, network တွေဆီ ရောက်သွားပြီး၊ overhead energy က cooling, power conversion, facility system တွေဆီ ရောက်သွားပါတယ်။ အောက်ဆုံး node ကတော့ ဒီနှစ်ခုကို နှိုင်းယှဉ်တဲ့အခါ PUE = 1.2 ရတဲ့သဘောကို ပြန်ပြခြင်း ဖြစ်ပါတယ်။
+
 ### 9. PUE = 2.0 ဆိုရင်?
 
 PUE = 2.0 ဆိုရင်—IT Equipment Energy = 1.0, Total Energy = 2.0, Overhead = 1.0 ဖြစ်ပါတယ်။
@@ -247,6 +294,19 @@ Potentially Higher Overhead
        ▼
 PUE becomes an important metric
 ```
+
+> **Figure 4 — High-Density GPU ကြောင့် PUE အရေးကြီးလာပုံ**
+
+```mermaid
+flowchart TD
+    A["High-Density GPU"] --> B["Higher IT Power"]
+    B --> C["More Heat"]
+    C --> D["More Cooling"]
+    D --> E["Potentially Higher Overhead"]
+    E --> F["PUE က အရေးကြီးသော metric ဖြစ်လာသည်"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက High-Density GPU ကနေ အောက်ကို တစ်ဆင့်ချင်း လိုက်ကြည့်ပါ။ GPU density မြင့်လာရင် IT power ပိုသုံးရပြီး၊ အပူပိုထွက်လာပါတယ်။ အပူပိုများလေ ပိုအေးအောင် လုပ်ရလေ (Cooling) ဖြစ်တဲ့အတွက် overhead လည်း ပိုများနိုင်လာပါတယ်။ ဒါကြောင့် အောက်ဆုံး node အတိုင်း PUE ဟာ AI data center အတွက် အရေးကြီးတဲ့ metric ဖြစ်လာပါတယ်။
 
 ဒါကြောင့် AI Data Center design မှာ—**Compute Efficiency + Power Efficiency + Cooling Efficiency** တို့ကို အတူတူ စဉ်းစားဖို့လိုပါတယ်။
 
@@ -344,6 +404,24 @@ The electricity consumed by a data center is not used only by IT equipment. It c
 3. **Power Conversion and Distribution** — UPS systems, Power distribution, Power conversion equipment
 4. **Other Facility Systems** — Lighting, Fire suppression, Monitoring systems, Indicators, Other facility equipment
 
+> **Figure 1 — Where a Data Center Uses Electricity**
+
+```mermaid
+flowchart TD
+    A["Data Center Power"] --> B["IT Equipment"]
+    A --> C["Cooling"]
+    A --> D["Power Conversion / Distribution"]
+    A --> E["Other Facility Systems"]
+    B --> B1["Servers / GPUs"]
+    B --> B2["Storage"]
+    B --> B3["Network"]
+    C --> C1["Chillers / Fans / Pumps"]
+    D --> D1["UPS / Power Distribution"]
+    E --> E1["Lighting / Fire / Monitoring"]
+```
+
+**Figure walkthrough** — Start at the top node, Data Center Power. It is divided into four main areas: IT Equipment, Cooling, Power Conversion / Distribution, and Other Facility Systems. At the bottom, each area shows example equipment — Servers / GPUs / Storage / Network, Chillers / Fans / Pumps, UPS / Power Distribution, and Lighting / Fire / Monitoring. This figure is the basis for understanding the difference between power used by IT equipment and the remaining overhead power.
+
 ### 3. Traditional Data Center Power Distribution
 
 The source material gives an illustrative example of an older/traditional data center: 50% → IT Equipment, 50% → Cooling + Power Conversion + Other.
@@ -367,6 +445,21 @@ Total Electricity = 100%
 ```
 
 This means that approximately half of the electricity in this illustrative example is used by the actual IT equipment, while the remaining half is used by supporting infrastructure.
+
+> **Figure 2 — Power Distribution in a Traditional Data Center (50/50 Example)**
+
+```mermaid
+flowchart TD
+    A["Total Electricity = 100%"] --> B["IT Equipment - 50%"]
+    A --> C["Overhead - 50%"]
+    B --> D["Servers / GPU / CPU"]
+    B --> E["Storage / Network"]
+    C --> F["Cooling"]
+    C --> G["Power Conversion"]
+    C --> H["Other Facility"]
+```
+
+**Figure walkthrough** — At the top, Total Electricity 100% is split into two halves: IT Equipment 50% on the left and Overhead 50% on the right. Under the left branch, Servers / GPU / CPU and Storage / Network are the equipment that runs the actual IT workload. Under the right branch, Cooling, Power Conversion, and Other Facility are the supporting systems. This figure is illustrative only — it is not an exact percentage for every data center.
 
 **Important Concept**
 
@@ -448,6 +541,20 @@ Total Energy    = 1.2
 
 The overhead is: 1.2 − 1.0 = 0.2. So the overhead is 20% of the IT energy consumption.
 
+> **Figure 3 — Energy Split for PUE = 1.2**
+
+```mermaid
+flowchart TD
+    A["Total Energy = 1.2"] --> B["IT Equipment Energy = 1.0"]
+    A --> C["Overhead Energy = 0.2"]
+    B --> D["Servers / GPUs / Storage / Network"]
+    C --> E["Cooling / Power Conversion / Facility"]
+    B --> F["PUE = Total Energy / IT Energy = 1.2"]
+    C --> F
+```
+
+**Figure walkthrough** — At the top, Total Energy = 1.2 is split into IT Equipment Energy = 1.0 on the left and Overhead Energy = 0.2 on the right. The IT energy goes to servers, GPUs, storage, and networking; the overhead energy goes to cooling, power conversion, and facility systems. The bottom node shows that comparing these two amounts is what gives PUE = 1.2.
+
 ### 9. What If PUE = 2.0?
 
 If PUE = 2.0 and IT equipment consumes 1 unit: IT Equipment Energy = 1.0, Total Energy = 2.0. Therefore:
@@ -514,6 +621,19 @@ Potentially Higher Overhead
 PUE becomes an important metric
 ```
 
+> **Figure 4 — Why PUE Matters for High-Density GPUs**
+
+```mermaid
+flowchart TD
+    A["High-Density GPU"] --> B["Higher IT Power"]
+    B --> C["More Heat"]
+    C --> D["More Cooling"]
+    D --> E["Potentially Higher Overhead"]
+    E --> F["PUE becomes an important metric"]
+```
+
+**Figure walkthrough** — Start at the top with high-density GPUs and follow the chain downward. Higher GPU density uses more IT power, which produces more heat. More heat requires more cooling, and that can mean higher overhead. The final node shows why PUE becomes an important metric for AI data centers.
+
 Therefore, AI data center design should consider: Compute Efficiency + Power Efficiency + Cooling Efficiency.
 
 ### 13. PUE and Environmental Impact
@@ -571,3 +691,4 @@ PUE measures data center energy efficiency by comparing total facility energy co
 - Correction made: the original per-language "Exam Preparation" blocks (6 questions on the Burmese side, 7 on the English side) were consolidated into 5 self-check questions per WRITING_RULES; all facts from the original answers are preserved in the merged answers, and the Exam Shortcut / one-line answer blocks are kept intact.
 - Needs verification: the 50/50 (traditional) and 90/10 (modern) power-distribution splits are illustrative course figures, not measured universal values — flagged inline in both versions; do not cite them as benchmarks without facility-specific data.
 - Needs verification: the PUE 1.2 / 2.0 / 1.0 scale labels ("Highly Efficient", "Less Efficient", "Theoretical Ideal") are pedagogical simplifications of the lower-is-better principle, not certification thresholds.
+- Mermaid figures (Figure 1–4) with figure walkthroughs were added inline in both the Myanmar and English sections; figure numbering and structure match across both sections. All existing text and ASCII diagrams are unchanged.

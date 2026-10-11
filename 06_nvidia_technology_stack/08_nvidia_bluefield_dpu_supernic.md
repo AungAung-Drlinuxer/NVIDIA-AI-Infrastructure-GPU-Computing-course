@@ -56,6 +56,26 @@ BlueField DPU
  └── Infrastructure Acceleration
 ```
 
+**Figure 1 — GPU, ConnectX / SuperNIC နဲ့ BlueField DPU တို့ရဲ့ role ခွဲခြားပုံ**
+
+```mermaid
+flowchart TD
+    DC["AI / Data Center"]
+    DC --> GPU["GPU — AI Computation"]
+    DC --> CX["ConnectX / SuperNIC — High-Performance Networking"]
+    DC --> BF["BlueField DPU — Infrastructure Offload"]
+    BF --> N["Networking Offload"]
+    BF --> S["Storage Offload"]
+    BF --> SEC["Security Processing"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough) —**
+
+1. အပေါ်ဆုံး box က AI / data center environment တစ်ခုလုံးကို ကိုယ်စားပြုပါတယ်။
+2. အောက်မှာ component သုံးခု ခွဲပြထားပါတယ် — GPU က AI computation၊ ConnectX / SuperNIC က high-performance networking အတွက် ဖြစ်ပါတယ်။
+3. တတိယ box က BlueField DPU ဖြစ်ပြီး infrastructure offload ကို လုပ်ပေးပါတယ်။
+4. BlueField အောက်က box သုံးခုက networking, storage နဲ့ security ဆိုင်ရာ infrastructure workloads တွေကို offload လုပ်ပေးနိုင်ပုံကို ပြပါတယ်။
+
 ## 4. Why Do We Need Infrastructure Offload?
 
 Server တစ်ခုမှာ data ပို့တာ၊ လက်ခံတာ၊ security စစ်တာတွေကို လုပ်ရပါတယ်။
@@ -100,6 +120,25 @@ Host CPU
        └── Application Work
 ```
 
+**Figure 2 — Infrastructure offload မလုပ်ခင်နဲ့ လုပ်ပြီးခါနီး နှိုင်းယှဉ်ပုံ**
+
+```mermaid
+flowchart TD
+    T1["Network Traffic — Before Offloading"] --> CPU1["Host CPU"]
+    CPU1 --> P1["Packet Processing / Encryption / Load Balancing"]
+    CPU1 --> A1["Application Work"]
+    T2["Network Traffic — With Infrastructure Offload"] --> BF["BlueField DPU"]
+    BF --> P2["Packet Processing / Networking / Security Functions"]
+    BF --> CPU2["Host CPU — Application Work"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough) —**
+
+1. ပုံမှာ အပေါ်ပိုင်းနဲ့အောက်ပိုင်း နှစ်ပိုင်းခွဲပြထားပါတယ် — အပေါ်က offload မလုပ်ခင်၊ အောက်က offload လုပ်ပြီး ဖြစ်ပါတယ်။
+2. အပေါ်ပိုင်းမှာ network traffic အားလုံးက host CPU ဆီရောက်ပြီး CPU က packet processing, encryption, load balancing နဲ့ application work အားလုံးကို လုပ်ရပါတယ်။
+3. အောက်ပိုင်းမှာတော့ infrastructure ဆိုင်ရာအလုပ်တွေကို BlueField DPU က ကိုင်တွယ်ပေးပါတယ်။
+4. ဒါကြောင့် host CPU က application work ကိုပဲ အာရုံစိုက်နိုင်ပြီး resources ပိုကျန်ပါတယ် — ဒါက ဒီ module မှာပြောတဲ့ အဓိကအကျိုးကျေးဇူး ဖြစ်ပါတယ်။
+
 ဒီ diagram က conceptual illustration ဖြစ်ပါတယ်။ ဘယ် operation တွေကို DPU က offload လုပ်နိုင်သလဲဆိုတာက product capabilities နဲ့ deployment configuration ပေါ်မူတည်ပါတယ်။
 အဓိကအကျိုးကျေးဇူး: Host CPU ကို infrastructure workload တွေကနေ လျှော့ချပြီး application နဲ့ compute workload တွေအတွက် resources ပိုရရှိစေနိုင်ခြင်း ဖြစ်ပါတယ်။
 
@@ -127,6 +166,24 @@ Infrastructure Applications
            ├── Security
            └── Infrastructure Offload
 ```
+
+**Figure 3 — DOCA က BlueField DPU ကို အသုံးချပုံ**
+
+```mermaid
+flowchart TD
+    APP["Infrastructure Applications"] --> API["DOCA APIs"]
+    API --> BF["BlueField DPU"]
+    BF --> N["Networking"]
+    BF --> S["Security"]
+    BF --> O["Infrastructure Offload"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough) —**
+
+1. အပေါ်ဆုံး box က developer တွေ တည်ဆောက်တဲ့ infrastructure applications တွေ ဖြစ်ပါတယ်။
+2. ဒီ applications တွေက DOCA APIs ကတစ်ဆင့် DPU ကို အသုံးပြုပါတယ်။
+3. အလယ်က box က BlueField DPU ကိုယ်တိုင် ဖြစ်ပါတယ်။
+4. DPU အောက်က box သုံးခုက networking, security နဲ့ infrastructure offload ဆိုတဲ့ အလုပ်နယ်ပယ်တွေကို ပြပါတယ်။
 
 DOCA ရဲ့ အရေးကြီးတဲ့ role က hardware တစ်ခုတည်းပေးတာမဟုတ်ဘဲ DPU ကို အသုံးချဖို့ software framework ကိုပါ ပေးထားခြင်း ဖြစ်ပါတယ်။
 
@@ -184,6 +241,26 @@ Multi-tenant data center ဆိုတာ infrastructure တစ်ခုတည်
           │          │          │
        Workload   Workload   Workload
 ```
+
+**Figure 4 — Multi-tenant data center မှာ BlueField DPU ရဲ့ နေရာ**
+
+```mermaid
+flowchart TD
+    DC["Shared Data Center"] --> BF["BlueField DPU — isolation / security"]
+    BF --> TA["Tenant A"]
+    BF --> TB["Tenant B"]
+    BF --> TC["Tenant C"]
+    TA --> WA["Workload"]
+    TB --> WB["Workload"]
+    TC --> WC["Workload"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough) —**
+
+1. အပေါ်ဆုံး box က tenant အများအပြား မျှဝေသုံးတဲ့ shared data center ကို ပြပါတယ်။
+2. အောက်မှာ BlueField DPU က isolation နဲ့ security ဆိုင်ရာ functions တွေကို ကိုင်တွယ်ပေးပါတယ်။
+3. DPU ကနေ tenant သုံးခု — Tenant A, B, C ဆီ ခွဲဝေပေးပါတယ်။
+4. Tenant တစ်ခုချင်းစီရဲ့ workload က ကိုယ်ပိုင် box မှာ ရှိနေတာကြောင့် တစ်ခုနဲ့တစ်ခု မထိခိုက်စေဖို့ ဒီဇိုင်းပုံက ရှင်းပြထားပါတယ်။
 
 ဒီလို environment မှာ tenant တစ်ခုရဲ့ traffic နဲ့ workload က တခြား tenant တွေရဲ့ resource တွေကို မသင့်လျော်စွာ မထိခိုက်စေဖို့ isolation နဲ့ security controls တွေ အရေးကြီးပါတယ်။
 BlueField-based infrastructure က သင့်တော်တဲ့ networking, security နဲ့ isolation functions တွေကို implement လုပ်ဖို့ ကူညီပေးနိုင်ပါတယ်။
@@ -333,6 +410,26 @@ BlueField DPU
  └── Infrastructure Acceleration
 ```
 
+**Figure 1 — Separating the roles of GPU, ConnectX / SuperNIC, and BlueField DPU**
+
+```mermaid
+flowchart TD
+    DC["AI / Data Center"]
+    DC --> GPU["GPU — AI Computation"]
+    DC --> CX["ConnectX / SuperNIC — High-Performance Networking"]
+    DC --> BF["BlueField DPU — Infrastructure Offload"]
+    BF --> N["Networking Offload"]
+    BF --> S["Storage Offload"]
+    BF --> SEC["Security Processing"]
+```
+
+**Figure walkthrough —**
+
+1. The top box represents the whole AI / data-center environment.
+2. Below it, three components are separated: the GPU handles AI computation, and ConnectX / SuperNIC handles high-performance networking.
+3. The third box is the BlueField DPU, which performs infrastructure offload.
+4. The three boxes under BlueField show that it can offload networking, storage, and security-related infrastructure workloads.
+
 ## 4. Why Do We Need Infrastructure Offload?
 
 Servers must perform data movement and infrastructure operations.
@@ -377,6 +474,25 @@ Host CPU
        └── Application Work
 ```
 
+**Figure 2 — Comparing the system before and with infrastructure offload**
+
+```mermaid
+flowchart TD
+    T1["Network Traffic — Before Offloading"] --> CPU1["Host CPU"]
+    CPU1 --> P1["Packet Processing / Encryption / Load Balancing"]
+    CPU1 --> A1["Application Work"]
+    T2["Network Traffic — With Infrastructure Offload"] --> BF["BlueField DPU"]
+    BF --> P2["Packet Processing / Networking / Security Functions"]
+    BF --> CPU2["Host CPU — Application Work"]
+```
+
+**Figure walkthrough —**
+
+1. The figure is split into two parts: the upper part is before offloading, the lower part is with offload.
+2. In the upper part, all network traffic reaches the host CPU, and the CPU must do packet processing, encryption, load balancing, and application work.
+3. In the lower part, the BlueField DPU handles the infrastructure functions.
+4. The host CPU can then focus on application work with more resources left over — the key benefit stated in this module.
+
 This is a conceptual illustration. The exact functions that can be offloaded depend on the product and deployment configuration.
 The key benefit is that infrastructure offload can reduce host CPU overhead and free resources for application and compute workloads.
 
@@ -403,6 +519,24 @@ Infrastructure Applications
            ├── Security
            └── Infrastructure Offload
 ```
+
+**Figure 3 — How DOCA is used with a BlueField DPU**
+
+```mermaid
+flowchart TD
+    APP["Infrastructure Applications"] --> API["DOCA APIs"]
+    API --> BF["BlueField DPU"]
+    BF --> N["Networking"]
+    BF --> S["Security"]
+    BF --> O["Infrastructure Offload"]
+```
+
+**Figure walkthrough —**
+
+1. The top box holds the infrastructure applications built by developers.
+2. Those applications use the DPU through the DOCA APIs.
+3. The middle box is the BlueField DPU itself.
+4. The three boxes below the DPU show its work areas: networking, security, and infrastructure offload.
 
 DOCA is important because NVIDIA provides not only DPU hardware but also a software framework for developing solutions that use it.
 
@@ -460,6 +594,26 @@ For example:
           │          │          │
        Workload   Workload   Workload
 ```
+
+**Figure 4 — Where the BlueField DPU sits in a multi-tenant data center**
+
+```mermaid
+flowchart TD
+    DC["Shared Data Center"] --> BF["BlueField DPU — isolation / security"]
+    BF --> TA["Tenant A"]
+    BF --> TB["Tenant B"]
+    BF --> TC["Tenant C"]
+    TA --> WA["Workload"]
+    TB --> WB["Workload"]
+    TC --> WC["Workload"]
+```
+
+**Figure walkthrough —**
+
+1. The top box is the shared data center used by many tenants at once.
+2. Below it, the BlueField DPU handles isolation and security functions.
+3. The DPU separates the traffic for the three tenants — Tenant A, B, and C.
+4. Each tenant's workload sits in its own box, which is how the design keeps one tenant from improperly affecting another.
 
 In such environments, isolation and security controls are important so that one tenant's traffic and workload do not improperly affect other tenants' resources.
 BlueField-based infrastructure can help implement appropriate networking, security, and isolation functions.
@@ -558,3 +712,4 @@ This diagram is a conceptual comparison and does not represent the exact archite
 - The English source transcript (msg 2531) ends mid-section 6; English sections 6–12 were completed by faithful translation of the corresponding Burmese source text (msg 2512), not by adding new claims.
 - DOCA's expansion is given as “Data Center Infrastructure on a Chip Architecture” per the source; NVIDIA's official wording should be checked against current documentation (needs verification).
 - The source explicitly states that SuperNIC and DPU are not automatically interchangeable and that the diagrams are conceptual; no product-specific capabilities or performance figures are claimed.
+- Mermaid figures (Figure 1-4) with figure walkthroughs were added inline in both the Myanmar and English sections; the diagrams only restate concepts already covered in this module.

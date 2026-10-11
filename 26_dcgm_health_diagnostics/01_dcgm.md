@@ -80,6 +80,21 @@ DCGM ကို နားလည်ဖို့ အောက်ပါ conceptual a
              Supported Entities
 ```
 
+အောက်ပါ Mermaid ပုံက ဒီ conceptual architecture ကို ပုံတစ်ပုံအနေနဲ့ ပြပါတယ်။
+
+```mermaid
+flowchart TD
+    A["GPU Administrator"] --> B["dcgmi CLI"]
+    B --> C["DCGM Host Engine"]
+    C --> D["NVIDIA Management APIs"]
+    D --> E["NVIDIA Driver"]
+    E --> F["GPU / NVSwitch / Supported Entities"]
+```
+
+**ပုံ ၁ (Figure 1) — DCGM conceptual architecture**
+
+ပုံရှင်းလင်းချက် — အပေါ်ကနေ အောက်ကို လိုက်ကြည့်ပါ။ GPU Administrator က command တွေကို dcgmi CLI ကနေ ပေးပါတယ်။ dcgmi က DCGM Host Engine ဆီ လုပ်ဆောင်ချက် ပို့ပေးပြီး Host Engine က NVIDIA Management APIs နဲ့ NVIDIA Driver ကတစ်ဆင့် GPU၊ NVSwitch စတဲ့ supported hardware entities တွေဆီ ရောက်ရှိပါတယ်။ ဆိုလိုတာက command တစ်ခုဟာ အပေါ်ဆုံးက administrator ကနေ အောက်ဆုံးက hardware အထိ ဒီလမ်းကြောင်းအတိုင်းပဲ သွားပါတယ်။
+
 ဒီ architecture မှာ —
 
 - **dcgmi** — DCGM ကို command line ကနေ အသုံးပြုဖို့ interface ဖြစ်ပါတယ်။
@@ -237,6 +252,24 @@ DCGM health monitoring က underlying measurements နဲ့ events တွေက
 
 Active diagnostics အချို့ဟာ GPU ကို သီးသန့်အသုံးပြုဖို့ လိုအပ်နိုင်ပါတယ်။ Production training job တစ်ခု run နေချိန်မှာ မစဉ်းစားဘဲ diagnostic test ကို run လုပ်တာက workload ကို ထိခိုက်စေနိုင်ပါတယ်။ (Production diagnostics များအတွက် GPU exclusive access လိုအပ်နိုင်)
 
+Health monitoring နဲ့ active diagnostics ဆိုတဲ့ လမ်းကြောင်းနှစ်ခုကို အောက်ပါပုံမှာ နှိုင်းယှဉ်ကြည့်ပါ။
+
+```mermaid
+flowchart TD
+    A["dcgmi discovery -l: hardware ရှာဖွေ"] --> B["dcgmi group: GPU Group ဖွဲ့"]
+    B --> C{"ဘယ်လို စစ်ဆေးမလဲ"}
+    C -->|"Health monitoring (passive)"| D["Metrics နဲ့ events ကို အချိန်အလိုက် စောင့်ကြည့်"]
+    C -->|"Active diagnostics (test)"| E["GPU hardware နဲ့ communication paths ကို test run"]
+    D --> F["Health incidents ကို report"]
+    E --> G{"GPU exclusive access လိုသလား"}
+    G -->|"လို"| H["Production workload မပြီးခင် မလုပ်ပါနှင့်"]
+    G -->|"မလို"| F
+```
+
+**ပုံ ၂ (Figure 2) — GPU health-check နဲ့ diagnostics flow**
+
+ပုံရှင်းလင်းချက် — ဘယ်ဘက်ကနေ စကြည့်ပါ။ အရင်ဆုံး discovery နဲ့ hardware ရှာပြီး GPU Group ဖွဲ့ပါတယ်။ ပြီးရင် လမ်းကြောင်းနှစ်ခု ခွဲသွားပါတယ် — health monitoring က metrics နဲ့ events တွေကို အချိန်အလိုက် ငြိမ်ငြိမ် စောင့်ကြည့်ပြီး health incidents တွေကို report လုပ်ပါတယ်။ Active diagnostics ကတော့ test တွေကို တက်တက်ကြွကြွ run ပါတယ်။ ဒါပေမဲ့ အောက်ဘက်က သတိပေးချက်ကို မမေ့ပါနဲ့ — test က GPU exclusive access လိုရင် production workload မပြီးခင် မလုပ်သင့်ပါဘူး။
+
 ### 9.2 Health Monitoring Example
 
 GPU group တစ်ခုကို health monitoring လုပ်ဖို့ DCGM health subcommands ကို အသုံးပြုနိုင်ပါတယ်။ ဥပမာ workflow တစ်ခု —
@@ -268,6 +301,21 @@ Prometheus
     |
     +------> Alerting System
 ```
+
+ဒီ monitoring pipeline ကို ပုံအနေနဲ့ ကြည့်ရအောင် —
+
+```mermaid
+flowchart LR
+    A["GPU Nodes"] --> B["DCGM: telemetry, health, diagnostics"]
+    B --> C["DCGM Exporter: Prometheus-compatible metrics"]
+    C --> D["Prometheus: scrape ပြီး time-series သိမ်းဆည်း"]
+    D --> E["Grafana: dashboards"]
+    D --> F["Alerting System: alerts ပို့"]
+```
+
+**ပုံ ၃ (Figure 3) — DCGM Exporter → Prometheus → Grafana monitoring pipeline**
+
+ပုံရှင်းလင်းချက် — ဘယ်ဘက်ကနေ ညာဘက်ကို လိုက်ကြည့်ပါ။ GPU Nodes ကနေ DCGM က GPU telemetry, health နဲ့ diagnostics ကို ပေးပါတယ်။ DCGM Exporter က ဒီ metrics တွေကို Prometheus-compatible format နဲ့ ထုတ်ပေးပြီး Prometheus က scrape လုပ်ပြီး time-series data အဖြစ် သိမ်းဆည်းပါတယ်။ နောက်ဆုံးမှာ Grafana က dashboard တွေ ပြသပြီး Alerting System က သတ်မှတ်ထားတဲ့ condition ပြည့်မီရင် alerts ပို့ပါတယ်။
 
 - **DCGM** — GPU telemetry, health နဲ့ diagnostics။
 - **DCGM Exporter** — သတ်မှတ်ထားတဲ့ GPU metrics တွေကို Prometheus-compatible format နဲ့ expose လုပ်ပေးခြင်း။ (Metrics တွေကိုယ်တိုင်ကို ရေရှည်သိမ်းဆည်းတဲ့ time-series database မဟုတ်ပါဘူး)
@@ -377,6 +425,21 @@ To understand DCGM, look at this conceptual architecture:
             GPU / NVSwitch / Other
              Supported Entities
 ```
+
+The same conceptual architecture shown as a Mermaid figure:
+
+```mermaid
+flowchart TD
+    A["GPU Administrator"] --> B["dcgmi CLI"]
+    B --> C["DCGM Host Engine"]
+    C --> D["NVIDIA Management APIs"]
+    D --> E["NVIDIA Driver"]
+    E --> F["GPU / NVSwitch / Supported Entities"]
+```
+
+**Figure 1 — DCGM conceptual architecture**
+
+Figure walkthrough — Read the figure from top to bottom. The GPU administrator issues commands through the dcgmi CLI. dcgmi passes the work to the DCGM Host Engine, which reaches the GPU, NVSwitch, and other supported hardware entities through the NVIDIA Management APIs and the NVIDIA Driver. In short, one command travels down this exact path from the administrator to the hardware.
 
 In this architecture:
 
@@ -535,6 +598,24 @@ DCGM health monitoring can report relevant health incidents using the underlying
 
 Some active diagnostics may require exclusive use of the GPU. Running a diagnostic test without consideration while a production training job is running can affect the workload. (Production diagnostics may need exclusive GPU access.)
 
+The two paths — health monitoring and active diagnostics — compared in one figure:
+
+```mermaid
+flowchart TD
+    A["dcgmi discovery -l: find hardware"] --> B["dcgmi group: create GPU Group"]
+    B --> C{"How to check"}
+    C -->|"Health monitoring (passive)"| D["Watch metrics and events over time"]
+    C -->|"Active diagnostics (test)"| E["Run tests on GPU hardware and paths"]
+    D --> F["Report health incidents"]
+    E --> G{"Needs exclusive GPU access"}
+    G -->|"Yes"| H["Do not run before production workload"]
+    G -->|"No"| F
+```
+
+**Figure 2 — GPU health-check and diagnostics flow**
+
+Figure walkthrough — Start on the left. First DCGM finds the hardware (discovery) and forms a GPU Group. Then the flow splits into two paths. Health monitoring quietly watches metrics and events over time and reports health incidents. Active diagnostics runs tests actively. Notice the caution branch at the bottom: if a test needs exclusive GPU access, do not run it before the production workload finishes.
+
 ### 9.2 Health Monitoring Example
 
 DCGM health subcommands can be used to health-monitor a GPU group. Example workflow:
@@ -566,6 +647,21 @@ Prometheus
     |
     +------> Alerting System
 ```
+
+This monitoring pipeline as a figure:
+
+```mermaid
+flowchart LR
+    A["GPU Nodes"] --> B["DCGM: telemetry, health, diagnostics"]
+    B --> C["DCGM Exporter: Prometheus-compatible metrics"]
+    C --> D["Prometheus: scrape and store time series"]
+    D --> E["Grafana: dashboards"]
+    D --> F["Alerting System: send alerts"]
+```
+
+**Figure 3 — DCGM Exporter to Prometheus to Grafana monitoring pipeline**
+
+Figure walkthrough — Follow the figure from left to right. The GPU Nodes are where DCGM collects GPU telemetry, health, and diagnostics. DCGM Exporter exposes those metrics in Prometheus-compatible format, and Prometheus scrapes and stores them as time-series data. At the end, Grafana shows dashboards, and the Alerting System sends alerts when defined conditions are met.
 
 - **DCGM** — GPU telemetry, health, and diagnostics.
 - **DCGM Exporter** — exposes defined GPU metrics in Prometheus-compatible format. (It is not itself a long-term time-series database.)
@@ -604,3 +700,4 @@ DCGM itself is not a monitoring platform containing every historical database an
 - Source caveats preserved: DCGM is not a complete monitoring platform by itself; discovery ≠ health confirmation; group removal changes membership only and group deletion does not auto-revert configuration; some active diagnostics require exclusive GPU use and must not run during production training jobs; monitoring ≠ scheduling; DCGM features (diagnostics, policies, profiling) vary by GPU product and software version.
 - Example outputs (`DCGM Discovery / GPU 0: NVIDIA Tesla T4`) are illustrative, per the source; actual output format is version-dependent.
 - Installation commands and the `nvidia-dcgm` service name depend on OS and deployment style — needs verification against https://docs.nvidia.com/datacenter/dcgm/latest/installation/ for the target system.
+- Mermaid figures (Figures 1–3) with figure walkthroughs were added to both the Myanmar and English sections; the figures restate only content already present in this module and add no new technical claims.

@@ -40,6 +40,25 @@ CPU ကလည်း ဒီလိုပါပဲ—
 - အလွန်တုံ့ပြန်မှုမြန် — Low latency
 - တစ်နေရာချင်းစီ ဈေးကြီး — Powerful individual cores
 
+အောက်ပါ **Figure 1** မှာ CPU ကို Private Jet နဲ့ နှိုင်းယှဉ်ထားတဲ့ အချက်တွေကို စုပြီး ကြည့်နိုင်ပါတယ်။
+
+**Figure 1: CPU ကို Private Jet နှင့် နှိုင်းယှဉ်ပုံ**
+
+```mermaid
+flowchart TD
+    A["CPU = Private Jet"] --> B["ခရီးသည် နည်း — Task နည်းနည်းပဲ လုပ်နိုင်"]
+    A --> C["အလွန်မြန် — Low Latency"]
+    A --> D["နေရာတိုင်း သွားနိုင် — Flexible Execution"]
+    A --> E["တစ်နေရာချင်း ဈေးကြီး — Powerful Individual Cores"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 1)**
+
+- အပေါ်ဆုံးက CPU ကို private jet အဖြစ် ထားပြီး အောက်က node လေးခုက နှိုင်းယှဉ်ချက်ရဲ့ အဓိကအချက်တွေကို ပြပါတယ်။
+- ခရီးသည် နည်းတာက CPU ဟာ task နည်းနည်းပဲ ကိုင်တွယ်နိုင်ခြင်းကို ဆိုလိုပါတယ်။
+- အလွန်မြန် / low latency နဲ့ flexible ဖြစ်တာက တစ်ခုချင်း operation တွေကို မြန်မြန် တုံ့ပြန်နိုင်ခြင်းကို ပြပါတယ်။
+- တစ်နေရာချင်း ဈေးကြီးတာက powerful individual cores ကို ရည်ညွှန်းပါတယ်။
+
 ### 3. GPU — Commercial Flight နှိုင်းယှဉ်ချက်
 
 Commercial Flight က ခရီးသည် ရာပေါင်းများစွာကို တပြိုင်နက် သယ်ဆောင်ဖို့ ဒီဇိုင်းထုတ်ထားပါတယ်။
@@ -62,6 +81,25 @@ GPU ကလည်း ဒီလိုပါပဲ—
 - လူအုပ်ကြီးကို ရွှေ့ဖို့ optimize လုပ်ထား — High throughput
 - ပြည့်နေရင် အထိရောက်ဆုံး — Parallel utilization
 - တစ်နေရာချင်းစီက Private Jet လောက် မထူးခြား — Simpler cores
+
+အောက်ပါ **Figure 2** မှာ GPU ကို Commercial Flight နဲ့ နှိုင်းယှဉ်ထားတဲ့ အချက်တွေကို စုပြီး ကြည့်နိုင်ပါတယ်။
+
+**Figure 2: GPU ကို Commercial Flight နှင့် နှိုင်းယှဉ်ပုံ**
+
+```mermaid
+flowchart TD
+    A["GPU = Commercial Flight"] --> B["ခရီးသည် များစွာ — Parallel Task များစွာ"]
+    A --> C["လူအုပ်ကြီး ရွှေ့ဖို့ optimize — High Throughput"]
+    A --> D["ပြည့်နေရင် အထိရောက်ဆုံး — Parallel Utilization"]
+    A --> E["ရိုးရှင်းတဲ့ cores များ — Simpler Cores"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 2)**
+
+- အပေါ်ဆုံးက GPU ကို commercial flight အဖြစ် ထားပြီး အောက်က node လေးခုက နှိုင်းယှဉ်ချက်ရဲ့ အဓိကအချက်တွေကို ပြပါတယ်။
+- ခရီးသည် များစွာ သယ်နိုင်တာက GPU ရဲ့ parallel task များစွာ တပြိုင်နက် လုပ်နိုင်ခြင်းကို ဆိုလိုပါတယ်။
+- High throughput နဲ့ parallel utilization က လူအုပ်ကြီးကို ထိရောက်စွာ ရွှေ့နိုင်ခြင်းနဲ့ တူပါတယ်။
+- Simpler cores က တစ်နေရာချင်းစီ private jet လောက် မထူးခြားပေမယ့် အရေအတွက်နဲ့ အနိုင်ယူတာကို ပြပါတယ်။
 
 ### 4. Computing မှာ "ခရီးသည်" ဆိုတာ ဘာကိုဆိုလိုတာလဲ?
 
@@ -104,6 +142,26 @@ GPU က Operation ထောင်ပေါင်းများစွာ သိ�
 ```
 
 ခြံစည်းရိုးဆေးသုတ်တာက တစ်လျှောက်လုံး အလုပ်တူတူ ထပ်ခါထပ်ခါ လုပ်ရတာ — သဘာဝအတိုင်း parallel ဖြစ်တဲ့ workload ပါ။ GPU က ဒီလိုအလုပ်မျိုးမှာ အကောင်းဆုံး ဖြစ်ပါတယ်။
+
+အောက်ပါ **Figure 3** မှာ ဆေးသမား တစ်ယောက်တည်း နည်းလမ်းနဲ့ ဆေးသမား များစွာ နည်းလမ်းကို နှိုင်းယှဉ် ကြည့်နိုင်ပါတယ်။
+
+**Figure 3: ခြံစည်းရိုး ဆေးသုတ်ဥပမာ — Sequential နှင့် Parallel နည်းလမ်း**
+
+```mermaid
+flowchart TD
+    A["ခြံစည်းရိုး ဆေးသုတ်ခြင်း"] --> B["နည်းလမ်း 1 — ဆေးသမား တစ်ယောက်တည်း (CPU)"]
+    A --> C["နည်းလမ်း 2 — ဆေးသမား များစွာ (GPU)"]
+    B --> D["တစ်ကွက်ချင်း မြန်ပေမယ့် တစ်ယောက်တည်း — Sequential"]
+    C --> E["အပိုင်းခွဲပြီး တပြိုင်နက် ဆေးသုတ် — Parallel"]
+    D --> F["ခြံစည်းရိုး တစ်ခုလုံး ပြီး"]
+    E --> F
+```
+
+**ပုံရှင်းလင်းချက် (Figure 3)**
+
+- ဘယ်ဘက် နည်းလမ်း 1 က sequential — ဆေးသမား တစ်ယောက်တည်းက တစ်ကွက်ချင်း မြန်ပေမယ့် ခြံစည်းရိုး တစ်ခုလုံးကို တစ်ယောက်တည်း ဆေးသုတ်ရပါတယ်။
+- ညာဘက် နည်းလမ်း 2 က parallel — ဆေးသမား များစွာက ခြံစည်းရိုးကို အပိုင်းခွဲပြီး တပြိုင်နက် ဆေးသုတ်ပါတယ်။
+- အောက်ဆုံးမှာ နှစ်ခုလုံး ခြံစည်းရိုး ပြီးသွားပေမယ့် parallel ဖြစ်တဲ့ workload အတွက် နည်းလမ်း 2 က ပိုသင့်တော်တာကို တွေ့ရပါမယ်။
 
 ### 6. CPU ရဲ့ အားသာချက် — Sequential နှင့် ရှုပ်ထွေးသော အလုပ်များ
 
@@ -228,6 +286,26 @@ Core များစွာ (ရိုးရှင်း)
 အားလုံး တပြိုင်နက် လုပ်ဆောင်
 ```
 
+အောက်ပါ **Figure 4** မှာ CPU နဲ့ GPU ရဲ့ parallel processing ပုံစံ မတူတာကို နှိုင်းယှဉ် ကြည့်နိုင်ပါတယ်။
+
+**Figure 4: CPU vs GPU — Parallel Processing ပုံစံ ကွာခြားပုံ**
+
+```mermaid
+flowchart TD
+    A["Workload"] --> B["CPU — Core နည်းနည်း Powerful"]
+    A --> C["GPU — Core များစွာ ရိုးရှင်း"]
+    B --> D["Task ရှုပ်ထွေးတစ်ခုချင်းစီ ကိုင်တွယ်"]
+    C --> E["Task များစွာ တပြိုင်နက် လုပ်ဆောင်"]
+    D --> F["Result"]
+    E --> F
+```
+
+**ပုံရှင်းလင်းချက် (Figure 4)**
+
+- အပေါ်ဆုံးက workload ကနေ CPU နဲ့ GPU ဆီ ခွဲသွားတာကို ကြည့်ပါ။
+- CPU ဘက်က core နည်းနည်းနဲ့ task ရှုပ်ထွေးတစ်ခုချင်းစီ ကိုင်တွယ်ပုံ၊ GPU ဘက်က core များစွာနဲ့ task များစွာ တပြိုင်နက် လုပ်ဆောင်ပုံကို နှိုင်းယှဉ် မြင်ရပါမယ်။
+- အောက်ဆုံးမှာ နှစ်ခုလုံး result ရပေမယ့် ရောက်တဲ့ပုံစံ မတူတာကို ပြပါတယ်။
+
 ### 11. AI အတွက် GPU ဘာကြောင့် လိုအပ်ရတာလဲ?
 
 AI workload တွေမှာ သင်္ချာ operation အများကြီး ပါဝင်ပါတယ်—
@@ -268,6 +346,27 @@ AI-Centric Data Center မှာ CPU နဲ့ GPU က ပြိုင်ဘက�
 ```
 
 CPU က ဘာလုပ်ရမလဲ ဆုံးဖြတ်ပါတယ်။ GPU က လေးလံတဲ့ parallel computation ကို ဆောင်ရွက်ပါတယ်။
+
+အောက်ပါ **Figure 5** မှာ CPU နဲ့ GPU နှစ်ခု ဘယ်လို တာဝန်ခွဲပြီး အတူအလုပ်လုပ်သလဲ ဆိုတာ ကြည့်နိုင်ပါတယ်။
+
+**Figure 5: AI-Centric Data Center မှာ CPU နှင့် GPU အတူတကွ အလုပ်လုပ်ပုံ**
+
+```mermaid
+flowchart TD
+    A["AI Application"] --> B["CPU Role"]
+    A --> C["GPU Role"]
+    B --> D["Application Logic, Data Preparation"]
+    B --> E["System Management, Control Flow"]
+    C --> F["AI Training, AI Inference"]
+    C --> G["Parallel Computing, Matrix / Tensor Operations"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 5)**
+
+- အပေါ်ဆုံးက AI application ကနေ CPU role နဲ့ GPU role ဆီ ခွဲသွားတာကို ကြည့်ပါ။
+- CPU ဘက်က application logic, data preparation, system management, control flow တွေကို ကိုင်တွယ်ပါတယ်။
+- GPU ဘက်က AI training, AI inference, parallel computing, matrix / tensor operation တွေကို ဆောင်ရွက်ပါတယ်။
+- CPU က ဘာလုပ်ရမလဲ ဆုံးဖြတ်ပြီး GPU က လေးလံတဲ့ parallel computation ကို ယူတဲ့ ပူးပေါင်းဆောင်ရွက်မှု ဖြစ်ပါတယ်။
 
 ### 13. အဓိက နှိုင်းယှဉ်ချက်
 
@@ -347,6 +446,25 @@ A CPU is similar:
 - It is highly responsive — low latency
 - Each seat is expensive — powerful individual cores
 
+See **Figure 1** for the private jet comparison gathered into one picture.
+
+**Figure 1: The CPU as a Private Jet**
+
+```mermaid
+flowchart TD
+    A["CPU = Private Jet"] --> B["Few Passengers — Fewer Tasks"]
+    A --> C["Very Fast — Low Latency"]
+    A --> D["Goes Almost Anywhere — Flexible Execution"]
+    A --> E["Each Seat Expensive — Powerful Individual Cores"]
+```
+
+**Figure walkthrough (Figure 1)**
+
+- The top node treats the CPU as a private jet; the four nodes below are the main points of the comparison.
+- Few passengers means the CPU handles only a small number of tasks.
+- Very fast / low latency and flexible mean quick responses for individual operations.
+- An expensive seat per passenger refers to powerful individual cores.
+
 ### 3. GPU — The Commercial Flight Analogy
 
 A commercial flight is designed to carry hundreds of passengers at once.
@@ -369,6 +487,25 @@ Many Passengers        Highly Efficient
 - It is optimized for moving large groups — high throughput
 - It is most efficient when fully loaded — parallel utilization
 - Individual seats are less specialized than a private jet — simpler cores
+
+See **Figure 2** for the commercial flight comparison gathered into one picture.
+
+**Figure 2: The GPU as a Commercial Flight**
+
+```mermaid
+flowchart TD
+    A["GPU = Commercial Flight"] --> B["Many Passengers — Many Parallel Tasks"]
+    A --> C["Optimized for Crowds — High Throughput"]
+    A --> D["Best When Full — Parallel Utilization"]
+    A --> E["Simpler Seats — Simpler Cores"]
+```
+
+**Figure walkthrough (Figure 2)**
+
+- The top node treats the GPU as a commercial flight; the four nodes below are the main points of the comparison.
+- Many passengers means many parallel tasks running at the same time.
+- High throughput and parallel utilization match the idea of moving large crowds efficiently.
+- Simpler cores show that individual units are less specialized, but the large count wins.
 
 ### 4. What Does "Passenger" Mean in Computing?
 
@@ -410,6 +547,26 @@ The whole fence is finished together
 ```
 
 Painting a fence requires the same repetitive work along its entire length — a naturally parallel workload. This is exactly the type of work a GPU excels at.
+
+**Figure 3** compares the single-painter approach with the many-painter approach.
+
+**Figure 3: The Fence-Painting Example — Sequential vs Parallel**
+
+```mermaid
+flowchart TD
+    A["Painting a Long Fence"] --> B["Method 1 — One Expert Painter (CPU)"]
+    A --> C["Method 2 — Many Painters (GPU)"]
+    B --> D["Fast per Section but One Painter — Sequential"]
+    C --> E["Sections Painted at the Same Time — Parallel"]
+    D --> F["Whole Fence Finished"]
+    E --> F
+```
+
+**Figure walkthrough (Figure 3)**
+
+- The left method is sequential: one painter is fast per section but paints the whole fence alone.
+- The right method is parallel: many painters split the fence into sections and paint at the same time.
+- Both reach the finished fence at the bottom, but the parallel method fits naturally parallel workloads better.
 
 ### 6. CPU Strengths — Sequential and Complex Work
 
@@ -534,6 +691,26 @@ Many simpler cores
 All work simultaneously
 ```
 
+**Figure 4** compares how the CPU and the GPU handle parallel processing.
+
+**Figure 4: CPU vs GPU — Different Parallel Processing Styles**
+
+```mermaid
+flowchart TD
+    A["Workload"] --> B["CPU — Few Powerful Cores"]
+    A --> C["GPU — Many Simple Cores"]
+    B --> D["Each Core Handles One Complex Task"]
+    C --> E["All Cores Work Simultaneously"]
+    D --> F["Result"]
+    E --> F
+```
+
+**Figure walkthrough (Figure 4)**
+
+- The workload at the top splits toward the CPU and the GPU.
+- On the CPU side, few powerful cores handle complex tasks one by one; on the GPU side, many simple cores work simultaneously.
+- Both sides end at a result, but the way they get there is different.
+
 ### 11. Why AI Needs GPUs
 
 AI workloads contain enormous numbers of mathematical operations:
@@ -574,6 +751,27 @@ In an AI-Centric Data Center, the CPU and GPU do not compete — they cooperate.
 ```
 
 The CPU decides what to do. The GPU performs the heavy parallel computation.
+
+**Figure 5** shows how the CPU and the GPU divide responsibilities and cooperate.
+
+**Figure 5: CPU and GPU Working Together in an AI-Centric Data Center**
+
+```mermaid
+flowchart TD
+    A["AI Application"] --> B["CPU Role"]
+    A --> C["GPU Role"]
+    B --> D["Application Logic, Data Preparation"]
+    B --> E["System Management, Control Flow"]
+    C --> F["AI Training, AI Inference"]
+    C --> G["Parallel Computing, Matrix / Tensor Operations"]
+```
+
+**Figure walkthrough (Figure 5)**
+
+- The AI application at the top splits into a CPU role and a GPU role.
+- The CPU side handles application logic, data preparation, system management, and control flow.
+- The GPU side handles AI training, AI inference, parallel computing, and matrix / tensor operations.
+- This is cooperation: the CPU decides what to do while the GPU takes the heavy parallel computation.
 
 ### 13. Key Comparison
 
@@ -622,3 +820,4 @@ Answer: The CPU handles application logic, data preparation, system management, 
 - Corrections made: self-check questions with answers were added to both language sections (5 per side, drawn only from the material in this file), as required by WRITING_RULES.
 - Needs verification: the comparison table's latency/throughput/flexibility rows are qualitative trade-off descriptions (private jet vs commercial flight), not benchmark figures — do not cite them as measured performance claims.
 - The fence-painting and aviation comparisons are pedagogical analogies, not claims about actual hardware behavior; no technical specifications or benchmark numbers are asserted in this module.
+- Figures added in this pass: Mermaid figures (Figure 1–5) with captions and figure walkthroughs (ပုံရှင်းလင်းချက်) were inserted inline in both language sections with matching numbering; no existing text or ASCII diagrams were changed.

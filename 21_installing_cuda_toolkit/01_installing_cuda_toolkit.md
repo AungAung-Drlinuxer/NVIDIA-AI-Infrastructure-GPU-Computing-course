@@ -29,6 +29,28 @@ CUDA မတိုင်ခင် install လုပ်မယ်ဆိုရင်
 
 NVIDIA က supported operating systems၊ architectures၊ compiler versions နဲ့ installation methods တွေကို official documentation မှာ ထုတ်ပြန်ထားပါတယ်။ ဒီ requirements တွေဟာ CUDA release အလိုက် ပြောင်းလဲနိုင်တဲ့အတွက် ကိုယ် install လုပ်မယ့် version အတွက် စစ်ဆေးဖို့ လိုအပ်ပါတယ်။
 
+**Figure 1 — CUDA Install မလုပ်မီ စစ်ဆေးရမည့် Prerequisites များ**
+
+```mermaid
+flowchart TD
+    S["CUDA install မလုပ်မီ"]
+    S --> P1["CUDA-capable NVIDIA GPU ရှိ/မရှိ"]
+    S --> P2["Supported OS ဖြစ်/မဖြစ်"]
+    S --> P3["Compatible NVIDIA driver ရှိ/မရှိ"]
+    S --> P4["CUDA Toolkit လို/မလို"]
+    S --> P5["Host compiler — GCC ကဲ့သို့ လိုအပ်ချက်"]
+    P1 --> OK["Requirements ပြည့်မီပါက install ဆက်လုပ်နိုင်"]
+    P2 --> OK
+    P3 --> OK
+    P4 --> OK
+    P5 --> OK
+```
+
+**ပုံရှင်းလင်းချက်:**
+- အပေါ်ဆုံး node က install မစခင် စစ်ဆေးရမယ့် အချက်အားလုံးရဲ့ အစကို ကိုယ်စားပြုပါတယ်။
+- အလယ်က node ငါးခုက prerequisites တစ်ခုချင်းစီဖြစ်ပြီး တစ်ခုချင်းစီကို သီးခြား စစ်ဆေးရပါမယ်။
+- အားလုံးပြည့်မီမှသာ အောက်ဆုံး node အတိုင်း install ကို ဆက်လုပ်သင့်ပါတယ်။
+
 ## 3. Supported Operating Systems နဲ့ CPU Architectures
 
 CUDA ကို supported Linux နဲ့ Windows environments တွေမှာ အသုံးပြုနိုင်ပါတယ်။ ဒါပေမဲ့ Linux distributions နဲ့ CPU architectures တွေဟာ အပြန်အလှန် အစားထိုးသုံးလို့ မရပါဘူး—support ဆိုတာက CUDA release နဲ့ သီးခြား hardware platform ပေါ် မူတည်ပါတယ်။
@@ -81,6 +103,25 @@ Linux installation guide မှာ distribution package managers နဲ့ stand
 6. လိုအပ်ရင် environment ကို configure လုပ်ပါ။
 7. Installation ကို verify လုပ်ပါ။
 8. Supported CUDA sample သို့မဟုတ် အသေးစား GPU-enabled application တစ်ခုကို run လုပ်ပါ။
+
+**Figure 2 — CUDA Toolkit Install နှင့် Verify လုပ်သည့် Workflow**
+
+```mermaid
+flowchart TD
+    A["1 — NVIDIA GPU model ဖော်ထုတ်"]
+    A --> B["2 — OS နှင့် CPU architecture စစ်ဆေး"]
+    B --> C["3 — NVIDIA driver စစ်ဆေး"]
+    C --> D["4 — ကိုက်ညီသော CUDA Toolkit release ရွေးချယ်"]
+    D --> E["5 — NVIDIA ညွှန်ကြားချက်အတိုင်း install လုပ်"]
+    E --> F["6 — Environment configure"]
+    F --> G["7 — Installation verify"]
+    G --> H["8 — CUDA sample သို့မဟုတ် GPU application အသေး run"]
+```
+
+**ပုံရှင်းလင်းချက်:**
+- ဒီ workflow ကို အပေါ်ကနေ အောက်ကို အဆင့် ၁ ကနေ ၈ အထိ အစဉ်လိုက် လိုက်နာပါ။
+- ပထမ ၄ ဆင့်က ကိုယ့် system အကြောင်း စစ်ဆေးပြီး သင့်လျောတဲ့ release ရွေးချယ်တဲ့ အဆင့်တွေဖြစ်ပါတယ်။
+- နောက်ဆုံး ၄ ဆင့်က install လုပ်ခြင်း၊ configure လုပ်ခြင်းနဲ့ verify လုပ်ခြင်းတွေဖြစ်ပြီး နောက်ဆုံးမှာ sample run ပြီး အမှန်တကယ် အလုပ်လုပ်ကြောင်း စစ်ဆေးပါတယ်။
 
 Production server ပေါ်မှာ driver သို့မဟုတ် toolkit အသစ်ကို မစဉ်းစားဘဲ တိုက်ရိုက် install မလုပ်ပါနဲ့။ အရင်ဆုံး လက်ရှိ configuration နဲ့ existing applications တွေ အသုံးပြုနေတဲ့ dependencies တွေကို စစ်ဆေးပါ။
 
@@ -135,6 +176,24 @@ CUDA Version: 13.x
 `CUDA Version` field ဟာ install လုပ်ထားတဲ့ driver က support ပြုလုပ်တဲ့ CUDA version level ကို ဖော်ပြတာ ဖြစ်ပါတယ်။ CUDA Toolkit 13.x က local မှာ install ပြီးပြီလို့ သက်သေမပြပါဘူး။
 
 အပေါ်က ဂဏန်းတွေဟာ ဥပမာသာ ဖြစ်ပြီး သီးခြား machine တစ်ခုအကြောင်း ပြောတာ မဟုတ်ပါဘူး။
+
+**Figure 3 — nvidia-smi ပြသသော CUDA Version နှင့် Toolkit Version ကွာခြားချက်**
+
+```mermaid
+flowchart TD
+    A["nvidia-smi run"]
+    A --> B["Driver Version: 580.xx"]
+    A --> C["CUDA Version: 13.x"]
+    C --> D["ဤ field က driver က support ပြုတဲ့ CUDA version level သာ"]
+    D --> E["Toolkit install ပြီးပြီဟု သက်သေမပြ"]
+    E --> F["nvcc --version — Toolkit/compiler version စစ်ဆေး"]
+    F --> G["cat /usr/local/cuda/version.json — နောက်ထပ်နည်းလမ်း"]
+```
+
+**ပုံရှင်းလင်းချက်:**
+- အပေါ်ဆုံးက nvidia-smi run လိုက်ရင် ပုံမှန်အားဖြင့် Driver Version နဲ့ CUDA Version နှစ်ကြောင်း မြင်ရပါတယ်။
+- အလယ်က CUDA Version 13.x ဆိုတာ driver က support ပြုတဲ့ version level သာဖြစ်ပြီး Toolkit 13.x install ပြီးပြီလို့ မဆိုလိုပါဘူး။
+- Toolkit version အမှန်ကို သိချင်ရင် အောက်ဆုံးက node တွေအတိုင်း `nvcc --version` နဲ့ `version.json` ကို သွားစစ်ရပါမယ်။
 
 CUDA Toolkit compiler ကို စစ်ဆေးချင်ရင်—
 
@@ -259,6 +318,27 @@ Compatible framework package တွေမှာ သီးခြား CUDA runti
 
 နောက်တစ်ဆင့်—သက်ဆိုင်ရာ CUDA release ရဲ့ official compiler compatibility table ကို စစ်ဆေးပြီး supported compiler တစ်ခုကို configure လုပ်ပါ။
 
+**Figure 4 — Common Troubleshooting လမ်းကြောင်းများ**
+
+```mermaid
+flowchart TD
+    A["ပြဿနာ စတင်စစ်ဆေး"]
+    A --> B["nvidia-smi အလုပ်လုပ်သလား"]
+    B -->|"မလုပ်"| C["Scenario B — Driver / GPU visibility စစ်ဆေး"]
+    B -->|"လုပ်"| D["nvcc ရှိသလား"]
+    D -->|"မရှိ"| E["Scenario A — Toolkit install / PATH စစ်ဆေး"]
+    D -->|"ရှိ"| F["PyTorch က CUDA available လား"]
+    F -->|"မဟုတ်"| G["Scenario C — PyTorch package / GPU access စစ်ဆေး"]
+    F -->|"ဟုတ်"| H["Compile error ရှိသလား"]
+    H -->|"ရှိ"| I["Scenario D — Compiler compatibility table စစ်ဆေး"]
+    H -->|"မရှိ"| J["Environment အဆင်ပြေ — Application run နိုင်"]
+```
+
+**ပုံရှင်းလင်းချက်:**
+- အပေါ်ကနေ စပြီး မေးခွန်းတစ်ခုချင်းစီကို ဖြေရင်း လမ်းကြောင်းတစ်ခုချင်းစီ ဆင်းသွားပါ။
+- ဘယ်/ညာ ခွဲထွက်တဲ့ အဖြေပေါ်မူတည်ပြီး Scenario A–D ထဲက သင့်တဲ့ အဆင့်ကို ရွေးချယ်ရပါမယ်။
+- အားလုံး ကျော်ဖြတ်နိုင်ရင် အောက်ဆုံး node အတိုင်း environment အဆင်ပြေပြီး application run လို့ ရပါပြီ။
+
 ## 11. Review Questions
 
 1. CUDA Toolkit install လုပ်ဖို့ အဓိက prerequisites တွေက ဘာတွေလဲ။
@@ -315,6 +395,28 @@ The main prerequisites are:
 
 NVIDIA publishes the supported operating systems, architectures, compiler versions, and installation methods in its official documentation. These requirements change across CUDA releases, so they must be checked for the version being installed.
 
+**Figure 1 — Prerequisites to check before installing CUDA**
+
+```mermaid
+flowchart TD
+    S["Before installing CUDA"]
+    S --> P1["CUDA-capable NVIDIA GPU present?"]
+    S --> P2["Supported operating system?"]
+    S --> P3["Compatible NVIDIA driver present?"]
+    S --> P4["Is the CUDA Toolkit needed?"]
+    S --> P5["Host compiler — e.g. GCC"]
+    P1 --> OK["If all requirements are met, continue with installation"]
+    P2 --> OK
+    P3 --> OK
+    P4 --> OK
+    P5 --> OK
+```
+
+**Figure walkthrough:**
+- The top node is the starting point: everything that must be checked before installation begins.
+- The five middle nodes are the individual prerequisites, each checked on its own.
+- Only when they are all satisfied do you move to the bottom node and continue with the install.
+
 ## 3. Supported Operating Systems and CPU Architectures
 
 CUDA is available for supported Linux and Windows environments. Linux distributions and CPU architectures are not interchangeable, however: support depends on the CUDA release and the specific hardware platform.
@@ -367,6 +469,25 @@ The Linux installation guide documents several approaches, including distributio
 6. Configure the environment if required.
 7. Verify the installation.
 8. Run a supported CUDA sample or a small GPU-enabled application.
+
+**Figure 2 — Install-and-verify workflow for the CUDA Toolkit**
+
+```mermaid
+flowchart TD
+    A["1 — Identify the NVIDIA GPU model"]
+    A --> B["2 — Check OS and CPU architecture"]
+    B --> C["3 — Check the NVIDIA driver"]
+    C --> D["4 — Choose a compatible CUDA Toolkit release"]
+    D --> E["5 — Install following NVIDIA's instructions"]
+    E --> F["6 — Configure the environment"]
+    F --> G["7 — Verify the installation"]
+    G --> H["8 — Run a CUDA sample or small GPU application"]
+```
+
+**Figure walkthrough:**
+- Follow the steps top to bottom, from step 1 through step 8.
+- The first four steps are about inspecting your system and picking the right release.
+- The last four steps cover installing, configuring, verifying, and finally proving it works by running a sample.
 
 Avoid installing a new driver or toolkit blindly on a production server. First check the current configuration and any dependencies used by existing applications.
 
@@ -421,6 +542,24 @@ CUDA Version: 13.x
 the `CUDA Version` field indicates the CUDA version level supported by the installed driver. It does not prove that CUDA Toolkit 13.x is installed locally.
 
 The exact numbers above are illustrative, not a statement about a particular machine.
+
+**Figure 3 — The difference between the nvidia-smi CUDA version and the Toolkit version**
+
+```mermaid
+flowchart TD
+    A["Run nvidia-smi"]
+    A --> B["Driver Version: 580.xx"]
+    A --> C["CUDA Version: 13.x"]
+    C --> D["This field shows the CUDA version level supported by the driver"]
+    D --> E["It does not prove the Toolkit is installed"]
+    E --> F["nvcc --version — check the Toolkit/compiler version"]
+    F --> G["cat /usr/local/cuda/version.json — another way"]
+```
+
+**Figure walkthrough:**
+- At the top, running nvidia-smi normally shows two lines: Driver Version and CUDA Version.
+- In the middle, "CUDA Version: 13.x" only means the driver supports that CUDA level — it does not mean Toolkit 13.x is installed.
+- To learn the real Toolkit version, follow the bottom nodes to `nvcc --version` or the version.json file.
 
 To check the CUDA Toolkit compiler, run:
 
@@ -545,6 +684,27 @@ Possible explanation: the installed host compiler is outside the supported range
 
 Next step: check the CUDA release's official compiler compatibility table and configure a supported compiler.
 
+**Figure 4 — Common troubleshooting paths**
+
+```mermaid
+flowchart TD
+    A["Start checking the problem"]
+    A --> B["Does nvidia-smi work?"]
+    B -->|"No"| C["Scenario B — check driver / GPU visibility"]
+    B -->|"Yes"| D["Is nvcc available?"]
+    D -->|"No"| E["Scenario A — check Toolkit install / PATH"]
+    D -->|"Yes"| F["Does PyTorch report CUDA available?"]
+    F -->|"No"| G["Scenario C — check PyTorch package / GPU access"]
+    F -->|"Yes"| H["Any compile errors?"]
+    H -->|"Yes"| I["Scenario D — check the compiler compatibility table"]
+    H -->|"No"| J["Environment is fine — run the application"]
+```
+
+**Figure walkthrough:**
+- Start at the top and answer one question at a time, following the branch that matches your situation.
+- Depending on the answers, you land in one of Scenarios A–D, each pointing to the right next step.
+- If you pass every check, you reach the bottom node: the environment is fine and the application can run.
+
 ## 11. Review Questions
 
 1. What are the main prerequisites for installing CUDA Toolkit?
@@ -584,3 +744,4 @@ Recommended practice: Start by inventorying the GPU, driver, OS, architecture, a
 - `cat /usr/local/cuda/version.json` fragment ကို msg_2593 (nvidia-smi deep-dive module) မှ ဖြည့်စွက်ထားပြီး "Toolkit ကို အခြား directory တွင် install ထားနိုင်၍ system တိုင်းတွင် အလုပ်မလုပ်နိုင်" ဆိုသော source caveat ကို ထိန်းထားသည်။
 - GCC/CUDA compiler compatibility သည် CUDA release အလိုက် ပြောင်းလဲနိုင်သောကြောင့် specific version range များကို မဖော်ပြဘဲ official compatibility table တွင် စစ်ဆေးရန် ဖော်ပြထားသည် (needs verification မှ လွဲ၍ source အတိုင်း)။
 - Commands များအားလုံး (nvidia-smi, nvidia-smi -L, nvcc --version, gcc --version, uname, lspci, torch.cuda checks) သည် source တွင်ပါရှိသော commands များသာ ဖြစ်သည်။
+- Beginner-friendly Mermaid figures (Figure 1–4, each with a figure walkthrough) were added inline in both the Myanmar and English sections; existing text and commands are unchanged.

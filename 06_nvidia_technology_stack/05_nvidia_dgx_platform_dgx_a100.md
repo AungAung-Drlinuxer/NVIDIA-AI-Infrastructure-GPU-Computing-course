@@ -67,6 +67,20 @@ On-Premises ဆိုတာ Hardware ကို ကိုယ်ပိုင် Da
 
 NVIDIA Cloud Partners တွေကလည်း NVIDIA Accelerated Computing Infrastructure နဲ့ ဆက်စပ်တဲ့ Cloud Services တွေကို ပေးနိုင်ပါတယ်။ ဒီနည်းလမ်းမှာ ကိုယ်ပိုင် Hardware ကို ဝယ်ယူတပ်ဆင်စရာမလိုဘဲ Partner ရဲ့ Offering အလိုက် Computing Capacity နဲ့ Support ကို ရယူနိုင်ပါတယ်။ သို့သော် Partner အားလုံးရဲ့ Hardware, SLA, Pricing နဲ့ Software Stack တွေဟာ တူညီနေမှာ မဟုတ်ပါဘူး။
 
+**Figure 1 — DGX Platform ကို deployment လုပ်နိုင်တဲ့ နည်းလမ်းသုံးမျိုး**
+
+```mermaid
+flowchart TD
+    D["DGX Platform Deployment"] --> OP["On-Premises — ကိုယ်ပိုင် Data Center / Server Room"]
+    D --> CL["Public Cloud / DGX Cloud — AWS, Azure, Google Cloud, OCI"]
+    D --> PT["Partner-Provided Cloud Infrastructure"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough):**
+- အပေါ်က DGX Platform ကစပြီး အောက်က နည်းလမ်းသုံးမျိုးထဲက တစ်ခုကို ရွေးနိုင်ပါတယ်။
+- On-Premises က ကိုယ်ပိုင် data center မှာ ကိုယ်တိုင် တပ်ဆင်လည်ပတ်တာဖြစ်ပြီး Public Cloud / DGX Cloud ကတော့ cloud provider တွေကတစ်ဆင့် ရယူတာ ဖြစ်ပါတယ်။
+- တတိယတစ်ခုက NVIDIA Cloud Partners တွေရဲ့ partner-provided cloud infrastructure ဖြစ်ပြီး ကိုယ်ပိုင် hardware ဝယ်စရာ မလိုပါဘူး။
+
 ## 3. DGX Family ရဲ့ Deployment Options
 
 | Platform | အဓိကရည်ရွယ်ချက် | Typical Use Case |
@@ -100,6 +114,23 @@ NVIDIA Cloud Partners တွေကလည်း NVIDIA Accelerated Computing Infr
         High-speed GPU
         interconnect
 ```
+
+**Figure 2 — DGX A100 system ရဲ့ internal architecture ပုံ**
+
+```mermaid
+flowchart TD
+    D["NVIDIA DGX A100"] --> G["8x A100 GPUs"]
+    D --> N["NVSwitch — High-speed GPU Interconnect"]
+    D --> S["NVMe SSD Storage (source example: 15 TB)"]
+    D --> M["System Memory / Networking / Cooling"]
+    D --> SW["NVIDIA Software Stack"]
+    G --> N
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough):**
+- အပေါ်ဆုံးက DGX A100 system တစ်ခုလုံးကို ဗဟိုပြုထားပါတယ်။
+- အောက်ဘယ်ဘက်က 8x A100 GPUs နဲ့ အလယ်က NVSwitch ကို မြားနဲ့ ချိတ်ထားတာက GPU တွေကြား high-speed interconnect ရှိတာကို ပြပါတယ်။
+- ညာဘက်မှာ NVMe SSD storage (source example အနေနဲ့ 15 TB)၊ system memory / networking / cooling နဲ့ NVIDIA software stack တွေ ပါဝင်ပါတယ်။
 
 ## 5. Eight NVIDIA A100 GPUs
 
@@ -162,6 +193,26 @@ GPU ───────── GPU            GPU ─┐
 
 **Exam Point:** DGX ကိုလေ့လာတဲ့အခါ GPU count တင်မကဘဲ GPU interconnect ကိုပါ အာရုံစိုက်ပါ။
 
+**Figure 3 — NVSwitch ဖြင့် GPU-to-GPU communication ပုံ**
+
+```mermaid
+flowchart TD
+    G0["GPU 0"] --> NV["NVSwitch — High-speed Interconnect"]
+    G1["GPU 1"] --> NV
+    G2["GPU 2"] --> NV
+    G3["GPU 3"] --> NV
+    G4["GPU 4"] --> NV
+    G5["GPU 5"] --> NV
+    G6["GPU 6"] --> NV
+    G7["GPU 7"] --> NV
+    NV --> C["GPU-to-GPU Communication"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough):**
+- ဘယ်ဘက်က GPU ရှစ်လုံး (GPU 0 မှ GPU 7) အားလုံးဟာ အလယ်က NVSwitch box ဆီ မြားတွေနဲ့ ချိတ်ဆက်ထားပါတယ်။
+- GPU အများကြီးကြား data နဲ့ computation information တွေ ဖလှယ်ရမှာဖြစ်လို့ ဒီ interconnect ရဲ့ မြန်နှုန်းက အရေးကြီးပါတယ်။
+- အောက်ဆုံး box က GPU-to-GPU communication မြန်ဆန်မှ 8 GPU ပေါ်မှာ parallel AI workload ကို ထိရောက်စွာ run လုပ်နိုင်မှာ ဖြစ်ပါတယ်။
+
 ## 8. NVMe SSD Storage
 
 DGX A100 system မှာ NVMe SSD storage လည်း ပါဝင်ပါတယ်။ Source example မှာ **15 TB of NVMe SSD** လို့ ဖော်ပြထားပါတယ်။ NVMe SSD ဟာ high-performance local storage အတွက် အသုံးပြုနိုင်ပါတယ်။
@@ -207,6 +258,20 @@ DGX Platform ကို hardware နဲ့ software ပေါင်းစပ်�
 - **Software Stack** — NVIDIA Drivers, Libraries, AI Framework Support နဲ့ System Management Tools များ။
 
 Software stack မပါဘဲ hardware တစ်ခုတည်းနဲ့ AI workload တွေကို ထိရောက်စွာ run လုပ်လို့ မရပါဘူး။
+
+**Figure 4 — DGX hardware နှင့် software stack layering ပုံ**
+
+```mermaid
+flowchart TD
+    APP["AI Workloads — Training / Inference / Analytics"] --> FW["AI Framework Support / Libraries"]
+    FW --> DRV["NVIDIA Drivers / System Management Tools"]
+    DRV --> HW["Hardware — 8x A100 GPUs, NVSwitch, NVMe SSD, Memory, Networking, Cooling"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough):**
+- အပေါ်ဆုံးက AI workloads (training၊ inference၊ analytics) ကစပြီး အောက်ကို တစ်ဆင့်ချင်း ကြည့်ပါ။
+- အလယ်အဆင့်နှစ်ခုက software stack ဖြစ်ပြီး libraries/framework support နဲ့ drivers/management tools တွေ ပါဝင်ပါတယ်။
+- အောက်ဆုံးက hardware layer မှာ 8x A100 GPUs၊ NVSwitch၊ NVMe SSD၊ memory၊ networking နဲ့ cooling တွေ ရှိပါတယ် — software stack မပါဘဲ hardware တစ်ခုတည်းနဲ့ AI workload ကောင်းကောင်း run လို့ မရပါဘူး။
 
 ## 11. Operational Cautions — သတိပြုရန်အချက်များ
 
@@ -306,6 +371,20 @@ Considerations:
 
 NVIDIA Cloud Partners can also provide cloud services built on NVIDIA accelerated computing infrastructure. With this approach you get computing capacity and support from the partner's offering without buying and installing hardware yourself. However, not all partners have identical hardware, SLAs, pricing, or software stacks.
 
+**Figure 1 — Three ways to deploy the DGX platform**
+
+```mermaid
+flowchart TD
+    D["DGX platform deployment"] --> OP["On-premises — own data center / server room"]
+    D --> CL["Public cloud / DGX Cloud — AWS, Azure, Google Cloud, OCI"]
+    D --> PT["Partner-provided cloud infrastructure"]
+```
+
+**Figure walkthrough (ပုံရှင်းလင်းချက်):**
+- Start at the top with the DGX platform and pick one of the three options below.
+- On-premises means installing and operating the hardware in your own data center; public cloud / DGX Cloud means obtaining capacity through cloud providers.
+- The third option is partner-provided cloud infrastructure from NVIDIA Cloud Partners — no hardware purchase needed.
+
 ## 3. DGX Family Deployment Options
 
 | Platform | Main Purpose | Typical Use Case |
@@ -339,6 +418,23 @@ The system used in this example is the **NVIDIA DGX A100**. It is designed for A
         High-speed GPU
         interconnect
 ```
+
+**Figure 2 — Internal architecture of the DGX A100 system**
+
+```mermaid
+flowchart TD
+    D["NVIDIA DGX A100"] --> G["8x A100 GPUs"]
+    D --> N["NVSwitch — high-speed GPU interconnect"]
+    D --> S["NVMe SSD storage (source example: 15 TB)"]
+    D --> M["System memory / networking / cooling"]
+    D --> SW["NVIDIA software stack"]
+    G --> N
+```
+
+**Figure walkthrough (ပုံရှင်းလင်းချက်):**
+- The top box is the whole DGX A100 system.
+- The 8x A100 GPUs box on the lower left is linked by an arrow to NVSwitch in the middle — that is the high-speed interconnect between the GPUs.
+- On the right: NVMe SSD storage (15 TB as the source example), system memory/networking/cooling, and the NVIDIA software stack.
 
 ## 5. Eight NVIDIA A100 GPUs
 
@@ -401,6 +497,26 @@ GPU ───────── GPU            GPU ─┐
 
 **Exam point:** When studying DGX, pay attention to the GPU interconnect, not only the GPU count.
 
+**Figure 3 — GPU-to-GPU communication through NVSwitch**
+
+```mermaid
+flowchart TD
+    G0["GPU 0"] --> NV["NVSwitch — high-speed interconnect"]
+    G1["GPU 1"] --> NV
+    G2["GPU 2"] --> NV
+    G3["GPU 3"] --> NV
+    G4["GPU 4"] --> NV
+    G5["GPU 5"] --> NV
+    G6["GPU 6"] --> NV
+    G7["GPU 7"] --> NV
+    NV --> C["GPU-to-GPU communication"]
+```
+
+**Figure walkthrough (ပုံရှင်းလင်းချက်):**
+- All eight GPUs on the left (GPU 0 to GPU 7) connect with arrows to the central NVSwitch box.
+- Many GPUs must exchange data and computation information, so the speed of this interconnect matters.
+- The bottom box is the result: fast GPU-to-GPU communication lets a parallel AI workload run efficiently across all 8 GPUs.
+
 ## 8. NVMe SSD Storage
 
 The DGX A100 system also includes NVMe SSD storage. The source example states **15 TB of NVMe SSD**. NVMe SSD provides high-performance local storage.
@@ -447,6 +563,20 @@ Understand the DGX platform as a combination of hardware and software:
 
 Without the software stack, the hardware alone cannot run AI workloads efficiently.
 
+**Figure 4 — DGX hardware and software stack layering**
+
+```mermaid
+flowchart TD
+    APP["AI workloads — training / inference / analytics"] --> FW["AI framework support / libraries"]
+    FW --> DRV["NVIDIA drivers / system management tools"]
+    DRV --> HW["Hardware — 8x A100 GPUs, NVSwitch, NVMe SSD, memory, networking, cooling"]
+```
+
+**Figure walkthrough (ပုံရှင်းလင်းချက်):**
+- Start at the top with the AI workloads (training, inference, analytics) and move down one step at a time.
+- The two middle levels are the software stack: libraries/framework support, then drivers and management tools.
+- The bottom hardware layer holds the 8x A100 GPUs, NVSwitch, NVMe SSD, memory, networking, and cooling — without the software stack the hardware alone cannot run AI workloads efficiently.
+
 ## 11. Operational Cautions
 
 - **Do not mix GPU generations** — The transcript claim "DGX A100 which has Hopper GPUs" is incorrect. DGX A100 = Ampere; DGX H100 = Hopper.
@@ -490,3 +620,4 @@ Answer: BasePOD is a validated multi-node prescriptive architecture for enterpri
 - The DGX Cloud partner list (AWS, Azure, Google Cloud, OCI) reflects the source lesson; availability, contracts, and pricing change over time and must be checked per provider (needs verification when planning a real deployment).
 - BasePOD ("prescriptive infrastructure architecture") and SuperPOD ("scalable combined compute/networking/storage/management") descriptions are kept at the source's level of detail; specific POD reference-architecture details must come from NVIDIA documentation.
 - The source transcript for this module ends mid-section after the cooling section; the hardware/software stack summary is assembled from the DGX component list supplied in the companion DGX Systems lesson (drivers, libraries, AI framework support, system-management tools). No new specs were introduced.
+- Mermaid figures (Figure 1–4) with figure walkthroughs added inline in both the Myanmar and English sections; figure numbering matches across the two sections; all existing text and ASCII diagrams preserved.

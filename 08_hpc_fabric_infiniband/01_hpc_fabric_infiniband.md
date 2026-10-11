@@ -14,6 +14,22 @@ Servers ဒါမှမဟုတ် compute nodes အများကြီးက
 
 HPC fabric ဆိုတာ compute nodes တွေ၊ storage systems တွေနဲ့ တခြား infrastructure တွေကို low latency နဲ့ high bandwidth ဖြင့် ဆက်သွယ်ခွင့်ပေးတဲ့ high-performance interconnection system ဖြစ်ပါတယ်။
 
+**Figure 1 — HPC Fabric က ဘာတွေကို ချိတ်ဆက်ပေးသလဲ**
+
+```mermaid
+flowchart TD
+    CN["Compute Nodes / GPU Servers"] --- FAB["HPC Fabric"]
+    ST["Storage Systems"] --- FAB
+    OT["Other Infrastructure"] --- FAB
+    FAB --- R["Low Latency + High Bandwidth"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. အလယ်က HPC Fabric ဆိုတဲ့ high-performance interconnection system ကို မြင်ရပါမယ်။
+2. ဘယ်ဘက်အပေါ်က Compute Nodes / GPU Servers တွေ ဒီ fabric နဲ့ ချိတ်ဆက်ထားပါတယ်။
+3. ဘယ်ဘက်အောက်က Storage Systems နဲ့ တခြား Infrastructure တွေလည်း ဒီ fabric ထဲ ပါဝင်ပါတယ်။
+4. ညာဘက် node က fabric ရဲ့ အဓိကဂုဏ်သတ္တိ—Low Latency နဲ့ High Bandwidth ကို ပြထားပါတယ်။
+
 Fabric မှာ ပါဝင်နိုင်တာတွေက—
 
 - Servers တွေထဲ တပ်ဆင်ထားတဲ့ network adapters များ။
@@ -78,6 +94,29 @@ Adapters နဲ့ switches တွေကြား physical links တွေ ပ�
 
 Management software က fabric ကို initialize နဲ့ configure လုပ်ပေးပြီး ချိတ်ဆက်ထားတဲ့ devices တွေကို ရှာဖွေရာမှာ ကူညီပြီး routing နဲ့ management functions တွေ ပေးပါတယ်။
 
+**Figure 2 — InfiniBand Fabric ရဲ့ အဓိက Components များ**
+
+```mermaid
+flowchart TD
+    FAB["InfiniBand Fabric"]
+    HCA["HCA — Host Channel Adapter"]
+    SW["InfiniBand Switches"]
+    CT["Cables / Transceivers"]
+    DPU["DPU / Network Devices"]
+    MSW["Fabric Management Software"]
+    FAB --- HCA
+    FAB --- SW
+    FAB --- CT
+    FAB --- DPU
+    FAB --- MSW
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. အလယ်က InfiniBand Fabric ကို ဝန်းရံထားတဲ့ component ငါးခုကို မြင်ရပါမယ်။
+2. HCA — Host Channel Adapter က server ကို fabric နဲ့ ချိတ်ဆက်ပေးတဲ့ adapter ဖြစ်ပါတယ်။
+3. InfiniBand Switches နဲ့ Cables / Transceivers တွေက data သွားလာဖို့ လမ်းကြောင်းနဲ့ physical links တွေ ပေးပါတယ်။
+4. DPU / Network Devices နဲ့ Fabric Management Software တွေက offload နဲ့ fabric စီမံခန့်ခွဲမှုအတွက် ဖြစ်ပါတယ် (DPU က server တိုင်းမှာ မလိုအပ်ပါဘူး)။
+
 ## 5. OpenSM ဆိုတာ ဘာလဲ
 
 မူရင်း transcript မှာ "Opensim" လို့ ဖော်ပြထားပါတယ်။ ရည်ညွှန်းချင်တဲ့ ဝေါဟာရကတော့ OpenSM (Open Subnet Manager) ဖြစ်နိုင်ပါတယ်။
@@ -123,6 +162,27 @@ GPU servers နှစ်ခုပါတဲ့ ရိုးရှင်းတဲ�
 4. Network က data ကို ပါဝင်ဆောင်ရွက်တဲ့ endpoints တွေကြား သယ်ဆောင်ပေးပါတယ်။
 5. လက်ခံတဲ့ server က incoming data ကို လုပ်ဆောင်ပါတယ်။
 
+**Figure 3 — Components တွေ အတူတကွ အလုပ်လုပ်ပုံ (Communication Process)**
+
+```mermaid
+sequenceDiagram
+    participant A as "GPU Server A"
+    participant SM as "Subnet Manager (OpenSM)"
+    participant IB as "InfiniBand Fabric"
+    participant B as "GPU Server B"
+    A->>IB: HCA က InfiniBand network နဲ့ ချိတ်ဆက်သည်
+    SM->>IB: Fabric ကို initialize နှင့် configure လုပ်သည်
+    A->>IB: Application က data exchange စတင်သည်
+    IB->>B: Network က data ကို သယ်ဆောင်ပေးသည်
+    B->>B: လက်ခံသော server က incoming data ကို လုပ်ဆောင်သည်
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. ဘယ်ဘက်က GPU Server A နဲ့ ညာဘက်က GPU Server B ကြား ဖြစ်ပွားတဲ့ အဆင့်ငါးဆင့်ကို အပေါ်ကနေ အောက်ကို ဖတ်ပါ။
+2. ပထမဆုံး HCA က InfiniBand network နဲ့ ချိတ်ဆက်ပါတယ်။
+3. ဒုတိယ Subnet Manager (OpenSM) က fabric ကို initialize နဲ့ configure လုပ်ပါတယ်။
+4. တတိယနဲ့ စတုတ္ထအဆင့်မှာ application က data exchange စတင်ပြီး network က data ကို endpoints ကြား သယ်ဆောင်ပါတယ်။ နောက်ဆုံးမှာ GPU Server B က incoming data ကို လုပ်ဆောင်ပါတယ်။
+
 တကယ့် clusters တွေမှာ switches အများကြီး၊ network paths အမျိုးမျိုး၊ storage endpoints တွေနဲ့ ထပ်မံ management systems တွေ ရှိနိုင်ပါတယ်။
 
 ## 7. RDMA ဆိုတာ ဘာလဲ
@@ -133,6 +193,24 @@ RDMA (Remote Direct Memory Access) က support လုပ်တဲ့ network ada
 
 - Traditional data path: application memory → operating-system networking path နဲ့ buffers → network → receiving buffers → application။
 - RDMA-capable data path: support လုပ်တဲ့ adapter နဲ့ RDMA mechanisms တွေက registered memory regions ကြား CPU overhead လျှော့ချပြီး data ကို လွှဲပြောင်းပေးပါတယ်။
+
+**Figure 4 — Traditional Data Path vs RDMA-capable Data Path**
+
+```mermaid
+flowchart TD
+    T1["Traditional: App memory"] --> T2["OS networking path + buffers"]
+    T2 --> T3["Network"]
+    T3 --> T4["Receiving buffers → App"]
+    R1["RDMA: Registered memory"] --> R2["RDMA-capable adapter"]
+    R2 --> R3["Network"]
+    R3 --> R4["Registered memory — CPU overhead လျော့သည်"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure walkthrough)**
+1. အပေါ်တစ်ဝက်က traditional data path ဖြစ်ပြီး App memory → OS networking path + buffers → Network → receiving buffers → App ဆိုပြီး ဆင်းသွားပါတယ်။
+2. ဒီလမ်းကြောင်းမှာ intermediate copies တွေ ပါဝင်နိုင်ပါတယ်။
+3. အောက်တစ်ဝက်က RDMA-capable data path ဖြစ်ပြီး registered memory regions ကြား RDMA-capable adapter က တိုက်ရိုက် လွှဲပြောင်းပေးပါတယ်။
+4. RDMA ဆိုတာ CPU တစ်ခါမှ မပါဝင်ဘူးလို့ မဆိုလိုပါဘူး—data-transfer operations အချို့ကို networking hardware ဆီ offload လုပ်တာ ဖြစ်ပါတယ်။
 
 တိကျတဲ့ data path က hardware၊ drivers၊ application နဲ့ configuration ပေါ် မူတည်ပါတယ်။ RDMA ဆိုတာ CPU တစ်ခါမှ မပါဝင်ဘူးလို့ မဆိုလိုပါဘူး—data-transfer operations အချို့ကို networking hardware ဆီ offload လုပ်နိုင်တယ်လို့ ဆိုလိုတာ ဖြစ်ပါတယ်။
 
@@ -228,6 +306,22 @@ When multiple servers or compute nodes work on one task, they must exchange data
 
 An HPC fabric is the high-performance interconnection system that allows compute nodes, storage systems, and other infrastructure to communicate with low latency and high bandwidth.
 
+**Figure 1 — What an HPC Fabric Connects**
+
+```mermaid
+flowchart TD
+    CN["Compute Nodes / GPU Servers"] --- FAB["HPC Fabric"]
+    ST["Storage Systems"] --- FAB
+    OT["Other Infrastructure"] --- FAB
+    FAB --- R["Low Latency + High Bandwidth"]
+```
+
+**Figure walkthrough**
+1. In the middle is the HPC Fabric, the high-performance interconnection system.
+2. At the top left, Compute Nodes / GPU Servers connect to this fabric.
+3. At the bottom left, Storage Systems and other Infrastructure are also part of the fabric.
+4. The right node shows the fabric's key qualities: Low Latency and High Bandwidth.
+
 The fabric can include:
 
 - Network adapters installed in servers.
@@ -292,6 +386,29 @@ Some systems also use DPUs or other programmable networking devices to offload s
 
 Management software initializes and configures the fabric, helps discover connected devices, and provides routing and management functions.
 
+**Figure 2 — Main Components of an InfiniBand Fabric**
+
+```mermaid
+flowchart TD
+    FAB["InfiniBand Fabric"]
+    HCA["HCA — Host Channel Adapter"]
+    SW["InfiniBand Switches"]
+    CT["Cables / Transceivers"]
+    DPU["DPU / Network Devices"]
+    MSW["Fabric Management Software"]
+    FAB --- HCA
+    FAB --- SW
+    FAB --- CT
+    FAB --- DPU
+    FAB --- MSW
+```
+
+**Figure walkthrough**
+1. In the middle is the InfiniBand Fabric, surrounded by five components.
+2. The HCA — Host Channel Adapter is the adapter that connects a server to the fabric.
+3. InfiniBand Switches and Cables / Transceivers provide the data paths and physical links.
+4. DPU / Network Devices and Fabric Management Software handle offload and fabric management (a DPU is not required in every server).
+
 ## 5. What Is OpenSM?
 
 The source transcript mentions "Opensim." The likely intended term is OpenSM, short for Open Subnet Manager.
@@ -337,6 +454,27 @@ The basic communication process is:
 4. The network transports the data between the participating endpoints.
 5. The receiving server processes the incoming data.
 
+**Figure 3 — How the Components Work Together (Communication Process)**
+
+```mermaid
+sequenceDiagram
+    participant A as "GPU Server A"
+    participant SM as "Subnet Manager (OpenSM)"
+    participant IB as "InfiniBand Fabric"
+    participant B as "GPU Server B"
+    A->>IB: HCA connects to the InfiniBand network
+    SM->>IB: Initialize and configure the fabric
+    A->>IB: Application starts data exchange
+    IB->>B: Network transports the data
+    B->>B: Receiving server processes the incoming data
+```
+
+**Figure walkthrough**
+1. Read the five steps from top to bottom, between GPU Server A on the left and GPU Server B on the right.
+2. First, the HCA connects to the InfiniBand network.
+3. Second, the Subnet Manager (OpenSM) initializes and configures the fabric.
+4. Third and fourth, the application starts the data exchange and the network transports the data between endpoints. Finally, GPU Server B processes the incoming data.
+
 In real clusters, there may be many switches, multiple network paths, storage endpoints, and additional management systems.
 
 ## 7. What Is RDMA?
@@ -347,6 +485,24 @@ A simplified comparison:
 
 - Traditional data path: application memory → operating-system networking path and buffers → network → receiving buffers → application.
 - RDMA-capable data path: supported adapter and RDMA mechanisms transfer data between registered memory regions with reduced CPU overhead.
+
+**Figure 4 — Traditional Data Path vs RDMA-capable Data Path**
+
+```mermaid
+flowchart TD
+    T1["Traditional: App memory"] --> T2["OS networking path + buffers"]
+    T2 --> T3["Network"]
+    T3 --> T4["Receiving buffers → App"]
+    R1["RDMA: Registered memory"] --> R2["RDMA-capable adapter"]
+    R2 --> R3["Network"]
+    R3 --> R4["Registered memory — reduced CPU overhead"]
+```
+
+**Figure walkthrough**
+1. The top half is the traditional data path: App memory → OS networking path + buffers → Network → receiving buffers → App.
+2. This path can involve intermediate copies.
+3. The bottom half is the RDMA-capable data path: an RDMA-capable adapter moves data directly between registered memory regions.
+4. RDMA does not mean the CPU is never involved — certain data-transfer operations are offloaded to the networking hardware.
 
 The exact data path depends on the hardware, drivers, application, and configuration. RDMA does not mean the CPU is never involved; it means certain data-transfer operations can be offloaded to the networking hardware.
 
@@ -437,3 +593,4 @@ When a deployment has modest communication requirements, or when cost, compatibi
 - The source transcript contains two near-identical copies of this module; they were merged and deduplicated. Wording differences were minor (e.g., "A fast GPU" vs. "A powerful GPU"); the first copy's phrasing was kept where they differed.
 - The transcript's "Opensim" is corrected to OpenSM (Open Subnet Manager) with the correction preserved inline in both versions.
 - The transcript itself corrects the Mellanox acquisition date to April 27, 2020 ("not 2022"); this matches NVIDIA's official completion announcement and is preserved as supplied.
+- Mermaid figures (Figure 1–4) with figure walkthroughs were added inline in both the Myanmar and English sections; all existing text and ASCII diagrams are unchanged.

@@ -75,6 +75,27 @@ AI-centric Data Center ကို ပြောတဲ့အခါ CPU တစ်ခ
 
 Modern AI workloads တွေမှာ GPU ဟာ အလွန်အရေးကြီးတဲ့ role တစ်ခု ရှိလာပါတယ်။
 
+အောက်ပါ **Figure 1** မှာ AI data center compute ထဲက CPU နဲ့ GPU ရဲ့ အခန်းကဏ္ဍကွဲပြားပုံကို ပုံနဲ့ ကြည့်နိုင်ပါတယ်။
+
+**Figure 1: AI Data Center Compute ထဲမှာ CPU နဲ့ GPU ရဲ့ အခန်းကဏ္ဍ**
+
+```mermaid
+flowchart TD
+    A["AI Data Center Compute"] --> B["CPU — General Compute"]
+    A --> C["GPU — Parallel Compute"]
+    B --> D["Operating System, Applications"]
+    B --> E["Sequential / Branching Workloads"]
+    C --> F["Matrix / Tensor Parallel Operations"]
+    C --> G["AI, Graphics, HPC Workloads"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 1)**
+
+- အပေါ်ဆုံး node က AI data center ရဲ့ compute အားလုံးကို ကိုယ်စားပြုပါတယ်။
+- ဘယ်ဘက်ခွဲက CPU ကို general compute အဖြစ်လည်းကောင်း၊ ညာဘက်ခွဲက GPU ကို parallel compute အဖြစ်လည်းကောင်း ပြပါတယ်။
+- CPU အောက်က node တွေက operating system, applications နဲ့ sequential / branching workload တွေကို ဆိုလိုပါတယ်။
+- GPU အောက်က node တွေက matrix / tensor parallel operation တွေနဲ့ AI, graphics, HPC workload တွေကို ဆိုလိုပါတယ်။
+
 ### 4. GPU ကို ဘာကြောင့် တီထွင်ခဲ့တာလဲ?
 
 GPU ရဲ့ အစောပိုင်းရည်ရွယ်ချက်က AI မဟုတ်ပါဘူး။
@@ -133,6 +154,26 @@ GPU / Graphics Accelerator
 ```
 
 ဒီကနေ specialized parallel processing ရဲ့ အရေးပါမှုကို မြင်နိုင်ပါတယ်။
+
+အောက်ပါ **Figure 2** မှာ 3D accelerator မတိုင်ခင်နဲ့ ပါဝင်လာချိန် အလုပ်ခွဲဝေပုံကို နှိုင်းယှဉ် ကြည့်နိုင်ပါတယ်။
+
+**Figure 2: 3D Accelerator မတိုင်ခင်နှင့် ပါဝင်လာချိန် အလုပ်ခွဲဝေပုံ**
+
+```mermaid
+flowchart TD
+    A["Before 3D Accelerator — CPU"] --> B["Game Logic + Graphics Processing"]
+    B --> C["Display"]
+    D["With Graphics Accelerator — CPU"] --> E["Game Logic"]
+    F["GPU / Graphics Accelerator"] --> G["3D Graphics Rendering"]
+    E --> C
+    G --> C
+```
+
+**ပုံရှင်းလင်းချက် (Figure 2)**
+
+- ဘယ်ဘက်လမ်းကြောင်းက 3D accelerator မတိုင်ခင် — CPU တစ်ခုတည်းက game logic ရော graphics processing ပါ လုပ်ရတာကို ပြပါတယ်။
+- ညာဘက်လမ်းကြောင်းက graphics accelerator ပါလာချိန် — CPU က game logic ပဲ လုပ်ပြီး accelerator က 3D rendering ကို ယူတာကို ပြပါတယ်။
+- နှစ်ခုလုံး နောက်ဆုံးမှာ display ဆီ ရောက်သွားပြီး အလုပ်ခွဲလိုက်လို့ specialized parallel processing ရဲ့ အရေးပါမှုကို မြင်ရပါတယ်။
 
 ### 6. Gaming မှတစ်ဆင့် GPU Evolution
 
@@ -210,6 +251,24 @@ GPU → Graphics
 
 ဖြစ်ပါတယ်။
 
+အောက်ပါ **Figure 3** မှာ GPGPU idea ကြောင့် GPU ရဲ့ အသုံးပြုနိုင်တဲ့ နယ်ပယ် ချဲ့လာပုံကို ကြည့်နိုင်ပါတယ်။
+
+**Figure 3: GPGPU Idea — GPU ကို Graphics အပြင် အခြား Computation များအတွက် အသုံးပြုခြင်း**
+
+```mermaid
+flowchart LR
+    A["GPU"] --> B["Graphics"]
+    A --> C["Scientific Computing"]
+    A --> D["Numerical Computing"]
+    A --> E["General Computation"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 3)**
+
+- ဘယ်ဘက်က GPU node တစ်ခုတည်းကနေ လမ်းကြောင်းလေးခု ခွဲထွက်သွားတာကို ကြည့်ပါ။
+- အပေါ်ဆုံးက graphics ကို မူလအတိုင်း ဆက်လုပ်နိုင်သေးတယ်ဆိုတာ ပြပါတယ်။
+- ကျန်သုံးကြောင်းက scientific computing, numerical computing နဲ့ general computation တွေ — GPGPU idea အသစ်ကို ကိုယ်စားပြုပါတယ်။
+
 ### 10. CUDA — အဓိက Turning Point
 
 2006 ခုနှစ်မှာ NVIDIA က—
@@ -239,6 +298,26 @@ GPU
  ├── Machine Learning
  └── AI Workloads
 ```
+
+အောက်ပါ **Figure 4** မှာ CUDA က GPU အတွက် အသုံးပြုနိုင်တဲ့ နယ်ပယ်တွေကို ဘယ်လို ချဲ့ပေးလဲဆိုတာ ကြည့်နိုင်ပါတယ်။
+
+**Figure 4: CUDA က GPU အသုံးပြုနိုင်သော နယ်ပယ်များကို ချဲ့ပေးပုံ**
+
+```mermaid
+flowchart TD
+    A["CUDA Platform"] --> B["NVIDIA GPU"]
+    B --> C["Graphics"]
+    B --> D["Scientific Computing"]
+    B --> E["Data Processing"]
+    B --> F["Machine Learning"]
+    B --> G["AI Workloads"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 4)**
+
+- အပေါ်ဆုံးက CUDA platform ကနေ NVIDIA GPU ဆီ လမ်းကြောင်းပြထားပါတယ်။
+- GPU အောက်က node ငါးခုက CUDA ကြောင့် အသုံးပြုနိုင်လာတဲ့ နယ်ပယ်တွေဖြစ်ပြီး graphics ကနေ scientific computing, data processing, machine learning နဲ့ AI workload တွေအထိ ပါပါတယ်။
+- အပေါ်က "Before CUDA / With CUDA" ASCII ပုံနဲ့ ယှဉ်ကြည့်ရင် CUDA ကြောင့် နယ်ပယ်တွေ ချဲ့လာတာကို ပိုရှင်းရှင်း မြင်ရပါမယ်။
 
 ### 11. AI အတွက် CUDA ဘာကြောင့် အရေးကြီးခဲ့သလဲ?
 
@@ -276,6 +355,24 @@ Better Image Recognition
 
 ဒါဟာ GPU တွေဟာ gaming နဲ့ graphics အတွက်ပဲ အသုံးဝင်တာမဟုတ်ဘဲ Deep Learning training အတွက်လည်း အလွန်အစွမ်းထက်တယ် ဆိုတာကို လက်တွေ့အနေနဲ့ ပြသခဲ့တဲ့ အရေးကြီးတဲ့ milestone တစ်ခုဖြစ်ပါတယ်။
 
+အောက်ပါ **Figure 5** မှာ AlexNet ရဲ့ GPU training လမ်းကြောင်းကို တစ်ဆင့်ချင်း ကြည့်နိုင်ပါတယ်။
+
+**Figure 5: AlexNet — GPU ဖြင့် Deep Learning Train လုပ်ပြီး ImageNet မှာ Breakthrough ရရှိပုံ**
+
+```mermaid
+flowchart TD
+    A["Large Image Dataset"] --> B["AlexNet Deep Neural Network"]
+    B --> C["GPU Training"]
+    C --> D["Better Image Recognition"]
+    D --> E["ImageNet Challenge 2012 Breakthrough"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 5)**
+
+- ဘယ်ကနေ ညာဘက်ကို တစ်ဆင့်ချင်း ဖတ်ပါ — large image dataset, AlexNet, GPU training, better image recognition။
+- အဓိကအဆင့်က GPU training — GPU တွေပေါ်မှာ deep neural network ကို train လုပ်ခဲ့ခြင်း ဖြစ်ပါတယ်။
+- နောက်ဆုံး node က 2012 ImageNet challenge မှာ ရရှိခဲ့တဲ့ breakthrough ကို ကိုယ်စားပြုပါတယ်။
+
 ### 13. GPU Evolution — အနှစ်ချုပ် (Big Picture)
 
 GPU ရဲ့ evolution ကို ဒီလိုမှတ်နိုင်ပါတယ်—
@@ -309,6 +406,28 @@ Modern AI
 ```
 
 ဒါဟာ AI-centric Data Center တွေမှာ GPU ဘာကြောင့် အရေးကြီးလာသလဲဆိုတာကို နားလည်ဖို့ အလွန်အရေးကြီးတဲ့ history ဖြစ်ပါတယ်။
+
+အောက်ပါ **Figure 6** မှာ GPU evolution တစ်ခုလုံးကို အပေါ်ကနေ အောက်ကို ကြည့်နိုင်ပါတယ်။
+
+**Figure 6: GPU Evolution — Graphics မှ Modern AI အထိ**
+
+```mermaid
+flowchart TD
+    A["Graphics Rendering"] --> B["3D Gaming"]
+    B --> C["Graphics Accelerators"]
+    C --> D["GPU"]
+    D --> E["GPGPU"]
+    E --> F["CUDA"]
+    F --> G["Machine Learning"]
+    G --> H["Deep Learning with AlexNet"]
+    H --> I["Modern AI"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 6)**
+
+- အပေါ်ကနေ အောက်ကို တစ်ဆင့်ချင်း ဖတ်ပါ — graphics rendering ကနေ modern AI အထိ။
+- အလယ်က GPU → GPGPU → CUDA အဆင့်တွေက graphics hardware က general-purpose computing ဘက် ရောက်လာတာကို ပြပါတယ်။
+- အောက်ဆုံးက machine learning, deep learning (AlexNet) ကတစ်ဆင့် modern AI အထိ ဆက်သွယ်သွားတာကို မှတ်ပါ။
 
 ### 14. CPU vs GPU — အခြေခံသဘောတရား
 
@@ -488,6 +607,27 @@ When discussing an AI-centric data center, the CPU alone is not enough. Another 
 
 In modern AI workloads, the GPU plays an extremely important role.
 
+See **Figure 1** below for a picture of how the CPU and the GPU divide the compute roles in an AI data center.
+
+**Figure 1: Roles of the CPU and GPU in AI Data Center Compute**
+
+```mermaid
+flowchart TD
+    A["AI Data Center Compute"] --> B["CPU — General Compute"]
+    A --> C["GPU — Parallel Compute"]
+    B --> D["Operating System, Applications"]
+    B --> E["Sequential / Branching Workloads"]
+    C --> F["Matrix / Tensor Parallel Operations"]
+    C --> G["AI, Graphics, HPC Workloads"]
+```
+
+**Figure walkthrough (Figure 1)**
+
+- The top node represents all the compute of an AI data center.
+- The left branch shows the CPU as general compute; the right branch shows the GPU as parallel compute.
+- The nodes under the CPU mean operating systems, applications, and sequential / branching workloads.
+- The nodes under the GPU mean matrix / tensor parallel operations and AI, graphics, and HPC workloads.
+
 ### 4. Why Was the GPU Invented?
 
 The early purpose of the GPU was not AI. Early GPU technology development was for:
@@ -536,6 +676,26 @@ GPU / Graphics Accelerator
 ```
 
 From this, we can see the importance of specialized parallel processing.
+
+**Figure 2** compares the work split before and after a graphics accelerator is added.
+
+**Figure 2: Work Split Before and With a 3D Accelerator**
+
+```mermaid
+flowchart TD
+    A["Before 3D Accelerator — CPU"] --> B["Game Logic + Graphics Processing"]
+    B --> C["Display"]
+    D["With Graphics Accelerator — CPU"] --> E["Game Logic"]
+    F["GPU / Graphics Accelerator"] --> G["3D Graphics Rendering"]
+    E --> C
+    G --> C
+```
+
+**Figure walkthrough (Figure 2)**
+
+- The left path shows the case before 3D accelerators: one CPU does both game logic and graphics processing.
+- The right path shows the case with a graphics accelerator: the CPU does only game logic while the accelerator takes over 3D rendering.
+- Both paths end at the display, showing how splitting the work is the key idea behind specialized parallel processing.
 
 ### 6. GPU Evolution Through Gaming
 
@@ -596,6 +756,24 @@ GPU → Graphics
 
 This was an important conceptual step toward modern GPU computing.
 
+**Figure 3** shows how the GPGPU idea widened the use of the GPU.
+
+**Figure 3: The GPGPU Idea — Using the GPU Beyond Graphics**
+
+```mermaid
+flowchart LR
+    A["GPU"] --> B["Graphics"]
+    A --> C["Scientific Computing"]
+    A --> D["Numerical Computing"]
+    A --> E["General Computation"]
+```
+
+**Figure walkthrough (Figure 3)**
+
+- Look at the single GPU node on the left splitting into four paths.
+- The top path shows that graphics work still continues as before.
+- The other three paths — scientific computing, numerical computing, and general computation — are the new GPGPU idea.
+
 ### 10. CUDA — A Major Turning Point
 
 In 2006, NVIDIA introduced:
@@ -622,6 +800,26 @@ GPU
  ├── Machine Learning
  └── AI Workloads
 ```
+
+**Figure 4** shows how CUDA widened the range of work a GPU can do.
+
+**Figure 4: How CUDA Expands the Uses of the GPU**
+
+```mermaid
+flowchart TD
+    A["CUDA Platform"] --> B["NVIDIA GPU"]
+    B --> C["Graphics"]
+    B --> D["Scientific Computing"]
+    B --> E["Data Processing"]
+    B --> F["Machine Learning"]
+    B --> G["AI Workloads"]
+```
+
+**Figure walkthrough (Figure 4)**
+
+- The top shows the path from the CUDA platform to the NVIDIA GPU.
+- The five nodes under the GPU are the areas that opened up with CUDA: graphics, scientific computing, data processing, machine learning, and AI workloads.
+- Compare this with the "Before CUDA / With CUDA" ASCII diagram above to see how the range of use expanded.
 
 ### 11. Why Was CUDA Important for AI?
 
@@ -658,6 +856,24 @@ Better Image Recognition
 
 This demonstrated in practice that GPUs could be extremely effective for Deep Learning workloads. It helped accelerate the adoption of GPUs as important computing platforms for Machine Learning and Deep Learning.
 
+**Figure 5** shows the GPU training path of AlexNet step by step.
+
+**Figure 5: AlexNet — GPU Training and the ImageNet Breakthrough**
+
+```mermaid
+flowchart TD
+    A["Large Image Dataset"] --> B["AlexNet Deep Neural Network"]
+    B --> C["GPU Training"]
+    C --> D["Better Image Recognition"]
+    D --> E["ImageNet Challenge 2012 Breakthrough"]
+```
+
+**Figure walkthrough (Figure 5)**
+
+- Read from left to right, one step at a time: large image dataset, AlexNet, GPU training, better image recognition.
+- The central step is GPU training — the deep neural network was trained on GPUs.
+- The last node represents the breakthrough achieved in the 2012 ImageNet challenge.
+
 ### 13. GPU Evolution — Big Picture
 
 The overall evolution can be remembered as:
@@ -691,6 +907,28 @@ Modern AI
 ```
 
 This evolution helps explain why GPUs have become fundamental components of modern AI-centric data centers.
+
+**Figure 6** shows the whole GPU evolution from top to bottom.
+
+**Figure 6: GPU Evolution — From Graphics to Modern AI**
+
+```mermaid
+flowchart TD
+    A["Graphics Rendering"] --> B["3D Gaming"]
+    B --> C["Graphics Accelerators"]
+    C --> D["GPU"]
+    D --> E["GPGPU"]
+    E --> F["CUDA"]
+    F --> G["Machine Learning"]
+    G --> H["Deep Learning with AlexNet"]
+    H --> I["Modern AI"]
+```
+
+**Figure walkthrough (Figure 6)**
+
+- Read from top to bottom, one step at a time — from graphics rendering to modern AI.
+- The middle steps (GPU → GPGPU → CUDA) show graphics hardware moving into general-purpose computing.
+- Remember the final stretch: machine learning, deep learning with AlexNet, and then modern AI.
 
 ### 14. CPU vs GPU — Basic Concept
 
@@ -816,3 +1054,4 @@ Gaming → Graphics → GPU → GPGPU → CUDA → Machine Learning → AlexNet 
 - Needs verification: game titles and the 3dfx Voodoo reference (Quake, Unreal Tournament, Quake III Arena, Doom) are retained exactly as listed in the source; exact release-era details were not independently verified.
 - Needs verification: dates retained from the source (GeForce 256 — 1999, CUDA — 2006, AlexNet / ImageNet — 2012) are consistent with widely documented industry history but were not re-verified against primary NVIDIA or academic documentation in this pass.
 - The phrase "the world's first GPU" is kept as NVIDIA's marketing wording for the GeForce 256 (a quoted vendor claim), not as an independently established fact.
+- Figures added in this pass: Mermaid figures (Figure 1–6) with captions and figure walkthroughs (ပုံရှင်းလင်းချက်) were inserted inline in both language sections with matching numbering; no existing text or ASCII diagrams were changed.
