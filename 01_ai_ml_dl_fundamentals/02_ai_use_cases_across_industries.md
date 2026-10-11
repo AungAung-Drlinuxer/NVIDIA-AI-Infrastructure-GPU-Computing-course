@@ -41,6 +41,20 @@ Make a decision
 Brake / Slow down / Continue
 ```
 
+**Figure 1 — Autonomous vehicle တစ်စီးရဲ့ real-time decision making အဆင့်များ**
+
+```mermaid
+flowchart TD
+    A["ကင်မရာနှင့် Sensors"] --> B["AI Model - Real-time Processing"]
+    B --> C["Object Detection နှင့် Classification"]
+    C --> D["လူ (Pedestrian) တွေ့ရှိ"]
+    D --> E["Distance နှင့် Speed တွက်ချက်"]
+    E --> F["ဆုံးဖြတ်ချက်ချ"]
+    F --> G["Brake / Slow down / Continue"]
+```
+
+**ပုံရှင်းလင်းချက် —** အပေါ်ဆုံးက ကင်မရာနှင့် Sensors ကနေ ရရှိတဲ့ data ကို AI Model က real-time processing လုပ်ပုံကို အရင်ကြည့်ပါ။ ဒုတိယအဆင့်မှာ Object Detection နှင့် Classification က လူ၊ ကား၊ traffic light စတာတွေကို ခွဲခြားပါတယ်။ တတိယအဆင့်မှာ လူတစ်ယောက် တွေ့ရှိကြောင်း သိရပြီး၊ နောက်ဆက်တွဲအဆင့်နှစ်ခုမှာ Distance နှင့် Speed ကို တွက်ချက်ပြီး ဆုံးဖြတ်ချက်ချပါတယ်။ အောက်ဆုံးက Brake / Slow down / Continue ဆိုတဲ့ ရလဒ်သုံးခုထဲက တစ်ခုကို ရွေးတာကို တွေ့ရပါမယ်။
+
 ဒီလို AI-based decision making ဖြစ်ပါတယ်။
 
 နောက်ထပ် simulation ကို vehicle design နဲ့ testing အတွက်လည်း အသုံးပြုနိုင်ပါတယ်။ ကားထုတ်လုပ်သူတွေက တကယ့်လမ်းပေါ်မှာ မစမ်းသပ်ခင် driving conditions အမျိုးမျိုးကို simulation နဲ့ စမ်းသပ်နိုင်ပါတယ်။
@@ -60,6 +74,19 @@ Normal medical image နဲ့မတူတဲ့ abnormal area တစ်ခု�
 
 AI pipeline တွေကို automated လုပ်ထားနိုင်တဲ့အတွက် result တွေကို low latency နဲ့ ရရှိနိုင်ပါတယ်။
 ဒါကို clinical inference လို့လည်း ပြောနိုင်ပါတယ်။
+
+**Figure 2 — Medical image analysis pipeline တစ်ခု လုပ်ဆောင်ပုံ**
+
+```mermaid
+flowchart TD
+    A["X-ray / CT / MRI Images"] --> B["AI Model"]
+    B --> C["Automated Medical Image Analysis"]
+    C --> D["Abnormal Pattern Detection"]
+    D --> E["Clinical Inference"]
+    E --> F["Results with Low Latency"]
+```
+
+**ပုံရှင်းလင်းချက် —** ဘယ်ဘက်အစွန်းက X-ray, CT scan, MRI စတဲ့ medical images တွေကို အရင်ကြည့်ပါ။ အဲဒီ images တွေကို AI Model က လက်ခံပြီး Automated Medical Image Analysis လုပ်ပါတယ်။ နောက်တစ်ဆင့်မှာ ပုံမှန်နဲ့ မတူတဲ့ Abnormal Pattern တွေကို detect လုပ်ပါတယ်။ ပြီးရင် Clinical Inference အဆင့်က ရလဒ်ကို တွက်ချက်ပေးပြီး အောက်ဆုံးမှာ Low Latency နဲ့ ရလဒ်တွေ ရရှိနိုင်တာကို တွေ့ရပါမယ်။
 
 > **Exam မှတ်ရန်:** Healthcare → Medical Imaging + Anomaly Detection + Genomics + Clinical Inference
 
@@ -93,6 +120,20 @@ Threat Analysis
 Alert / Action
 ```
 
+**Figure 3 — Real-time video analytics pipeline နှင့် multi-camera processing**
+
+```mermaid
+flowchart TD
+    A["Cameras"] --> B["Real-time Video Streams"]
+    G["Multi-camera Streams"] --> C
+    B --> C["AI Vision Model"]
+    C --> D["Object / Person / Vehicle Detection"]
+    D --> E["Threat Analysis"]
+    E --> F["Alert / Action"]
+```
+
+**ပုံရှင်းလင်းချက် —** ဘယ်ဘက်က Cameras တွေကနေ Real-time Video Streams တွေ ဝင်လာပုံကို အရင်ကြည့်ပါ။ ဘယ်ဘက်အောက်က Multi-camera Streams ဆိုတဲ့ node ကလည်း ကင်မရာ ၁၀၀ လို အများကြီးက လာတဲ့ video streams တွေ တစ်ပြိုင်နက် ဝင်နိုင်တာကို ပြပါတယ်။ ဒီ streams အားလုံးကို အလယ်က AI Vision Model က process လုပ်ပါတယ်။ ပြီးရင် Object / Person / Vehicle Detection က အရာဝတ္ထုတွေကို ရှာဖွေပြီး Threat Analysis က ခြိမ်းခြောက်မှု ရှိ/မရှိ စစ်ဆေး၊ အဆုံးမှာ Alert / Action ကို ထုတ်ပေးပါတယ်။
+
 ပြီးတော့ camera တစ်လုံးတည်းမဟုတ်ဘဲ multi-camera stream processing လည်း လုပ်နိုင်ပါတယ်။
 ဥပမာ shopping mall တစ်ခုမှာ camera 100 လုံးရှိရင် camera အားလုံးက video streams တွေကို AI system က တစ်ပြိုင်နက် process လုပ်နိုင်ပါတယ်။
 
@@ -123,6 +164,19 @@ Risk Score
      ↓
 Low Risk / High Risk
 ```
+
+**Figure 4 — Transaction scoring နှင့် fraud detection အဆင့်များ**
+
+```mermaid
+flowchart TD
+    A["Customer Transactions"] --> B["AI Model - Transaction Scoring"]
+    F["Unusual Transaction Pattern"] --> B
+    B --> C["Risk Score"]
+    C --> D["Low Risk - Continue"]
+    C --> E["High Risk - Suspicious"]
+```
+
+**ပုံရှင်းလင်းချက် —** ဘယ်ဘက်က Customer Transactions တွေ အမြဲဝင်နေပုံကို ကြည့်ပါ။ ဘယ်ဘက်အောက်က Unusual Transaction Pattern ဆိုတဲ့ node ကတော့ ဥပမာ Singapore ကနေ Europe ကို ၅ မိနစ်အတွင်း high-value transaction လုပ်တာလို ပုံမှန်မဟုတ်တဲ့ အပြုအမူကို ဆိုလိုပါတယ်။ ဒီ input တွေ အားလုံးကို အလယ်က AI Model က transaction တစ်ခုချင်းစီအတွက် Transaction Scoring လုပ်ပြီး Risk Score ပေးပါတယ်။ နောက်ဆုံးမှာ Low Risk ဆိုရင် ဆက်လက်ဆောင်ရွက်ပြီး High Risk ဆိုရင် suspicious အဖြစ် မှတ်သားပါတယ်။ ဒီအဆင့်အားလုံးကို ultra-low latency နဲ့ လုပ်နိုင်မှသာ transaction ဖြစ်နေစဉ်မှာတင် detect လုပ်နိုင်မှာ ဖြစ်ပါတယ်။
 
 ဒါတွေအားလုံးကို ultra-low latency နဲ့လုပ်နိုင်ရင် transaction ဖြစ်ပြီးနောက်မှမဟုတ်ဘဲ transaction ဖြစ်နေတဲ့အချိန်မှာပဲ suspicious activity ကို detect လုပ်နိုင်ပါတယ်။
 
@@ -224,6 +278,20 @@ AI ဟာ industry တစ်ခုတည်းမှာပဲ အသုံးပ
 
 အဓိကမှတ်ရမှာက ရှင်းလင်းချက်တစ်ခုလုံးကို မှတ်စရာမလိုဘဲ **Industry → AI Use Case** ဆိုတဲ့ အတွဲလိုက်ကို မှတ်ထားရုံပါပဲ။
 
+**Figure 5 — Industry အမျိုးအစားစုံမှာ AI အသုံးပြုပုံ စုစည်းမြင်ကွင်း**
+
+```mermaid
+flowchart LR
+    A["AI"] --> B["Automotive - Object Detection"]
+    A --> C["Healthcare - Medical Imaging"]
+    A --> D["Video Analytics - Threat Detection"]
+    A --> E["Finance - Fraud Detection"]
+    A --> F["Retail - Demand Forecasting"]
+    A --> G["Manufacturing - Quality Control"]
+```
+
+**ပုံရှင်းလင်းချက် —** ဘယ်ဘက်က AI ဆိုတဲ့ node တစ်ခုတည်းကနေ မြား ၆ ခု ထွက်သွားတာကို ကြည့်ပါ။ မြားတစ်ခုချင်းစီက industry တစ်ခုနဲ့ သူ့ရဲ့ အဓိက AI use case ကို တွဲပြထားပါတယ် — Automotive မှာ Object Detection၊ Healthcare မှာ Medical Imaging၊ Video Analytics မှာ Threat Detection၊ Finance မှာ Fraud Detection၊ Retail မှာ Demand Forecasting၊ Manufacturing မှာ Quality Control ဖြစ်ပါတယ်။ ဒီပုံဟာ AI ဟာ industry တစ်ခုတည်းအတွက် မဟုတ်ဘဲ industry အမျိုးအစားစုံမှာ အသုံးပြုနေတယ်ဆိုတဲ့ သင်ခန်းစာရဲ့ အဓိကအချက်ကို တစ်ပုံတည်းနဲ့ ပြတာ ဖြစ်ပါတယ်။
+
 ### Self-check questions — ကိုယ့်ကိုယ်ကို စစ်ဆေးရန် မေးခွန်းများ
 
 **Q1: AI ကို industry အမျိုးအစားစုံမှာ ဘာတွေအတွက် အသုံးပြုကြသလဲ?**
@@ -278,6 +346,20 @@ Make a decision
 Brake / Slow down / Continue
 ```
 
+**Figure 1 — The real-time decision steps of an autonomous vehicle**
+
+```mermaid
+flowchart TD
+    A["Cameras and Sensors"] --> B["AI Model - Real-time Processing"]
+    B --> C["Object Detection and Classification"]
+    C --> D["Pedestrian Detected"]
+    D --> E["Calculate Distance and Speed"]
+    E --> F["Make a Decision"]
+    F --> G["Brake / Slow down / Continue"]
+```
+
+**Figure walkthrough —** Start at the top: the data from cameras and sensors is processed in real time by the AI model. In the second step, object detection and classification identify pedestrians, vehicles, traffic lights, and more. The third step shows a pedestrian being detected. The next two steps calculate distance and speed, and then a decision is made. At the bottom, one of three outcomes is chosen: brake, slow down, or continue.
+
 A person appears ahead → detected → distance/speed calculated → decide whether to brake. This is AI-based decision making.
 
 AI is also used for simulation, design, and testing. Manufacturers can simulate different driving conditions before testing vehicles in the real world.
@@ -303,6 +385,19 @@ For example, an AI model can compare medical data against normal patterns and id
 
 AI pipelines can also automate different stages of medical data processing.
 Clinical inference can be performed with low latency, allowing healthcare professionals to receive results more quickly.
+
+**Figure 2 — How a medical image analysis pipeline works**
+
+```mermaid
+flowchart TD
+    A["X-ray / CT / MRI Images"] --> B["AI Model"]
+    B --> C["Automated Medical Image Analysis"]
+    C --> D["Abnormal Pattern Detection"]
+    D --> E["Clinical Inference"]
+    E --> F["Results with Low Latency"]
+```
+
+**Figure walkthrough —** Start at the far left with the medical images: X-rays, CT scans, and MRI scans. The AI model receives these images and runs automated medical image analysis. In the next step it detects abnormal patterns that differ from normal images. Then clinical inference computes the result, and at the bottom you can see that results are delivered with low latency.
 
 > **Exam Point** — Healthcare → Medical Imaging + Anomaly Detection + Genomics + Clinical Inference
 
@@ -332,6 +427,20 @@ Threat Analysis
    ↓
 Alert / Action
 ```
+
+**Figure 3 — A real-time video analytics pipeline with multi-camera processing**
+
+```mermaid
+flowchart TD
+    A["Cameras"] --> B["Real-time Video Streams"]
+    G["Multi-camera Streams"] --> C
+    B --> C["AI Vision Model"]
+    C --> D["Object / Person / Vehicle Detection"]
+    D --> E["Threat Analysis"]
+    E --> F["Alert / Action"]
+```
+
+**Figure walkthrough —** Start on the left: cameras produce real-time video streams. The lower-left node, multi-camera streams, shows that streams from many cameras — for example 100 cameras in a large facility — can enter at the same time. All of these streams are processed by the AI vision model in the middle. Next, object, person, and vehicle detection finds what is in the scene, threat analysis checks for danger, and at the end an alert or action is produced.
 
 AI can also process multiple camera streams simultaneously.
 For example, a large facility may have hundreds of cameras. AI systems can analyze these video streams continuously and detect important events.
@@ -363,6 +472,19 @@ Risk Score
      ↓
 Low Risk / High Risk
 ```
+
+**Figure 4 — The steps of transaction scoring and fraud detection**
+
+```mermaid
+flowchart TD
+    A["Customer Transactions"] --> B["AI Model - Transaction Scoring"]
+    F["Unusual Transaction Pattern"] --> B
+    B --> C["Risk Score"]
+    C --> D["Low Risk - Continue"]
+    C --> E["High Risk - Suspicious"]
+```
+
+**Figure walkthrough —** Look at the left side: customer transactions keep arriving. The lower-left node, unusual transaction pattern, represents behaviour that does not fit the norm — for example a high-value transaction from Singapore to Europe within 5 minutes. All of this input goes to the AI model in the middle, which performs transaction scoring and assigns a risk score to each transaction. At the end, a low-risk transaction continues normally, while a high-risk one is marked as suspicious. Because every step runs with ultra-low latency, suspicious activity can be detected while the transaction is still happening.
 
 AI can perform these operations with ultra-low latency, which is important when decisions need to be made immediately — suspicious activity can be detected while the transaction is happening, not after it has already completed.
 
@@ -457,6 +579,20 @@ If the exam asks: "What are some AI use cases across industries?" — you can me
 
 The key is to remember **Industry → AI Use Case** rather than memorizing the entire explanation.
 
+**Figure 5 — An overview of AI use cases across industries**
+
+```mermaid
+flowchart LR
+    A["AI"] --> B["Automotive - Object Detection"]
+    A --> C["Healthcare - Medical Imaging"]
+    A --> D["Video Analytics - Threat Detection"]
+    A --> E["Finance - Fraud Detection"]
+    A --> F["Retail - Demand Forecasting"]
+    A --> G["Manufacturing - Quality Control"]
+```
+
+**Figure walkthrough —** Look at the single AI node on the left and the six arrows leaving it. Each arrow points to one industry together with its major AI use case: Automotive with object detection, Healthcare with medical imaging, Video Analytics with threat detection, Finance with fraud detection, Retail with demand forecasting, and Manufacturing with quality control. The whole picture shows the main point of this lesson: AI is not limited to one industry but is used across many industries.
+
 ### Self-check questions
 
 **Q1: What is AI used for across industries?**
@@ -481,3 +617,4 @@ Answer: Choose 4–6 industries and connect each one with its use cases (for exa
 - Corrections made: unified section numbering (`### 1.`–`### 6.` plus matching unnumbered closing sections) across both language sections; all original body text, tables, Exam Point notes, and diagrams are preserved unchanged in meaning.
 - Corrections made: brought both language sections to parity by faithful translation only — the autonomous-driving decision diagram and video-analytics diagram were added to the Burmese section, the Singapore→Europe fraud example and logistics detail were added to the English section, and self-check Q&A sets were added to both sections. No commands, specs, URLs, or benchmarks were invented.
 - Claims needing verification: the "shopping mall with 100 cameras" figure and the "5 minutes" fraud scenario are illustrative teaching examples, not measured data; no numeric performance claims are made in this module.
+- Figures added: numbered Mermaid figures (Figure 1–5) with figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline in both language sections; all existing text, tables, and ASCII diagrams are preserved unchanged.

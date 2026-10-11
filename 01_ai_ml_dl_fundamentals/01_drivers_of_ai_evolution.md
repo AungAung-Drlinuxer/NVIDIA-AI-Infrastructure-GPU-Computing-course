@@ -36,6 +36,23 @@ Internet, smartphones, social media, online transactions နဲ့ Internet of T
 
 ဒီလို data တွေဟာ AI models တွေကို train လုပ်ဖို့ အသုံးပြုနိုင်တဲ့ အရင်းအမြစ်တွေ ဖြစ်လာပါတယ်။
 
+**Figure 1 — Data အရင်းအမြစ်များမှ Training Data ဖြစ်လာပုံနှင့် AI model တစ်ခု သင်ယူပုံ**
+
+```mermaid
+flowchart LR
+    A["Internet"] --> G["Training Data"]
+    B["Smartphones"] --> G
+    C["Social Media"] --> G
+    D["IoT Devices"] --> G
+    E["Business Systems"] --> G
+    F["Healthcare Data"] --> G
+    G --> H["Machine Learning"]
+    H --> I["Trained AI Model"]
+    I --> J["Predictions"]
+```
+
+**ပုံရှင်းလင်းချက် —** ဘယ်ဘက်က အစွန်းက Internet, Smartphones, Social Media, IoT Devices, Business Systems နဲ့ Healthcare ဆိုတဲ့ data အရင်းအမြစ် ၆ ခုကို အရင်ကြည့်ပါ။ မြားတွေက အဲဒီ data တွေအားလုံး အလယ်က Training Data ထဲ စုဝင်သွားတာကို ပြပါတယ်။ နောက်တစ်ဆင့်မှာ Machine Learning က ဒီ data ထဲက patterns တွေကို သင်ယူပြီး Trained AI Model ဖြစ်လာပါတယ်။ အဆုံးမှာ ဒီ model က မမြင်ဖူးသေးတဲ့ input အသစ်အတွက် Predictions ပေးနိုင်တာကို ညာဘက်ဆုံးမှာ တွေ့ရပါမယ်။
+
 #### 2.2 Why Does AI Need Data?
 
 Machine Learning (ML) model တွေဟာ training data ထဲက patterns နဲ့ relationships တွေကို သင်ယူပါတယ်။
@@ -125,6 +142,22 @@ Input ────┼── Task 3 ──┼──── Results
           └── Task 4 ──┘
 ```
 
+**Figure 2 — Sequential processing နှင့် Parallel processing ကွာခြားပုံ**
+
+```mermaid
+flowchart LR
+    A["Input"] --> B["Task 1"]
+    A --> C["Task 2"]
+    A --> D["Task 3"]
+    A --> E["Task 4"]
+    B --> F["Results"]
+    C --> F
+    D --> F
+    E --> F
+```
+
+**ပုံရှင်းလင်းချက် —** ဘယ်ဘက်က Input တစ်ခုတည်းကနေ Task 1 ကနေ Task 4 အထိ မြားလေးခု တစ်ပြိုင်နက် ထွက်သွားတာကို ကြည့်ပါ။ အပေါ်က ASCII ပုံမှာ Task 1 → Task 2 → Task 3 → Task 4 လို တစ်ခုပြီးမှ တစ်ခု လုပ်ရပေမဲ့ ဒီပုံမှာ task လေးခုကို တစ်ပြိုင်နက် လုပ်နိုင်ပါတယ်။ ညာဘက်ဆုံးမှာ task တစ်ခုချင်းစီရဲ့ ရလဒ်တွေ Results ဆီ ပေါင်းသွားတာကို တွေ့ရပါမယ်။ ဒါကြောင့် GPU လို parallel computation ကောင်းတဲ့ hardware တွေက အချိန်ကို လျှော့ချပေးနိုင်တာ ဖြစ်ပါတယ်။
+
 အလုပ်တွေက parallel လုပ်ဆောင်နိုင်တဲ့ပုံစံ ဖြစ်ပြီး hardware နဲ့ software က ထောက်ပံ့ပေးနိုင်ရင် အချိန်ကို လျှော့ချနိုင်ပါတယ်။
 အလုပ်တိုင်းကို အပြည့်အဝ parallel လုပ်လို့ရတာတော့ မဟုတ်ပါဘူး။
 
@@ -168,6 +201,19 @@ Update Parameters
       │
       └──── Repeat
 ```
+
+**Figure 3 — Model training အဆင့်များနှင့် ပြန်လည်လည်ပတ်ပုံ (Training loop)**
+
+```mermaid
+flowchart TD
+    A["Training Data"] --> B["Forward Pass"]
+    B --> C["Calculate Loss"]
+    C --> D["Backpropagation"]
+    D --> E["Update Parameters"]
+    E --> B
+```
+
+**ပုံရှင်းလင်းချက် —** အပေါ်ဆုံးက Training Data ကနေ စကြည့်ပါ။ Forward Pass မှာ model က prediction တွေ တွက်ပါတယ်။ Calculate Loss မှာ prediction နဲ့ အမှန်တန်ဖိုးကြားက အမှား (error) ကို တိုင်းတာပါ။ Backpropagation မှာ အဲဒီအမှားကို အခြေခံပြီး parameters တွေ ဘယ်လို ညှိရမလဲ တွက်ပါတယ်။ Update Parameters မှာ parameter တွေကို ပြင်ပြီးတဲ့အခါ အောက်က မြားက Forward Pass ဆီ ပြန်ညွှန်နေတာက အပေါ်က ASCII ပုံက "Repeat" လို့ ဆိုလိုတဲ့ ထပ်ခါထပ်ခါ လည်ပတ်မှုကို ပြတာ ဖြစ်ပါတယ်။
 
 ဒီ process ကို data အများအပြားနဲ့ အကြိမ်များစွာ လုပ်ဆောင်ရနိုင်ပါတယ်။
 Powerful GPUs, specialized AI accelerators နဲ့ distributed computing တွေက ဒီလို workload တွေကို ပိုမိုထိရောက်စွာ လုပ်ဆောင်နိုင်စေပါတယ်။
@@ -252,6 +298,19 @@ Generated Image
 
 Text-to-image model တစ်ခုကို "A red sports car on a mountain road" လို့ prompt ပေးရင် image တစ်ပုံ generate လုပ်နိုင်ပါတယ်။
 
+**Figure 4 — Algorithmic Breakthroughs အဓိက တိုးတက်မှုများ**
+
+```mermaid
+flowchart LR
+    A["Neural Networks and Deep Learning"] --> B["Transformer Architecture - 2017"]
+    B --> C["Large Language Models"]
+    C --> D["Generative AI Applications"]
+    E["Reinforcement Learning"] --> F["Decision-making Tasks"]
+    G["Diffusion Models"] --> H["Image Generation"]
+```
+
+**ပုံရှင်းလင်းချက် —** အပေါ်ဘက် မြားကြောင်းကို အရင်ကြည့်ပါ — Neural Networks and Deep Learning ကနေ စပြီး 2017 ခုနှစ်က မိတ်ဆက်ခဲ့တဲ့ Transformer Architecture ဆီ ရောက်၊ အဲဒီကနေ Large Language Models နဲ့ Generative AI Applications တွေအထိ ဆက်တိုးတက်လာပုံကို မြားတွေက ပြပါတယ်။ အောက်ဘက် လမ်းကြောင်းနှစ်ခုကတော့ Reinforcement Learning က decision-making tasks တွေမှာ အသုံးဝင်ပုံနဲ့ Diffusion Models က image generation အတွက် အသုံးများပုံကို သီးခြားပြတာ ဖြစ်ပါတယ်။
+
 > **Exam Point — Driver 3: Algorithmic Breakthroughs**
 >
 > Improvements in neural networks, Deep Learning, Transformer architectures, reinforcement learning, and diffusion models have expanded AI capabilities and improved how models are trained and used.
@@ -277,6 +336,17 @@ Algorithmic Breakthroughs
         ↓
 More Capable AI Systems
 ```
+
+**Figure 5 — Drivers သုံးခု ပေါင်းစပ်ပြီး AI စနစ်များ ပိုမိုတိုးတက်လာပုံ**
+
+```mermaid
+flowchart TD
+    A["Explosion of Data"] --> D["More Capable AI Systems"]
+    B["Growth in Computational Power"] --> D
+    C["Algorithmic Breakthroughs"] --> D
+```
+
+**ပုံရှင်းလင်းချက် —** အပေါ်က ဘောက်သုံးခု — Explosion of Data, Growth in Computational Power နဲ့ Algorithmic Breakthroughs တို့ကို သီးခြားစီ မကြည့်ဘဲ မြားသုံးခု ဆုံလာရာ More Capable AI Systems ဆိုတဲ့ အောက်ဘက်ဘောက်ဆီ စုဝင်သွားတာကို ကြည့်ပါ။ Driver တစ်ခုတည်းနဲ့ မရဘဲ သုံးခုလုံး အတူတကွ တိုးတက်မှသာ LLM နဲ့ Generative AI လို စနစ်တွေ တည်ဆောက်နိုင်တာကို ဒီပုံက ရှင်းပြပါတယ်။
 
 **သတိပြုရန်** — AI တိုးတက်မှုဟာ ဒီသုံးချက်တည်းကြောင့် မဟုတ်ပါဘူး။ Research investment, engineering improvements, data quality, infrastructure နဲ့ deployment techniques တွေကလည်း အရေးကြီးပါတယ်။ ဒီသင်ခန်းစာမှာတော့ အဓိက Drivers သုံးခုကို အာရုံစိုက်ထားတာ ဖြစ်ပါတယ်။
 
@@ -353,6 +423,23 @@ For example—
 - **Healthcare:** Medical images, laboratory results, and clinical records
 
 This data becomes a resource that can be used to train AI models.
+
+**Figure 1 — How data sources become training data and a trained AI model**
+
+```mermaid
+flowchart LR
+    A["Internet"] --> G["Training Data"]
+    B["Smartphones"] --> G
+    C["Social Media"] --> G
+    D["IoT Devices"] --> G
+    E["Business Systems"] --> G
+    F["Healthcare Data"] --> G
+    G --> H["Machine Learning"]
+    H --> I["Trained AI Model"]
+    I --> J["Predictions"]
+```
+
+**Figure walkthrough —** Start on the far left with the six data sources: Internet, Smartphones, Social Media, IoT Devices, Business Systems, and Healthcare. Follow the arrows to see all of this data gathering in Training Data in the middle. Next, Machine Learning learns patterns from that data and produces a Trained AI Model. At the far right, the model gives Predictions for new inputs it has never seen before.
 
 #### 2.2 Why Does AI Need Data?
 
@@ -443,6 +530,22 @@ Input ────┼── Task 3 ──┼──── Results
           └── Task 4 ──┘
 ```
 
+**Figure 2 — Sequential processing compared with parallel processing**
+
+```mermaid
+flowchart LR
+    A["Input"] --> B["Task 1"]
+    A --> C["Task 2"]
+    A --> D["Task 3"]
+    A --> E["Task 4"]
+    B --> F["Results"]
+    C --> F
+    D --> F
+    E --> F
+```
+
+**Figure walkthrough —** Look at the left side: one Input feeds Task 1 through Task 4 at the same time, shown by four arrows leaving Input together. Compare this with the sequential ASCII diagram above, where Task 1 must finish before Task 2 starts. On the right side, the outputs of all four tasks merge into Results. This is why hardware with strong parallel computation, such as a GPU, can reduce the total time.
+
 When the work can run in parallel and the hardware and software support it, the total time can be reduced.
 Not every task can be fully parallelized.
 
@@ -486,6 +589,19 @@ Update Parameters
       │
       └──── Repeat
 ```
+
+**Figure 3 — The model training steps and how the loop repeats**
+
+```mermaid
+flowchart TD
+    A["Training Data"] --> B["Forward Pass"]
+    B --> C["Calculate Loss"]
+    C --> D["Backpropagation"]
+    D --> E["Update Parameters"]
+    E --> B
+```
+
+**Figure walkthrough —** Start at the top with Training Data. In the Forward Pass the model computes its predictions. In Calculate Loss the model measures the error between its predictions and the correct values. In Backpropagation it works out how the parameters should be adjusted based on that error. In Update Parameters the parameters are changed, and the bottom arrow points back to the Forward Pass — this back arrow is the "Repeat" shown in the ASCII diagram above.
 
 This process may be repeated many times over large amounts of data.
 Powerful GPUs, specialized AI accelerators, and distributed computing help run these workloads more efficiently.
@@ -570,6 +686,19 @@ Generated Image
 
 Given a text-to-image model the prompt "A red sports car on a mountain road", it can generate an image.
 
+**Figure 4 — The major algorithmic breakthroughs**
+
+```mermaid
+flowchart LR
+    A["Neural Networks and Deep Learning"] --> B["Transformer Architecture - 2017"]
+    B --> C["Large Language Models"]
+    C --> D["Generative AI Applications"]
+    E["Reinforcement Learning"] --> F["Decision-making Tasks"]
+    G["Diffusion Models"] --> H["Image Generation"]
+```
+
+**Figure walkthrough —** Follow the top chain first: it starts with Neural Networks and Deep Learning, moves to the Transformer Architecture introduced in 2017, and then continues to Large Language Models and Generative AI Applications. The two lower branches are separate lines of progress: Reinforcement Learning applied to decision-making tasks, and Diffusion Models used for image generation.
+
 > **Exam Point — Driver 3: Algorithmic Breakthroughs**
 >
 > Improvements in neural networks, Deep Learning, Transformer architectures, reinforcement learning, and diffusion models have expanded AI capabilities and improved how models are trained and used.
@@ -595,6 +724,17 @@ Algorithmic Breakthroughs
         ↓
 More Capable AI Systems
 ```
+
+**Figure 5 — How the three drivers combine to produce more capable AI systems**
+
+```mermaid
+flowchart TD
+    A["Explosion of Data"] --> D["More Capable AI Systems"]
+    B["Growth in Computational Power"] --> D
+    C["Algorithmic Breakthroughs"] --> D
+```
+
+**Figure walkthrough —** Look at the three boxes at the top — Explosion of Data, Growth in Computational Power, and Algorithmic Breakthroughs — and notice that the three arrows meet at the bottom box, More Capable AI Systems. The picture shows that no single driver is enough on its own: only when all three advance together can systems such as LLMs and Generative AI be built.
 
 **Note** — AI progress is not due to these three factors alone. Research investment, engineering improvements, data quality, infrastructure, and deployment techniques also matter. This lesson focuses on the three major drivers.
 
@@ -645,3 +785,4 @@ Answer: Algorithmic Breakthroughs — improvements to model architectures and tr
 - Corrections made: unified section numbering (`### 1.`–`### 6.` with `#### x.y` subsections) across both language sections; all original Burmese body text, diagrams, tables, and Exam Point notes are preserved unchanged in meaning.
 - Corrections made: expanded the English section to full parity with the Burmese section (faithful translation only — no new commands, specifications, URLs, or benchmark numbers) and moved the English-language self-check Q&A from the Burmese section into the English section, with a matching Burmese Q&A set added.
 - Claims needing verification: none outstanding. The statement "millions of servers with one click" is retained as an explicitly illustrative example with its in-text caveat; this module contains no model-specific specs or benchmark figures.
+- Figures added: numbered Mermaid figures (Figure 1–5) with figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline in both language sections; all existing text, tables, and ASCII diagrams are preserved unchanged.

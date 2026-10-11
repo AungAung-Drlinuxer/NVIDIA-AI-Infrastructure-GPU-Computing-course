@@ -34,6 +34,18 @@ Choose a Move
 Move the Chess Piece
 ```
 
+**Figure 1 — AI သုံးပြီး chess move တစ်ခု ဆုံးဖြတ်ပုံ**
+
+```mermaid
+flowchart TD
+    A["Chess Board ရဲ့ လက်ရှိအခြေအနေ"] --> B["Chess Rules များ စစ်ဆေး"]
+    B --> C["အခြေအနေ ခွဲခြမ်းစိတ်ဖြာ"]
+    C --> D["Move တစ်ခု ရွေးချယ်"]
+    D --> E["Chess Piece ကို ရွှေ့ခြင်း"]
+```
+
+**ပုံရှင်းလင်းချက် —** အပေါ်ဆုံးက Chess Board ရဲ့ လက်ရှိအခြေအနေ ကြည့်ရာကနေ စပါ။ ဒုတိယအဆင့်မှာ ကစားသမားက လုပ်ခဲ့တဲ့ move နဲ့ Chess Rules တွေကို စစ်ဆေးပါတယ်။ တတိယအဆင့်မှာ လက်ရှိအခြေအနေကို ခွဲခြမ်းစိတ်ဖြာပြီး စတုတ္ထအဆင့်မှာ ဘယ် move လုပ်မလဲ ရွေးချယ်ပါတယ်။ အောက်ဆုံးမှာတော့ Chess Piece ကို ရွှေ့တဲ့အဆင့် ဖြစ်ပါတယ်။ ဒီအဆင့်တွေအားလုံးကို machine က လုပ်ဆောင်နိုင်တာဟာ AI ရဲ့ ဥပမာ ဖြစ်ပါတယ်။
+
 ဒီလို machine က intelligent decision making လုပ်နိုင်တာကို AI ရဲ့ example တစ်ခုအနေနဲ့ နားလည်နိုင်ပါတယ်။
 
 **အရေးကြီးတဲ့ Concept** — ဒီနေရာမှာ machine ကို chess rules တွေကို explicitly program လုပ်ထားနိုင်ပါတယ်။
@@ -60,6 +72,18 @@ Thousands / Millions of Chess Games
               ↓
      Predict Next Best Move
 ```
+
+**Figure 2 — Past chess games များမှ Machine Learning သင်ယူပုံ**
+
+```mermaid
+flowchart TD
+    A["Chess Games ထောင်ပေါင်းများစွာ"] --> B["Machine Learning"]
+    B --> C["Chess Patterns များ သင်ယူ"]
+    C --> D["ကောင်းမွန်သော Moves များ သင်ယူ"]
+    D --> E["နောက်အကောင်းဆုံး Move ခန့်မှန်းခြင်း"]
+```
+
+**ပုံရှင်းလင်းချက် —** အပေါ်ဆုံးက Chess Games ထောင်ပေါင်းများစွာ (expert players တွေ ကစားခဲ့တဲ့ games၊ နိုင်/ရှုံး games နဲ့ game outcomes တွေ) ကို အရင်ကြည့်ပါ။ ဒီ data တွေကို Machine Learning က လက်ခံပြီး Chess Patterns တွေကို သင်ယူပါတယ်။ ဆက်လျှောက်ရင် ကောင်းမွန်သော Moves တွေကို သင်ယူပြီး နောက်ဆုံးမှာ position အသစ်တစ်ခု ရောက်လာရင် နောက်အကောင်းဆုံး Move ကို ခန့်မှန်းပေးနိုင်ပါတယ်။ ဒါဟာ rules တွေကို တစ်ခုချင်း မရေးဘဲ data ကနေ သင်ယူတဲ့ ML concept ဖြစ်ပါတယ်။
 
 Machine ကို—
 
@@ -114,6 +138,19 @@ Output
 Predicted Move
 ```
 
+**Figure 3 — Neural Network အလွှာများက chess move ခန့်မှန်းပုံ**
+
+```mermaid
+flowchart TD
+    A["Chess Board Data"] --> B["Input Layer"]
+    B --> C["Hidden Layers"]
+    C --> D["More Hidden Layers"]
+    D --> E["Output"]
+    E --> F["ခန့်မှန်းထားသော Move"]
+```
+
+**ပုံရှင်းလင်းချက် —** အပေါ်ဆုံးက Chess Board Data (positions, possible moves, outcomes) ကို Input Layer က လက်ခံပုံ ကြည့်ပါ။ အလယ်က Hidden Layers နှစ်ဆင့်မှာ board positions နဲ့ moves ကြားက ရှုပ်ထွေးတဲ့ patterns နဲ့ relationships တွေကို ဆင့်တက် သင်ယူပါတယ်။ Output node က ဒီ patterns တွေကို အသုံးချပြီး အောက်ဆုံးမှာ ခန့်မှန်းထားသော Move ကို ပေးပါတယ်။ Layers ပိုများလေလေ ပိုရှုပ်ထွေးတဲ့ patterns တွေ သင်ယူနိုင်လေလေ ဖြစ်ပါတယ်။
+
 Neural network က ပိုပြီး complex ဖြစ်တဲ့ patterns တွေကို သင်ယူပြီး အဲဒီ patterns တွေကို အသုံးပြုကာ possible moves တွေကို predict / evaluate လုပ်နိုင်ပါတယ်။
 
 ### Self-Play Example
@@ -138,6 +175,22 @@ Machine တစ်လုံးက သူ့ကိုယ်သူ opponent အဖ�
                   ↓
               Play Again
 ```
+
+**Figure 4 — Self-play ဖြင့် model ကို လေ့ကျင့်ပုံ (interaction loop)**
+
+```mermaid
+flowchart TD
+    A["Chess Rules"] --> B["AI Player A"]
+    A --> C["AI Player B"]
+    B --> D["Game ကစားခြင်း"]
+    C --> D
+    D --> E["Result ကို လေ့လာခြင်း"]
+    E --> F["Model ကို တိုးတက်စေခြင်း"]
+    F --> G["ထပ်မံ ကစားခြင်း"]
+    G --> D
+```
+
+**ပုံရှင်းလင်းချက် —** အပေါ်ဆုံးက Chess Rules ကနေ AI Player A နဲ့ AI Player B ဆိုပြီး ခွဲထွက်သွားတာကို ကြည့်ပါ — ဒါက machine တစ်လုံးက သူ့ကိုယ်သူ opponent အဖြစ် ကစားတာ ဖြစ်ပါတယ်။ ကစားသမားနှစ်ယောက် Game ကစားခြင်း node မှာ ဆုံပြီး game ပြီးတဲ့အခါ Result ကို လေ့လာပါတယ်။ ပြီးရင် Model ကို တိုးတက်စေပြီး အောက်က ထပ်မံ ကစားခြင်း node က မြားက Game ကစားခြင်း node ဆီ ပြန်ညွှန်နေတာကြောင့် ဒီလုပ်ငန်းစဉ်က ထပ်ခါထပ်ခါ လည်ပတ်ကြောင်း တွေ့ရပါမယ်။ ဒါပေမဲ့ self-play ဆိုတာ Deep Learning ရဲ့ definition မဟုတ်ဘဲ training strategy တစ်ခုသာ ဖြစ်ကြောင်း မမေ့ပါနဲ့။
 
 Game တစ်ပွဲပြီးတိုင်း result ကို analyze လုပ်ပြီး model ကို improve လုပ်နိုင်ပါတယ်။
 ဒီလို self-play ကို Deep Learning system တချို့မှာ အသုံးပြုနိုင်ပါတယ်။
@@ -195,6 +248,19 @@ New Rules / Configuration
 
 ဒါကြောင့်—
 **Generative AI = learned patterns တွေနဲ့ given prompt ကို အသုံးပြုပြီး new content အသစ် generate လုပ်ခြင်း** ဖြစ်ပါတယ်။
+
+**Figure 5 — Generative AI က chess-like game အသစ် ဖန်တီးပုံ**
+
+```mermaid
+flowchart TD
+    A["Chess အကြောင်း သင်ယူထားသော knowledge"] --> C["Generative AI"]
+    B["Prompt - ပိုသေးသော chess-like game ဖန်တီးပါ"] --> C
+    C --> D["ပိုသေးသော Board"]
+    C --> E["ပိုနည်းသော Pieces"]
+    C --> F["Rules / Configuration အသစ်"]
+```
+
+**ပုံရှင်းလင်းချက် —** ဘယ်ဘက်က input နှစ်ခုကို အရင်ကြည့်ပါ — အပေါ်က chess အကြောင်း သင်ယူထားတဲ့ knowledge (8×8 board, 64 squares, တစ်ဖက်ကို pieces ၁၆ ခု) နဲ့ အောက်က ပေးလိုက်တဲ့ Prompt ဖြစ်ပါတယ်။ input နှစ်ခုလုံး အလယ်က Generative AI node မှာ ပေါင်းပြီး ညာဘက်ကို မြားသုံးခု ခွဲထွက်သွားတာက ထုတ်လုပ်လိုက်တဲ့ game concept အသစ်ရဲ့ အစိတ်အပိုင်းတွေ — ပိုသေးသော board၊ ပိုနည်းသော pieces နဲ့ rules / configuration အသစ်တွေ ဖြစ်ပါတယ်။ ဒါဟာ ရှိပြီးသား chess ကို ပြန်ပြောတာ မဟုတ်ဘဲ learned patterns နဲ့ prompt ကို ပေါင်းပြီး content အသစ် ဖန်တီးတာ ဖြစ်ပါတယ်။
 
 ## 5. 🧠 Chess Analogy ကို တစ်ခါတည်းမှတ်ရန်
 
@@ -303,6 +369,18 @@ Choose a Move
 Move the Chess Piece
 ```
 
+**Figure 1 — How AI decides on a chess move**
+
+```mermaid
+flowchart TD
+    A["Current Chess Board"] --> B["Check the Rules"]
+    B --> C["Analyze Current Situation"]
+    C --> D["Choose a Move"]
+    D --> E["Move the Chess Piece"]
+```
+
+**Figure walkthrough —** Start at the top by looking at the current state of the chess board. In the second step the machine checks the opponent's move against the rules of chess. In the third step it analyzes the current situation, and in the fourth step it chooses which move to make. At the bottom, the chess piece is actually moved. The machine performing all of these steps is an example of AI.
+
 The machine is performing an intelligent task and making decisions based on the current situation. This is an example that can help us understand AI.
 
 **Key Concept** — The machine could be explicitly programmed with the rules of chess. For example: "If this situation occurs, consider making this type of move."
@@ -335,6 +413,18 @@ Thousands / Millions of Chess Games
               ↓
      Predict Next Best Move
 ```
+
+**Figure 2 — How Machine Learning learns from past chess games**
+
+```mermaid
+flowchart TD
+    A["Thousands / Millions of Chess Games"] --> B["Machine Learning"]
+    B --> C["Learn Chess Patterns"]
+    C --> D["Learn Good Moves"]
+    D --> E["Predict Next Best Move"]
+```
+
+**Figure walkthrough —** Start at the top with the thousands or millions of past chess games — games played by experts, winning games, losing games, and game outcomes. Machine Learning takes all of this data and learns chess patterns. Next it learns which moves tend to be good ones, and at the bottom, when a new position appears, it predicts the next best move. This is the ML concept: learning from data instead of writing every rule by hand.
 
 When the machine encounters a new chess position, it can use what it learned from previous games to predict which move might be a good choice. This illustrates the concept of Machine Learning.
 
@@ -370,6 +460,19 @@ Output
 Predicted Move
 ```
 
+**Figure 3 — How neural network layers predict a chess move**
+
+```mermaid
+flowchart TD
+    A["Chess Board Data"] --> B["Input Layer"]
+    B --> C["Hidden Layers"]
+    C --> D["More Hidden Layers"]
+    D --> E["Output"]
+    E --> F["Predicted Move"]
+```
+
+**Figure walkthrough —** Start at the top: the input layer receives the chess board data, such as positions, possible moves, and previous outcomes. In the two hidden-layer steps in the middle, the network learns the complex patterns and relationships between positions and moves, layer by layer. The output node uses those patterns and, at the bottom, produces the predicted move. The more layers the network has, the more complex the patterns it can learn.
+
 The neural network can learn increasingly complex patterns and use those patterns to predict or evaluate possible moves.
 
 **Self-Play Example** — We can also use self-play as an example of how a Deep Learning system can be trained. Imagine that a machine plays chess against itself.
@@ -391,6 +494,22 @@ The neural network can learn increasingly complex patterns and use those pattern
                   ↓
               Play Again
 ```
+
+**Figure 4 — Training a model with self-play (an interaction loop)**
+
+```mermaid
+flowchart TD
+    A["Chess Rules"] --> B["AI Player A"]
+    A --> C["AI Player B"]
+    B --> D["Play Game"]
+    C --> D
+    D --> E["Learn Result"]
+    E --> F["Improve Model"]
+    F --> G["Play Again"]
+    G --> D
+```
+
+**Figure walkthrough —** At the top, chess rules feed two players, AI Player A and AI Player B — this is one machine playing against itself. Both players meet at the Play Game node, and after the game the system learns from the result. It then improves the model, and the Play Again node points its arrow back to Play Game, so you can see the whole process repeating over and over. Remember, though, self-play is not the definition of Deep Learning — it is only one possible training strategy.
 
 The system can play many games, analyze the results, and improve its model over time.
 
@@ -429,6 +548,19 @@ The system could generate a new game concept with:
 The important concept is that the system is generating new content based on learned patterns and instructions.
 
 Therefore: **Generative AI = Generating new content using learned patterns and a given prompt.**
+
+**Figure 5 — How Generative AI creates a new chess-like game**
+
+```mermaid
+flowchart TD
+    A["Learned knowledge about chess"] --> C["Generative AI"]
+    B["Prompt - create a smaller chess-like game"] --> C
+    C --> D["Smaller Board"]
+    C --> E["Fewer Pieces"]
+    C --> F["New Rules / Configuration"]
+```
+
+**Figure walkthrough —** Look at the two inputs on the left first: at the top, the learned knowledge about chess (an 8×8 board, 64 squares, 16 pieces per player), and below it, the prompt asking for a smaller chess-like game. Both inputs combine at the middle Generative AI node, and three arrows split off to the right showing the parts of the newly generated game concept: a smaller board, fewer pieces, and new rules or configuration. This is not repeating existing chess — it is creating new content from learned patterns plus the prompt.
 
 ## 5. 🧠 Remember the Chess Analogy
 
@@ -506,3 +638,4 @@ Answer — AI is the broadest term. ML is an approach within AI that allows mach
 - The neural-network layer diagram (Chess Board Data → Input Layer → Hidden Layers → Output → Predicted Move) previously existed only in the English section; it now appears in both. The generated-game characteristics list (smaller board, fewer pieces, different configurations, modified rules) previously existed only in the English section and is now also in the Burmese section; the "Game outcomes" data item previously existed only in the English section and is now also in the Burmese section.
 - Self-check questions with concise answers added at the end of each language section per WRITING_RULES.md.
 - Claims needing verification: none. The note that self-play is a training strategy rather than the definition of Deep Learning is preserved as a correction to a common misconception; no commands, benchmarks, or numeric model specifications are claimed.
+- Figures added: numbered Mermaid figures (Figure 1–5) with figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline in both language sections; all existing text, tables, and ASCII diagrams are preserved unchanged.

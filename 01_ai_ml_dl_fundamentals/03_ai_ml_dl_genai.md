@@ -27,6 +27,18 @@ Artificial Intelligence (AI)
 
 သို့သော် ဒီ diagram ကို strict hierarchy လို့မယူဘဲ concept ကို နားလည်လွယ်အောင် ပြထားတာလို့မှတ်ထားပါ။ Generative AI အားလုံးဟာ Deep Learning ကိုအသုံးပြုလေ့ရှိပေမယ့် Generative AI ကို DL ရဲ့ "subset တစ်ခုတည်း" လို့ သတ်မှတ်တာထက် DL ကိုအခြေခံပြီး content အသစ်တွေ generate လုပ်တဲ့ AI systems လို့နားလည်တာပိုမှန်ပါတယ်။
 
+**Figure 1 — AI ၊ ML ၊ DL နှင့် Generative AI တို့ရဲ့ relationship**
+
+```mermaid
+flowchart TD
+    A["Artificial Intelligence - AI"] --> B["Machine Learning - ML"]
+    B --> C["Deep Learning - DL"]
+    C --> D["Generative AI"]
+    D --> E["Content အသစ်များ - Text / Images / Audio / Video / Code"]
+```
+
+**ပုံရှင်းလင်းချက် —** အပေါ်ဆုံးက Artificial Intelligence (AI) ဆိုတဲ့ အကျယ်ဆုံး concept ကနေ စကြည့်ပါ။ မြားကြောင်းက Machine Learning (ML) ဟာ AI ထဲက approach တစ်ခု ဖြစ်ကြောင်း ပြပါတယ်။ ဆက်လျှောက်ရင် Deep Learning (DL) ဟာ ML ထဲက neural network သုံးတဲ့ approach ဖြစ်ကြောင်း တွေ့ရပါမယ်။ နောက်ဆုံး node ဖြစ်တဲ့ Generative AI က DL ကို အခြေခံပြီး content အသစ်တွေ ဖန်တီးကြောင်းနဲ့ အောက်ဆုံးမှာ generate လုပ်နိုင်တဲ့ content အမျိုးအစားတွေ (Text, Images, Audio, Video, Code) ကို တွေ့ရပါမယ်။
+
 ### 1. Artificial Intelligence (AI)
 
 AI = Artificial Intelligence
@@ -88,6 +100,20 @@ Learned Pattern / Model
        ↓
 Prediction / Decision
 ```
+
+**Figure 2 — Traditional Programming နှင့် Machine Learning ကွာခြားပုံ**
+
+```mermaid
+flowchart TD
+    A["Traditional Programming"] --> B["Rules + Data"]
+    B --> C["Program"]
+    C --> D["Output"]
+    E["Machine Learning"] --> F["Data + Examples"]
+    F --> G["Learned Pattern / Model"]
+    G --> H["Prediction / Decision"]
+```
+
+**ပုံရှင်းလင်းချက် —** ဘောက်နှစ်ခုကို အပေါ်အောက် နှိုင်းယှဉ်ကြည့်ပါ။ အပေါ်ဘက်မှာ Traditional Programming က programmer က ရေးပေးတဲ့ Rules + Data ကို Program ထဲ ထည့်ပြီး Output ရတဲ့အထိ မြားကြောင်းတစ်ကြောင်းတည်း သွားပါတယ်။ အောက်ဘက်မှာတော့ Machine Learning က Data + Examples တွေကို ပေးလိုက်ရုံနဲ့ machine ကိုယ်တိုင် Learned Pattern / Model ကို ရပြီး နောက်ဆုံးမှာ Prediction / Decision ပေးနိုင်ပါတယ်။ ဆိုလိုတာက rules အားလုံးကို လူက တစ်ခုချင်း မရေးရဘဲ data ကနေ သင်ယူတာ ဖြစ်ပါတယ်။
 
 ဒါကြောင့် ML ကို—
 
@@ -169,6 +195,20 @@ Complex Patterns
 Classification
 ```
 
+**Figure 3 — Deep Learning layers အဆင့်ဆင့်က features တွေ သင်ယူပုံ**
+
+```mermaid
+flowchart TD
+    A["Image"] --> B["Input Layer"]
+    B --> C["Hidden Layer 1 - Edges"]
+    C --> D["Hidden Layers - Shapes"]
+    D --> E["Hidden Layers - Objects / Features"]
+    E --> F["Output Layer - Complex Patterns"]
+    F --> G["Classification - Cat"]
+```
+
+**ပုံရှင်းလင်းချက် —** အပေါ်ဆုံးက Image ကနေ စပြီး အောက်ကို တစ်ဆင့်ချင်း လိုက်ကြည့်ပါ။ Input Layer က ပုံကို လက်ခံပြီး ပထမဆုံး hidden layer မှာ edges လို ရိုးရှင်းတဲ့ features တွေ၊ နောက် hidden layers တွေမှာ shapes တွေ၊ ပြီးရင် objects / features တွေကို အဆင့်ဆင့် သင်ယူပါတယ်။ Output Layer မှာ ဒီ features အားလုံး ပေါင်းပြီး complex patterns ဖြစ်လာကာ နောက်ဆုံး node မှာ "Cat" လို့ classification ရလဒ် ထွက်လာပါတယ်။ Layers များလေလေ ပိုရှုပ်ထွေးတဲ့ patterns တွေ သင်ယူနိုင်လေလေ ဖြစ်တာကြောင့် Deep Learning လို့ ခေါ်တာ ဖြစ်ပါတယ်။
+
 > **မှတ်ရန်** — Deep Learning is a Machine Learning approach that uses neural networks with multiple layers to learn complex patterns.
 
 ### 4. Generative AI
@@ -196,6 +236,19 @@ Model က training data ထဲက စာကို simply copy/paste လုပ်
 Chemical compounds တွေအကြောင်း patterns တွေကို model က learn လုပ်ထားရင်၊ သတ်မှတ်ထားတဲ့ properties တွေအပေါ်မူတည်ပြီး candidate compounds အသစ်တွေကို generate လုပ်နိုင်ပါတယ်။
 
 အရေးကြီးတဲ့ concept ကတော့ Generative AI ဟာ ရှိပြီးသား category ကို classify သို့မဟုတ် predict လုပ်တာမဟုတ်ဘဲ new output တွေကို ထုတ်လုပ်ဖို့ design လုပ်ထားတာ ဖြစ်ပါတယ်။
+
+**Figure 4 — Generative AI က content အသစ်တွေ generate လုပ်ပုံ**
+
+```mermaid
+flowchart TD
+    A["Learned Patterns from Data"] --> C["Generative AI"]
+    B["Prompt / Request"] --> C
+    C --> D["New Text"]
+    C --> E["New Images"]
+    C --> F["New Audio / Video / Code"]
+```
+
+**ပုံရှင်းလင်းချက် —** ဘယ်ဘက်က input နှစ်ခုကို အရင်ကြည့်ပါ — အပေါ်က ဒေတာကနေ သင်ယူထားတဲ့ Learned Patterns တွေ၊ အောက်က အသုံးပြုသူပေးတဲ့ Prompt / Request (ဥပမာ "Create a new dramatic story.") ဖြစ်ပါတယ်။ input နှစ်ခုလုံး အလယ်က Generative AI node မှာ ဆုံပြီး ညာဘက်ကို မြားသုံးခု ခွဲထွက်သွားတာက ထုတ်လုပ်နိုင်တဲ့ content အမျိုးအစားတွေ — New Text, New Images နှင့် New Audio / Video / Code တို့ ဖြစ်ပါတယ်။ ဒီပုံမှာ ရှိပြီးသား category ကို classify လုပ်တာ မဟုတ်ဘဲ output အသစ်တွေ ဖန်တီးတာကို တွေ့ရပါမယ်။
 
 > **မှတ်ရန်** — Generative AI is AI that can generate new content such as text, images, audio, video, or code based on learned patterns.
 
@@ -315,6 +368,18 @@ Artificial Intelligence (AI)
 
 This diagram is mainly for understanding the relationship between the concepts. More precisely, Generative AI is not simply a single subset of Deep Learning; rather, modern Generative AI systems are commonly built using Deep Learning techniques to generate new content.
 
+**Figure 1 — The relationship between AI, ML, DL, and Generative AI**
+
+```mermaid
+flowchart TD
+    A["Artificial Intelligence - AI"] --> B["Machine Learning - ML"]
+    B --> C["Deep Learning - DL"]
+    C --> D["Generative AI"]
+    D --> E["New Content - Text / Images / Audio / Video / Code"]
+```
+
+**Figure walkthrough —** Start at the top with Artificial Intelligence (AI), the broadest concept. The arrow down to Machine Learning (ML) shows that ML is one approach within AI. Continue down to Deep Learning (DL), the ML approach that uses neural networks. The last node, Generative AI, builds on DL to create new content, and the bottom node lists the content types it can generate: text, images, audio, video, and code.
+
 ### 1. Artificial Intelligence (AI)
 
 AI stands for Artificial Intelligence.
@@ -376,6 +441,20 @@ Learned Model
        ↓
 Prediction / Decision
 ```
+
+**Figure 2 — The difference between traditional programming and Machine Learning**
+
+```mermaid
+flowchart TD
+    A["Traditional Programming"] --> B["Rules + Data"]
+    B --> C["Program"]
+    C --> D["Output"]
+    E["Machine Learning"] --> F["Data + Examples"]
+    F --> G["Learned Pattern / Model"]
+    G --> H["Prediction / Decision"]
+```
+
+**Figure walkthrough —** Compare the two boxes from top to bottom. In the upper path, traditional programming takes the rules and data written by a programmer, runs the program, and produces the output along a single straight arrow. In the lower path, Machine Learning takes data and examples, the machine learns a pattern or model by itself, and that model produces a prediction or decision. In other words, nobody has to write every rule by hand — the machine learns from data.
 
 This means we do not have to explicitly program every possible situation.
 
@@ -454,6 +533,20 @@ Complex Patterns
 Classification
 ```
 
+**Figure 3 — How Deep Learning layers learn features step by step**
+
+```mermaid
+flowchart TD
+    A["Image"] --> B["Input Layer"]
+    B --> C["Hidden Layer 1 - Edges"]
+    C --> D["Hidden Layers - Shapes"]
+    D --> E["Hidden Layers - Objects / Features"]
+    E --> F["Output Layer - Complex Patterns"]
+    F --> G["Classification - Cat"]
+```
+
+**Figure walkthrough —** Start at the top with the image and follow the arrows downward one step at a time. The input layer receives the image. The first hidden layer picks up simple features such as edges; the next hidden layers learn shapes, and then objects and features. At the output layer these features combine into complex patterns, and the final node shows the classification result: "Cat". Because the network has many layers and can learn increasingly complex patterns, it is called Deep Learning.
+
 A model trained for image recognition may eventually learn to distinguish between different objects based on these learned patterns.
 
 > **Exam Definition** — Deep Learning is a Machine Learning approach that uses multi-layer neural networks to learn complex patterns from data.
@@ -480,6 +573,19 @@ The model is not simply copy/pasting text from its training data — it uses lea
 Similarly, if a model has learned patterns from many chemical compounds, it can potentially generate candidate compounds that satisfy particular requirements.
 
 The important concept is that Generative AI is designed to produce new outputs, rather than simply classify or predict an existing category.
+
+**Figure 4 — How Generative AI produces new content**
+
+```mermaid
+flowchart TD
+    A["Learned Patterns from Data"] --> C["Generative AI"]
+    B["Prompt / Request"] --> C
+    C --> D["New Text"]
+    C --> E["New Images"]
+    C --> F["New Audio / Video / Code"]
+```
+
+**Figure walkthrough —** Look at the two inputs on the left first: at the top, the learned patterns taken from training data, and below it, the prompt or request given by the user (for example, "Create a new dramatic story."). Both inputs meet at the middle Generative AI node, and three arrows split off to the right showing the kinds of content it can produce: new text, new images, and new audio, video, or code. Notice that the picture shows the creation of new outputs, not classifying into an existing category.
 
 > **Exam Definition** — Generative AI is AI that generates new content such as text, images, audio, video, or code based on learned patterns.
 
@@ -583,3 +689,4 @@ Answer: It can generate new content such as text, images, audio, video, and code
 - Corrections made: the "Chennai" transcription error in the source material is corrected to Generative AI in both language sections (the in-text notes are retained); the original diagrams (relationship tree, layer diagrams, one-line definition table) are preserved unchanged.
 - Corrections made: brought both language sections to parity by faithful translation only (e.g., the face-recognition feature list and image-classification flow were added to the English section; the "generates new outputs rather than classifying" note and the Simple Relationship diagram were added to the Burmese section) and added self-check Q&A sets to both sections. No commands, specs, URLs, or benchmarks were invented.
 - Claims needing verification: none outstanding — this module contains only conceptual definitions and illustrative examples, with no model-specific specifications or benchmark figures.
+- Figures added: numbered Mermaid figures (Figure 1–4) with figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline in both language sections; all existing text, tables, and ASCII diagrams are preserved unchanged.

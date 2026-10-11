@@ -34,6 +34,18 @@ The → dog → chased → the → cat
           context
 ```
 
+**Figure 1 — Attention mechanism က context ကို နားလည်စေပုံ**
+
+```mermaid
+flowchart TD
+    A["စာကြောင်း - The dog chased the cat because it was fast"] --> B["Attention Mechanism"]
+    B --> C["Words ကြား relationship များ လေ့လာ"]
+    C --> D["Context ကို နားလည်"]
+    D --> E["it ဆိုတာ ဘယ်အရာကို ရည်ညွှန်းသလဲ သိရှိ"]
+```
+
+**ပုံရှင်းလင်းချက် —** အပေါ်ဆုံးက စာကြောင်းတစ်ကြောင်းလုံး (The dog chased the cat because it was fast) ကို input အဖြစ် ဝင်လာပုံ ကြည့်ပါ။ ဒုတိယ node ဖြစ်တဲ့ Attention Mechanism က စာကြောင်းထဲက words တွေကို တစ်လုံးချင်း သီးခြား မကြည့်ဘဲ ကြားခံ node မှာ words ကြား relationship တွေကို လေ့လာပါတယ်။ ဆက်လျှောက်ရင် context ကို နားလည်ပြီး အောက်ဆုံး node မှာ it ဆိုတဲ့ word က ဘယ်အရာကို ရည်ညွှန်းတယ်ဆိုတာ သိရှိနိုင်ပုံကို တွေ့ရပါမယ်။
+
 Transformer က word တစ်လုံးတည်းကို သီးခြားကြည့်တာထက် အခြား words တွေနဲ့ ဆက်စပ်မှုကိုပါ ကြည့်နိုင်ပါတယ်။
 
 ## 3. Transformer နဲ့ Generative AI ဘာကြောင့် အရေးကြီးတာလဲ?
@@ -176,6 +188,21 @@ The quick brown fox jumps over the lazy
                                           dog
 ```
 
+**Figure 2 — Transformer က next token ကို ရွေးချယ်ပုံ**
+
+```mermaid
+flowchart TD
+    A["Input - The quick brown fox jumps over the lazy"] --> B["Transformer"]
+    B --> C["Context + Learned Patterns"]
+    C --> D["Probability Distribution"]
+    D --> E["dog - 80%"]
+    D --> F["rabbit - 35%"]
+    D --> G["person - 10%"]
+    E --> H["Next Token - dog ရွေးချယ်ခြင်း"]
+```
+
+**ပုံရှင်းလင်းချက် —** အပေါ်က input စာကြောင်း (The quick brown fox jumps over the lazy) ကို အရင်ကြည့်ပါ။ ဒုတိယ node က Transformer က ဒီ input ကို လက်ခံပြီး တတိယ node မှာ context နဲ့ learned patterns တွေကို ပေါင်းစပ်ပါတယ်။ စတုတ္ထ node မှာ probability distribution ရလာပြီး အောက်က candidate သုံးခု — dog 80%, rabbit 35%, person 10% — ကို ဥပမာနှုန်းတွေနဲ့ ခွဲပြထားပါတယ်။ နောက်ဆုံးမှာ probability အမြင့်ဆုံးဖြစ်တဲ့ dog ကို next token အဖြစ် ရွေးချယ်တာကို တွေ့ရပါမယ်။
+
 ပြီးတော့—"The quick brown fox jumps over the lazy dog." ဖြစ်လာပါတယ်။
 
 ## 9. Transformer က Sentence တစ်ကြောင်းတည်းပဲ Generate လုပ်တာလား?
@@ -233,6 +260,19 @@ Long-form document
 
 လို generate လုပ်နိုင်ပါတယ်။
 ဒါကြောင့် Generative AI က—**Learned patterns + context + next-token prediction** ကို အသုံးပြုပြီး content အသစ်တွေ generate လုပ်နိုင်ပါတယ်။
+
+**Figure 3 — Token တစ်ခုချင်း ခန့်မှန်းပြီး စာရှည် ထုတ်လုပ်ပုံ**
+
+```mermaid
+flowchart TD
+    A["Input - The quick brown fox"] --> B["Next Token ခန့်မှန်း"]
+    B --> C["Token အသစ် ထည့်"]
+    C --> D["Next Token ထပ်ခန့်မှန်း"]
+    D --> E["Sentence ပြီးဆုံး"]
+    E --> F["Paragraph / Page / Story အထိ ဆက်လက်ထုတ်လုပ်"]
+```
+
+**ပုံရှင်းလင်းချက် —** ဘယ်ဘက်အပေါ်က input စာကြောင်း အစိတ်အပိုင်း (The quick brown fox) ကို အရင်ကြည့်ပါ။ ဒုတိယ node မှာ model က နောက် token တစ်ခုကို ခန့်မှန်းပြီး တတိယ node မှာ အဲဒီ token ကို စာကြောင်းထဲ ပြန်ထည့်ပါတယ်။ စတုတ္ထ node မှာ ထပ်ခါထပ်ခါ ခန့်မှန်းပြီး ပဉ္စမ node မှာ sentence တစ်ကြောင်း ပြီးဆုံးပါတယ်။ အောက်ဆုံး node က ဒီလုပ်ငန်းစဉ်ကို ဆက်လုပ်သွားရင် paragraph, page, story ကနေ long-form document အထိ တိုးချဲ့ ထုတ်လုပ်နိုင်တာကို ပြပါတယ်။
 
 ## 11. Important Correction — "Transformer predicts the next word"
 
@@ -326,6 +366,20 @@ Input Text
           Generated Text
 ```
 
+**Figure 4 — Transformer model ရဲ့ simple architecture အဆင့်များ**
+
+```mermaid
+flowchart TD
+    A["Input Text"] --> B["Tokenization"]
+    B --> C["Token Embeddings"]
+    C --> D["Transformer - Self-Attention + Neural Network"]
+    D --> E["Output Probabilities"]
+    E --> F["Next Token"]
+    F --> G["Generated Text"]
+```
+
+**ပုံရှင်းလင်းချက် —** အပေါ်ဆုံးက Input Text ကနေ အောက်ကို တစ်ဆင့်ချင်း လိုက်ကြည့်ပါ။ ပထမဆုံး Tokenization က စာသားကို token တွေအဖြစ် ခွဲပြီး ဒုတိယအဆင့်မှာ Token Embeddings က token တွေကို numerical representation အဖြစ် ပြောင်းပေးပါတယ်။ အလယ်က ဘောက်ကြီးက Transformer ဖြစ်ပြီး အထဲမှာ Self-Attention နဲ့ Neural Network ပါဝင်ကြောင်း ပြထားပါတယ်။ အဲဒီကနေ Output Probabilities ထွက်လာပြီး Next Token ကို ရွေးချယ်ကာ နောက်ဆုံးမှာ Generated Text ဖြစ်လာပါတယ်။
+
 ## 15. "Attention Is All You Need"
 
 Transformer ကို လေ့လာမယ်ဆိုရင် ဒီ paper name ကို သိထားသင့်ပါတယ်။
@@ -363,6 +417,20 @@ Large Language Models
         ▼
 Generative AI
 ```
+
+**Figure 5 — Transformer မှ Generative AI အထိ ဆက်စပ်ပုံ**
+
+```mermaid
+flowchart TD
+    A["Artificial Intelligence"] --> B["Machine Learning"]
+    B --> C["Deep Learning"]
+    C --> D["Neural Network Architectures"]
+    D --> E["Transformer"]
+    E --> F["Large Language Models"]
+    F --> G["Generative AI"]
+```
+
+**ပုံရှင်းလင်းချက် —** အပေါ်ဆုံးက Artificial Intelligence ဆိုတဲ့ အကျယ်ဆုံး နယ်ပယ်ကနေ စပြီး အောက်ကို တစ်ဆင့်ချင်း လိုက်ကြည့်ပါ — Machine Learning က AI ထဲက approach တစ်ခု၊ Deep Learning က neural network သုံးတဲ့ ML approach၊ Neural Network Architectures ကြားမှာ Transformer ရှိပြီး Transformer ကို အခြေခံတည်ဆောက်ထားတာက Large Language Models ဖြစ်ပါတယ်။ အောက်ဆုံး node မှာတော့ ဒီအဆင့်တွေအပေါ် အခြေခံထားတဲ့ Generative AI ကို တွေ့ရပါမယ်။ ဒီပုံဟာ သင်ကြားရေးအတွက် ပြထားတဲ့ learning aid ဖြစ်ပြီး strict hierarchy တစ်ခုတည်း မဟုတ်ပါဘူး။
 
 ဒါက learning aid အနေနဲ့ ကြည့်တာပါ။ တကယ့် AI taxonomy ကို ဒီလို strict hierarchy တစ်ခုတည်းနဲ့ သတ်မှတ်လို့မရပါဘူး။
 
@@ -452,6 +520,18 @@ The → dog → chased → the → cat
              ↓
           context
 ```
+
+**Figure 1 — How the Attention mechanism builds context**
+
+```mermaid
+flowchart TD
+    A["Sentence - The dog chased the cat because it was fast"] --> B["Attention Mechanism"]
+    B --> C["Learn relationships between words"]
+    C --> D["Understand the context"]
+    D --> E["Know what the word it refers to"]
+```
+
+**Figure walkthrough —** At the top, the whole sentence (The dog chased the cat because it was fast) enters as input. In the second node, the Attention mechanism does not look at each word in isolation; in the middle node it learns the relationships between the words. Next it understands the context, and the bottom node shows the result: knowing what the word "it" refers to in the sentence.
 
 Instead of looking at a single word in isolation, a Transformer can also look at how that word relates to the other words.
 
@@ -591,6 +671,21 @@ The quick brown fox jumps over the lazy
                                           dog
 ```
 
+**Figure 2 — How a Transformer selects the next token**
+
+```mermaid
+flowchart TD
+    A["Input - The quick brown fox jumps over the lazy"] --> B["Transformer"]
+    B --> C["Context + Learned Patterns"]
+    C --> D["Probability Distribution"]
+    D --> E["dog - 80%"]
+    D --> F["rabbit - 35%"]
+    D --> G["person - 10%"]
+    E --> H["Next Token - dog is selected"]
+```
+
+**Figure walkthrough —** Start at the top with the input sentence (The quick brown fox jumps over the lazy). In the second node the Transformer receives this input, and in the third node it combines the context with its learned patterns. The fourth node shows the probability distribution, and below it the three candidates are listed with illustrative numbers: dog 80%, rabbit 35%, and person 10%. At the end, the candidate with the highest probability, dog, is selected as the next token.
+
 Then the result is: "The quick brown fox jumps over the lazy dog."
 
 ## 9. Does a Transformer Generate Only One Sentence?
@@ -648,6 +743,19 @@ Long-form document
 
 —content can be generated at increasing length.
 That is how Generative AI uses **learned patterns + context + next-token prediction** to generate new content.
+
+**Figure 3 — Generating longer text one token at a time**
+
+```mermaid
+flowchart TD
+    A["Input - The quick brown fox"] --> B["Predict next token"]
+    B --> C["Add the new token"]
+    C --> D["Predict the next token again"]
+    D --> E["Sentence complete"]
+    E --> F["Keep generating to paragraph / page / story"]
+```
+
+**Figure walkthrough —** Start at the top left with part of the input sentence (The quick brown fox). In the second node the model predicts the next token, and in the third node that token is added back into the sentence. The fourth node repeats the prediction again and again, and the fifth node shows the sentence becoming complete. The bottom node shows that if this keeps going, generation extends from a sentence to a paragraph, a page, a story, and finally a long-form document.
 
 ## 11. Important Correction — "Transformer predicts the next word"
 
@@ -739,6 +847,20 @@ Input Text
           Generated Text
 ```
 
+**Figure 4 — The simple architecture of a Transformer model**
+
+```mermaid
+flowchart TD
+    A["Input Text"] --> B["Tokenization"]
+    B --> C["Token Embeddings"]
+    C --> D["Transformer - Self-Attention + Neural Network"]
+    D --> E["Output Probabilities"]
+    E --> F["Next Token"]
+    F --> G["Generated Text"]
+```
+
+**Figure walkthrough —** Start at the top with the input text and follow the arrows downward one step at a time. First, tokenization splits the text into tokens; in the second step token embeddings turn those tokens into numerical representations. The big middle box is the Transformer itself, containing self-attention and the neural network. From there output probabilities come out, the next token is selected, and at the bottom the generated text is formed.
+
 ## 15. "Attention Is All You Need"
 
 If you study Transformers, you should know this paper name.
@@ -776,6 +898,20 @@ Large Language Models
         ▼
 Generative AI
 ```
+
+**Figure 5 — How the Transformer connects up to Generative AI**
+
+```mermaid
+flowchart TD
+    A["Artificial Intelligence"] --> B["Machine Learning"]
+    B --> C["Deep Learning"]
+    C --> D["Neural Network Architectures"]
+    D --> E["Transformer"]
+    E --> F["Large Language Models"]
+    F --> G["Generative AI"]
+```
+
+**Figure walkthrough —** Start at the top with Artificial Intelligence, the broadest field, and move downward one step at a time: Machine Learning is an approach within AI, and Deep Learning is the ML approach that uses neural networks. Among neural network architectures sits the Transformer, and large language models are built on the Transformer. At the bottom node you reach Generative AI, which rests on all of these steps. Remember this picture is a learning aid, not a strict hierarchy.
 
 This is a learning aid. The real AI taxonomy cannot be defined by a single strict hierarchy like this.
 
@@ -849,3 +985,4 @@ Answer — The Transformer architecture is designed so that, during training, th
 - The English section was reorganized to mirror the Burmese section numbering; material that previously existed in only one language (the "it" reference example and simple-idea diagram in §2, the task list in §3, the "lazy person" example in §6, the 2D vector-map diagram and its high-dimensional caveat in §7, the probability-distribution diagram in §8, the token-by-token generation example in §9, the tokenization example "unbelievable → un / believ / able" in §11, the "The animal didn't cross the road…" example in §12, the simple architecture diagram in §14, the paper Q&A in §15, and the AI→…→Generative AI relationship diagram in §16) now appears in both language sections as a faithful translation. Diagrams and code blocks are kept unchanged in both.
 - The correction "next word → next-token prediction" is preserved from the source as a correction to simplified terminology; the illustrative probability numbers (10/35/80/5%) and vector values are labeled illustrative in both versions and are not claimed as measured data.
 - Claims needing verification: none outstanding. The "Attention Is All You Need" (2017) attribution is standard; the AI→ML→DL→Transformer→LLM→Generative AI diagram is explicitly presented as a learning aid, not a strict taxonomy, in both versions.
+- Figures added: numbered Mermaid figures (Figure 1–5) with figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline in both language sections; all existing text, tables, and ASCII diagrams are preserved unchanged.
