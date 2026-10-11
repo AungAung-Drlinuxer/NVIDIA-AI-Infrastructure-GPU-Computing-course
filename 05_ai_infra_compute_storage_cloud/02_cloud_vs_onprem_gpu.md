@@ -423,3 +423,423 @@ Cloud
 လို Hybrid approach ကိုလည်း အသုံးပြုနိုင်ပါတယ်။
 
 **Final Exam Answer** — Cloud is preferred when we need a low barrier to entry, pay-as-you-go economics, flexible scaling, experimentation, or temporary high compute capacity. On-Prem is preferred when we require strong control over sensitive data, data sovereignty, compliance, local regulations, and infrastructure. Neither is universally better. The correct choice depends on the workload, security requirements, compliance requirements, budget, scalability needs, and business use case.
+
+---
+
+## English Version — Cloud vs On-Prem GPU Infrastructure
+
+### 1. Cloud or On-Prem?
+
+When you build infrastructure for AI workloads, one question always comes up: should you host the application in an On-Premises Data Center, or should you use the Cloud?
+
+The most important point is that **the Cloud is not always better, and On-Prem is not always better either.** Which one you choose depends on the Use Case / Business Requirement.
+
+### 2. Cloud vs On-Prem — High-Level Idea
+
+The easiest way to remember the difference is:
+
+```
+Cloud
+  ↓
+Scale + Flexibility + Low Entry Cost
+
+On-Prem
+  ↓
+Security + Sovereignty + Control
+```
+
+However, this is not an absolute rule. With both Cloud and On-Prem you can get security, cost efficiency, scalability, and compliance depending on the design.
+
+According to this module's source framing, the key contrast for the exam is:
+
+- **Cloud** → Flexible scaling and low cost barrier to entry
+- **On-Prem** → Security, sovereignty, and control
+
+### 3. Cloud Advantage #1 — Low Cost Barrier to Entry
+
+One of the main advantages of Cloud is the **low cost barrier to entry**.
+
+Suppose you want to train an AI model. With On-Prem, you have to go through all of this first:
+
+```
+Buy GPU Servers
+      ↓
+Buy Network
+      ↓
+Buy Storage
+      ↓
+Build Data Center
+      ↓
+Power
+      ↓
+Cooling
+      ↓
+Monitoring
+      ↓
+Operations
+```
+
+You must invest a large amount of money in infrastructure upfront.
+
+With Cloud, you can instead do something like this:
+
+```
+Need GPU
+   ↓
+Provision Cloud GPU
+   ↓
+Run Training
+   ↓
+Pay for Usage
+   ↓
+Decommission
+```
+
+### 4. Pay-As-You-Go
+
+An important Cloud concept is **pay-as-you-go**. It means you never have to buy infrastructure outright — you pay based on the resources you actually use. For example:
+
+```
+GPU Instance
+     │
+     ▼
+Model Training
+     │
+     ▼
+Training Complete
+     │
+     ▼
+Decommission
+```
+
+This way, you avoid continuing to pay for GPU resources at times when no training is running.
+
+### 5. You Do Not Build the Data Center Yourself in the Cloud
+
+Building on-prem AI infrastructure means you have to manage data center space, electricity, cooling, network, storage, compute, hardware maintenance, monitoring, and infrastructure operations yourself.
+
+With Cloud, the cloud provider supplies this infrastructure foundation, and you simply provision and use the compute resources you need.
+
+That is why **cloud lowers the initial infrastructure barrier.**
+
+### 6. On-Prem Advantage #1 — Security
+
+One of the main advantages of On-Prem is **security and control**.
+
+You can keep sensitive data inside your own controlled environment.
+
+```
+On-Prem Data Center
+┌─────────────────────────────┐
+│                             │
+│  Sensitive Data             │
+│  AI Models                  │
+│  GPU Infrastructure         │
+│  Internal Applications      │
+│                             │
+└─────────────────────────────┘
+```
+
+You decide for yourself who can access the data and what security controls to put in place.
+
+### 7. On-Prem Advantage #2 — Data Sovereignty
+
+Another important concept is **data sovereignty**.
+
+Data sovereignty refers to the requirement that data must be kept under control within a specified location / jurisdiction.
+
+For example, if the law requires data to be stored only within a certain country or location, on-prem infrastructure can be the appropriate choice.
+
+### 8. Cloud vs On-Prem — Cost
+
+**Cloud** — Because of the pay-as-you-go model, upfront investment can be low.
+
+```
+Cloud
+↓
+No large initial hardware purchase
+↓
+Pay for usage
+```
+
+**On-Prem** — Building an AI data center can require a high upfront investment in compute, network, storage, security, power, cooling, and physical infrastructure.
+
+```
+On-Prem
+↓
+Large Upfront Investment
+↓
+Hardware + Facility + Power + Cooling
+```
+
+### 9. Scalability
+
+An important Cloud advantage is **flexible scalability**. When demand grows, you can add resources quickly.
+
+```
+1 GPU Node
+     ↓
+10 GPU Nodes
+     ↓
+100 GPU Nodes
+     ↓
+1000 GPU Nodes
+```
+
+A Cloud environment gives you more flexibility to scale up and scale down according to demand.
+
+### 10. On-Prem Scalability
+
+With On-Prem, scalability depends on your own physical infrastructure. For example:
+
+```
+Existing Hardware
+      +
+Available Rack Space
+      +
+Power Capacity
+      +
+Cooling Capacity
+      +
+Network Capacity
+```
+
+These resources can become limitations.
+
+That is why **on-prem scalability is constrained by the hardware, physical space, power, and facility capacity you have.**
+
+### 11. Compliance and Control
+
+Another comparison axis is **compliance and control**.
+
+In the Cloud, compliance policies, standards, and security controls can depend in part on the cloud provider's services and policies.
+
+With On-Prem, the organization controls the infrastructure directly, so it can implement compliance policies, data handling, security controls, local regulations, and internal standards itself.
+
+### 12. Cloud vs On-Prem Comparison
+
+| Aspect | Cloud | On-Prem |
+|---|---|---|
+| Initial Cost | Low barrier to entry | High upfront investment |
+| Payment Model | Pay as you go | Hardware ownership / CapEx |
+| Scaling | Very flexible | Limited by physical infrastructure |
+| Security Control | Provider + customer shared responsibility | High direct control |
+| Data Sovereignty | Depends on provider/location/configuration | Strong direct control |
+| Compliance | Provider capabilities + customer requirements | Organization-controlled |
+| Data Center | Provider operates infrastructure | Organization operates infrastructure |
+| Power/Cooling | Provider-managed facility | Organization-managed |
+| Hardware | Provision when needed | Must purchase/install |
+| Dependency | Cloud provider | Less dependent on external cloud provider |
+| Best Fit | Experimentation, burst workloads, flexible scaling | Sensitive data, strict control, sovereignty |
+
+### 13. When Should You Choose On-Prem?
+
+Following the source's logic, On-Prem can be a good fit in scenarios like these.
+
+**Scenario 1 — High Security Requirement**
+
+```
+Sensitive Data
+      ↓
+Need Strong Control
+      ↓
+On-Prem
+```
+
+**Scenario 2 — Data Sovereignty**
+
+```
+Legal / Regulatory Requirement
+          ↓
+Data Must Stay Locally
+          ↓
+On-Prem
+```
+
+**Scenario 3 — Strong Compliance Control** — The organization wants to control compliance policies itself, right down to the infrastructure level.
+
+**Scenario 4 — Predictable Long-Term Workload** — If the infrastructure will be used permanently and the workload is stable, building your own infrastructure can be the appropriate choice depending on the use case.
+
+### 14. When Should You Choose Cloud?
+
+**Scenario 1 — Experimentation** — You are experimenting with AI/ML models, and you do not want to buy a lot of hardware yet.
+
+```
+Experiment
+    ↓
+Cloud GPU
+    ↓
+Train
+    ↓
+Stop
+```
+
+**Scenario 2 — Temporary High Compute Demand** — You need a lot of GPUs for a short period. Cloud can be a good fit for scaling up.
+
+**Scenario 3 — Flexible Scaling**
+
+```
+Low Demand
+    ↓
+Scale Down
+
+High Demand
+    ↓
+Scale Up
+```
+
+**Scenario 4 — Low Upfront Investment** — Right now, you do not want to commit capital to data center hardware.
+
+### 15. Very Important — Cloud Training → On-Prem Production
+
+The source shows an important practical pattern for the exam.
+
+```
+              CLOUD
+                │
+                ▼
+          GPU Training
+                │
+                ▼
+          Trained Model
+                │
+                │
+                ▼
+             ON-PREM
+                │
+                ▼
+         Production Inference
+```
+
+For example, run a training workload that needs many GPUs in the Cloud. When training is finished, bring the trained model back into the On-Prem environment. Then deploy it on on-prem GPU servers in the production environment. This architecture is perfectly valid.
+
+### 16. Retraining Workflow
+
+Later, the model may need to be retrained. A cycle like this is possible:
+
+```
+CLOUD
+             │
+             ▼
+        Train Model
+             │
+             ▼
+      Trained Model
+             │
+             ▼
+          ON-PREM
+             │
+             ▼
+       Production
+             │
+             │
+       Need Retraining
+             │
+             ▼
+          CLOUD
+             │
+             ▼
+        Retrain
+             │
+             ▼
+      Updated Model
+             │
+             ▼
+          ON-PREM
+```
+
+This is a practical example of a hybrid Cloud / On-Prem architecture.
+
+### 17. Cloud + On-Prem Are Not Mutually Exclusive
+
+The most important takeaway: choosing Cloud or On-Prem does not mean you are forced to pick one and only one. You can combine both according to the workload.
+
+```
+             AI Platform
+                 │
+        ┌────────┴────────┐
+        │                 │
+      CLOUD             ON-PREM
+        │                 │
+   Training /         Production /
+   Burst Compute     Sensitive Data
+        │                 │
+        └────────┬────────┘
+                 │
+          Hybrid Architecture
+```
+
+### 18. Tools for Cloud ↔️ On-Prem Communication
+
+Tools and connectivity technologies exist for communication between the cloud provider environment and the On-Prem environment.
+
+That is what makes it possible to build an architecture that runs workloads in the Cloud while running production workloads On-Prem.
+
+The source does not name specific tools, so this module does not list specific products.
+
+### 19. Exam Perspective
+
+If the exam asks, "When would you choose Cloud over On-Prem?" —
+
+Think of **Cloud** — low cost barrier to entry, pay-as-you-go, flexible scaling, experimentation, temporary / burst compute, and avoiding large upfront infrastructure investment.
+
+If the exam asks, "When would you choose On-Prem over Cloud?" —
+
+Think of **On-Prem** — security, data sovereignty, compliance control, local regulation, sensitive data, and less dependency on external provider policies.
+
+### 20. Exam Shortcut
+
+```
+                 CLOUD
+                   │
+        ┌──────────┼──────────┐
+        ▼          ▼          ▼
+     Low Entry   Pay-Go     Scaling
+       Cost
+
+
+                ON-PREM
+                   │
+        ┌──────────┼──────────┐
+        ▼          ▼          ▼
+    Security   Sovereignty   Control
+```
+
+One-line memory:
+- **Cloud = Flexibility + Scale + Pay-as-you-go**
+- **On-Prem = Security + Sovereignty + Control**
+
+### 21. Final Mental Model
+
+Do not think of the question as "Which one is better?" Instead, think "Which one is better for this use case?"
+
+```
+                USE CASE
+                    │
+          ┌─────────┴─────────┐
+          │                   │
+     Need flexibility?    Need control?
+          │                   │
+          ▼                   ▼
+        CLOUD              ON-PREM
+          │                   │
+      Scale easily        Secure/control
+      Pay for usage       Data sovereignty
+      Low entry cost      Compliance
+```
+
+But in real-world architecture, you can also use a hybrid approach like this:
+
+```
+Cloud Training
+      ↓
+Trained Model
+      ↓
+On-Prem Production
+      ↓
+Retraining when needed
+      ↓
+Cloud
+```
+
+**Final Exam Answer** — Cloud is preferred when we need a low barrier to entry, pay-as-you-go economics, flexible scaling, experimentation, or temporary high compute capacity. On-Prem is preferred when we require strong control over sensitive data, data sovereignty, compliance, local regulations, and infrastructure. Neither is universally better. The correct choice depends on the workload, security requirements, compliance requirements, budget, scalability needs, and business use case.

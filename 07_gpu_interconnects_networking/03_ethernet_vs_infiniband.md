@@ -388,3 +388,390 @@ This is why the two technologies can complement each other.
 **Remember:**
 - Ethernet = Flexibility + Compatibility + General Networking
 - InfiniBand = Performance + Low Latency + Specialized AI/HPC Networking
+
+## English Version — Ethernet vs InfiniBand in AI-Centric Data Centers
+
+## 1. Ethernet and InfiniBand in AI Data Centers
+
+When implementing AI-centric data center networking, you will frequently encounter two network technologies: Ethernet and InfiniBand.
+
+When studying these two, you should NOT assume—
+
+- "Ethernet is good and InfiniBand is bad"
+- "InfiniBand is good and Ethernet is not needed"
+
+Both have their own use cases, and even within a single data center both can be used complementarily.
+
+The key is understanding which technology suits which workload.
+
+## 2. Road Analogy — Think of a Network as a Road
+
+A network is fundamentally for communication.
+A road is also for getting from one place to another.
+
+For example—`Point A → Point B`
+
+With a road, people, cars, and trucks can move from one place to another.
+On a network—`Server A → Server B` moves data.
+
+But roads have evolved over time.
+
+```
+Dirt Road
+    ↓
+Gravel Road
+    ↓
+Cobblestone Road
+    ↓
+Modern Asphalt Road
+    ↓
+Highway
+    ↓
+Expressway
+```
+
+The basic purpose has not changed — going from Point A to Point B. But—Construction, Capacity, Speed, Design, Efficiency all differ.
+
+## 3. The Same Is True in Networking
+
+The basic purpose of a network is **to move Data from Point A to Point B**.
+
+```
+Server A
+   │
+   │ Data
+   ▼
+Network
+   │
+   ▼
+Server B
+```
+
+But how the data is sent, which protocol is used, which hardware is used, and how much latency there is all depend on the technology.
+
+That is why, although both Ethernet and InfiniBand exist for data communication, their design goals and implementations differ.
+
+## 4. Highway vs Bullet Train Analogy
+
+A traditional road / highway can carry—Cars, Trucks, Buses, many different types of vehicles. But traffic and stoplights can slow things down in some situations.
+
+In AI data center networking, you can think of Ethernet as this kind of general-purpose highway.
+
+**Bullet Train** — "We want dedicated transport that is much faster than a normal road" — then you need specialized infrastructure like a bullet train. A bullet train needs its own dedicated track.
+
+```
+Normal Highway
+    │
+    ├── Car
+    ├── Truck
+    ├── Bus
+    └── Many Traffic Types
+
+Bullet Train Track
+    │
+    └── High-Speed Train
+```
+
+Applying this analogy to networking—remember it as Ethernet → Highway, InfiniBand → Dedicated high-performance transport.
+
+## 5. Ethernet vs InfiniBand — Basic Idea
+
+**Ethernet** — A technology widely used for general-purpose networking. Where it is used—Home, Office, Enterprise, Data Center, Internet, and more.
+
+**InfiniBand** — A specialized networking technology particularly useful for High-Performance Computing (HPC) and high-performance data center workloads. Especially—HPC, AI clusters, Distributed AI, high-performance storage/interconnect environments, and more.
+
+## 6. Physical Connectivity
+
+Ethernet typically uses network cables and connectors. For example—an RJ45 connector can be found in traditional Ethernet networking.
+
+```
+Server
+   │
+   │ Ethernet Cable
+   ▼
+RJ45 / Ethernet Interface
+```
+
+In high-speed Ethernet environments, optical transceivers and high-speed pluggable interfaces can also be used.
+
+## 7. InfiniBand Physical Connectivity
+
+InfiniBand also needs cables and connectors. In high-speed InfiniBand deployments—Fiber optic, high-speed copper, SFP/QSFP-class pluggable interfaces and other connectivity technologies can be used.
+
+The source mentions **QSFP — Quad Small Form-factor Pluggable**, a connector/form-factor.
+
+The key idea is that InfiniBand physical infrastructure is optimized for high-speed server-to-server interconnect.
+
+## 8. Ethernet vs InfiniBand — Main Comparison
+
+Let's compare them feature by feature.
+
+## 9. Analogy
+
+**Ethernet = Highway** — All kinds of traffic — Cars, Trucks, Buses — can travel on a highway. So Ethernet suits general-purpose networking. But there can be traffic/congestion and network processing overhead.
+
+**InfiniBand = Dedicated Bullet Train Line** — You can think of InfiniBand as dedicated high-speed transport. Its main purpose is high-performance communication. So it is useful in performance-sensitive environments like AI/HPC clusters.
+
+## 10. Purpose
+
+| Technology | Main Purpose |
+|---|---|
+| Ethernet | General-purpose networking |
+| InfiniBand | High-performance computing and high-speed interconnect |
+
+Where **Ethernet** is commonly used—LAN, WAN, Enterprise, Data Center, Internet
+
+Where **InfiniBand** is commonly used—HPC, AI clusters, Distributed training, High-performance interconnects, Specialized data center workloads
+
+## 11. Speed
+
+The source states that both Ethernet and InfiniBand can support high-speed links depending on the implementation. For example, the source mentions up to 400 Gbps.
+
+Therefore—do not simply remember "InfiniBand is high speed and Ethernet is slow".
+
+Speed alone is not the whole story. The network's—Latency, Protocol overhead, CPU involvement, Reliability, Congestion behavior, Architecture, Workload suitability all matter too.
+
+**Exam Point**
+- Ethernet can also provide very high bandwidth.
+- InfiniBand's advantage is not simply "speed"; its architecture is designed for high-performance, low-latency communication.
+
+## 12. Latency
+
+Here is one important difference between Ethernet and InfiniBand: latency.
+
+According to the source—
+
+- **Ethernet** — Latency can be higher depending on environment and implementation. Source example: ~10–100 microseconds
+- **InfiniBand** — The source gives ~1–2 microseconds as an example of ultra-low latency.
+
+Exact latency depends on hardware, topology, workload, configuration, and more. But the core concept of the lesson is—**InfiniBand is designed for extremely low-latency communication.**
+
+> ⚠️ The latency figures are only examples from the source and can vary by deployment (needs verification for specific hardware).
+
+## 13. Protocol / Processing Model
+
+Ethernet environments commonly use the traditional TCP/IP networking stack.
+
+```
+Application
+     ↓
+TCP/IP
+     ↓
+Ethernet
+     ↓
+Network
+```
+
+TCP/IP processing can involve protocol processing overhead.
+
+## 14. InfiniBand and RDMA
+
+InfiniBand environments use **RDMA — Remote Direct Memory Access** as an important technology.
+
+The source transcript says "RDM", but the standard technical term is—**RDMA = Remote Direct Memory Access**.
+
+The main idea of RDMA is memory-to-memory data transfer with minimal CPU involvement.
+
+```
+Traditional Network
+
+Application
+    ↓
+CPU
+    ↓
+Network Stack
+    ↓
+NIC
+    ↓
+Network
+```
+
+With RDMA-based communication—
+
+```
+Application / Memory
+        │
+        ▼
+      RDMA
+        │
+        ▼
+       NIC
+        │
+        ▼
+     Network
+```
+
+CPU involvement can be reduced. This reduced processing overhead supports low latency and high performance.
+
+## 15. Cost
+
+One advantage of **Ethernet** is—Widely available, Commodity hardware, Broad vendor ecosystem, Lower cost. That is why Ethernet is found almost everywhere.
+
+**InfiniBand**, being specialized infrastructure, may require—Specialized NICs, Specialized switches, Specialized drivers/software, Specialized operational expertise. So it can cost more than Ethernet.
+
+**Exam Shortcut**
+- Ethernet → Lower cost / widely available
+- InfiniBand → Higher cost / specialized infrastructure
+
+## 16. Where Can You Use Them?
+
+**Ethernet** can be used in many kinds of environments—`Home → Office → Enterprise → Data Center → Internet`. So remember—**Ethernet = General-purpose networking**.
+
+**InfiniBand** is better suited to specialized workloads like—`HPC → AI Cluster → Supercomputing → Distributed Training → High-Performance Interconnect`.
+
+## 17. Operating System and Software Support
+
+**Ethernet** is a universally supported technology. Most operating systems have Ethernet NIC support. So deployment is easier.
+
+**InfiniBand** may require specialized Drivers, Firmware, Software stack, and Configuration. So it can involve more operational complexity than Ethernet.
+
+## 18. Reliability and Congestion
+
+Ethernet is excellent for general-purpose networking. But when network congestion occurs—Queueing / congestion can increase delay. This matters especially for performance-sensitive workloads.
+
+## 19. InfiniBand — Lossless / Near-Lossless Design
+
+Because InfiniBand is designed for high-performance environments, you will encounter the concept of **Lossless or near-lossless communication**.
+
+The goal is predictable / deterministic performance. For example, in distributed AI training—
+
+```
+GPU 1
+  │
+  ├─────────┐
+  │         │
+GPU 2       │
+  │         ▼
+  ├───── Communication
+  │         │
+GPU 3       │
+  │         │
+GPU 4 ──────┘
+```
+
+Consistent GPU/node communication performance is important. That is why InfiniBand can be a good fit for performance-sensitive workloads.
+
+## 20. Ethernet vs InfiniBand — Complete Comparison
+
+| Feature | Ethernet | InfiniBand |
+|---|---|---|
+| Analogy | Highway | Dedicated bullet-train line |
+| Main Purpose | General networking | High-performance networking |
+| Typical Use | LAN, WAN, Internet, enterprise, data center | HPC, AI clusters, supercomputing |
+| Bandwidth | Can be very high | Can be very high |
+| Latency | Generally higher | Extremely low |
+| Protocol | Commonly TCP/IP | Designed around high-performance interconnect/RDMA |
+| CPU Overhead | Can be higher depending on stack/workload | Lower with RDMA-based data movement |
+| Cost | Generally lower | Generally higher |
+| Hardware | Commodity / widely available | Specialized |
+| Software | Broad OS support | Specialized drivers/software may be required |
+| Deployment | Flexible and widespread | Specialized |
+| Congestion | Can introduce delay | Designed for predictable high-performance communication |
+| AI/HPC | Suitable, especially with modern high-speed Ethernet/RoCE | Excellent for high-performance AI/HPC workloads |
+
+## 21. The Most Important Concept
+
+Don't memorize: "Ethernet = Slow" and "InfiniBand = Fast" — that's too simplistic.
+
+Instead remember:
+
+- **Ethernet** — General-purpose + flexible + widely available + cost-effective
+- **InfiniBand** — Specialized + low latency + high performance + HPC/AI optimized
+
+Both can provide very high bandwidth. The important difference is how the networking system is designed and optimized, not just the link speed.
+
+## 22. When Should You Use Ethernet?
+
+Ethernet is a good choice when you need:
+
+- General-purpose networking
+- Broad compatibility
+- Lower cost
+- Large ecosystem
+- Standard enterprise networking
+- Internet connectivity
+- Data center networking
+- Management networking
+
+In AI data centers, Ethernet can also be used for high-performance workloads, particularly with technologies such as RoCE.
+
+## 23. When Should You Use InfiniBand?
+
+InfiniBand is particularly attractive when you need:
+
+- Extremely low latency
+- High throughput
+- Predictable communication
+- Large-scale GPU clusters
+- Distributed AI training
+- HPC
+- Supercomputing
+- High-performance interconnects
+
+## 24. AI Data Center Example
+
+A data center does not necessarily need to choose only one technology. You could have a design like:
+
+```
+                 AI DATA CENTER
+                       │
+        ┌──────────────┼──────────────┐
+        │              │              │
+        ▼              ▼              ▼
+    Ethernet       InfiniBand      Ethernet
+        │              │              │
+   Management      GPU Fabric       Storage/
+   / General        / Compute       General
+   Networking        Fabric         Networking
+```
+
+- **Ethernet** could be used for: Management, External connectivity, General data center networking, User/application access
+- **InfiniBand** could be used for: GPU-to-GPU communication, Distributed AI training, HPC workloads, High-performance cluster interconnect
+
+This is why the two technologies can complement each other.
+
+## 25. Exam Shortcut
+
+**Ethernet** — Think: Highway → General purpose · Flexible · Widely available · Lower cost · TCP/IP · Enterprise / Internet / Data Center · Can support very high bandwidth
+
+**InfiniBand** — Think: Bullet Train → Specialized · High performance · Ultra-low latency · RDMA · HPC · AI clusters · Specialized hardware/software
+
+## 26. One-Line Memory Trick
+
+**Ethernet is the flexible highway; InfiniBand is the dedicated high-performance track.**
+
+In other words — Ethernet is a flexible highway that can carry all kinds of traffic, while InfiniBand is a dedicated transport built specifically for high-performance workloads.
+
+## 27. Final Exam Summary
+
+**Ethernet** — General-purpose network technology · Flexible · Widely deployed · Lower cost · Broad compatibility · TCP/IP · LAN/WAN/Data Center/Internet · High-speed versions available
+
+**InfiniBand** — High-performance interconnect technology · Very low latency · High throughput · RDMA-based communication · Specialized hardware/software · HPC · AI clusters · Distributed training · Predictable high-performance communication
+
+**Final Mental Model**
+
+```
+                    NETWORKING
+                        │
+             ┌──────────┴──────────┐
+             │                     │
+             ▼                     ▼
+         ETHERNET              INFINIBAND
+             │                     │
+             ▼                     ▼
+         HIGHWAY             BULLET TRAIN
+             │                     │
+       General Purpose       High Performance
+             │                     │
+       TCP/IP ecosystem          RDMA
+             │                     │
+       Flexible / Broad       Low Latency
+       Compatibility          High Throughput
+             │                     │
+             ▼                     ▼
+     Enterprise / DC         AI / HPC / Clusters
+```
+
+**Remember:**
+- Ethernet = Flexibility + Compatibility + General Networking
+- InfiniBand = Performance + Low Latency + Specialized AI/HPC Networking

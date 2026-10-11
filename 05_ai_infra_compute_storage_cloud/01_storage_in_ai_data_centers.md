@@ -442,3 +442,450 @@ The goal is to create an optimized end-to-end solution: Compute + Network + Stor
 **Architecture** — AI data centers do not normally depend on only one storage type. Instead: Tiered / Hybrid Storage + Lifecycle Policies can be used to place data on the most appropriate storage tier according to its access pattern.
 
 **One-Line Memory Trick** — GPU is the Chef, Network is the Waiter, and Storage is the Pantry. And remember: NVMe = Fast & Local · Parallel File System = Fast & Shared · NFS = Config & Scripts · Object Storage = Massive & Long-Term
+
+---
+
+## မြန်မာဘာသာ version — Storage in AI-Centric Data Centers
+
+> Part I · Course Module 05 (AI Infrastructure: Compute, Storage and Cloud) — topic notes (မြန်မာဘာသာ)
+
+## 1. Compute နှင့် Network ပြီးနောက် Storage ကို အာရုံစိုက်ပါ
+
+AI ကို ဗဟိုပြုသော data center တစ်ခုအကြောင်း ဆွေးနွေးသောအခါ အဓိက အစိတ်အပိုင်း သုံးခု ရှိပါသည် —
+
+```
+Compute
+   +
+Network
+   +
+Storage
+```
+
+- Compute က အချက်အလက်များကို စီမံဆောင်ရွက်ပေးပါသည် (processing)။
+- Network က system များကြား data ကို ရွှေ့ပြောင်းပေးပါသည်။
+- Storage က AI workloads များ လိုအပ်သော data ကို ပေးအပ်ပြီး ထို data ကို compute resources များ အသုံးပြုနိုင်စေပါသည်။
+
+## 2. စားသောက်ဆိုင် ဥပမာ — AI Data Center ကို ငါးပွင့်မီးဖိုချောင်အဖြစ် တွေးကြည့်ပါ
+
+အသုံးဝင်သော ဥပမာတစ်ခုမှာ ငါးပွင့်စားသောက်ဆိုင် တစ်ခု ဖြစ်ပါသည်။
+
+```
+Five-Star Restaurant
+
+Chef       → GPU
+Waiters    → Network
+Pantry     → Storage
+Customers  → Users / Applications
+```
+
+**Chef = GPU** — စားဖိုမှူးက တကယ်ချက်ပြုတ်ပြီး ဟင်းလျာများကို ဖန်တီးပါသည်။ အလားတူပင် GPU က AI computation၊ Model training၊ Inference၊ Tensor နှင့် matrix operations များကို လုပ်ဆောင်ပါသည်။
+
+## 3. Waiter = Network
+
+စားပွဲထိုးက ချက်ပြုတ်ပြီးသား အစားအစာများကို ဧည့်သည်ဆီ ရောက်အောင် ကူညီပေးပါသည်။ ဤအချက်သည် network ၏ အခန်းကဏ္ဍနှင့် ဆင်တူပါသည်။
+
+```
+Chef / GPU
+     │
+     │ Data
+     ▼
+ Network / Waiter
+     │
+     ▼
+ Customer / Application
+```
+
+Network က system များကြား data ကို သယ်ပို့ပေးပါသည်။
+
+## 4. Pantry = Storage
+
+စားသောက်ဆိုင်တစ်ခုအတွက် ပစ္စည်းအပြည့်ရှိသော pantry ကောင်းကောင်း လိုအပ်ပါသည်။ Pantry ထဲတွင် ဟင်းချက်ပစ္စည်းများဖြစ်သော ဟင်းသီးဟင်းရွက်၊ အသား၊ ဆန်၊ ဟင်းခတ်အမွှေးအကြိုင်၊ အရသာရည်များ၊ အခြားပါဝင်ပစ္စည်းများ ပါရှိပါသည်။ စားဖိုမှူးအနေဖြင့် ဤပစ္စည်းများကို အမြန်ဆုံး ရယူအသုံးပြုနိုင်ရန် လိုအပ်ပါသည်။
+
+AI data center တွင် Pantry = Storage ဖြစ်ပါသည်။ Storage ထဲတွင် Training datasets၊ Model files၊ Checkpoints၊ Logs၊ Configuration data၊ Scripts၊ Historical data များ ပါရှိနိုင်ပါသည်။
+
+## 5. Storage ၏ အခန်းကဏ္ဍ
+
+အခြေခံလိုအပ်ချက်မှာ — **GPU များ လိုအပ်သော data ကို Storage က အမြန်ဆုံး ဝင်ရောက်အသုံးပြုနိုင်အောင် ပေးအပ်ရမည်** ဟူ၍ ဖြစ်ပါသည်။
+
+စားသောက်ဆိုင်အကြောင်းကို ပြန်စဉ်းစားကြည့်ပါ။ စားဖိုမှူး မည်မျှပင် အမြန်ချက်ပြုတ်နိုင်စေကာမူ၊ pantry က ပစ္စည်းများ ပေးအပ်ရာတွင် အချိန်ကြာမြင့်ပါက ဆိုင်တစ်ခုလုံး ထိရောက်စွာ လည်ပတ်မည် မဟုတ်ပါ။ AI တွင်လည်း ထိုနည်းတူပင် ဖြစ်ပါသည် —
+
+```
+Fast GPU
+    │
+    │ needs data
+    ▼
+Slow Storage
+    │
+    ▼
+GPU waits
+```
+
+ထို့ကြောင့် AI-centric data center တစ်ခုတွင် storage performance သည် အလွန်အရေးကြီးလှပါသည်။
+
+## 6. AI Workload များ၏ Storage လိုအပ်ချက်များ
+
+AI workloads များသည် ပုံမှန်အားဖြင့် အောက်ပါအတိုင်း လိုအပ်ပါသည် —
+
+1. **High Throughput** — Storage system က data အမြောက်အမြားကို ထိရောက်စွာ ရွှေ့ပြောင်းပေးနိုင်ရမည်။
+2. **Low Latency** — Data ကို အနည်းဆုံး နှောင့်နှေးမှုဖြင့် ဝင်ရောက်အသုံးပြုနိုင်ရမည်။
+3. **Scalability** — Data ပမာဏနှင့် GPU node အရေအတွက် တိုးများလာသည်နှင့်အမျှ storage ကို ချဲ့ထွင် (scale) နိုင်ရမည်။
+
+ထို့ကြောင့် — `AI Storage = High Throughput + Low Latency + Scalability`
+
+## 7. Storage အမျိုးအစား ၁ — NVMe SSD
+
+အသုံးများသော ရွေးချယ်စရာတစ်ခုမှာ NVMe SSD local storage ဖြစ်ပါသည်။ NVMe ဆိုသည်မှာ — **Non-Volatile Memory Express** ကို ရည်ညွှန်းပါသည်။
+
+AI server တစ်ခုတွင် အောက်ပါအရာများ ပါရှိနိုင်ပါသည် —
+
+```
+                AI Server
+        ┌─────────────────────┐
+        │                     │
+        │       CPU           │
+        │        │            │
+        │       GPU           │
+        │                     │
+        │     NVMe SSD        │
+        │        │            │
+        └────────┼────────────┘
+                 │
+            Local Storage
+```
+
+NVMe SSD များသည် GPU server အတွင်းတွင် တည်ရှိပါသည်။
+
+## 8. NVMe ကို ဘာကြောင့် သုံးသနည်း
+
+NVMe က local I/O ကို အလွန်အမြန် ပေးနိုင်ပါသည်။ အောက်ပါအတွက် အသုံးဝင်နိုင်ပါသည် — Model training၊ Inference၊ ယာယီ (temporary) သို့မဟုတ် အသုံးပြုနေဆဲ data၊ အမြန်နှုန်းမြင့် local data access။
+
+စားသောက်ဆိုင် ဥပမာ —
+
+```
+Chef / GPU
+     │
+     ▼
+Nearby Pantry
+     │
+     ▼
+NVMe SSD
+```
+
+ပစ္စည်းများသည် စားဖိုမှူးနှင့် အလွန်နီးကပ်စွာ တည်ရှိသောကြောင့် အမြန်ဆုံး ရယူအသုံးပြုနိုင်ပါသည်။
+
+## 9. NVMe ၏ ကန့်သတ်ချက်
+
+NVMe SSD များသည် အလွန်အမြန်ဖြစ်သော်လည်း ၎င်းတို့၏ capacity ကို physical server က ကန့်သတ်ထားပါသည်။ Server တစ်လုံးတည်းတွင် SSD များကို အကန့်အသတ်မရှိ ဆက်လက်ထည့်သွင်း၍ မရပါ။
+
+```
+Server
+┌──────────────────────┐
+│ CPU                  │
+│ GPU                  │
+│ NIC                  │
+│ NVMe │ NVMe │ NVMe   │
+└──────────────────────┘
+
+Physical Space = Limited
+```
+
+ထို့ကြောင့် — `NVMe = Very Fast + Local + Limited Capacity`
+
+## 10. Storage အမျိုးအစား ၂ — Parallel File System
+
+Capacity ပိုမိုများပြားစွာ လိုအပ်လာပြီး GPU server အများအပြားက data တူညီသည်ကို ဝင်ရောက်ကြည့်ရှုရန် လိုအပ်လာသောအခါ ဘာဖြစ်မည်နည်း။ အသုံးများသော ဖြေရှင်းနည်းမှာ **Parallel File System** ဖြစ်ပါသည်။ ၎င်းသည် clustered storage ၏ ပုံစံတစ်မျိုး ဖြစ်ပါသည်။
+
+```
+GPU Node 1
+                  │
+             GPU Node 2
+                  │
+             GPU Node 3
+                  │
+             GPU Node 4
+                  │
+                  ▼
+          Parallel File System
+                  │
+        ┌─────────┼─────────┐
+        ▼         ▼         ▼
+     Storage   Storage   Storage
+      Node 1    Node 2    Node 3
+```
+
+GPU node အများအပြားသည် နောက်ကွယ်တွင်ရှိသော storage node အများအပြားကို တစ်ပြိုင်နက် ဝင်ရောက်အသုံးပြုနိုင်ပါသည်။
+
+## 11. Parallel File System ကို ဘာကြောင့် သုံးသနည်း
+
+AI cluster တစ်ခုတွင် GPU node အများအပြား ပါရှိနိုင်ပါသည်။ ဥပမာ —
+
+```
+GPU Node 1 ───┐
+GPU Node 2 ───┤
+GPU Node 3 ───┼──► Shared High-Speed Storage
+GPU Node 4 ───┤
+GPU Node 5 ───┘
+```
+
+GPU node အများအပြားသည် shared datasets များကို တစ်ပြိုင်နက် ဝင်ရောက်အသုံးပြုရန် လိုအပ်နိုင်ပါသည်။ ထို့ကြောင့် Parallel File System သည် GPU node အများအပြား တစ်ခုလုံးအတွက် shared high-speed access ကို ပေးနိုင်ပါသည်။ ဤအချက်သည် အထူးသဖြင့် large-scale AI နှင့် HPC-style workloads များအတွက် အလွန်အသုံးဝင်ပါသည်။
+
+## 12. Storage အမျိုးအစား ၃ — Network File System (NFS)
+
+နောက်ထပ် storage ရွေးချယ်စရာတစ်ခုမှာ — **Network File System (NFS)** ဖြစ်ပါသည်။ NFS က network ပေါ်မှတစ်ဆင့် system အမျိုးမျိုးကြား files များကို မျှဝေအသုံးပြုနိုင်စေပါသည်။ မူရင်းရှင်းလင်းချက်အရ configuration files နှင့် scripts ကဲ့သို့သော distributed small datasets များအတွက် အသုံးပြုနိုင်ပါသည်။
+
+```
+             NFS Server
+                 │
+       ┌─────────┼─────────┐
+       │         │         │
+       ▼         ▼         ▼
+    Node 1     Node 2    Node 3
+       │         │         │
+     Config    Config    Config
+     Scripts   Scripts   Scripts
+```
+
+## 13. NFS ကို ဘာအတွက် သုံးသနည်း
+
+NFS က အောက်ပါအတွက် အသုံးဝင်နိုင်ပါသည် — Configuration files၊ Scripts၊ Shared small datasets၊ ဘုံ (common) files များ။
+
+အရေးကြီးသော အချက်မှာ — ဤရှင်းလင်းချက်အရ NFS ကို အဓိကအားဖြင့် configuration/script မျှဝေခြင်းနှင့် အသေးစား distributed data အတွက် ဆွေးနွေးထားခြင်းဖြစ်ပြီး AI training datasets ကြီးများအတွက် စွမ်းဆောင်ရည်အမြင့်ဆုံး storage layer အဖြစ် ရည်ညွှန်းထားခြင်း မဟုတ်ပါ။
+
+## 14. Storage အမျိုးအစား ၄ — Object Storage
+
+နောက်ထပ် အရေးကြီးသော storage အမျိုးအစားမှာ **Object Storage** ဖြစ်ပါသည်။ မူရင်းစာတွင် Amazon S3 ကို ဥပမာအဖြစ် ပေးထားပါသည်။ Object Storage သည် data အလွန်အမြောက်အမြားကို သိမ်းဆည်းရာတွင် အသုံးဝင်ပြီး အထူးသဖြင့် ရေရှည်သိမ်းဆည်းမှုအတွက် သင့်လျော်ပါသည်။
+
+## 15. Object Storage အသုံးပြုမှု နည်းလမ်းများ
+
+Object Storage တွင် အောက်ပါအရာများကို ထားရှိနိုင်ပါသည် — ပမာဏကြီးမားသော raw datasets များ၊ Model checkpoints များ၊ Logs များ၊ Historical data များ၊ Archived models များ။
+
+```
+              Object Storage
+                    │
+       ┌────────────┼────────────┐
+       │            │            │
+       ▼            ▼            ▼
+   Raw Dataset   Checkpoints    Logs
+       │            │            │
+       └────────────┼────────────┘
+                    │
+              Long-Term Data
+```
+
+ထို့ကြောင့် — `Object Storage = Massive + Long-Term + Persistent Storage`
+
+## 16. အဓိက Storage အမျိုးအစား လေးမျိုး
+
+| Storage | အဓိကရည်ရွယ်ချက် | အဓိကလက္ခဏာ |
+|---|---|---|
+| NVMe SSD | Local active data / fast I/O | အလွန်အမြန်၊ local |
+| Parallel File System | GPU node အများအပြားကြား shared data | အမြန်နှုန်းမြင့် shared access |
+| NFS | Configuration နှင့် script မျှဝေခြင်း | Distributed file sharing |
+| Object Storage | Long-term / ပမာဏကြီး data | အကြီးစား persistent storage |
+
+## 17. မှတ်ရလွယ်သော နည်းလမ်း
+
+```
+NVMe
+  ↓
+Fast Local Storage
+
+Parallel File System
+  ↓
+Fast Shared GPU Storage
+
+NFS
+  ↓
+Config + Scripts
+
+Object Storage
+  ↓
+Massive Long-Term Storage
+```
+
+သို့မဟုတ် ရိုးရိုးရှင်းရှင်းပြောရလျှင် —
+
+- NVMe = Local Fast
+- Parallel FS = Shared Fast
+- NFS = Shared Files
+- Object = Long-Term Massive
+
+## 18. AI Data Center တွင် Storage အမျိုးအစား တစ်မျိုးတည်းကိုသာ မသုံးပါ
+
+အရေးကြီးသော အယူအဆတစ်ခုမှာ — data center တစ်ခုသည် storage အမျိုးအစားတစ်မျိုးတည်းကိုသာ အသုံးပြုရန် လိုအပ်သည် မဟုတ်ပါ။ ထိုအစား **tiered storage** သို့မဟုတ် **hybrid storage** ချဉ်းကပ်မှုကို အသုံးပြုနိုင်ပါသည်။
+
+Data အမျိုးအစားအလိုက် access pattern များ မတူညီပါ — အချို့ data များမှာ လက်ရှိ အသုံးပြုနေဆဲဖြစ်သည်။ အချို့ data များမှာ ရံဖန်သာ အသုံးပြုပါသည်။ အချို့ data များမှာမူ archive သို့မဟုတ် သမိုင်းမှတ်တမ်း ရည်ရွယ်ချက်အတွက်သာ သိမ်းဆည်းထားခြင်း ဖြစ်ပါသည်။
+
+## 19. Tiered Storage
+
+```
+HOT DATA
+   │
+   ▼
+NVMe / Fast Storage
+   │
+   │
+   ▼
+WARM DATA
+   │
+   ▼
+Shared / Parallel Storage
+   │
+   │
+   ▼
+COLD DATA
+   │
+   ▼
+Object Storage / Archive
+```
+
+အခြေခံအကြံမှာ data ကို ၎င်း၏ access လိုအပ်ချက်နှင့် ကိုက်ညီသော storage tier ပေါ်တွင် ထားရှိခြင်း ဖြစ်ပါသည်။
+
+## 20. Hot, Warm နှင့် Cold Data
+
+**Hot Data** — လက်ရှိ အသုံးပြုနေဆဲ data ဖြစ်ပါသည်။ ဥပမာ — လက်ရှိ training datasets များ၊ active model data များ၊ အကြိမ်ကြိမ် ဝင်ရောက်အသုံးပြုသော data များ။ ဤ data ကို အောက်ပါတွင် ထားရှိနိုင်ပါသည် —
+
+```
+Hot Data
+   ↓
+NVMe / Parallel File System
+```
+
+**Warm Data** — အသုံးဝင်သေးသော်လည်း အမြဲတမ်း ဝင်ရောက်အသုံးမပြုသော data ဖြစ်ပါသည်။ ဥပမာများမှာ — အဟောင်း model versions များ၊ မကြာသေးမီက အသုံးပြုခဲ့သော datasets များ၊ intermediate data များ ဖြစ်ပါသည်။
+
+**Cold Data** — ရှားပါးစွာ ဝင်ရောက်အသုံးပြုသော data ဖြစ်ပါသည်။ ဥပမာများ — historical datasets များ၊ အဟောင်း model checkpoints များ၊ archived logs များ၊ အဟောင်း models များ။ ဤ data အမျိုးအစားကို Object Storage သို့ ရွှေ့ပြောင်းနိုင်ပါသည်။
+
+## 21. Data Lifecycle Policies
+
+Data သည် storage tier တစ်ခုတည်းတွင် ထာဝရ ကျန်ရှိနေရန် မလိုအပ်ပါ။ Lifecycle policy က data ၏ သက်တမ်း (age) သို့မဟုတ် access pattern ကို အခြေခံ၍ data ကို ရွှေ့ပြောင်းပေးနိုင်ပါသည်။
+
+```
+Active Training
+      │
+      ▼
+    HOT
+      │
+      │ Lifecycle Policy
+      ▼
+    WARM
+      │
+      │ Lifecycle Policy
+      ▼
+    COLD
+      │
+      ▼
+Object Storage
+```
+
+ဤနည်းလမ်းက အောက်ပါအတွက် ကူညီပေးနိုင်ပါသည် — မလိုအပ်ဘဲ ဈေးကြီးသော high-performance storage ကို အသုံးပြုမိခြင်းကို ရှောင်ရှားခြင်း၊ storage capacity အသုံးပြုမှုကို တိုးတက်ကောင်းမွန်စေခြင်း၊ ရေရှည် data များကို ပိုမိုသင့်လျော်သော storage တွင် ထားရှိခြင်း။
+
+## 22. ပြည့်စုံသော Storage Architecture
+
+အဆင့်မြင့် AI-centric storage architecture တစ်ခုသည် အောက်ပါအတိုင်း ဖြစ်နိုင်ပါသည် —
+
+```
+                         AI Workload
+                             │
+                             ▼
+                           GPU
+                             │
+                 ┌───────────┼───────────┐
+                 │           │           │
+                 ▼           ▼           ▼
+              NVMe      Parallel FS      NFS
+              Local       Shared       Config/
+              Fast        Fast         Scripts
+                 │           │           │
+                 └───────────┼───────────┘
+                             │
+                             ▼
+                       Object Storage
+                        Long-Term Data
+```
+
+## 23. စားသောက်ဆိုင် ဥပမာ အပြည့်အစုံ
+
+```
+Five-Star Kitchen
+        │
+        ├── Chef
+        │     ↓
+        │    GPU
+        │
+        ├── Waiter
+        │     ↓
+        │    Network
+        │
+        └── Pantry
+              ↓
+            Storage
+```
+
+Pantry ကိုယ်တိုင်တွင်လည်း အဆင့်အမျိုးမျိုး ရှိနိုင်ပါသည် —
+
+```
+Nearby Shelf
+    ↓
+NVMe
+Fast access
+
+Large Shared Pantry
+    ↓
+Parallel File System
+Shared high-speed access
+
+Common File Cabinet
+    ↓
+NFS
+Config + Scripts
+
+Warehouse
+    ↓
+Object Storage
+Massive long-term storage
+```
+
+AI data center တစ်ခုက ဘာကြောင့် storage နည်းပညာ အမျိုးမျိုးကို တစ်ပြိုင်နက် အသုံးပြုနိုင်သနည်း ဆိုသည်ကို နားလည်ရန် ဤအရာသည် အသုံးဝင်သော mental model တစ်ခု ဖြစ်ပါသည်။
+
+## 24. NVIDIA နှင့် Storage
+
+မူရင်းစာမှ အရေးကြီးသော အချက်တစ်ခုမှာ — NVIDIA သည် storage hardware သို့မဟုတ် storage software ကို တိုက်ရိုက် အာရုံမစိုက်ပါ။ သို့သော် AI data center အတွက် storage သည် မဖြစ်မနေ လိုအပ်ဆဲ ဖြစ်ပါသည်။ ထို့ကြောင့် NVIDIA သည် storage ecosystem partners များနှင့် ပူးပေါင်းဆောင်ရွက်ပြီး ၎င်းတို့၏ storage solutions များကို NVIDIA ၏ hardware နှင့် software environment နှင့် ပေါင်းစပ်အလုပ်လုပ်နိုင်အောင် ဆောင်ရွက်ပါသည်။
+
+```
+                NVIDIA AI Platform
+                       │
+              ┌────────┴────────┐
+              │                 │
+            Compute          Networking
+              │
+              │
+              ▼
+       Storage Partners
+              │
+       ┌──────┼──────┐
+       ▼      ▼      ▼
+    NVMe   Parallel  Object
+           File      Storage
+           System
+```
+
+ရည်မှန်းချက်မှာ AI workloads များအတွက် စွမ်းဆောင်ရည်မြင့် end-to-end solution — Compute + Network + Storage — ကို ဖန်တီးခြင်း ဖြစ်ပါသည်။
+
+## 25. နောက်ဆုံး စာမေးပွဲ အကျဉ်းချုပ်
+
+**AI Storage လိုအပ်ချက်များ** — High Throughput + Low Latency + Scalability
+
+**Storage အမျိုးအစား လေးမျိုး**
+- NVMe → Fast Local Storage
+- Parallel File System → GPU Nodes များအတွက် High-Speed Shared Storage
+- NFS → Configuration နှင့် Script မျှဝေခြင်း
+- Object Storage → Massive Long-Term Storage
+
+**Storage မဟာဗျူဟာ**
+- Hot → Fast Storage
+- Warm → Shared / Intermediate Storage
+- Cold → Object / Archive Storage
+
+**Architecture** — AI data centers များသည် storage အမျိုးအစား တစ်မျိုးတည်းကိုသာ အားကိုးနေလေ့ မရှိပါ။ ထိုအစား — Tiered / Hybrid Storage + Lifecycle Policies များကို အသုံးပြု၍ data ၏ access pattern အလိုက် အသင့်လျော်ဆုံး storage tier တွင် data ကို ထားရှိနိုင်ပါသည်။
+
+**တစ်ကြောင်းတည်း မှတ်ရနည်း** — GPU သည် စားဖိုမှူး၊ Network သည် စားပွဲထိုး၊ Storage သည် Pantry ဖြစ်သည်။ ထို့ပြင် ဤအရာကို မှတ်ထားပါ — NVMe = Fast & Local · Parallel File System = Fast & Shared · NFS = Config & Scripts · Object Storage = Massive & Long-Term

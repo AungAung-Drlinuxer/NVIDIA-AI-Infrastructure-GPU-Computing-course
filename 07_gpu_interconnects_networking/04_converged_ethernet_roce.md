@@ -405,3 +405,411 @@ Converged Data Center
 - RoCE = RDMA over Converged Ethernet.
 - RDMA = Efficient remote memory-to-memory data movement with reduced CPU involvement.
 - Convergence reduces separate infrastructure; it does not mean removing redundancy.
+
+## English Version — Converged Ethernet (CE) and RoCE
+
+## 1. What Is Converged Ethernet?
+
+When talking about AI-centric data center networking, you may come across the term Converged Ethernet.
+
+The meaning of the word "converged" is—**many things coming together / merging into one place**. For example—
+
+```
+Line A ────────┐
+               │
+Line B ────────┼──────► Converged Point
+               │
+Line C ────────┘
+```
+
+In networking, this concept describes designing a shared Ethernet fabric that can carry many kinds of traffic, instead of carrying each traffic type on separate infrastructures.
+
+## 2. Traditional Data Center Network
+
+Consider a traditional network environment. There are different traffic types. For example—
+
+- LAN Traffic
+- HPC Traffic
+- Storage Traffic (described in the source as SAN — Storage Area Network traffic)
+
+If all of this traffic is built on separate network infrastructures—
+
+```
+                 SERVER
+                   │
+       ┌───────────┼───────────┐
+       │           │           │
+       ▼           ▼           ▼
+    LAN NIC      HPC NIC     Storage NIC
+       │           │           │
+       ▼           ▼           ▼
+   LAN Network   HPC Network  SAN Network
+       │           │           │
+       ▼           ▼           ▼
+    Switch       Switch       Switch
+```
+
+This means—more connector types, more cable types, more NICs, more switches, more networks.
+
+## 3. The Problem with Separate Networks
+
+Building the three networks separately makes the infrastructure more complex. For example—
+
+```
+LAN
+ │
+ ├── NIC
+ ├── Cable
+ └── Switch
+
+HPC
+ │
+ ├── NIC
+ ├── Cable
+ └── Switch
+
+Storage
+ │
+ ├── NIC
+ ├── Cable
+ └── Switch
+```
+
+In this architecture—**More hardware → More cables → More switches → More management**.
+
+## 4. The Idea Behind Converged Ethernet
+
+Here a new idea appears—"What if, instead of keeping every network separate, we carry different kinds of traffic on a single Ethernet fabric?"
+
+That is the core idea of Converged Ethernet.
+
+```
+Traditional
+
+LAN  ───────────────► LAN Network
+HPC  ───────────────► HPC Network
+SAN  ───────────────► Storage Network
+
+
+Converged Ethernet
+
+LAN  ────────┐
+HPC  ────────┼──────► Ethernet Fabric
+SAN  ────────┘
+```
+
+## 5. One Ethernet Fabric
+
+With Converged Ethernet, the physical infrastructure can be consolidated further.
+
+```
+                    Ethernet Fabric
+                         │
+          ┌──────────────┼──────────────┐
+          │              │              │
+          ▼              ▼              ▼
+       LAN Traffic    HPC Traffic    Storage Traffic
+```
+
+So a single Ethernet fabric can carry many different traffic types.
+
+The important point is—**One fabric does not mean one traffic type.** Many kinds of traffic can run on one Ethernet infrastructure.
+
+## 6. What Does "One Cable" Mean?
+
+The source explains—**Physically it is one cable.**
+
+This should NOT be taken to mean "a server will have exactly one cable." The source itself explains redundancy—**At least two connections can come out of each server**.
+
+```
+              Server
+             /      \
+            /        \
+       Link A          Link B
+          │              │
+          ▼              ▼
+       Ethernet       Ethernet
+        Fabric          Fabric
+```
+
+So physical connectivity can be built with redundant links.
+
+**Important Concept** — Converged does not mean single point of failure. Because you can keep redundant links, availability is preserved.
+
+## 7. What Traffic Can Be Converged?
+
+According to the source, many kinds of traffic can be carried on a Converged Ethernet fabric.
+
+1. **LAN Traffic** — General network traffic
+2. **Storage Traffic** — SAN / storage-related traffic
+3. **HPC Traffic** — High-performance computing traffic
+
+```
+             CONVERGED ETHERNET
+                     │
+        ┌────────────┼────────────┐
+        │            │            │
+        ▼            ▼            ▼
+       LAN          SAN          HPC
+     Traffic      Traffic      Traffic
+```
+
+## 8. High Bandwidth
+
+Converged Ethernet can support high-bandwidth networking. The source mentions example bandwidth levels—**40 Gbps, 100 Gbps, 200 Gbps, 400 Gbps**.
+
+So do not assume Converged Ethernet is "just a kind of low-speed general Ethernet." Modern high-speed Ethernet infrastructure can deliver extremely high bandwidth.
+
+## 9. Cost Efficiency
+
+One advantage of converging network infrastructure is cost efficiency.
+
+**With separate networks—**
+
+```
+3 Networks
+   ↓
+More NICs
+   ↓
+More Cables
+   ↓
+More Switches
+   ↓
+More Power
+   ↓
+More Management
+```
+
+**With a converged design—**
+
+```
+Converged Ethernet Fabric
+          ↓
+Less Separate Infrastructure
+          ↓
+Less Hardware
+          ↓
+Less Power
+          ↓
+Simpler Management
+```
+
+That is why the source lists these benefits—**Less network to manage, Less power usage, Less hardware to buy**.
+
+## 10. Low Latency
+
+Converged Ethernet supports high-performance networking and can also provide low-latency communication.
+
+Especially when using technologies like RDMA / RoCE, it can support high-performance data movement.
+
+## 11. RDMA in Converged Ethernet
+
+Here the source makes an important point. **RDMA is not only for GPUs.** RDMA can also be used with network devices.
+
+RDMA = Remote Direct Memory Access — its main idea is memory-to-memory data transfer with minimal CPU involvement.
+
+```
+Traditional Networking
+
+Application
+     │
+     ▼
+    CPU
+     │
+     ▼
+Network Stack
+     │
+     ▼
+    NIC
+     │
+     ▼
+  Network
+```
+
+With RDMA-based communication, CPU involvement can be reduced.
+
+```
+Memory
+  │
+  ▼
+ RDMA
+  │
+  ▼
+ NIC
+  │
+  ▼
+Network
+```
+
+So benefits like—Lower latency, Lower CPU overhead, High throughput can be obtained.
+
+## 12. RoCE
+
+In the source transcript, the place written the way "rock" is pronounced is, as a technical term—
+
+**RoCE**.
+
+RoCE means—**RDMA over Converged Ethernet**.
+
+```
+RDMA
+  +
+Ethernet
+  ↓
+RoCE
+```
+
+So RoCE enables RDMA-style high-performance data transfer using Ethernet infrastructure.
+
+## 13. Why Use RoCE?
+
+An AI-centric data center can have many GPU nodes. For example—
+
+```
+GPU Server 1 ─────┐
+                  │
+GPU Server 2 ─────┤
+                  │
+GPU Server 3 ─────┼── Ethernet Fabric
+                  │
+GPU Server 4 ─────┤
+                  │
+GPU Server 5 ─────┘
+```
+
+In distributed AI training, there can be heavy data exchange between servers. So—High bandwidth + low latency + efficient data movement matter.
+
+Because RoCE lets you use RDMA on an Ethernet fabric, it can be useful for such high-performance workloads.
+
+## 14. Converged Ethernet vs Separate Networks
+
+| Aspect | Traditional Separate Networks | Converged Ethernet |
+|---|---|---|
+| Network Fabric | Multiple | Shared Ethernet fabric |
+| LAN | Separate | Shared/converged |
+| HPC | Separate | Shared/converged |
+| Storage | Separate | Shared/converged |
+| Cables | More | Fewer physical paths |
+| Switches | More | Fewer separate switches |
+| Hardware | More | More consolidated |
+| Power | Higher infrastructure overhead possible | Lower infrastructure overhead possible |
+| Management | More complex | More centralized |
+| Bandwidth | Depends on network | High-speed Ethernet possible |
+| RDMA | Possible depending on technology | RoCE can provide RDMA over Ethernet |
+
+## 15. Traditional vs Converged Architecture
+
+**Traditional**
+
+```
+                 SERVER
+                    │
+        ┌───────────┼───────────┐
+        │           │           │
+        ▼           ▼           ▼
+      LAN          HPC         Storage
+       │            │            │
+       ▼            ▼            ▼
+    Switch        Switch       Switch
+       │            │            │
+       ▼            ▼            ▼
+    Network       Network      Network
+```
+
+**Converged**
+
+```
+SERVER
+                    │
+             ┌──────┴──────┐
+             │             │
+          Link A         Link B
+             │             │
+             └──────┬──────┘
+                    │
+                    ▼
+          CONVERGED ETHERNET
+               FABRIC
+                    │
+       ┌────────────┼────────────┐
+       │            │            │
+       ▼            ▼            ▼
+      LAN          HPC        Storage
+    Traffic      Traffic      Traffic
+```
+
+## 16. Important Clarification
+
+**Converged Ethernet does not mean that all traffic becomes identical.** It means: Different traffic types share a common Ethernet infrastructure/fabric. The traffic can still be logically separated and managed according to its requirements.
+
+For example:
+
+```
+Ethernet Fabric
+      │
+      ├── LAN Traffic
+      ├── Storage Traffic
+      └── HPC / RDMA Traffic
+```
+
+These traffic types can share the same physical fabric, but traffic handling, prioritization, isolation, and so on can be managed separately according to the design.
+
+## 17. NVIDIA Context
+
+Near the end, the source talks about NVIDIA's InfiniBand and Converged Ethernet implementation. But the source itself notes that terminology such as DGX / SGX server and OpenSim is not explained in this part.
+
+So, rather than filling in NVIDIA-specific architecture details in this module, just remember the concept—**NVIDIA implements both InfiniBand and Ethernet-based high-performance networking approaches**. You can study NVIDIA-specific networking technologies separately in a later section.
+
+## 18. Exam Shortcut
+
+```
+Traditional Networking
+Separate Traffic → Separate Networks → More Hardware
+
+Converged Ethernet
+Multiple Traffic Types → Shared Ethernet Fabric → Less Separate Infrastructure
+
+RoCE
+RDMA over Converged Ethernet
+```
+
+## 19. One-Line Memory Trick
+
+**Converged Ethernet = LAN + Storage + HPC traffic sharing a common Ethernet fabric.**
+
+In other words — Converged Ethernet is an architecture where the network infrastructure is converged so that many kinds of traffic — LAN, Storage, HPC — can be carried on a single common Ethernet fabric.
+
+## 20. Final Mental Model
+
+```
+Traditional Data Center
+
+ LAN ───────► LAN Switch
+ HPC ───────► HPC Switch
+ Storage ───► Storage Switch
+
+
+             ↓ CONVERGENCE ↓
+
+
+Converged Data Center
+
+              ┌───────────────┐
+ LAN ─────────┤               │
+ Storage ─────┤   Ethernet    │
+ HPC ─────────┤    Fabric     │
+              │               │
+              └───────────────┘
+                       │
+                     RoCE
+                       │
+              ┌────────┴────────┐
+              ▼                 ▼
+          Low Latency       High Throughput
+```
+
+**Remember:**
+- Converged Ethernet = One shared Ethernet fabric for multiple traffic types.
+- RoCE = RDMA over Converged Ethernet.
+- RDMA = Efficient remote memory-to-memory data movement with reduced CPU involvement.
+- Convergence reduces separate infrastructure; it does not mean removing redundancy.
