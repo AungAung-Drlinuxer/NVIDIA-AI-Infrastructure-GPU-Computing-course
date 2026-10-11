@@ -9,12 +9,18 @@ learners. They need accurate, practical explanations — not literal
 translations or marketing language.
 
 ## Language and tone
-- Write explanations in natural, clear Burmese.
+- Every module file must contain BOTH a Myanmar (Burmese) version and a
+  full English version of the same content (typically "## English Version"
+  / "## မြန်မာဘာသာ version" sections in one file).
+- Write explanations in natural, clear Burmese; the English version must
+  be natural technical English, not a word-by-word gloss.
 - Keep established technical terms in English where translation would
   make them harder to understand. Examples: GPU, CUDA, NVLink, NVSwitch,
   InfiniBand, RDMA, GPUDirect, MIG, vGPU, NCCL, DCGM, Slurm, Kubernetes,
-  scheduler, Device Plugin, TensorRT, Triton, NIM.
-- Do not translate every English word into Burmese.
+  scheduler, Device Plugin, TensorRT, Triton, NIM, throughput, latency,
+  bandwidth, fabric, offload, checkpoint, workload, cache, cores.
+- Do not translate every English word into Burmese. Technical terms stay
+  in English in BOTH language versions.
 - Use one consistent term for the same concept throughout the course.
 - Write in a professional but approachable teaching tone.
 - Avoid awkward phrases, unnecessary repetition, and decorative wording.
