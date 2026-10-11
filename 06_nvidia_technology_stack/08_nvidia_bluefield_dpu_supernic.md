@@ -92,7 +92,11 @@ flowchart TD
 - SuperNIC ဟာ ပုံမှန် NIC ထက် ပိုမို မြန်ဆန်တဲ့ networking နဲ့ acceleration ကို ပေးစွမ်းပြီး GPU server တွေကြားက AI workload traffic ကို သယ်ဆောင်ပေးပါတယ်။
 - ဒီကတ်ကို ကြည့်ရင် GPU (AI computation) နဲ့ BlueField DPU (infrastructure offload) တို့ကြားမှာ SuperNIC ရဲ့ role က networking အပိုင်း ဖြစ်တာ ပိုမို နားလည်လာပါမယ်။
 
-*(Image: NVIDIA official product image)*
+![သင်တန်းပုံ 1 (Training Slide 1): BlueField DPUs / SuperNICs](../assets/nca-aiio-slides/slide-067.jpg)
+
+**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training slide မှာ BlueField DPUs နဲ့ SuperNICs ကို အတူတကွ ပြထားပါတယ် — BlueField DPU က networking, storage နဲ့ security ဆိုင်ရာ infrastructure workloads တွေကို host CPU ကနေ offload လုပ်ပေးပြီး SuperNIC ကတော့ AI data center networking အတွက် high-performance networking ကို ပေးပါတယ်။ အပေါ်က Figure 1 ရဲ့ role ခွဲခြားပုံနဲ့ ယှဉ်ကြည့်နိုင်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 4. Why Do We Need Infrastructure Offload?
 
@@ -464,7 +468,11 @@ flowchart TD
 - A SuperNIC delivers faster networking and acceleration than a regular NIC, carrying AI-workload traffic between GPU servers.
 - The card makes the division of roles clear: GPU for AI computation, BlueField DPU for infrastructure offload, and SuperNIC for high-performance networking.
 
-*(Image: NVIDIA official product image)*
+![သင်တန်းပုံ 1 (Training Slide 1): BlueField DPUs / SuperNICs](../assets/nca-aiio-slides/slide-067.jpg)
+
+**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide shows BlueField DPUs and SuperNICs together — BlueField DPUs offload networking, storage, and security-related infrastructure workloads from the host CPU, while a SuperNIC focuses on high-performance networking for AI data centers. Match it with the role separation in Figure 1 above.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 4. Why Do We Need Infrastructure Offload?
 

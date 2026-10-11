@@ -10,6 +10,12 @@ Transformer ဆိုတာ Modern AI နဲ့ အထူးသဖြင့် G
 
 Transformer architecture ရဲ့ အခြေခံအယူအဆကို 2017 ခုနှစ်မှာ Google researchers တွေထုတ်ဝေခဲ့တဲ့ research paper ဖြစ်တဲ့ **"Attention Is All You Need"** ဆိုတဲ့ paper မှာ မိတ်ဆက်ခဲ့ပါတယ်။
 
+![သင်တန်းပုံ 1 (Training Slide 1): The Transformer Model](../assets/nca-aiio-slides/slide-014.jpg)
+
+**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 1)** — ဒီသင်တန်းပုံက Transformer model ကို သင်တန်း deck မှာ မိတ်ဆက်ထားတဲ့ မြင်ကွင်း ဖြစ်ပါတယ်။ Transformer ဟာ modern AI — အထူးသဖြင့် Generative AI နဲ့ Large Language Models (LLMs) တွေရဲ့ အခြေခံ deep learning architecture ဖြစ်ကြောင်း ဒီပုံက အကျဉ်းချုပ် ပြသပါတယ်။ အောက်က ရုပ်ပုံ 1 (architecture diagram) မှာတော့ ၎င်းရဲ့ အစိတ်အပိုင်းတွေကို အသေးစိတ် ဆက်လက် လေ့လာနိုင်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ![ရုပ်ပုံ 1 (Diagram 1): The Transformer model architecture](../assets/diagrams/transformer-architecture.png)
 
 **ပုံရှင်းလင်းချက် (Diagram walkthrough) —** ဒီပုံက Transformer တစ်ခုလုံးရဲ့ architecture ကို ဘေးချင်းကပ် ပြထားပါတယ် — ဘယ်ဘက်တစ်ဝက်က encoder ဖြစ်ပြီး ညာဘက်တစ်ဝက်က decoder ဖြစ်ပါတယ်။ ဘယ်ဘက်အောက်ခြေက Input Embedding က စာသားကို vector တွေအဖြစ် ပြောင်းပေးပြီး Positional Encoding က စကားလုံးတွေရဲ့ အစဉ်အလိုက် နေရာ အချက်အလက် ထည့်ပေးပါတယ်။ အဲဒီကနေ Multi-Head Attention → Add & Norm → Feed Forward → Add & Norm ဆိုတဲ့ ဘောက်တွေ အထက်ကို တက်သွားပြီး ဒီအဆင့်ကို N ကြိမ် ထပ်လုပ်ပါတယ်။ ညာဘက် decoder မှာတော့ Output Embedding ကနေ စပြီး နောက် token တွေကို မမြင်ရအောင် ကာထားတဲ့ Masked Multi-Head Attention၊ encoder ရဲ့ output ကို ထပ်လက်ခံတဲ့ Multi-Head Attention၊ Feed Forward တွေ အဆင့်ဆင့် ဖြတ်သွားပါတယ်။ အပေါ်ဆုံးမှာ Linear နဲ့ Softmax က output probabilities တွေ ထုတ်ပေးပြီး နောက် token ကို ရွေးချယ်နိုင်ပါတယ်။
@@ -103,6 +109,12 @@ cat     → 5%
 Model က probability အမြင့်ဆုံး candidate ကို ရွေးနိုင်ပါတယ်။
 
 > The quick brown fox jumps over the lazy dog.
+
+![သင်တန်းပုံ 2 (Training Slide 2): Transformer Example — Next Word Prediction](../assets/nca-aiio-slides/slide-015.jpg)
+
+**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 2)** — ဒီသင်တန်းပုံက Transformer ရဲ့ အလုပ်လုပ်ပုံကို next word prediction ဥပမာနဲ့ သရုပ်ပြထားပါတယ် — ပေးထားတဲ့ စာကြောင်းရဲ့ နောက်မှာ ဘာစကားလုံး လာသင့်လဲဆိုတာကို model က candidate words တွေထဲကနေ ခန့်မှန်း ရွေးချယ်ပုံ ဖြစ်ပါတယ်။ အပေါ်က "The quick brown fox..." ဥပမာနဲ့ အခြေခံတူညီပြီး ဒီ mechanism ကို စကားလုံးတစ်လုံးချင်း ဆက်လုပ်ရင်း စာကြောင်း၊ စာပိုဒ်တွေအထိ တည်ဆောက်နိုင်တာ ဖြစ်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 5. Model က ဘာကြောင့် "dog" ကို ရွေးနိုင်တာလဲ?
 
@@ -527,6 +539,12 @@ A Transformer is a Deep Learning architecture that is extremely important for mo
 
 The basic idea of the Transformer architecture was introduced in the 2017 research paper **"Attention Is All You Need"**, published by Google researchers.
 
+![သင်တန်းပုံ 1 (Training Slide 1): The Transformer Model](../assets/nca-aiio-slides/slide-014.jpg)
+
+**Slide walkthrough (Training Slide 1)** — This training slide is the deck's introductory view of the Transformer model. It presents the Transformer as the core deep learning architecture behind modern AI, especially Generative AI and Large Language Models (LLMs). The architecture diagram below (Diagram 1) then breaks the model down into its detailed components.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ![ရုပ်ပုံ 1 (Diagram 1): The Transformer model architecture](../assets/diagrams/transformer-architecture.png)
 
 **Diagram walkthrough —** This picture shows the whole Transformer architecture side by side: the left half is the encoder and the right half is the decoder. On the lower left, Input Embedding turns the text into vectors and Positional Encoding adds word-order information; from there the data moves up through Multi-Head Attention → Add & Norm → Feed Forward → Add & Norm, a block that is repeated N times. The decoder on the right starts at Output Embedding, passes through Masked Multi-Head Attention (which hides later tokens so the model cannot peek ahead), a Multi-Head Attention step that also receives the encoder output, and Feed Forward blocks. At the very top, Linear and Softmax produce output probabilities from which the next token is selected.
@@ -619,6 +637,12 @@ These numbers are illustrative only. They are not actual model probabilities.
 The model can select the candidate with the highest probability:
 
 > The quick brown fox jumps over the lazy dog.
+
+![သင်တန်းပုံ 2 (Training Slide 2): Transformer Example — Next Word Prediction](../assets/nca-aiio-slides/slide-015.jpg)
+
+**Slide walkthrough (Training Slide 2)** — This training slide demonstrates how a Transformer works through a next-word-prediction example: given a sentence, the model predicts which word should come next, choosing among candidate words. It is the same idea as the "The quick brown fox..." example above, and repeating this mechanism one word at a time is how a Transformer builds sentences, paragraphs, and longer text.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 5. Why Does the Model Choose "dog"?
 

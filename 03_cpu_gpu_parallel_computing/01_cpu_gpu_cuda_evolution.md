@@ -96,6 +96,12 @@ flowchart TD
 - CPU အောက်က node တွေက operating system, applications နဲ့ sequential / branching workload တွေကို ဆိုလိုပါတယ်။
 - GPU အောက်က node တွေက matrix / tensor parallel operation တွေနဲ့ AI, graphics, HPC workload တွေကို ဆိုလိုပါတယ်။
 
+![သင်တန်းပုံ 1 (Training Slide 1): Moore's Law ထက် ကျော်လွန်လာသော Computing (Beyond Moore's Law)](../assets/nca-aiio-slides/slide-031.jpg)
+
+**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 1)** — ဒီသင်တန်းပုံမှာ Moore's Law ကို ကျော်လွန်လာတဲ့ computing ခေတ်အကြောင်း ရှင်းလင်းထားပါတယ်။ Processor တစ်ခုချင်းရဲ့ စွမ်းဆောင်ရည် တိုးတက်မှုကိုသာ အားကိုးနေရုံနဲ့ AI workload တွေ လိုအပ်တဲ့ compute ပမာဏကို မမီနိုင်တော့ဘဲ၊ CPU ထက် GPU လို highly parallel processor တွေ ပါဝင်တဲ့ accelerated computing ဘက် ပြောင်းလဲ အသုံးပြုလာရတဲ့ အကြောင်းရင်းကို ပြပါတယ်။ ဒါဟာ ဒီ section မှာ ရှင်းပြထားတဲ့ AI-centric data center မှာ CPU တစ်ခုတည်းနဲ့ မပြီးဘဲ GPU လိုအပ်ရတဲ့ နောက်ခံ အကြောင်းပြချက် ဖြစ်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ### 4. GPU ကို ဘာကြောင့် တီထွင်ခဲ့တာလဲ?
 
 GPU ရဲ့ အစောပိုင်းရည်ရွယ်ချက်က AI မဟုတ်ပါဘူး။
@@ -627,6 +633,12 @@ flowchart TD
 - The left branch shows the CPU as general compute; the right branch shows the GPU as parallel compute.
 - The nodes under the CPU mean operating systems, applications, and sequential / branching workloads.
 - The nodes under the GPU mean matrix / tensor parallel operations and AI, graphics, and HPC workloads.
+
+![သင်တန်းပုံ 1 (Training Slide 1): Beyond Moore's Law](../assets/nca-aiio-slides/slide-031.jpg)
+
+**Slide walkthrough (Training Slide 1)** — This training slide explains computing beyond Moore's law. Relying only on ever-faster individual processors can no longer supply the compute that AI workloads demand, which is why the industry moved toward highly parallel processors such as GPUs and accelerated computing. It gives the background for the point made in this section: in an AI-centric data center, the CPU alone is not enough.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ### 4. Why Was the GPU Invented?
 

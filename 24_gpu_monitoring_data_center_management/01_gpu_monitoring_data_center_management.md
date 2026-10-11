@@ -23,6 +23,12 @@
 
 ## 2. Monitoring ဘာကြောင့် လိုအပ်သလဲ။
 
+![သင်တန်းပုံ 1 (Training Slide 1): Monitoring နှင့် Data Center Management အပိုင်း](../assets/nca-aiio-slides/slide-129.jpg)
+
+**ပုံရှင်းလင်းချက်** — ဒီသင်တန်းပုံက GPU monitoring နဲ့ data center management အပိုင်းကို စတင် မိတ်ဆက်ပေးတဲ့ slide ဖြစ်ပါတယ်။ ဒီ Module မှာ ဆက်လက် လေ့လာသွားမယ့် အကြောင်းအရာတွေ — monitoring ဘာကြောင့် လိုအပ်သလဲ၊ ဘာတွေကို monitor လုပ်သင့်သလဲ၊ နဲ့ tool သုံးခု (NVIDIA-SMI, DCGM, Base Command Manager) ရဲ့ အခန်းကဏ္ဍတွေ — ကို ဒီပုံက အကျဉ်းချုပ် ပြသထားပါတယ်။ Monitoring ဆိုတာ failure ရှာရုံသာ မဟုတ်ဘဲ resource အသုံးချမှု၊ performance နဲ့ capacity စီမံခန့်ခွဲမှုအတွက်ပါ အရေးကြီးကြောင်း မှတ်ထားပါ။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 High-performance sports car တစ်စီးကို မောင်းနေတယ်လို့ စဉ်းစားကြည့်ပါ။
 
 Engine က စွမ်းအားကောင်းပြီး ထိရောက်နိုင်ပေမဲ့ dashboard မရှိရင် အောက်ပါအချက်တွေကို သိနိုင်မှာ မဟုတ်ပါဘူး။
@@ -43,6 +49,12 @@ Data center မှာလည်း အလားတူ လိုအပ်ချက
 | Warning lights | Hardware errors, health alerts, and incidents |
 | Engine power consumption | GPU and server power consumption |
 | Vehicle diagnostics | Hardware and software health checks |
+
+![သင်တန်းပုံ 2 (Training Slide 2): Dashboard နှိုင်းယှဉ်ချက်](../assets/nca-aiio-slides/slide-130.jpg)
+
+**ပုံရှင်းလင်းချက်** — ဒီသင်တန်းပုံက ကားရဲ့ dashboard နဲ့ data center monitoring ကို နှိုင်းယှဉ်ပြထားတဲ့ analogy slide ဖြစ်ပါတယ်။ ကားပေါ်က fuel gauge, speedometer, engine temperature နဲ့ warning lights တွေကို ကြည့်ပြီး ကားအခြေအနေ သိရသလို data center မှာလည်း memory/storage capacity, workload performance, GPU နဲ့ system temperatures, health alerts နဲ့ power consumption တွေကို စောင့်ကြည့်မှ resource တွေ ထိရောက်စွာ အသုံးပြုနေသလား၊ ပြဿနာ ရှိနေသလား သိနိုင်မှာ ဖြစ်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 Monitoring ဆိုတာ failure တွေကို ရှာဖွေရုံသာ မဟုတ်ပါဘူး။ Underutilized resources တွေကို ဖော်ထုတ်ခြင်း၊ performance bottlenecks တွေကို စုံစမ်းခြင်း၊ capacity ကို စီစဉ်ခြင်းနဲ့ infrastructure efficiency ကို မြှင့်တင်ခြင်းတွေအတွက်လည်း ကူညီပေးပါတယ်။
 
@@ -269,6 +281,12 @@ BCM ကို ဘယ်အချိန်မှာ အသုံးပြုသ�
 
 ဒီ tools တွေက တစ်ခုနဲ့တစ်ခု ဖြည့်စွက်ပေးပါတယ်။ တကယ့် deployment တစ်ခုမှာ သုံးခုစလုံးကို operating-system monitoring, network monitoring, scheduler နဲ့ alerting infrastructure တွေနဲ့အတူ အသုံးပြုနိုင်ပါတယ်။
 
+![သင်တန်းပုံ 3 (Training Slide 3): nvidia-smi / DCGM / BCM](../assets/nca-aiio-slides/slide-131.jpg)
+
+**ပုံရှင်းလင်းချက်** — ဒီသင်တန်းပုံက monitoring tool သုံးခု — NVIDIA-SMI, DCGM နဲ့ Base Command Manager (BCM) — ကို တစ်နေရာတည်းမှာ နှိုင်းယှဉ်ပြထားတဲ့ slide ဖြစ်ပါတယ်။ NVIDIA-SMI က GPU အခြေအနေကို အမြန် စစ်ဆေးနိုင်တဲ့ CLI tool၊ DCGM က GPU telemetry, health နဲ့ diagnostics ပေးတဲ့ platform၊ BCM ကတော့ cluster တစ်ခုလုံးရဲ့ provisioning, configuration, monitoring နဲ့ dashboards ကို စီမံတဲ့ cluster management platform ဖြစ်ကြောင်း အပေါ်က ဇယားနဲ့ တွဲပြီး မှတ်သားနိုင်ပါတယ်။ သုံးခုစလုံးက တစ်ခုနဲ့တစ်ခု ဖြည့်စွက်ပေးတဲ့ tools တွေဖြစ်ပြီး တစ်ခုတည်းနဲ့ အစားထိုး မသုံးနိုင်ပါဘူး။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ## 8. ဥပမာ Monitoring Workflow
 
 AI training job တစ်ခု နှေးကွေးနေတဲ့ GPU server တစ်လုံးကို စဉ်းစားကြည့်ပါ။ စုံစမ်းသင့်တဲ့ အစီအစဉ်က —
@@ -359,6 +377,12 @@ Learning outcome: connect GPU monitoring tools to the right operational requirem
 
 ## 2. Why Do We Need Monitoring?
 
+![သင်တန်းပုံ 1 (Training Slide 1): Monitoring and management section](../assets/nca-aiio-slides/slide-129.jpg)
+
+**Figure walkthrough** — This training slide opens the monitoring and management section. It previews what this module covers next: why monitoring is needed, what should be monitored, and the roles of the three tools — NVIDIA-SMI, DCGM, and Base Command Manager. Keep the main takeaway in mind: monitoring is not only about finding failures; it is also about resource utilization, performance, and capacity planning.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 Imagine driving a high-performance sports car.
 
 The engine might be powerful and efficient, but without a dashboard you would not know:
@@ -379,6 +403,12 @@ A data center has similar requirements. An AI server may contain expensive GPUs,
 | Warning lights | Hardware errors, health alerts, and incidents |
 | Engine power consumption | GPU and server power consumption |
 | Vehicle diagnostics | Hardware and software health checks |
+
+![သင်တန်းပုံ 2 (Training Slide 2): Dashboard analogy](../assets/nca-aiio-slides/slide-130.jpg)
+
+**Figure walkthrough** — This training slide shows the dashboard analogy: a car dashboard versus data center monitoring. Just as the fuel gauge, speedometer, engine temperature, and warning lights tell you how the car is doing, monitoring memory/storage capacity, workload performance, GPU and system temperatures, health alerts, and power consumption tells you whether data center resources are used effectively and whether anything is going wrong.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 Monitoring is not only about detecting failures. It also helps administrators identify underutilized resources, investigate performance bottlenecks, plan capacity, and improve infrastructure efficiency.
 
@@ -604,6 +634,12 @@ When should you use BCM? When the requirement extends beyond monitoring individu
 | Job scheduling | No | No — monitoring ≠ scheduling | Scheduler integrations only; BCM itself is not a scheduler |
 
 These tools complement one another. A real deployment may use all three, alongside operating-system monitoring, network monitoring, a scheduler, and alerting infrastructure.
+
+![သင်တန်းပုံ 3 (Training Slide 3): nvidia-smi / DCGM / BCM](../assets/nca-aiio-slides/slide-131.jpg)
+
+**Figure walkthrough** — This training slide compares the three monitoring tools — NVIDIA-SMI, DCGM, and Base Command Manager (BCM) — side by side. Read it together with the table above: NVIDIA-SMI is the CLI for a quick look at GPU status, DCGM is the platform for GPU telemetry, health, and diagnostics, and BCM is the cluster management platform covering provisioning, configuration, monitoring, and dashboards for the whole cluster. The three tools complement one another and do not replace each other.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 8. Example Monitoring Workflow
 

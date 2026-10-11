@@ -307,6 +307,12 @@ flowchart TD
 | အကောင်းဆုံး | Control flow, logic, OS | Matrix, vector, tensor operation |
 | Latency | Latency နည်းအောင် optimize | Throughput အတွက် optimize |
 
+![သင်တန်းပုံ 1 (Training Slide 1): CPU vs GPU Architecture ပုံ (CPU vs GPU Architecture Diagram)](../assets/nca-aiio-slides/slide-030.jpg)
+
+**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 1)** — ဒီသင်တန်းပုံမှာ CPU နဲ့ GPU ရဲ့ high-level architecture ကို ဘေးချင်းယှဉ် ပြထားပါတယ်။ CPU ဘက်မှာ core နည်းနည်း powerful နဲ့ cache hierarchy ကြီး ပါဝင်ပြီး၊ GPU ဘက်မှာ processing unit ထောင်ပေါင်းများစွာ ငယ်ငယ်တွေနဲ့ high-bandwidth memory ပါဝင်ပုံကို တွေ့ရပါမယ်။ ဒီဇိုင်း ကွာခြားချက်ကြောင့် CPU က latency နည်းအောင်၊ GPU က throughput များအောင် အသီးသီး optimize ဖြစ်ကြတာ ဖြစ်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ## 14. အတူတကွ ဘယ်လိုအလုပ်လုပ်သလဲ?
 
 ```
@@ -689,6 +695,12 @@ flowchart TD
 | Memory | System RAM | Dedicated VRAM |
 | Best for | Control flow, logic, OS | Matrix, vector, tensor operations |
 | Latency | Optimized for low latency | Optimized for throughput |
+
+![သင်တန်းပုံ 1 (Training Slide 1): CPU vs GPU Architecture Diagram](../assets/nca-aiio-slides/slide-030.jpg)
+
+**Slide walkthrough (Training Slide 1)** — This training slide puts the CPU and GPU high-level architectures side by side. The CPU side shows a few powerful cores with a large cache hierarchy, while the GPU side shows thousands of smaller processing units with high-bandwidth memory. Those design differences are why the CPU is optimized for low latency and the GPU for high throughput.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 14. How They Work Together
 

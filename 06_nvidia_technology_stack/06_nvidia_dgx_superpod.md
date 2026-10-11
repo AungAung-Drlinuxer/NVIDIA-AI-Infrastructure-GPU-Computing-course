@@ -62,7 +62,11 @@ flowchart TD
 - Diagram ထဲမှာ box သေးသေးလေးတွေအဖြစ် မြင်ရတဲ့ DGX nodes တွေဟာ တကယ့်လက်တွေ့မှာ rack ထဲ တပ်ဆင်ထားတဲ့ server တွေ ဖြစ်ပါတယ်။
 - Single DGX တစ်လုံးကနေ ဒီလို စုစည်းမှုကြီးအထိ တိုးချဲ့လိုက်တာကပဲ "large-scale AI supercomputing" ဆိုတဲ့ စကားလုံးကို ဖြစ်လာစေတာ ဖြစ်ပါတယ်။
 
-*(Image: NVIDIA official product image)*
+![သင်တန်းပုံ 1 (Training Slide 1): DGX SuperPOD](../assets/nca-aiio-slides/slide-065.jpg)
+
+**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training slide က DGX SuperPOD ကို ပြထားပါတယ် — DGX systems/nodes အများကြီးကို အချင်းချင်း ချိတ်ဆက်စုပေါင်းထားတဲ့ scalable AI supercomputing infrastructure ဖြစ်ပါတယ်။ အပေါ်က "DGX တစ်လုံး → Multiple DGX Nodes → DGX SuperPOD" progression နဲ့ ဓာတ်ပုံနဲ့ ယှဉ်ကြည့်နိုင်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 3. DGX Nodes
 
@@ -785,6 +789,12 @@ So, at a high level:
 - Scaling from one DGX to this kind of aggregated deployment is exactly what the phrase "large-scale AI supercomputing" means.
 
 *(Image: NVIDIA official product image)*
+
+![သင်တန်းပုံ 1 (Training Slide 1): DGX SuperPOD](../assets/nca-aiio-slides/slide-065.jpg)
+
+**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide shows a DGX SuperPOD — scalable AI supercomputing infrastructure built from many interconnected DGX systems/nodes. Read it together with the "one DGX → multiple DGX nodes → DGX SuperPOD" progression and the photo above.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 3. DGX Nodes
 

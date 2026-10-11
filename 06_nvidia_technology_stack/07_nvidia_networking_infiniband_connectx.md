@@ -99,7 +99,11 @@ flowchart TD
 - ဒီကတ်ပေါ်မှာ network processor ရှိပြီး ကတ်ကနေ အပြင်ဘက် network port ကတစ်ဆင့် InfiniBand cable နဲ့ fabric ဆီ ချိတ်ဆက်ပါတယ်။
 - အပေါ်က diagram မှာ "ConnectX Adapter" box အဖြစ် ပြထားတဲ့ အရာဟာ ဒီလို physical card ကို ဆိုလိုတာ ဖြစ်ပါတယ်။
 
-*(Image: NVIDIA official product image)*
+![သင်တန်းပုံ 1 (Training Slide 1): ConnectX InfiniBand HCAs / NICs](../assets/nca-aiio-slides/slide-066.jpg)
+
+**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training slide မှာ ConnectX InfiniBand HCAs / NICs တွေကို ပြထားပါတယ် — server နဲ့ high-performance network fabric ကြားမှာ ချိတ်ဆက်ပေးတဲ့ networking adapters တွေ ဖြစ်ပါတယ်။ InfiniBand လမ်းကြောင်း (သို့) Ethernet / RoCE လမ်းကြောင်း နှစ်ခုလုံးအတွက် သုံးနိုင်ပြီး အပေါ်က diagram နဲ့ ဓာတ်ပုံတို့နဲ့ ယှဉ်ကြည့်နိုင်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 4. HCA — Host Channel Adapter
 
@@ -736,7 +740,11 @@ A useful mental model is:
 - The card carries a network processor, and through its external network port an InfiniBand cable connects it to the fabric.
 - The "ConnectX Adapter" box in the diagram above refers to exactly this kind of physical card.
 
-*(Image: NVIDIA official product image)*
+![သင်တန်းပုံ 1 (Training Slide 1): ConnectX InfiniBand HCAs / NICs](../assets/nca-aiio-slides/slide-066.jpg)
+
+**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide shows ConnectX InfiniBand HCAs / NICs — the networking adapters that sit between a server and the high-performance network fabric, usable on the InfiniBand path or the Ethernet / RoCE path. Compare it with the diagram and the photo above.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 4. HCA — Host Channel Adapter
 

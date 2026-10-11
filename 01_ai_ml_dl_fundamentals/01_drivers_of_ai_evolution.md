@@ -18,6 +18,12 @@ AI တိုးတက်လာဖို့ အချက်အလက်မျာ�
 
 ဒီသုံးခုဟာ AI evolution ကို နားလည်ဖို့ အရေးကြီးတဲ့ အခြေခံအချက်တွေ ဖြစ်ပါတယ်။
 
+![သင်တန်းပုံ 1 (Training Slide 1): Drivers of AI Evolution](../assets/nca-aiio-slides/slide-009.jpg)
+
+**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 1)** — ဒီသင်တန်းပုံက AI evolution ကို မောင်းနှင်ပေးတဲ့ driver သုံးခု — Data Explosion (digital data ပမာဏ အလွန်လျင်မြန်စွာ တိုးပွားလာခြင်း)၊ Compute Growth (computing power ကြီးထွားလာခြင်း) နဲ့ Algorithm Breakthrough (AI algorithms နဲ့ model architectures တွေမှာ တိုးတက်မှု ဖြစ်ပေါ်လာခြင်း) တို့ကို တစ်နေရာတည်းမှာ စုစည်းပြထားပါတယ်။ driver သုံးခု အတူတကွ တိုးတက်လာမှ ယနေ့ခေတ် AI စနစ်တွေ ပေါ်ထွက်လာတာဖြစ်ကြောင်း ဒီပုံက အကျဉ်းချုပ် မီးမောင်းထိုးပြပါတယ် — driver တစ်ခုချင်းစီကို အောက်ပိုင်း section တွေမှာ အသေးစိတ် ဆက်လက် လေ့လာပါမယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ### 2. Driver 1 — Explosion of Data
 
 #### 2.1 What is an Explosion of Data?
@@ -405,6 +411,12 @@ However, AI did not improve overnight. Many factors contributed to its progress.
 - **Algorithmic Breakthroughs** — improvements in AI algorithms and model architectures
 
 These three are the key foundations for understanding AI evolution.
+
+![သင်တန်းပုံ 1 (Training Slide 1): Drivers of AI Evolution](../assets/nca-aiio-slides/slide-009.jpg)
+
+**Slide walkthrough (Training Slide 1)** — This training slide brings the three drivers of AI evolution into a single view — the explosion of data (the massive growth of digital data), the growth in computational power, and algorithmic breakthroughs. It highlights that today's AI systems became possible because all three drivers advanced together; each driver is examined in detail in the sections below.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ### 2. Driver 1 — Explosion of Data
 

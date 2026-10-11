@@ -406,6 +406,12 @@ Command တစ်ခုက result မရခြင်းက root cause ကို 
 - GPU memory usage နဲ့ GPU utilization က အရာ မတူညီပါဘူး။
 - MIG က specific GPU model များမှာသာ support ဖြစ်ပြီး `N/A` က fault ကို အမြဲ မဆိုလိုပါဘူး။
 
+![သင်တန်းပုံ 1 (Training Slide 1): OS/driver section recap](../assets/nca-aiio-slides/slide-105.jpg)
+
+**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training ပုံက OS နဲ့ GPU driver section တစ်ခုလုံးရဲ့ အကျဉ်းချုပ် (recap) ဖြစ်ပါတယ်။ Device driver ဆိုတာ ဘာလဲ၊ NVIDIA GPU driver ဘယ်လို တပ်ဆင်ရလဲ၊ `nvidia-smi` နဲ့ GPU, driver, memory, temperature, utilization နဲ့ process အချက်အလက်တွေ ဘယ်လို စစ်ဆေးရလဲ ဆိုတဲ့ အဓိက အချက်တွေကို အပေါ်က အကျဉ်းချုပ် အချက်တွေနဲ့အတူ ပြန်လည် သုံးသပ်ပြထားပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ## 11. တရားဝင် စာရွက်စာတမ်းများ
 
 - NVIDIA Driver Downloads: https://www.nvidia.com/Download/index.aspx
@@ -830,6 +836,12 @@ The absence of a result from one command does not, by itself, identify the root 
 - The CUDA version shown by nvidia-smi is not necessarily the version of the installed CUDA Toolkit.
 - GPU memory usage and GPU utilization measure different things.
 - MIG is supported only on specific GPU models; N/A does not necessarily indicate a fault.
+
+![သင်တန်းပုံ 1 (Training Slide 1): OS/driver section recap](../assets/nca-aiio-slides/slide-105.jpg)
+
+**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide recaps the whole OS and GPU driver section: what a device driver is, how NVIDIA GPU drivers are installed, and how nvidia-smi checks GPU, driver, memory, temperature, utilization, and process information — reviewed together with the key takeaways above.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 11. Official Documentation
 

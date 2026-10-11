@@ -53,6 +53,12 @@ flowchart TD
 
 ဒီအချက်တွေကို မှတ်ထားရင် technology တစ်ခုချင်းစီရဲ့ role ကို ရှင်းရှင်းလင်းလင်း ခွဲခြားနိုင်ပါပြီ။
 
+![သင်တန်းပုံ 1 (Training Slide 1): GPU Interconnect, GPU Direct နှင့် HPC Fabric](../assets/nca-aiio-slides/slide-084.jpg)
+
+**ပုံရှင်းလင်းချက်** — ဒီသင်တန်းပုံက အပေါ်က မေးခွန်းနှစ်ခုထဲက "Data ကို ဘယ်လမ်းကြောင်းကနေ ပို့မလဲ" ဆိုတဲ့ hardware/transport မေးခွန်းအတွက် သင်တန်း deck က ပြထားတဲ့ ခေါင်းစဉ် slide ဖြစ်ပါတယ် — GPU interconnect၊ GPU Direct နဲ့ HPC fabric ဆိုပြီး data ပို့နိုင်တဲ့ လမ်းကြောင်းတွေကို အကျဉ်းချုပ် ဖော်ပြထားပါတယ်။ ဒီနေရာမှာ NVLink/NVSwitch က GPU တွေကြား connection နဲ့ switching၊ PCIe က general-purpose connection၊ DMA/RDMA က data transfer mechanisms ဖြစ်ပြီး အဲဒီလမ်းကြောင်းတွေအပေါ်မှာ NCCL က communication ကို စီစဉ်ပေးတဲ့ software library ဖြစ်ကြောင်း ချိတ်ဆက် မှတ်သားနိုင်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ## 3. Expressway နဲ့ Traffic Management Analogy
 
 သင်ခန်းစာထဲမှာ အသုံးပြုထားတဲ့ analogy ကို စဉ်းစားကြည့်ရအောင်။
@@ -68,6 +74,12 @@ GPU communication နဲ့ နှိုင်းယှဉ်ကြည့်ရ�
 - **NCCL** — GPU အများအပြားကြား collective communication ကို စီစဉ်ပေးတဲ့ traffic management system တစ်ခုလို။
 
 ဒါပေမဲ့ analogy မှာ ကန့်သတ်ချက်တစ်ခု ရှိပါတယ်။ NCCL က network router တစ်ခုလို packet တစ်ခုချင်းစီအတွက် physical route ကို အမြဲရွေးချယ်ပေးတာ မဟုတ်ပါဘူး။ ၎င်းက collective communication algorithm နဲ့ communication strategy တွေကို စီစဉ်ပေးပြီး အောက်ခံ hardware နဲ့ transport တွေကို အသုံးပြုပါတယ်။
+
+![သင်တန်းပုံ 2 (Training Slide 2): Skybridge နှိုင်းယှဉ်ချက်](../assets/nca-aiio-slides/slide-085.jpg)
+
+**ပုံရှင်းလင်းချက်** — ဒီသင်တန်းပုံက GPU တွေကြား ချိတ်ဆက်မှု (interconnect) ရဲ့ အရေးပါပုံကို skybridge (မိုးပေါ် ချိတ်ဆက်တံတား) နဲ့ နှိုင်းယှဉ်ပြထားတဲ့ analogy slide ဖြစ်ပါတယ်။ သီးခြားအဆောက်အဦးတွေကြား တိုက်ရိုက် ချိတ်ဆက်ပေးထားရင် သွားလာရ မြန်ဆန်သလို GPU တွေကြားမှာလည်း ကိုယ်ပိုင် high-bandwidth link ရှိခြင်းက data ဖလှယ်မှုကို မြန်ဆန်စေပါတယ်။ ဒါပေမဲ့ ချိတ်ဆက်မှု (hardware) ရှိရုံနဲ့ မပြီးသေးဘဲ အဲဒီလမ်းကြောင်းပေါ်က communication ကို စီစဉ်ပေးမယ့် NCCL လို software library လည်း လိုအပ်သေးကြောင်း အပေါ်က expressway analogy နဲ့ တွဲပြီး မှတ်သားနိုင်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 4. Physical Interconnect နဲ့ Software Library ရဲ့ ကွာခြားချက်
 
@@ -262,6 +274,18 @@ flowchart TD
 | RDMA | Remote registered memory နဲ့ low-overhead data transfer |
 | NCCL | Multi-GPU / multi-node collective communication library |
 
+![သင်တန်းပုံ 3 (Training Slide 3): GPU interconnect ပြန်လည်သုံးသပ်ချက်](../assets/nca-aiio-slides/slide-092.jpg)
+
+**ပုံရှင်းလင်းချက်** — ဒီသင်တန်းပုံက Module တစ်ခုလုံး ဖြတ်သန်းခဲ့တဲ့ GPU interconnect အကြောင်းအရာတွေကို ပြန်လည်သုံးသပ်ပြထားတဲ့ slide ဖြစ်ပါတယ်။ အပေါ်က ဇယားအတိုင်း NVLink (high-bandwidth GPU interconnect)၊ NVSwitch (NVLink fabric switching)၊ PCIe (general-purpose connection)၊ DMA/RDMA (data transfer mechanisms) နဲ့ NCCL (collective communication library) တို့ရဲ့ role တွေကို တစ်နေရာတည်းမှာ နှိုင်းယှဉ် မှတ်သားနိုင်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
+![သင်တန်းပုံ 4 (Training Slide 4): GPU interconnect ပြန်လည်သုံးသပ်ချက် (၂)](../assets/nca-aiio-slides/slide-095.jpg)
+
+**ပုံရှင်းလင်းချက်** — GPU interconnect ခေါင်းစဉ်ကို ဒုတိယအကြိမ် ပြန်လည်သုံးသပ်ပြထားတဲ့ slide ဖြစ်ပါတယ်။ ရှေ့ recap နဲ့ တွဲကြည့်ရင် hardware interconnect (NVLink, NVSwitch, PCIe)၊ data transfer mechanisms (DMA, RDMA) နဲ့ software library (NCCL) ဆိုပြီး ခွဲခြား မှတ်သားရမယ့် အချက်တွေကို ပိုမိုခိုင်မာစွာ သဘောပေါက်နိုင်ပါတယ်။ Quick questions တွေ မဖြေခင် ကိုယ့်ကိုယ်ကို ပြန်စစ်ဆေးချင်ရင် ဒီပုံကို နောက်ဆုံး ပြန်ကြည့်နိုင်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 **Quick questions**
 
 1. NCCL က hardware လား၊ software လား။
@@ -336,6 +360,12 @@ flowchart TD
 
 Keep these mappings in mind and you can clearly separate the role of each technology.
 
+![သင်တန်းပုံ 1 (Training Slide 1): GPU Interconnect, GPU Direct, and HPC Fabric](../assets/nca-aiio-slides/slide-084.jpg)
+
+**Figure walkthrough** — This training slide is the deck's overview for the hardware/transport question from the table above — which path the data should travel on. It summarizes the data-path options as GPU interconnect, GPU Direct, and HPC fabric. Map it to this module's technologies: NVLink/NVSwitch provide the GPU-to-GPU connection and switching, PCIe is the general-purpose connection, DMA/RDMA are the data-transfer mechanisms, and NCCL organizes communication on top of those paths as a software library.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ## 3. Expressway and Traffic Management Analogy
 
 Consider the analogy used in the lesson.
@@ -351,6 +381,12 @@ Compared with GPU communication—
 - **NCCL** — like a traffic management system that organizes collective communication among many GPUs.
 
 The analogy has a limit, however. NCCL is not like a network router that always picks a physical route for each packet. It organizes collective communication algorithms and strategies and uses the underlying hardware and transports.
+
+![သင်တန်းပုံ 2 (Training Slide 2): The skybridge analogy](../assets/nca-aiio-slides/slide-085.jpg)
+
+**Figure walkthrough** — This training slide presents the skybridge analogy for GPU interconnects. Just as a skybridge connecting separate buildings lets people move directly and quickly between them, a dedicated high-bandwidth link between GPUs speeds up data exchange among them. Remember the same limit as the expressway analogy above: the physical connection (hardware) is not enough by itself — a software library such as NCCL is still needed to organize the communication that runs over those links.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 4. Physical Interconnects vs. the Software Library
 
@@ -544,6 +580,18 @@ These technologies are not competing alternatives. They work at different layers
 | DMA | Mechanism that lets a device perform transfers without the CPU copying each byte |
 | RDMA | Low-overhead data transfer with remote registered memory |
 | NCCL | Multi-GPU / multi-node collective communication library |
+
+![သင်တန်းပုံ 3 (Training Slide 3): GPU interconnect recap](../assets/nca-aiio-slides/slide-092.jpg)
+
+**Figure walkthrough** — This training slide recaps the GPU interconnect topics covered in the module. Use it to review the roles from the table above in one place: NVLink (high-bandwidth GPU interconnect), NVSwitch (NVLink fabric switching), PCIe (general-purpose connection), DMA/RDMA (data-transfer mechanisms), and NCCL (the collective communication library).
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
+![သင်တန်းပုံ 4 (Training Slide 4): GPU interconnect recap 2](../assets/nca-aiio-slides/slide-095.jpg)
+
+**Figure walkthrough** — This slide is the second recap of the GPU interconnect topic. Together with the previous recap, it reinforces what must be kept apart: hardware interconnects (NVLink, NVSwitch, PCIe), data-transfer mechanisms (DMA, RDMA), and the software library (NCCL). Look at it once more before answering the quick questions below.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 **Quick questions**
 

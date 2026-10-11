@@ -105,11 +105,30 @@ flowchart LR
 
 ဒီ analogy ကို networking မှာ အသုံးပြုရင်—Ethernet → Highway၊ InfiniBand → Dedicated high-performance transport လို့ မှတ်နိုင်ပါတယ်။
 
+![သင်တန်းပုံ 1 (Training Slide 1): Highway vs Bullet Train Track](../assets/nca-aiio-slides/slide-046.jpg)
+
+**ပုံရှင်းလင်းချက် (Training slide walkthrough)**
+1. ဒီ slide မှာ general-purpose highway နဲ့ bullet train အတွက် သီးသန့်တည်ဆောက်ထားတဲ့ track ကို နှိုင်းယှဉ်ပြထားပါတယ်။
+2. Highway ပေါ်မှာ car, truck, bus စတဲ့ ယာဉ်အမျိုးမျိုး သွားနိုင်သလို Ethernet ကလည်း traffic အမျိုးမျိုးအတွက် general-purpose ဖြစ်ပါတယ်။
+3. Bullet train က သီးသန့်လမ်းပေါ်မှာ အမြန်ဆုံးသွားသလို InfiniBand ကလည်း high-performance workload အတွက် dedicated transport ဖြစ်ပါတယ်။
+4. ပုံမှာ Shinkansen bullet train ဓာတ်ပုံကိုလည်း ထည့်သုံးထားတာ တွေ့ရပါမယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ## 5. Ethernet vs InfiniBand — Basic Idea
 
 **Ethernet** — General-purpose networking အတွက် အလွန်ကျယ်ပြန့်စွာ အသုံးပြုတဲ့ technology ဖြစ်ပါတယ်။ အသုံးပြုနိုင်တဲ့နေရာတွေက—Home, Office, Enterprise, Data Center, Internet စတာတွေ ဖြစ်ပါတယ်။
 
 **InfiniBand** — High-Performance Computing (HPC) နဲ့ high-performance data center workloads တွေအတွက် အထူးအသုံးဝင်တဲ့ specialized networking technology ဖြစ်ပါတယ်။ အထူးသဖြင့်—HPC, AI clusters, Distributed AI, High-performance storage/interconnect စတဲ့ environment တွေမှာ အသုံးပြုနိုင်ပါတယ်။
+
+![သင်တန်းပုံ 2 (Training Slide 2): Ethernet vs InfiniBand — Two Prominent Networking Technologies](../assets/nca-aiio-slides/slide-047.jpg)
+
+**ပုံရှင်းလင်းချက် (Training slide walkthrough)**
+1. ဒီ slide မှာ networking technology နှစ်မျိုး—Ethernet နဲ့ InfiniBand ကို ဘေးချင်းယှဉ် မိတ်ဆက်ပြထားပါတယ်။
+2. Ethernet က home, office, enterprise, data center, internet စတဲ့ နေရာတွေမှာ အသုံးများတဲ့ general-purpose networking technology ဖြစ်ပါတယ်။
+3. InfiniBand ကတော့ HPC, AI clusters နဲ့ high-performance data center workload တွေအတွက် အထူးတည်ဆောက်ထားတဲ့ specialized technology ဖြစ်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 6. Physical Connectivity
 
@@ -592,11 +611,30 @@ flowchart LR
 
 Applying this analogy to networking—remember it as Ethernet → Highway, InfiniBand → Dedicated high-performance transport.
 
+![သင်တန်းပုံ 1 (Training Slide 1): Highway vs Bullet Train Track](../assets/nca-aiio-slides/slide-046.jpg)
+
+**Training slide walkthrough**
+1. This slide compares a general-purpose highway with a dedicated bullet train track.
+2. A highway carries cars, trucks and buses — just as Ethernet is general-purpose networking for many traffic types.
+3. A bullet train runs on its own dedicated track at high speed — just as InfiniBand is dedicated transport for high-performance workloads.
+4. The slide also uses a photograph of Shinkansen bullet trains to make the comparison concrete.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ## 5. Ethernet vs InfiniBand — Basic Idea
 
 **Ethernet** — A technology widely used for general-purpose networking. Where it is used—Home, Office, Enterprise, Data Center, Internet, and more.
 
 **InfiniBand** — A specialized networking technology particularly useful for High-Performance Computing (HPC) and high-performance data center workloads. Especially—HPC, AI clusters, Distributed AI, high-performance storage/interconnect environments, and more.
+
+![သင်တန်းပုံ 2 (Training Slide 2): Ethernet vs InfiniBand — Two Prominent Networking Technologies](../assets/nca-aiio-slides/slide-047.jpg)
+
+**Training slide walkthrough**
+1. This slide introduces the two prominent networking technologies side by side: Ethernet and InfiniBand.
+2. Ethernet is the general-purpose networking technology used in homes, offices, enterprises, data centers and the internet.
+3. InfiniBand is the specialized technology built for HPC, AI clusters and high-performance data center workloads.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 6. Physical Connectivity
 

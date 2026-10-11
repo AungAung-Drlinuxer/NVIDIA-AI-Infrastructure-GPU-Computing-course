@@ -19,6 +19,12 @@ Hardware နဲ့ data-movement infrastructure အဆင်သင့် ဖြ�
 
 ဒီ မိတ်ဆက် lesson မှာတော့ အဓိကအားဖြင့် DGX OS ကို အာရုံစိုက် လေ့လာပါမယ်။
 
+![သင်တန်းပုံ 1 (Training Slide 1): OS / driver / virtualization section](../assets/nca-aiio-slides/slide-103.jpg)
+
+**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training ပုံက OS, GPU driver နဲ့ virtualization ဆိုင်ရာ section ကို မိတ်ဆက်ပြထားပါတယ်။ Layer 1 နဲ့ Layer 2 က hardware နဲ့ data movement ကို ပြင်ဆင်ပေးပြီးနောက် ဒီ resource တွေကို operating system, GPU driver နဲ့ လိုအပ်ရင် virtualization layer တွေနဲ့ စီမံ အသုံးပြုရတာ ဖြစ်ကြောင်း — ဒီ module ရဲ့ အဓိက ခေါင်းစဉ်တွေ (DGX OS, GPU drivers, OS optimization, GPU virtualization) ကို ဖော်ပြထားပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ## 2. NVIDIA Stack မှာ Layer 3 ရပ်တည်ပုံ
 
 Technology stack ရဲ့ ရိုးရှင်းတဲ့ ပုံကတော့—
@@ -334,6 +340,12 @@ This module introduces Layer 3: OS, Drivers, and Virtualization. The main topics
 - GPU virtualization.
 
 This introductory lesson focuses primarily on DGX OS.
+
+![သင်တန်းပုံ 1 (Training Slide 1): OS / driver / virtualization section](../assets/nca-aiio-slides/slide-103.jpg)
+
+**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide introduces the OS, drivers, and virtualization section. Once the lower layers provide the hardware and data movement, those resources are managed and used through the operating system, GPU drivers, and — where needed — a virtualization layer, matching this module's main topics (DGX OS, GPU drivers, OS optimization, and GPU virtualization).
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 2. Where Layer 3 Fits in the NVIDIA Stack
 

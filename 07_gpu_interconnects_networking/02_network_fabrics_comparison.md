@@ -24,6 +24,15 @@
 
 Exam မှာ ဒီ topic ကနေ question ထွက်နိုင်ပါတယ်။
 
+![သင်တန်းပုံ 1 (Training Slide 1): Evolution of Roads (analogy)](../assets/nca-aiio-slides/slide-045.jpg)
+
+**ပုံရှင်းလင်းချက် (Training slide walkthrough)**
+1. ဒီ slide က "Evolution of Roads" — လမ်းတွေ တိုးတက်ပြောင်းလဲလာပုံကို သရုပ်ပြထားတဲ့ analogy ဖြစ်ပါတယ်။
+2. သွားလာရေးလိုအပ်ချက်တွေ ပြောင်းလဲ/တိုးတက်လာသလို လမ်းအမျိုးအစားတွေလည်း အမျိုးမျိုး ပေါ်လာသလို၊ AI data center ထဲမှာလည်း traffic အမျိုးအစားတစ်ခုချင်းစီရဲ့ ရည်ရွယ်ချက် မတူညီလို့ network fabric ၄ မျိုးကို သီးခြားထားရတာ ဖြစ်ပါတယ်။
+3. ဒီနှိုင်းယှဉ်ချက်ကို ကြည့်ပြီး အောက်က comparison ပိုင်းတွေမှာ fabric တစ်ခုချင်းစီရဲ့ purpose ကို ခွဲခြားရတဲ့ အကြောင်းရင်းကို ပိုနားလည်နိုင်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ## 2. Overview Comparison
 
 | Network Fabric | Main Purpose | Typical Implementation | Main Requirement |
@@ -81,7 +90,6 @@ flowchart LR
 2. GPU တွေဟာ တစ်ခုနဲ့တစ်ခု၊ server တစ်လုံးနဲ့တစ်လုံး ဒီ fabric ကတစ်ဆင့် communication လုပ်ကြပါတယ်။
 3. ညာဘက် node က compute fabric အတွက် အဓိကလိုအပ်ချက်တွေ—very high throughput, ultra-low latency နဲ့ scalability ကို ပြထားပါတယ်။
 4. AI workload မှာ node တွေ များလာလည်း performance မကျအောင် ဒီဇိုင်းလုပ်ရမှာ ဖြစ်ပါတယ်။
-
 
 အထူးသဖြင့်—AI Training, AI Inference, Distributed AI workloads တွေအတွက် အရေးကြီးပါတယ်။
 
@@ -545,6 +553,15 @@ The main comparison points are—
 
 Exam questions can come from this topic.
 
+![သင်တန်းပုံ 1 (Training Slide 1): Evolution of Roads (analogy)](../assets/nca-aiio-slides/slide-045.jpg)
+
+**Training slide walkthrough**
+1. This slide is the "Evolution of Roads" analogy.
+2. Just as changing transport needs produced many kinds of roads, each traffic type in an AI data center has a different purpose, so the four network fabrics are kept separate.
+3. With this analogy in mind, the comparison sections below show why each fabric has its own purpose.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ## 2. Overview Comparison
 
 | Network Fabric | Main Purpose | Typical Implementation | Main Requirement |
@@ -602,7 +619,6 @@ flowchart LR
 2. The GPUs communicate with one another and between servers through this fabric.
 3. The right node lists the main compute-fabric requirements: very high throughput, ultra-low latency, and scalability.
 4. As the number of nodes grows in an AI workload, the fabric is designed so performance does not collapse.
-
 
 It is especially important for AI Training, AI Inference, and Distributed AI workloads.
 

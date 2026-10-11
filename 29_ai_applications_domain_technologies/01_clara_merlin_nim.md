@@ -69,6 +69,12 @@ flowchart TD
 
 ဒီလို use cases တွေအတွက် သင့်တော်တဲ့ software solution ကို ရွေးချယ်တာဟာ Application Layer ရဲ့ အရေးကြီးတဲ့အပိုင်း ဖြစ်ပါတယ်။
 
+![သင်တန်းပုံ 1 (Training Slide 1): Clara / Merlin / NIM အပိုင်း](../assets/nca-aiio-slides/slide-139.jpg)
+
+**ပုံရှင်းလင်းချက်** — ဒီသင်တန်းပုံက NVIDIA AI stack ရဲ့ application layer မှာ ရှိတဲ့ solution သုံးခု — Clara, Merlin နဲ့ NIM — ကို မိတ်ဆက်ပေးတဲ့ slide ဖြစ်ပါတယ်။ အပေါ်က ပုံအတိုင်း ဒီသုံးခုက အောက်ခြေ infrastructure အလွှာတွေရဲ့ စွမ်းအားကို အသုံးပြုပြီး လုပ်ငန်းနယ်ပယ်အလိုက် ပြဿနာတွေကို ဖြေရှင်းပေးပါတယ် — Clara က healthcare နဲ့ life sciences၊ Merlin က recommender systems၊ NIM က inference microservices အတွက် ဖြစ်ပါတယ်။ အောက်ပါ section တွေမှာ တစ်ခုချင်းစီကို အသေးစိတ် ဆက်လက် လေ့လာသွားပါမယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ## 3. NVIDIA Clara — Healthcare and Life Sciences AI
 
 Official documentation: https://docs.nvidia.com/clara/
@@ -670,6 +676,12 @@ For example—
 - An enterprise wants to deploy a pretrained LLM as an API endpoint.
 
 Choosing the right software solution for these use cases is an important part of the Application Layer.
+
+![သင်တန်းပုံ 1 (Training Slide 1): Clara / Merlin / NIM section](../assets/nca-aiio-slides/slide-139.jpg)
+
+**Figure walkthrough** — This training slide introduces the three solutions at the application layer of the NVIDIA AI stack: Clara, Merlin, and NIM. As the stack figure above shows, they use everything beneath them to solve industry-specific problems — Clara for healthcare and life sciences, Merlin for recommender systems, and NIM for inference microservices. The following sections look at each one in detail.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 3. NVIDIA Clara — Healthcare and Life Sciences AI
 

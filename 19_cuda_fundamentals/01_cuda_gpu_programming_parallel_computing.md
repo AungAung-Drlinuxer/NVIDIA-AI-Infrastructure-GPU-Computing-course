@@ -32,6 +32,12 @@ CUDA ကို နားလည်ရန် အရေးကြီးသော အ
 
 CUDA သည် GPU တစ်ခုတည်းကို ရည်ညွှန်းခြင်းမဟုတ်ပါ။ GPU ကို programming လုပ်ပြီး တွက်ချက်မှုများ ဆောင်ရွက်နိုင်ရန် NVIDIA က ပံ့ပိုးပေးထားသော software platform နှင့် programming ecosystem ဖြစ်သည်။
 
+![သင်တန်းပုံ 1 (Training Slide 1): GPU programming — CUDA & NCCL](../assets/nca-aiio-slides/slide-118.jpg)
+
+**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training ပုံက GPU programming ကို CUDA နှင့် NCCL ဖြင့် လုပ်ဆောင်ပုံကို မိတ်ဆက်ပြထားပါတယ်။ CUDA က GPU ပေါ်တွင် computation များ လုပ်ဆောင်ရန် programming platform ဖြစ်ပြီး၊ NCCL က GPU များစွာကြား communication အတွက် အသုံးပြုသော library ဖြစ်ပါတယ် — ဒီနှစ်ခုကို section 10 မှာ ဆက်လက် ရှင်းလင်းပါမည်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ## 3. Kitchen Analogy ဖြင့် CUDA ကို နားလည်ခြင်း
 
 ### 3.1 CUDA မပေါ်မီ — ကျွမ်းကျင်သော Chef အနည်းငယ်သာရှိသည့် အဖွဲ့ငယ်
@@ -103,6 +109,12 @@ flowchart LR
 **အရေးကြီးသော မှတ်ချက်:** CUDA သည် ဘာသာပြန် app တစ်ခုလို code ကို ရိုးရိုးဘာသာပြန်ပေးရုံသာ မဟုတ်ပါ။ GPU ကို program လုပ်နိုင်ရန် programming model, compiler, runtime နှင့် libraries များပါဝင်သော ecosystem ဖြစ်သည်။
 
 ထို့ပြင် GPU သည် Trainee Cooks များကဲ့သို့ အလုပ်တိုင်းကို CPU ထက် ပိုမြန်စွာ လုပ်နိုင်သည်ဟု မဆိုလိုပါ။ GPU သည် အလုပ်အမျိုးအစားအလိုက် parallel processing ကို ကောင်းစွာ အသုံးချနိုင်သောကြောင့် သင့်လျော်သည့် workload များတွင် အားသာချက်ရှိခြင်းဖြစ်သည်။
+
+![သင်တန်းပုံ 2 (Training Slide 2): CUDA analogy — chefs & translator](../assets/nca-aiio-slides/slide-120.jpg)
+
+**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training ပုံက Chef နှင့် ဘာသာပြန် (translator) ဥပမာဖြင့် CUDA ကို ရှင်းလင်းပြထားပါတယ်။ Head Chef က CPU နှင့် host-side program၊ Trainee Cooks များက GPU processing resources၊ translation system က CUDA programming model နှင့် software toolchain တို့ကို ကိုယ်စားပြုပြီး၊ အလုပ်များကို တစ်ပြိုင်နက် လုပ်ဆောင်ပုံကို ဒီ section ရဲ့ kitchen analogy အတိုင်း ဖော်ပြထားပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 4. CUDA မပေါ်မီ — GPU ကို အဓိက Graphics အတွက် အသုံးပြုခဲ့ခြင်း
 
@@ -390,6 +402,12 @@ Three key points for understanding CUDA:
 
 CUDA does not refer to a single GPU. It is the software platform and programming ecosystem NVIDIA provides for programming GPUs and running computations on them.
 
+![သင်တန်းပုံ 1 (Training Slide 1): GPU programming — CUDA & NCCL](../assets/nca-aiio-slides/slide-118.jpg)
+
+**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide introduces GPU programming with CUDA and NCCL. CUDA is the programming platform for running computations on the GPU, while NCCL is the library used for communication between many GPUs — both are covered in more detail in section 10.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ## 3. Understanding CUDA Through a Kitchen Analogy
 
 ### 3.1 Before CUDA — A Small Team of Skilled Chefs
@@ -459,6 +477,12 @@ flowchart LR
 **Important note:** CUDA is not simply a translation app that converts code. It is an ecosystem that includes a programming model, compiler, runtime, and libraries for programming the GPU.
 
 Also, the GPU — like the trainee cooks — is not faster than the CPU at every job. It has an advantage on suitable workloads because it can use parallel processing well for certain kinds of work.
+
+![သင်တန်းပုံ 2 (Training Slide 2): CUDA analogy — chefs & translator](../assets/nca-aiio-slides/slide-120.jpg)
+
+**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide explains CUDA through the chef-and-translator analogy: the Head Chef represents the CPU and host-side program, the many trainee cooks represent GPU processing resources, and the translation system represents the CUDA programming model and software toolchain — matching the kitchen analogy in this section.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 4. Before CUDA — GPUs Were Used Primarily for Graphics
 

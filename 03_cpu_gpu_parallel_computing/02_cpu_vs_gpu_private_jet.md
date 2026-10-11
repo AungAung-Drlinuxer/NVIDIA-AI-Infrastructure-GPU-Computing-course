@@ -19,6 +19,16 @@ AI-Centric Data Center မှာ အဓိက Compute Device နှစ်ခု�
 
 ### 2. CPU — Private Jet နှိုင်းယှဉ်ချက်
 
+- GPU → Commercial Flight
+
+![သင်တန်းပုံ 1 (Training Slide 1): CPU vs GPU နှိုင်းယှဉ်ချက် — Private Jet နှင့် Commercial Flight](../assets/nca-aiio-slides/slide-028.jpg)
+
+**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 1)** — ဒီသင်တန်းပုံမှာ CPU ကို Private Jet နဲ့ GPU ကို Commercial Flight နဲ့ နှိုင်းယှဉ်ထားပါတယ်။ Private Jet က ခရီးသည် အနည်းငယ်ပဲ သယ်နိုင်ပေမယ့် မြန်ပြီး လိုက်လျောနိုင်သလို CPU က task နည်းနည်းကို low latency နဲ့ flexible ကိုင်တွယ်နိုင်ပါတယ်။ Commercial Flight က ခရီးသည် ရာပေါင်းများစွာကို တပြိုင်နက် သယ်ဆောင်သလို GPU က operation ထောင်ပေါင်းများစွာကို parallel လုပ်ပြီး high throughput ရယူပါတယ်။ ဒီနှိုင်းယှဉ်ချက်ဟာ အောက်ပိုင်း section တွေမှာ ဆက်ရှင်းမယ့် CPU နဲ့ GPU ရဲ့ ဒီဇိုင်းကွာခြားချက်ကို အစပြုပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
+### 2. CPU — Private Jet နှိုင်းယှဉ်ချက်
+
 Private Jet က မြန်ပါတယ်၊ Powerful ဖြစ်ပါတယ်၊ ဒါပေမယ့် ခရီးသည် အနည်းငယ်ပဲ သယ်နိုင်ပါတယ်။
 
 CPU ကလည်း ဒီလိုပါပဲ—
@@ -390,6 +400,12 @@ GPU = Core များစွာ Parallel = ထပ်ခါထပ်ခါ paral
 
 တစ်ကြောင်းတည်း အကျဉ်းချုပ် — CPU က ခရီးသည် အနည်းငယ်အတွက် မြန်ပြီး လိုက်လျောနိုင်တဲ့ private jet၊ GPU က ခရီးသည် များစွာကို တပြိုင်နက် ထိရောက်စွာ ပို့ဆောင်နိုင်တဲ့ commercial flight ဖြစ်ပါတယ်။
 
+![သင်တန်းပုံ 2 (Training Slide 2): CPU vs GPU နှိုင်းယှဉ်ဇယား (CPU vs GPU Comparison Table)](../assets/nca-aiio-slides/slide-029.jpg)
+
+**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 2)** — ဒီသင်တန်းပုံမှာ CPU နဲ့ GPU ကို ဇယားနဲ့ ခြုံငုံ နှိုင်းယှဉ်ပြထားပါတယ် — core ဒီဇိုင်း၊ ဘယ်အလုပ်မှာ အကောင်းဆုံးဖြစ်သလဲ၊ latency နဲ့ throughput ဘယ်လိုကွာသလဲ၊ AI training / inference အတွက် ဘယ်ဟာ ပိုသင့်သလဲ ဆိုတာတွေ ပါဝင်ပါတယ်။ အပေါ်က ဇယားနဲ့ ယှဉ်ကြည့်ရင် CPU က ရှုပ်ထွေးတဲ့ sequential task တွေအတွက်၊ GPU က ရိုးရှင်းတဲ့ parallel task တွေအတွက် သင့်တော်ကြောင်း မြင်ရပါမယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ### Self-Check Questions (အဖြေများပါဝင်သည်)
 
 **Q1. CPU နဲ့ GPU အတွက် ဘယ်နှိုင်းယှဉ်ချက် နှစ်ခုကို သုံးထားသလဲ?**
@@ -422,6 +438,16 @@ To make this easier to understand, we use two simple analogies:
 
 - CPU → Private Jet
 - GPU → Commercial Flight
+
+### 2. CPU — The Private Jet Analogy
+
+- GPU → Commercial Flight
+
+![သင်တန်းပုံ 1 (Training Slide 1): CPU vs GPU Analogy — Private Jet vs Commercial Flight](../assets/nca-aiio-slides/slide-028.jpg)
+
+**Slide walkthrough (Training Slide 1)** — This training slide compares the CPU to a private jet and the GPU to a commercial flight. A private jet carries few passengers but is fast and flexible, just as a CPU handles a small number of tasks with low latency. A commercial flight is built to move hundreds of passengers at once, just as a GPU processes thousands of operations in parallel for high throughput. This analogy sets up the design differences explained in the sections below.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ### 2. CPU — The Private Jet Analogy
 
@@ -794,6 +820,12 @@ GPU = Many parallel cores = Repetitive parallel work = Commercial Flight
 ```
 
 One-line summary: The CPU is a private jet — fast and flexible for a few passengers; the GPU is a commercial flight — efficient at moving many passengers at once.
+
+![သင်တန်းပုံ 2 (Training Slide 2): CPU vs GPU Comparison Table](../assets/nca-aiio-slides/slide-029.jpg)
+
+**Slide walkthrough (Training Slide 2)** — This training slide summarizes the CPU vs GPU comparison in a table — core design, what each is best at, how latency and throughput differ, and which one suits AI training and inference. Read it alongside the table above: the CPU fits complex sequential tasks while the GPU fits simple parallel tasks.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ### Self-Check Questions (with answers)
 

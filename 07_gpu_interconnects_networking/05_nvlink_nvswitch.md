@@ -52,6 +52,38 @@ GPU တွေ၊ network adapters တွေ၊ storage controllers တွေလ�
 
 PCIe bandwidth က PCIe generation နဲ့ lane count ပေါ် မူတည်ပါတယ်။ Multi-GPU workloads တွေမှာ GPU တွေကြား data အများကြီး လဲလှယ်ရင် PCIe topology က performance ကို သက်ရောက်နိုင်ပါတယ်။
 
+![သင်တန်းပုံ 1 (Training Slide 1): GPU Interconnect Visual 1](../assets/nca-aiio-slides/slide-086.jpg)
+
+**ပုံရှင်းလင်းချက် (Training slide walkthrough)**
+1. ဒီ training slide မှာ GPU interconnect အကြောင်းကို ရုပ်ပုံဖြင့် ရှင်းပြထားပါတယ်။
+2. အပေါ်က ဖတ်ရှုထားတဲ့ PCIe — CPU၊ GPU၊ NIC၊ storage controller စတဲ့ system components တွေကို ချိတ်ဆက်ပေးတဲ့ high-speed interconnect standard အကြောင်းနဲ့ တွဲဖက် ကြည့်ရှုနိုင်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
+![သင်တန်းပုံ 2 (Training Slide 2): GPU Interconnect Visual 2](../assets/nca-aiio-slides/slide-087.jpg)
+
+**ပုံရှင်းလင်းချက် (Training slide walkthrough)**
+1. ဒီပုံက GPU interconnect အကြောင်း ရှင်းပြထားတဲ့ ဒုတိယ visual ဖြစ်ပါတယ်။
+2. ပုံမှာ ပြထားတဲ့ ချိတ်ဆက်မှုပုံစံကို ကြည့်ရင်း multi-GPU workload တွေမှာ GPU တွေကြား data အများကြီး လဲလှယ်ရတဲ့အခါ interconnect topology က performance ကို သက်ရောက်နိုင်ပုံကို ချိတ်ဆက်စဉ်းစားနိုင်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
+![သင်တန်းပုံ 3 (Training Slide 3): GPU Interconnect Visual 3](../assets/nca-aiio-slides/slide-088.jpg)
+
+**ပုံရှင်းလင်းချက် (Training slide walkthrough)**
+1. ဒီပုံက GPU interconnect အကြောင်း ရှင်းပြထားတဲ့ တတိယ visual ဖြစ်ပါတယ်။
+2. ဒီ interconnect တွေရဲ့ အပေါ်မှာ နောက်ပိုင်း section တွေမှာ လေ့လာမယ့် NVLink နဲ့ NVSwitch တွေက GPU-to-GPU communication အတွက် ဘယ်လို ထပ်မံဖြည့်ဆည်းပေးသလဲ ဆိုတာ ယှဉ်ကြည့်နိုင်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
+![သင်တန်းပုံ 4 (Training Slide 4): GPU Interconnect Visual 4 — GeForce RTX Graphics Cards](../assets/nca-aiio-slides/slide-089.jpg)
+
+**ပုံရှင်းလင်းချက် (Training slide walkthrough)**
+1. ဒီပုံမှာ GeForce RTX graphics card နှစ်ခုကို မြင်ရပါမယ်။
+2. Graphics card တွေဟာ system ထဲမှာ PCIe ကတစ်ဆင့် ချိတ်ဆက်ကြပြီး၊ support လုပ်တဲ့ card တွေအတွက် NVLink bridge က GPU ကြား တိုက်ရိုက်ချိတ်ဆက်မှု ထပ်ပေးနိုင်ပါတယ် (NVLink support က GPU model နဲ့ generation ပေါ် မူတည်ပါတယ်)။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ## 4. NVLink ဆိုတာ ဘာလဲ
 
 NVLink က NVIDIA ရဲ့ high-speed GPU interconnect technology ဖြစ်ပါတယ်။
@@ -70,6 +102,16 @@ NVLink က ဒီ interconnect ကို ထိရောက်စွာ အသ�
 - Application က အကျိုးခံစားရရင် multi-GPU scaling ပိုကောင်းလာနိုင်ခြင်း။
 
 NVLink က application တိုင်း ပိုမြန်သွားမယ်လို့ အာမခံတာ မဟုတ်ပါဘူး။ အကျိုးကျေးဇူးက workload၊ hardware topology နဲ့ software implementation ပေါ် မူတည်ပါတယ်။
+
+![သင်တန်းပုံ 5 (Training Slide 5): NVLink](../assets/nca-aiio-slides/slide-090.jpg)
+
+**ပုံရှင်းလင်းချက် (Training slide walkthrough)**
+1. ဒီ slide မှာ NVLink က GPU အများကြား (သို့မဟုတ် CPU နဲ့ GPU ကြား) high-speed, direct connection ဖန်တီးပေးပုံကို ရှင်းပြထားပါတယ်။
+2. Standard PCIe bus နဲ့ မတူဘဲ NVLink က dedicated, wire-based link ဖြစ်ပြီး high-performance data transfer အတွက် ဒီဇိုင်းထုတ်ထားကြောင်း ဖော်ပြထားပါတယ်။
+3. NVLink အလုပ်လုပ်ဖို့ hardware (physical pathways) နဲ့ software protocols/drivers (data transfer နဲ့ memory pooling ကို စီမံ) နှစ်မျိုးလုံး လိုအပ်ကြောင်း ပြထားပါတယ်။
+4. အောက်ခြေမှာတော့ NVLink သုံးသင့်တဲ့ workload တွေ (large model training, HPC clusters, multi-GPU servers) နဲ့ မသုံးသင့်တဲ့ workload တွေ (single-GPU, low-power system, consumer deployment) ကို ခွဲခြားပြထားပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 5. NVLink အတွက် Hardware နဲ့ Software ပံ့ပိုးမှု လိုအပ်ခြင်း
 
@@ -146,6 +188,15 @@ NVSwitch က ပေးနိုင်တာတွေက—
 - GPU အများကြီးကြား high-bandwidth communication။
 - ထိရောက်တဲ့ GPU-to-GPU data exchange။
 - Multi-GPU workloads တွေအတွက် scalable interconnect fabric။
+
+![သင်တန်းပုံ 6 (Training Slide 6): NVSwitch](../assets/nca-aiio-slides/slide-091.jpg)
+
+**ပုံရှင်းလင်းချက် (Training slide walkthrough)**
+1. ဒီ slide မှာ NVSwitch မပါတဲ့ multi-GPU configuration နဲ့ NVSwitch ပါတဲ့ multi-GPU configuration ကို အပေါ်အောက် နှိုင်းယှဉ်ပြထားပါတယ်။
+2. အပေါ်ပိုင်းက configuration မှာ GPU တွေကို NVSwitch မပဲ ချိတ်ဆက်ထားပုံ၊ အောက်ပိုင်းမှာတော့ NVSwitch က GPU အများကြား ချိတ်ဆက်ပေးပုံကို မြင်ရပါမယ်။
+3. ဒီပုံက section 8 မှာ ရှင်းပြထားတဲ့ NVSwitch ရဲ့ အခန်းကဏ္ဍ—GPU အများကြား structured, high-bandwidth communication ပေးခြင်းကို ပုံနဲ့ မြင်နိုင်အောင် ပြထားတာ ဖြစ်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 9. DGX A100 vs DGX H100 — NVSwitch
 
@@ -285,6 +336,38 @@ Actual systems can contain multiple PCIe root ports, switches and different topo
 
 PCIe bandwidth depends on the PCIe generation and lane count. For multi-GPU workloads, the PCIe topology can influence performance when GPUs exchange substantial amounts of data.
 
+![သင်တန်းပုံ 1 (Training Slide 1): GPU Interconnect Visual 1](../assets/nca-aiio-slides/slide-086.jpg)
+
+**Training slide walkthrough**
+1. This training slide explains GPU interconnects visually.
+2. Look at it together with the PCIe overview above — the high-speed interconnect standard that connects system components such as CPUs, GPUs, NICs and storage controllers.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
+![သင်တန်းပုံ 2 (Training Slide 2): GPU Interconnect Visual 2](../assets/nca-aiio-slides/slide-087.jpg)
+
+**Training slide walkthrough**
+1. This picture is the second visual explaining GPU interconnects.
+2. As you look at the connection layout, relate it to how the interconnect topology can affect performance when GPUs exchange large amounts of data in multi-GPU workloads.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
+![သင်တန်းပုံ 3 (Training Slide 3): GPU Interconnect Visual 3](../assets/nca-aiio-slides/slide-088.jpg)
+
+**Training slide walkthrough**
+1. This picture is the third visual explaining GPU interconnects.
+2. Use it as a bridge to the next sections: NVLink and NVSwitch add to these interconnects for GPU-to-GPU communication.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
+![သင်တန်းပုံ 4 (Training Slide 4): GPU Interconnect Visual 4 — GeForce RTX Graphics Cards](../assets/nca-aiio-slides/slide-089.jpg)
+
+**Training slide walkthrough**
+1. In this picture you can see two GeForce RTX graphics cards.
+2. Graphics cards connect into the system over PCIe, and on supported cards an NVLink bridge can add a direct GPU-to-GPU path (NVLink support depends on the GPU model and generation).
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ## 4. What Is NVLink?
 
 NVLink is NVIDIA's high-speed GPU interconnect technology.
@@ -303,6 +386,16 @@ Key benefits:
 - Potentially improved multi-GPU scaling when the application benefits from it.
 
 NVLink does not guarantee that every application will become faster. Benefits depend on the workload, hardware topology and software implementation.
+
+![သင်တန်းပုံ 5 (Training Slide 5): NVLink](../assets/nca-aiio-slides/slide-090.jpg)
+
+**Training slide walkthrough**
+1. This slide explains how NVLink creates a high-speed, direct connection between multiple GPUs or between a CPU and a GPU.
+2. Unlike the standard PCIe bus, NVLink is a dedicated, wire-based link designed for high-performance data transfers.
+3. It shows that NVLink needs both hardware (the physical pathways) and software protocols/drivers (which manage data transfer and memory pooling).
+4. At the bottom, the slide separates workloads that suit NVLink (large model training, HPC clusters, multi-GPU servers) from those that do not (single-GPU or low-power systems, consumer or small-scale deployments).
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 5. NVLink Requires Hardware and Software Support
 
@@ -379,6 +472,15 @@ NVSwitch can provide:
 - High-bandwidth communication among multiple GPUs.
 - Efficient GPU-to-GPU data exchange.
 - A scalable interconnect fabric for multi-GPU workloads.
+
+![သင်တန်းပုံ 6 (Training Slide 6): NVSwitch](../assets/nca-aiio-slides/slide-091.jpg)
+
+**Training slide walkthrough**
+1. This slide compares a multi-GPU configuration without NVSwitch (top) with one that uses NVSwitch (bottom).
+2. In the top layout the GPUs are connected without NVSwitch; in the bottom layout NVSwitch sits between the GPUs and connects them.
+3. The picture shows visually the role of NVSwitch described in section 8: providing structured, high-bandwidth communication among multiple GPUs.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 9. DGX A100 vs DGX H100: NVSwitch
 

@@ -16,6 +16,12 @@ Data center GPU တစ်လုံးဟာ AI infrastructure ထဲမှာ �
 
 GPU sharing နည်းလမ်းတွေ အမျိုးမျိုးရှိပြီး၊ တစ်ခုချင်းစီမှာ isolation, performance predictability, licensing နဲ့ management ပိုင်း ကွာခြားချက်တွေ ရှိပါတယ်။ ဒီ module က အဲဒီနည်းလမ်းတွေရဲ့ fundamentals တွေကို ရှင်းပြပါမယ်။ vGPU နဲ့ MIG ကို အသေးစိတ် နှိုင်းယှဉ်ချင်ရင်တော့ **Module 17 — NVIDIA vGPU vs. MIG** ကို ဆက်လေ့လာပါ။
 
+![သင်တန်းပုံ 1 (Training Slide 1): Virtualization section](../assets/nca-aiio-slides/slide-107.jpg)
+
+**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training ပုံက GPU virtualization section ကို စတင် မိတ်ဆက်ပြထားပါတယ်။ ဈေးကြီးတဲ့ GPU တစ်လုံးကို VM များစွာ၊ user များစွာနဲ့ container workload များစွာကြား ဘယ်လို မျှဝေ အသုံးပြုမလဲ ဆိုတဲ့ ပြဿနာကနေ စတင်ပြီး အောက်ပိုင်း section တွေမှာ sharing approaches တွေကို ဆက်လက် လေ့လာကြမှာ ဖြစ်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ## 2. အဓိက သဘောတရားများ (Core Concepts)
 
 ### 2.1 Temporal Partitioning နှင့် Spatial Partitioning
@@ -134,6 +140,12 @@ Time-sliced vGPU မှာ အဓိက component နှစ်ခု ပါဝ�
 
 1. **NVIDIA Virtual GPU Manager** — Hypervisor (vSphere, Citrix Hypervisor, KVM စသည် — သက်ဆိုင်ရာ release notes အလိုက် စစ်ဆေးပါ) အဆင့်မှာ တပ်ဆင်ပြီး၊ physical GPU ကို VM များစွာကြား ခွဲဝေ စီမံပါတယ်။ VM တစ်ခုချင်းစီကို GPU pipeline အသုံးပြုခွင့်ကို အချိန်အလိုက် အလှည့်ကျ ပေးပါတယ် (vGPU scheduler က round-robin ပုံစံ အလှည့်ကျ စီမံပါတယ် — KB မှာ best-effort က default scheduler ဖြစ်ကြောင်း ဖော်ပြထားပါတယ်)။
 2. **Guest VM drivers** — VM တစ်ခုချင်းစီအတွင်းမှာ NVIDIA guest driver များ တပ်ဆင်ရပါတယ်။ VM အတွက် vGPU device က normal GPU device တစ်ခုလို မြင်ရပြီး၊ application များက ပုံမှန်အတိုင်း CUDA/driver stack ကို အသုံးပြုနိုင်ပါတယ်။
+
+![သင်တန်းပုံ 2 (Training Slide 2): VM virtualization diagram](../assets/nca-aiio-slides/slide-108.jpg)
+
+**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training ပုံက VM virtualization ရဲ့ ပုံစံ (diagram) ကို ပြထားပါတယ်။ Hypervisor အဆင့်ကနေ physical hardware ပေါ်မှာ VM များစွာ ဖန်တီးပြီး၊ VM တစ်ခုချင်းစီကို virtual device တွေ ပေးအပ်ကာ resource တွေကို မျှဝေ အသုံးပြုနိုင်ပုံကို ရှင်းလင်းပါတယ် — အပေါ်က Virtual GPU Manager နှင့် guest driver ပေါင်းစပ် အလုပ်လုပ်ပုံရဲ့ အခြေခံ ဖြစ်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 **ပုံ ၃ (Figure 3) — Virtual GPU Manager နှင့် guest drivers ပေါင်းစပ်အလုပ်လုပ်ပုံ**
 
@@ -260,6 +272,12 @@ A data-center GPU is one of the most expensive components in an AI infrastructur
 
 Each consumer has different needs — some want bare-metal-like performance, others only need a fair share of capacity and basic isolation. This module covers the fundamentals of how one physical GPU can be shared: the partitioning models, the main approaches, and how to choose between them. For an in-depth comparison of vGPU and MIG specifically, continue with **Module 17 — NVIDIA vGPU vs. MIG**.
 
+![သင်တန်းပုံ 1 (Training Slide 1): Virtualization section](../assets/nca-aiio-slides/slide-107.jpg)
+
+**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide opens the GPU virtualization section. It starts from the problem stated above — one expensive GPU shared among many VMs, users, and container workloads — and leads into the sharing approaches covered in the following sections.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ## 2. Core Concepts
 
 ### 2.1 Temporal Partitioning vs. Spatial Partitioning
@@ -378,6 +396,12 @@ Time-sliced vGPU has two key components.
 
 1. **NVIDIA Virtual GPU Manager** — installed at the hypervisor level (vSphere, Citrix Hypervisor, KVM, etc. — check the relevant release notes), it divides and manages the physical GPU across many VMs, granting each VM exclusive turns on the GPU pipeline over time (the vGPU scheduler allocates turns in a round-robin fashion — the KB notes best-effort is the default scheduler).
 2. **Guest VM drivers** — NVIDIA guest drivers are installed inside each VM. The vGPU device looks like a normal GPU device to the VM, so applications use the usual CUDA/driver stack unchanged.
+
+![သင်တန်းပုံ 2 (Training Slide 2): VM virtualization diagram](../assets/nca-aiio-slides/slide-108.jpg)
+
+**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide shows a VM virtualization diagram: the hypervisor layer creates many VMs on the physical hardware and gives each VM its virtual devices so resources can be shared — the basis of the Virtual GPU Manager and guest driver model described above.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 **Figure 3 — How the Virtual GPU Manager and guest drivers work together**
 

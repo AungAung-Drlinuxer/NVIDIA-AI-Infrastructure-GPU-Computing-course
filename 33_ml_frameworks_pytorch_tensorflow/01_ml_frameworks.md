@@ -30,6 +30,12 @@ Framework များကို အသုံးပြုခြင်းဖြင
 
 Machine Learning Framework တွေကလည်း အလားတူပဲ ဖြစ်ပါတယ်။
 
+![သင်တန်းပုံ 1 (Training Slide 1): Framework နှိုင်းယှဉ်ချက် — အိမ်ဆောက်ခြင်း](../assets/nca-aiio-slides/slide-147.jpg)
+
+**ပုံရှင်းလင်းချက်** — ဒီသင်တန်းပုံက ML Framework ကို အိမ်ဆောက်ခြင်းနဲ့ နှိုင်းယှဉ်ပြထားတဲ့ analogy slide ဖြစ်ပါတယ်။ ကိရိယာတွေ ကိုယ်တိုင်ပြင်ပြီး အုတ်စီနည်း၊ သစ်သားဖြတ်နည်း စတဲ့ အခြေခံတည်ဆောက်ပုံတွေ ကိုယ်တိုင် လေ့လာရသလို framework မပါဘဲ model ကို အစကနေ ရေးရရင် အချိန်ပိုကုန်ပြီး အမှားများနိုင်ပါတယ်။ ကိရိယာ၊ ပစ္စည်းနဲ့ ဒီဇိုင်းပုံစံတွေ ကြိုတင် ပြင်ဆင်ထားတဲ့ workshop ရှိသလို framework က tools, libraries နဲ့ APIs တွေ အသင့် ပေးထားတဲ့အတွက် ကိုယ့် model ဒီဇိုင်းအပေါ်သာ အာရုံစိုက်နိုင်ပါတယ်။ ဒါပေမဲ့ အိမ်ဒီဇိုင်းကို ပိုင်ရှင်က ဆုံးဖြတ်ရသလို model architecture နဲ့ training configuration ကိုတော့ developer သို့မဟုတ် data scientist ကပဲ ဆုံးဖြတ်ရတုန်း ဖြစ်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ဥပမာ Neural Network တစ်ခု တည်ဆောက်ချင်တယ်ဆိုရင် Tensor တွေကို ကိုယ်တိုင်စီမံခြင်း၊ Gradient တွေတွက်ချက်ခြင်း၊ Backpropagation ရေးသားခြင်းနဲ့ GPU operation တွေကို ကိုယ်တိုင်ချိတ်ဆက်ခြင်းတို့ကို အစမှရေးနိုင်ပေမဲ့ အလွန်ရှုပ်ထွေးပါတယ်။
 
 PyTorch သို့မဟုတ် TensorFlow ကို အသုံးပြုရင် ဒီလိုလုပ်ဆောင်ချက်များအတွက် အသင့်သုံးနိုင်တဲ့ APIs နဲ့ libraries တွေ ရရှိပါတယ်။
@@ -409,6 +415,12 @@ Imagine you are building a house.
 - It is like having a workshop where the needed tools, usable materials, design patterns, and some processes are prepared in advance. You can focus on your house's design and requirements without rebuilding the basics.
 
 Machine learning frameworks work the same way.
+
+![သင်တန်းပုံ 1 (Training Slide 1): Framework analogy — house building](../assets/nca-aiio-slides/slide-147.jpg)
+
+**Figure walkthrough** — This training slide shows the house-building analogy for ML frameworks. Preparing the hammer, saw, and construction techniques yourself is like writing tensor operations, gradients, and GPU wiring from scratch — slow and error-prone. A workshop where the tools, materials, and design patterns are prepared in advance is like a framework that provides ready-made tools, libraries, and APIs, so you can focus on your model's design. But just as the homeowner still decides the house design, the developer or data scientist still decides the model architecture and training configuration.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 For example, if you want to build a neural network, you could manage tensors yourself, compute gradients, write backpropagation, and wire up GPU operations from scratch — but it is extremely complicated.
 

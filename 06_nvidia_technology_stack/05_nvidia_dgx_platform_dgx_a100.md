@@ -139,7 +139,11 @@ flowchart TD
 - ဒီ board ပေါ်မှာ GPU ရှစ်လုံးနဲ့ NVSwitch ကို တစ်နေရာတည်းမှာ ချိတ်ဆက်တပ်ဆင်ထားတာကြောင့် အပေါ်က block diagram ထဲက "8 × A100 GPU + NVSwitch" architecture ဟာ board ပေါ်မှာ တကယ် တည်ရှိတာ ဖြစ်ပါတယ်။
 - Baseboard ပေါ်က high-speed connections တွေကပဲ GPU အချင်းချင်း မြန်ဆန်စွာ data ဖလှယ်ခွင့် ပေးတာ ဖြစ်ပါတယ်။
 
-*(Image: NVIDIA official product image)*
+![သင်တန်းပုံ 1 (Training Slide 1): DGX A100 platform](../assets/nca-aiio-slides/slide-064.jpg)
+
+**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training slide က DGX A100 platform ကို ပြထားပါတယ် — 8x A100 GPUs၊ NVSwitch high-speed interconnect နဲ့ NVMe storage ပါဝင်တဲ့ system architecture ဖြစ်ပါတယ်။ အပေါ်က block diagram၊ Figure 2 နဲ့ HGX baseboard ဓာတ်ပုံတို့နဲ့ ယှဉ်ကြည့်နိုင်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 5. Eight NVIDIA A100 GPUs
 
@@ -298,6 +302,12 @@ flowchart TD
 - **GPU Instance တိုင်း ≠ DGX Cloud** — Cloud provider တစ်ခုမှာ NVIDIA GPUs ရှိရုံနဲ့ အဲဒီ GPU instance တိုင်း DGX Cloud offering မဟုတ်ပါဘူး။
 - **Storage I/O bottleneck** — storage က data ကို GPU ဆီ မမီနိုင်ရင် GPU performance ကို ထိခိုက်စေနိုင်ပါတယ်။
 - **Power / Cooling / Rack Space** — on-premises deployment မှာ ကြိုတင်စီစဉ်ရပါမယ်။
+
+![သင်တန်းပုံ 2 (Training Slide 2): DGX H100 and BMC](../assets/nca-aiio-slides/slide-081.jpg)
+
+**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training slide မှာ DGX H100 နဲ့ ၎င်းရဲ့ BMC (Baseboard Management Controller) ကို ပြထားပါတယ်။ DGX H100 ဟာ Hopper generation ဖြစ်ပြီး အပေါ်က သတိပြုရန်အချက်အတိုင်း DGX A100 (Ampere) နဲ့ generation မရောထွေးပါစေနဲ့ — BMC ကတော့ system management အတွက် သီးခြား management controller ဖြစ်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 12. Exam Points
 
@@ -461,7 +471,11 @@ flowchart TD
 - Eight GPUs and the NVSwitch are connected on this single board, so the "8 × A100 GPU + NVSwitch" block diagram above physically exists on this hardware.
 - The high-speed connections on the baseboard are exactly what allows the GPUs to exchange data quickly with each other.
 
-*(Image: NVIDIA official product image)*
+![သင်တန်းပုံ 1 (Training Slide 1): DGX A100 platform](../assets/nca-aiio-slides/slide-064.jpg)
+
+**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide presents the DGX A100 platform — the system architecture with 8x A100 GPUs, NVSwitch high-speed interconnect, and NVMe storage. Compare it with the block diagram, Figure 2, and the HGX baseboard photo above.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 5. Eight NVIDIA A100 GPUs
 
@@ -620,6 +634,12 @@ flowchart TD
 - **GPU instance ≠ DGX Cloud** — A provider having NVIDIA GPUs does not make every GPU instance a DGX Cloud offering.
 - **Storage I/O bottleneck** — If storage cannot keep the GPUs fed, performance suffers.
 - **Power / cooling / rack space** — Must be planned for in on-premises deployments.
+
+![သင်တန်းပုံ 2 (Training Slide 2): DGX H100 and BMC](../assets/nca-aiio-slides/slide-081.jpg)
+
+**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide shows a DGX H100 together with its BMC (Baseboard Management Controller). DGX H100 is the Hopper generation — do not confuse it with DGX A100 (Ampere), as noted above — and the BMC is the separate management controller used for system management.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 12. Exam Points
 

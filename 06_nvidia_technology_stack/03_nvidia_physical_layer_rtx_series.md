@@ -36,7 +36,11 @@ Ray tracing ဆိုတာ graphics rendering နဲ့ သက်ဆိုင�
 - ကတ်ရဲ့ ကိုယ်ထည် (casing) က GPU chip၊ memory နဲ့ အအေးပေး cooling system တွေကို ဖုံးအုပ်ထားပြီး ကတ်အရွယ်အစားကိုကြည့်ရင် high-end card အမျိုးအစား ဖြစ်တာ တွေ့ရပါမယ်။
 - ဒီလိုကတ်ကို desktop PC / workstation ရဲ့ PCIe slot ထဲ ထည့်သုံးပါတယ် — server ထဲက data-center GPU တွေနဲ့ မတူဘဲ ပုံမှန်ကွန်ပျူတာအတွက် ထုတ်လုပ်ထားတဲ့ card ဖြစ်ပါတယ်။
 
-*(Image: NVIDIA official product image)*
+![သင်တန်းပုံ 1 (Training Slide 1): NVIDIA RTX series](../assets/nca-aiio-slides/slide-063.jpg)
+
+**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training slide က NVIDIA RTX series ကို မိတ်ဆက်ပြထားပါတယ် — RTX ဟာ ray tracing နဲ့ accelerated graphics နဲ့ ဆက်စပ်တဲ့ NVIDIA GPU platform/family ဖြစ်ပြီး target market အလိုက် product တွေမှာ တွေ့နိုင်ပါတယ်။ အပေါ်က ပုံသတ်မှတ်ချက်၊ RTX 4090 ဓာတ်ပုံတို့နဲ့ ယှဉ်ကြည့်နိုင်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 3. RTX Architecture
 
@@ -489,7 +493,11 @@ For now, remember:
 - The card's casing covers the GPU chip, memory, and its cooling system; its overall size marks it as a high-end card rather than an entry-level one.
 - Cards like this go into a PCIe slot inside a desktop PC or workstation — unlike the data-center GPUs that live inside servers.
 
-*(Image: NVIDIA official product image)*
+![သင်တန်းပုံ 1 (Training Slide 1): NVIDIA RTX series](../assets/nca-aiio-slides/slide-063.jpg)
+
+**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide introduces the NVIDIA RTX series — RTX is NVIDIA's GPU platform/family associated with ray tracing and accelerated graphics, appearing in products aimed at different target markets. Use it together with the definition and the RTX 4090 photo above.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 3. RTX Architecture
 

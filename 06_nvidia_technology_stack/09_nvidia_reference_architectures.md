@@ -74,6 +74,12 @@ flowchart TD
 
 > Reference Architecture = Infrastructure implementation အတွက် architectural blueprint
 
+![သင်တန်းပုံ 1 (Training Slide 1): NVIDIA reference architectures](../assets/nca-aiio-slides/slide-068.jpg)
+
+**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training slide က NVIDIA reference architectures တွေကို မိတ်ဆက်ပြထားပါတယ် — hardware, compute, networking, storage စတဲ့ components တွေကို ဘယ်လို ပေါင်းစပ်ရမလဲဆိုတဲ့ architectural blueprint အဖြစ် အသုံးပြုနိုင်တာကို အပေါ်က Figure 1 ရဲ့ blueprint ဥပမာနဲ့ ယှဉ်ကြည့်နိုင်ပါတယ်။
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
+
 ## 3. NVIDIA က Reference Architectures တွေ ဘာကြောင့် ပေးထားသလဲ?
 
 NVIDIA Reference Architectures တွေက system implementation အတွက် frameworks နဲ့ design guidance တွေကို ပေးပါတယ်။ ရည်ရွယ်ထားတဲ့ အကျိုးကျေးဇူးတွေက —
@@ -418,6 +424,12 @@ flowchart TD
 4. This is how an implementation team gets a structured starting point instead of designing everything from scratch.
 
 > Reference Architecture = an architectural blueprint for infrastructure implementation.
+
+![သင်တန်းပုံ 1 (Training Slide 1): NVIDIA reference architectures](../assets/nca-aiio-slides/slide-068.jpg)
+
+**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide introduces NVIDIA reference architectures — architectural blueprints showing how to combine hardware, compute, networking, and storage components into a working system. Read it alongside the blueprint analogy in Figure 1 above.
+
+*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 3. Why Does NVIDIA Provide Reference Architectures?
 
