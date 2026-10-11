@@ -45,6 +45,23 @@ translations or marketing language.
 - Never invent commands, benchmark numbers, compatibility, or citations.
 - Explain when an example command is illustrative rather than universal.
 
+## Visual aids (figures)
+- Every module file must include diagrams that render as PICTURES in
+  Markdown viewers (GitHub, Obsidian, VS Code with Markdown preview):
+  use Mermaid code blocks (`flowchart TD/LR` or `sequenceDiagram` syntax
+  ONLY — portable across renderers) for architecture, data-flow,
+  interaction and comparison visuals. Keep existing ASCII diagrams where
+  they still add terminal-friendly value.
+- Place each figure INLINE, right where the concept is explained — not
+  collected in an appendix. Number figures per file (Figure 1, 2, ...).
+- Follow EVERY figure with a short "figure walkthrough" (ပုံရှင်းလင်းချက်):
+  what to look at, step by step, in plain language. The course has
+  beginner readers who depend on visual understanding.
+- Figures appear in BOTH the Myanmar and English sections, with the same
+  figure numbering and captions written in that section's language.
+- Keep diagrams simple: max ~15 nodes, quoted labels for anything with
+  spaces or special characters, no `xychart`/`block`/HTML syntax.
+
 ## Output
 - Use clean Markdown headings, short paragraphs, tables, and code blocks.
 - Preserve the supplied module and chapter numbering.

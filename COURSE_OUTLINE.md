@@ -52,9 +52,9 @@
 - CPU နဲ့ GPU ကို ပေါင်းစပ်အသုံးပြုပုံ
 
 **သင်ယူရမည့်ရလဒ်** — CPU နဲ့ GPU တို့ရဲ့ ကွာခြားချက်၊ သင့်တော်တဲ့ workload နဲ့ parallel computing ရဲ့ အခြေခံကို ရှင်းပြနိုင်ရန်။
-## Module 04 — Training vs Inference ⏳
+## Module 04 — Training vs Inference
 
-**📁 files** — ⏳ content မပေးရသေး (in-depth: `35_model_training_vs_inference/`)
+**📁 files** — `04_training_vs_inference/` (in-depth comparison: `35_model_training_vs_inference/`)
 
 **အဓိကအကြောင်းအရာများ**
 - Model training နဲ့ inference တို့ရဲ့ ရည်ရွယ်ချက်
@@ -171,9 +171,9 @@
 - GPUDirect RDMA troubleshooting အခြေခံ
 
 **သင်ယူရမည့်ရလဒ်** — Supported hardware/software environment မှာ GPU memory နဲ့ network device တို့အကြား direct data transfer ဘယ်လိုလုပ်ဆောင်နိုင်သလဲ နားလည်ရန်။
-## Module 12 — GPUDirect Storage (GDS) ⏳
+## Module 12 — GPUDirect Storage (GDS)
 
-**📁 files** — ⏳ content မပေးရသေး
+**📁 files** — `12_gpudirect_storage/`
 
 **အဓိကအကြောင်းအရာများ**
 - Storage-to-GPU data movement
@@ -185,9 +185,9 @@
 - GDS deployment considerations
 
 **သင်ယူရမည့်ရလဒ်** — Storage data ကို GPU memory သို့ ပိုမိုထိရောက်စွာ ပို့ဆောင်နိုင်တဲ့ နည်းလမ်းကို နားလည်ရန်။
-## Module 13 — GPUDirect RDMA vs GPUDirect Storage ⏳
+## Module 13 — GPUDirect RDMA vs GPUDirect Storage
 
-**📁 files** — ⏳ content မပေးရသေး
+**📁 files** — `13_gpudirect_rdma_vs_gds/`
 
 **အဓိကအကြောင်းအရာများ**
 - GPUDirect RDMA နဲ့ GDS တို့ရဲ့ ရည်ရွယ်ချက်
@@ -231,9 +231,9 @@
 - Common driver troubleshooting
 
 **သင်ယူရမည့်ရလဒ်** — Linux GPU server ပေါ်မှာ GPU visibility, driver status နဲ့ basic utilization ကို စစ်ဆေးနိုင်ရန်။
-## Module 16 — GPU Virtualization Fundamentals ⏳
+## Module 16 — GPU Virtualization Fundamentals
 
-**📁 files** — ⏳ content မပေးရသေး (အချို့ကို `17_vgpu_vs_mig/` တွင် ဖုံး)
+**📁 files** — `16_gpu_virtualization_fundamentals/`
 
 **အဓိကအကြောင်းအရာများ**
 - GPU sharing နဲ့ virtualization
@@ -542,6 +542,25 @@
 **သင်ယူရမည့်ရလဒ်** — Training နှင့် inference အတွက် GPU, memory, networking နှင့် performance requirements တွေ ဘာကြောင့် ကွာခြားသလဲ နားလည်ရန်။
 
 **မှတ်ချက်** — source course က ဤ topic ကို Module 35 အဖြစ် ပေးပို့သည်။ Draft outline ရဲ့ Module 04 (Training vs Inference) နှင့် အကြောင်းအရာ တူညီသဖြင့် ဤနေရာတွင် ပေါင်းစပ်ထားခြင်း ဖြစ်သည်။
+## Module 42 — AI Model Optimization and Inference Serving (Supplemental)
+
+**အဓိကအကြောင်းအရာများ**
+- Production latency, throughput နှင့် cost ပန်းတိုင်များ
+- Quantization — PTQ နှင့် QAT; INT8, FP8, INT4, FP4; Q/DQ layers; per-tensor / per-channel / block granularity
+- TensorRT — inference optimization SDK (kernel fusion, engine optimization)
+- TensorRT-LLM — LLM inference library (KV cache, chunked context, parallelism)
+- Triton Inference Server — model serving platform (model repository, backends, Model Navigator)
+- NIM — packaged optimized inference microservices (latency/throughput profiles, NIM_MODEL_PROFILE)
+- Serving metrics — TTFT, TPOT, tokens/sec နှင့် tradeoffs
+
+**သင်ယူရမည့်ရလဒ်** — Optimization နှင့် serving တို့၏ မတူညီသောတာဝန်များကို ခွဲခြားပြီး tool ရွေးချယ်နိုင်ရန်။
+
+**📁 files** — `42_model_optimization_inference_serving/` (supplemental module — draft outline ရဲ့ optimization/serving topic ကို ဖြည့်စွက်ရေးခြင်း)
+
+---
+
+# PART VII — AI Workload Operations and Orchestration
+
 ## Module 36 — Job Scheduling vs Container Orchestration
 
 **📁 files** — `36_job_scheduling_container_orchestration/`
@@ -589,6 +608,10 @@
 - GPU scheduling, autoscaling, load balancing နှင့် workload rescheduling ကွာခြားချက်
 
 **သင်ယူရမည့်ရလဒ်** — Slurm-managed training cluster နှင့် Kubernetes-based GPU platform တို့ကို NVIDIA infrastructure components တွေနှင့် ပေါင်းစပ်နားလည်ရန်။
+---
+
+# PART VIII — MLOps and End-to-End Production AI
+
 ## Module 39 — Introduction to MLOps
 
 **📁 files** — `39_introduction_to_mlops/`
@@ -641,15 +664,6 @@
 - Model Registry, CI/CD နဲ့ end-to-end lifecycle integration
 
 **သင်ယူရမည့်ရလဒ်** — NVIDIA technologies တွေကို MLOps lifecycle အဆင့်အလိုက် ချိတ်ဆက်ပြီး production AI architecture တစ်ခုအတွက် tool selection လုပ်နိုင်ရန်။
-
----
-
-# Pending / To-Be-Added
-
-အောက်ပါအကြောင်းအရာများကို content ပေးလာပါက module files အဖြစ် ထည့်သွင်းပါမည်။
-
-- ⏳ **Modules 04, 12, 13, 16** — content မပေးရသေး (Module 04 Training vs Inference ရဲ့ in-depth ကို Module 35 တွင် ဖော်ပြပြီး)
-- ⏳ **AI Model Optimization and Inference Serving** — draft outline ရဲ့ Module 35 ဟောင်း (quantization, TensorRT/TensorRT-LLM, Triton, NIM, serving architecture နှင့် benchmarking); အကြောင်းအရာအချို့ကို Modules 32/33/34/41 တွင် ဖုံးအုပ်ပြီး
 
 ---
 
