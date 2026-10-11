@@ -79,7 +79,6 @@ flowchart LR
 Storage ──► Host Memory ──► GPU Memory
             (bounce buffer)
 
-
 GDS Direct Path
 
 Storage ──────────────────► GPU Memory
@@ -100,15 +99,6 @@ flowchart TD
 **ပုံရှင်းလင်းချက်** — ပုံထဲမှာ data path နှစ်စကို ယှဉ်ပြထားပါတယ်။ တစ်ခုက Storage → Host Memory (bounce buffer) → GPU Memory ဆိုပြီး အဆင့်နှစ်ဆင့် ဖြတ်ရပြီး နောက်တစ်ခုကတော့ Storage က direct DMA ဖြင့် GPU Memory ထဲ တိုက်ရိုက် ရောက်ပါတယ်။ GDS က ဒုတိယ path ကို ဖွင့်ပေးခြင်းဖြစ်လို့ extra copy နဲ့ CPU overhead လျော့ကျသွားပါတယ်။
 
 NVIDIA ရဲ့ ရုပ်ပုံမှာ traditional staging path နဲ့ GDS direct path ကို အောက်ပါအတိုင်း ယှဉ်ပြထားပါတယ်—
-
-![ရုပ်ပုံ 1 (Diagram 1): Traditional staging paths vs. GPUDirect Storage paths](../assets/diagrams/gds-paths-and-staging.png)
-
-**ပုံရှင်းလင်းချက် (Diagram walkthrough)**
-1. ပုံမှာ ပုံမှန် (traditional) I/O path ကို အရင်ပြထားပါတယ် — storage က data ကို အရင် host memory ထဲက staging buffer ထဲ ရောက်ပြီး ကြားခံ copy တွေ ဖြတ်မှ GPU memory ထဲ ရောက်ပါတယ်။
-2. နောက်တစ်ခြမ်းမှာ GPUDirect Storage path ကို ပြထားပြီး storage က data ကို DMA engine ဖြင့် host memory staging မပါဘဲ GPU memory ထဲ တိုက်ရိုက် ရေးသွင်းပေးပါတယ်။
-3. နှစ်ခုကို ယှဉ်ကြည့်ရင် GDS path ဘက်မှာ copy အဆင့် နည်းပြီး CPU နဲ့ memory bandwidth သုံးစွဲမှု ပိုနည်းတာကို တွေ့ရပါမယ်။
-
-*(Diagram: NVIDIA docs, NVIDIA docs (educational use))*
 
 ## 3. Software Components များ
 
@@ -132,16 +122,6 @@ flowchart LR
 **ပုံရှင်းလင်းချက်** — Application က cuFile API ဖြင့် libcufile.so ကို ခေါ်ပြီး၊ ၎င်းက IOCTLs ဖြင့် nvidia-fs.ko kernel module ကို အသိပေးပါတယ်။ nvidia-fs.ko က storage kernel drivers ကနေ ခေါ်ယူတဲ့ DMA callbacks ကို ကိုင်တွယ်ပြီး DMA engine က data ကို GPU Memory ထဲ/ထဲကနေ တိုက်ရိုက် ရွှေ့ပေးပါတယ်။ Data path ပေါ်မှာ CPU ကြားခံ copy မပါဝင်ပါဘူး။
 
 GDS software architecture တစ်ခုလုံးကို NVIDIA ရဲ့ architecture overview ပုံမှာ အောက်ပါအတိုင်း ကြည့်ရှုနိုင်ပါတယ်—
-
-![ရုပ်ပုံ 2 (Diagram 2): GPUDirect Storage architecture overview](../assets/diagrams/gds-arch-overview.png)
-
-**ပုံရှင်းလင်းချက် (Diagram walkthrough)**
-1. ပုံရဲ့ အပေါ်ဆုံးအလွှာမှာ application က cuFile API ကတစ်ဆင့် GDS ကို အသုံးပြုပုံ ပါပါတယ်။
-2. အလယ်အလွှာတွေမှာ user-space cuFile library နဲ့ kernel-space nvidia-fs module တွေက data path ကို စီမံပုံ ပြထားပါတယ်။
-3. အောက်ဘက်မှာ local NVMe သို့မဟုတ် NVMe-oF ကဲ့သို့ remote storage နဲ့ DMA engine တွေ ရှိပြီး data ကို GPU memory ထဲ တိုက်ရိုက် ရွှေ့ပေးပုံ ဖြစ်ပါတယ်။
-4. တစ်ခုလုံးကို ကြည့်ရင် CPU bounce buffer မပါဘဲ storage ကနေ GPU memory ဆီ direct DMA သွားတဲ့ architecture ဖြစ်ကြောင်း မြင်ရပါမယ်။
-
-*(Diagram: NVIDIA docs, NVIDIA docs (educational use))*
 
 Packaging အနေနဲ့ libraries နဲ့ kernel sources တွေကို CUDA toolkit နဲ့အတူ (Ubuntu/RedHat အတွက် debs/RPMs အဖြစ်) ထုပ်ပိုးထားပါတယ်။ nvidia_fs.ko kernel sources တွေကို DGX BaseOS 6.0+ releases တွေမှာလည်း တွေ့ရှိနိုင်ပါတယ်။
 
@@ -293,7 +273,6 @@ Traditional I/O path (CPU bounce buffer)
 Storage ──► Host Memory ──► GPU Memory
             (bounce buffer)
 
-
 GDS Direct Path
 
 Storage ──────────────────► GPU Memory
@@ -314,15 +293,6 @@ flowchart TD
 **Figure walkthrough** — The figure compares two data paths. One goes Storage → Host Memory (bounce buffer) → GPU Memory in two steps; the other delivers data from storage straight into GPU memory via direct DMA. GDS enables that second path, so extra copies and CPU overhead shrink.
 
 NVIDIA's diagram below compares the traditional staging path with the GDS direct path—
-
-![ရုပ်ပုံ 1 (Diagram 1): Traditional staging paths vs. GPUDirect Storage paths](../assets/diagrams/gds-paths-and-staging.png)
-
-**Diagram walkthrough**
-1. The picture first shows the traditional I/O path: storage data lands in a staging buffer in host memory and only reaches GPU memory after intermediate copies.
-2. On the other side, the GPUDirect Storage path uses a DMA engine to write storage data straight into GPU memory without staging it through host memory.
-3. Comparing the two, the GDS path has fewer copy steps and uses less CPU and memory bandwidth.
-
-*(Diagram: NVIDIA docs, NVIDIA docs (educational use))*
 
 ## 3. Software Components
 
@@ -346,16 +316,6 @@ flowchart LR
 **Figure walkthrough** — The application calls libcufile.so through the cuFile API, which notifies the nvidia-fs.ko kernel module with IOCTLs. nvidia-fs.ko handles the DMA callbacks called by the storage kernel drivers, and the DMA engine moves data directly into or out of GPU memory. No CPU-mediated copy sits on the data path.
 
 The whole GDS software architecture can be seen in NVIDIA's architecture overview diagram below—
-
-![ရုပ်ပုံ 2 (Diagram 2): GPUDirect Storage architecture overview](../assets/diagrams/gds-arch-overview.png)
-
-**Diagram walkthrough**
-1. At the top layer of the picture, an application uses GDS through the cuFile API.
-2. In the middle layers, the user-space cuFile library and the kernel-space nvidia-fs module manage the data path.
-3. At the bottom are local NVMe or remote storage such as NVMe-oF, together with the DMA engines that move data straight into GPU memory.
-4. Looking at the picture as a whole, it shows an architecture where data travels by direct DMA from storage to GPU memory with no CPU bounce buffer.
-
-*(Diagram: NVIDIA docs, NVIDIA docs (educational use))*
 
 For packaging, the libraries and kernel sources ship with the CUDA toolkit (as debs/RPMs for Ubuntu/RedHat). The nvidia_fs.ko kernel sources are also available in DGX BaseOS 6.0+ releases.
 

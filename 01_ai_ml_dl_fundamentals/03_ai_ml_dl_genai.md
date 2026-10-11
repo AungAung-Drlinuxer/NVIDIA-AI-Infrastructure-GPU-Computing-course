@@ -132,12 +132,6 @@ Deep Learning က Machine Learning ရဲ့ အရေးကြီးတဲ့ a
 Deep Learning မှာ Artificial Neural Networks ကို အသုံးပြုပါတယ်။
 Artificial Neural Network က human brain ရဲ့ neurons တွေက information ကို process လုပ်တဲ့ concept ကို inspiration ယူထားတာပါ။
 
-![ရုပ်ပုံ 1 (Diagram 1): Artificial neuron model](../assets/diagrams/artificial-neuron.png)
-
-**ပုံရှင်းလင်းချက် (Diagram walkthrough) —** ဘယ်ဘက်ကနေ ညာဘက်ကို လိုက်ကြည့်ပါ — ဘယ်ဘက်မှာ input signal တွေ (x1, x2, ... xn) ဝင်လာပြီး တစ်ခုချင်းစီမှာ weight (w1, w2, ... wn) တွေ ပါပါတယ်။ အဲဒီ input တွေကို weight တွေနဲ့ မြှောက်ပြီး အလယ်က cell body ထဲ ပေါင်းဝင်သွားပါတယ်။ Cell body ထဲမှာ weighted sum ကို bias (b) နဲ့ ပေါင်းပြီး activation function တစ်ခုက ဖြတ်သွားပါတယ်။ နောက်ဆုံး ညာဘက်မှာ output (y) တစ်ခု ထွက်လာတာကို တွေ့ရပါမယ်။ ဒီ neuron တစ်လုံးချင်းစီကို layers အများကြီးနဲ့ ချိတ်ဆက်လိုက်တာ neural network ဖြစ်လာပြီး Deep Learning ရဲ့ အခြေခံ အဆောက်အအုံ ဖြစ်ပါတယ်။
-
-*(Diagram: Chrislb, CC BY-SA 3.0, via Wikimedia Commons)*
-
 အလွယ်ပြောရရင်—
 
 > Deep Learning uses multi-layer neural networks to learn complex patterns from data.
@@ -201,12 +195,6 @@ Complex Patterns
 Classification
 ```
 
-![ရုပ်ပုံ 2 (Diagram 2): Three convolution filters in a CNN](../assets/diagrams/cnn-filters.gif)
-
-**ပုံရှင်းလင်းချက် (Diagram walkthrough) —** ဒီ animation မှာ image တစ်ပုံကို convolutional neural network ရဲ့ ပထမ layer က filter (kernel) သုံးခုနဲ့ ဘယ်လို ဖတ်သလဲဆိုတာ ပြထားပါတယ်။ မူရင်း image ကို အရင်ကြည့်ပြီး filter တစ်ခုချင်းစီ ပုံပေါ် ဖြတ်သွားတာနဲ့အတူ သူ့ရဲ့ feature map ထွက်လာပုံကို လိုက်ကြည့်ပါ — filter တစ်ခုစီက ပုံပေါ်က feature တစ်မျိုးစီ (edge မျိုးစုံ စသည်) ကို ရှာထုတ်ပေးတာ ဖြစ်ပါတယ်။ filter သုံးခုသာ ပြထားပေမယ့် ပုံရဲ့ မှတ်ချက်အတိုင်း တကယ့် network တွေမှာ filter အများကြီး သုံးပါတယ်။
-
-*(Diagram: Cecbur, CC BY-SA 4.0, via Wikimedia Commons)*
-
 **Figure 3 — Deep Learning layers အဆင့်ဆင့်က features တွေ သင်ယူပုံ**
 
 ```mermaid
@@ -220,12 +208,6 @@ flowchart TD
 ```
 
 **ပုံရှင်းလင်းချက် —** အပေါ်ဆုံးက Image ကနေ စပြီး အောက်ကို တစ်ဆင့်ချင်း လိုက်ကြည့်ပါ။ Input Layer က ပုံကို လက်ခံပြီး ပထမဆုံး hidden layer မှာ edges လို ရိုးရှင်းတဲ့ features တွေ၊ နောက် hidden layers တွေမှာ shapes တွေ၊ ပြီးရင် objects / features တွေကို အဆင့်ဆင့် သင်ယူပါတယ်။ Output Layer မှာ ဒီ features အားလုံး ပေါင်းပြီး complex patterns ဖြစ်လာကာ နောက်ဆုံး node မှာ "Cat" လို့ classification ရလဒ် ထွက်လာပါတယ်။ Layers များလေလေ ပိုရှုပ်ထွေးတဲ့ patterns တွေ သင်ယူနိုင်လေလေ ဖြစ်တာကြောင့် Deep Learning လို့ ခေါ်တာ ဖြစ်ပါတယ်။
-
-![ရုပ်ပုံ 3 (Diagram 3): CNN feature layers](../assets/diagrams/cnn-feature-layers.gif)
-
-**ပုံရှင်းလင်းချက် (Diagram walkthrough) —** ဒီ animation က filter တစ်ခုချင်းစီ ဘယ်လို အလုပ်လုပ်လဲဆိုတာ ပြပါတယ်။ အောက် layer က filter သုံးခု ထုတ်ပေးတဲ့ feature သုံးခု (feature map သုံးခု) ဟာ ပုံထဲက filter ရဲ့ input အဖြစ် သုံးထပ် ပေါင်းဝင်လာပုံကို ကြည့်ပါ — အောက် layer က ရိုးရှင်းတဲ့ feature တွေက အပေါ် layer အတွက် ပစ္စည်း ဖြစ်လာပါတယ်။ ဒါကြောင့် layers အဆင့်ဆင့် တက်လာလေလေ ပိုရှုပ်ထွေးတဲ့ feature တွေ ဖြစ်လာလေလေ ဖြစ်ပြီး အပေါ်က Edges → Shapes → Objects ဆိုတဲ့ စီးကြောင်းနဲ့ ကိုက်ညီပါတယ်။
-
-*(Diagram: Cecbur, CC BY-SA 4.0, via Wikimedia Commons)*
 
 > **မှတ်ရန်** — Deep Learning is a Machine Learning approach that uses neural networks with multiple layers to learn complex patterns.
 
@@ -490,12 +472,6 @@ The model learns patterns from these examples and can then predict whether a new
 Deep Learning is a Machine Learning approach that uses Artificial Neural Networks.
 Artificial Neural Networks are inspired by the way biological neural systems process information.
 
-![ရုပ်ပုံ 1 (Diagram 1): Artificial neuron model](../assets/diagrams/artificial-neuron.png)
-
-**Diagram walkthrough —** Look from left to right: input signals (x1, x2, ... xn) enter on the left, and each one carries its own weight (w1, w2, ... wn). Each input is multiplied by its weight and the signals meet inside the cell body in the middle. There the weighted sum is combined with a bias (b) and passed through an activation function. Finally a single output (y) leaves the neuron on the right. Connecting many of these neurons together in layers is what builds a neural network — the basic building block of Deep Learning.
-
-*(Diagram: Chrislb, CC BY-SA 3.0, via Wikimedia Commons)*
-
 A Deep Learning model can contain multiple layers of neurons.
 
 For example, in image recognition:
@@ -557,12 +533,6 @@ Complex Patterns
 Classification
 ```
 
-![ရုပ်ပုံ 2 (Diagram 2): Three convolution filters in a CNN](../assets/diagrams/cnn-filters.gif)
-
-**Diagram walkthrough —** This animation shows how the first layer of a convolutional neural network reads an image with three filters (kernels). Start from the original image, then follow each filter as it sweeps over the picture and produces its own feature map — each filter picks up one kind of feature (for example, different kinds of edges). Only three filters are shown here; as the note in the diagram says, a real network uses many more.
-
-*(Diagram: Cecbur, CC BY-SA 4.0, via Wikimedia Commons)*
-
 **Figure 3 — How Deep Learning layers learn features step by step**
 
 ```mermaid
@@ -578,12 +548,6 @@ flowchart TD
 **Figure walkthrough —** Start at the top with the image and follow the arrows downward one step at a time. The input layer receives the image. The first hidden layer picks up simple features such as edges; the next hidden layers learn shapes, and then objects and features. At the output layer these features combine into complex patterns, and the final node shows the classification result: "Cat". Because the network has many layers and can learn increasingly complex patterns, it is called Deep Learning.
 
 A model trained for image recognition may eventually learn to distinguish between different objects based on these learned patterns.
-
-![ရုပ်ပုံ 3 (Diagram 3): CNN feature layers](../assets/diagrams/cnn-feature-layers.gif)
-
-**Diagram walkthrough —** This animation zooms into how a single filter works. The three feature maps produced by three filters in the layer below stack up and become the three-feature-thick input of the filter shown here — simple features found below become the raw material for the layer above. That is the idea of feature layers: the higher you go, the more complex the features become, exactly matching the Edges → Shapes → Objects progression shown earlier.
-
-*(Diagram: Cecbur, CC BY-SA 4.0, via Wikimedia Commons)*
 
 > **Exam Definition** — Deep Learning is a Machine Learning approach that uses multi-layer neural networks to learn complex patterns from data.
 

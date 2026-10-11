@@ -12,15 +12,9 @@ Transformer architecture ရဲ့ အခြေခံအယူအဆကို 20
 
 ![သင်တန်းပုံ 1 (Training Slide 1): The Transformer Model](../assets/nca-aiio-slides/slide-014.jpg)
 
-**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 1)** — ဒီသင်တန်းပုံက Transformer model ကို သင်တန်း deck မှာ မိတ်ဆက်ထားတဲ့ မြင်ကွင်း ဖြစ်ပါတယ်။ Transformer ဟာ modern AI — အထူးသဖြင့် Generative AI နဲ့ Large Language Models (LLMs) တွေရဲ့ အခြေခံ deep learning architecture ဖြစ်ကြောင်း ဒီပုံက အကျဉ်းချုပ် ပြသပါတယ်။ အောက်က ရုပ်ပုံ 1 (architecture diagram) မှာတော့ ၎င်းရဲ့ အစိတ်အပိုင်းတွေကို အသေးစိတ် ဆက်လက် လေ့လာနိုင်ပါတယ်။
+**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 1)** — ဒီသင်တန်းပုံက Transformer model ကို သင်တန်း deck မှာ မိတ်ဆက်ထားတဲ့ မြင်ကွင်း ဖြစ်ပါတယ်။ Transformer ဟာ modern AI — အထူးသဖြင့် Generative AI နဲ့ Large Language Models (LLMs) တွေရဲ့ အခြေခံ deep learning architecture ဖြစ်ကြောင်း ဒီပုံက အကျဉ်းချုပ် ပြသပါတယ်။ အောက်က Mermaid figure တွေမှာတော့ ၎င်းရဲ့ အစိတ်အပိုင်းတွေကို အသေးစိတ် ဆက်လက် လေ့လာနိုင်ပါတယ်။
 
 *(Source: NVIDIA NCA-AIIO training deck — study material)*
-
-![ရုပ်ပုံ 1 (Diagram 1): The Transformer model architecture](../assets/diagrams/transformer-architecture.png)
-
-**ပုံရှင်းလင်းချက် (Diagram walkthrough) —** ဒီပုံက Transformer တစ်ခုလုံးရဲ့ architecture ကို ဘေးချင်းကပ် ပြထားပါတယ် — ဘယ်ဘက်တစ်ဝက်က encoder ဖြစ်ပြီး ညာဘက်တစ်ဝက်က decoder ဖြစ်ပါတယ်။ ဘယ်ဘက်အောက်ခြေက Input Embedding က စာသားကို vector တွေအဖြစ် ပြောင်းပေးပြီး Positional Encoding က စကားလုံးတွေရဲ့ အစဉ်အလိုက် နေရာ အချက်အလက် ထည့်ပေးပါတယ်။ အဲဒီကနေ Multi-Head Attention → Add & Norm → Feed Forward → Add & Norm ဆိုတဲ့ ဘောက်တွေ အထက်ကို တက်သွားပြီး ဒီအဆင့်ကို N ကြိမ် ထပ်လုပ်ပါတယ်။ ညာဘက် decoder မှာတော့ Output Embedding ကနေ စပြီး နောက် token တွေကို မမြင်ရအောင် ကာထားတဲ့ Masked Multi-Head Attention၊ encoder ရဲ့ output ကို ထပ်လက်ခံတဲ့ Multi-Head Attention၊ Feed Forward တွေ အဆင့်ဆင့် ဖြတ်သွားပါတယ်။ အပေါ်ဆုံးမှာ Linear နဲ့ Softmax က output probabilities တွေ ထုတ်ပေးပြီး နောက် token ကို ရွေးချယ်နိုင်ပါတယ်။
-
-*(Diagram: Yuening Jia, CC BY-SA 3.0, via Wikimedia Commons)*
 
 Transformer ရဲ့ အရေးကြီးဆုံး concept တစ်ခုကတော့ **Attention mechanism** ဖြစ်ပါတယ်။
 
@@ -35,12 +29,6 @@ Attention ရဲ့ အဓိကအလုပ်က—Sentence တစ်ခုထ
 ဒီမှာ "it" ဆိုတာ ဘယ်သူ့ကို ရည်ညွှန်းတာလဲ? dog လား? cat လား?
 Model က sentence တစ်ခုလုံးထဲက words တွေရဲ့ relationship ကိုကြည့်ပြီး context ကိုနားလည်ဖို့လိုပါတယ်။
 Attention mechanism က ဒီလို relationship တွေကို model က လေ့လာနိုင်အောင် ကူညီပေးပါတယ်။
-
-![ရုပ်ပုံ 2 (Diagram 2): Attention block](../assets/diagrams/attention-block.png)
-
-**ပုံရှင်းလင်းချက် (Diagram walkthrough) —** ဒီပုံက attention တစ်ခုရဲ့ အတွင်းပိုင်း လုပ်ဆောင်ပုံကို အဆင့်ဆင့် ပြထားပါတယ်။ အပေါ်ဆုံးက input ကို ယူပြီး query (q)၊ key (k)၊ value (v) ဆိုတဲ့ အခန်းကဏ္ဍ သုံးမျိုးခွဲ ထုတ်ယူပါတယ်။ ပြီးရင် q နဲ့ k ကို ပေါင်းပြီး token တွေအကြား ဆက်စပ်မှု ဘယ်လောက်ရှိသလဲဆိုတဲ့ attention scores တွေ တွက်ထုတ်ပါတယ်။ Softmax က ဒီ scores တွေကို စုစုပေါင်း ၁ (၁၀၀%) ဖြစ်အောင် weights တွေအဖြစ် ပြောင်းပေးပြီး အဲဒီ weights တွေနဲ့ v တွေကို ပေါင်းလိုက်တာက attention ရဲ့ output ဖြစ်လာပါတယ်။ ဆိုလိုတာက 'ဘယ် token က ဘယ် token ကို ဘယ်လောက် အာရုံစိုက်သင့်သလဲ' ဆိုတာ ကိုယ်တိုင် တွက်ချက်ပြီး context ပါတဲ့ ရလဒ် ပြန်ထုတ်ပေးတာ ဖြစ်ပါတယ်။
-
-*(Diagram: dvgodoy, CC BY 4.0, via Wikimedia Commons)*
 
 Simple idea
 
@@ -326,24 +314,12 @@ able
 Transformer ကို exam အတွက် မှတ်ရင် Attention ကို မမေ့သင့်ပါဘူး။
 Attention က model ကို—Input sequence ထဲမှာ ဘယ် token တွေက တစ်ခုနဲ့တစ်ခု ဘယ်လောက်ဆက်စပ်နေသလဲဆိုတာကို သင်ယူပြီး context ကို effectively အသုံးချနိုင်စေတဲ့ mechanism အဖြစ် နားလည်နိုင်ပါတယ်။
 
-![ရုပ်ပုံ 3 (Diagram 3): Encoder self-attention](../assets/diagrams/encoder-self-attention.png)
-
-**ပုံရှင်းလင်းချက် (Diagram walkthrough) —** ဒီပုံက encoder ရဲ့ self-attention ကို အသေးစိတ် ချဲ့ပြထားပါတယ်။ စာကြောင်းထဲက token တစ်ခုချင်းစီကို query (q)၊ key (k)၊ value (v) သုံးမျိုးစီ ခွဲထုတ်ထားတာ တွေ့ရပါမယ်။ ပြီးရင် token တစ်ခုချင်းစီရဲ့ q ကို စာကြောင်းထဲက token အားလုံး (ကိုယ့်ကိုယ်ကိုပါ အပါအဝင်) ရဲ့ k တွေနဲ့ တစ်ခုချင်း ယှဉ်တွက်တဲ့အတွက် attention score ဇယား (matrix) တစ်ခု ဖြစ်လာပါတယ် — self-attention ဆိုတာ token တိုင်းက token အားလုံးကို ကြည့်တာ ဖြစ်ပါတယ်။ Softmax က ဇယားရဲ့ တစ်ကြောင်းချင်းစီကို ပမာဏ ၁ ဖြစ်အောင် ညှိပေးပြီး အဲဒီ weights တွေနဲ့ v တွေကို ပေါင်းလိုက်တာကြောင့် token တစ်ခုချင်းစီအတွက် context ပါပြီးသား representation အသစ်တွေ ရရှိပါတယ်။
-
-*(Diagram: dvgodoy, CC BY 4.0, via Wikimedia Commons)*
-
 ဥပမာ—
 
 > The animal didn't cross the road because it was tired.
 
 Model က "it" ကို နားလည်ဖို့ အနီးအနား words တွေတင်မကဘဲ sentence context ကိုလည်း အသုံးချရပါတယ်။
 Attention က ဒီလို contextual relationships တွေကို model က process လုပ်နိုင်ဖို့ အရေးကြီးပါတယ်။
-
-![ရုပ်ပုံ 4 (Diagram 4): Multi-head attention](../assets/diagrams/multiheaded-attention.png)
-
-**ပုံရှင်းလင်းချက် (Diagram walkthrough) —** ဒီပုံက attention ကို တစ်ကြိမ်တည်း တွက်တာထက် head အမျိုးမျိုး ခွဲပြီး တစ်ပြိုင်နက် တွက်ပုံ (multi-head attention) ကို ပြထားပါတယ်။ input တစ်ခုတည်းကို head တစ်ခုချင်းစီဆီ ပို့ပြီး head တစ်ခုချင်းစီက သူ့ဘာသာ attention သီးခြား တွက်ပါတယ် — ဒါကြောင့် head တစ်ခုစီက မတူညီတဲ့ ဆက်စပ်မှု အမျိုးအစား (ဥပမာ စကားလုံး အဓိပ္ပာယ် ဆက်စပ်မှုနဲ့ ဝါကျ ဖွဲ့စည်းပုံ ဆက်စပ်မှု) တွေကို တစ်ပြိုင်နက် လေ့လာနိုင်ပါတယ်။ head အားလုံးရဲ့ ရလဒ်တွေကို ပေါင်း (concatenate) လိုက်ပြီး နောက်ဆုံး linear layer တစ်ခု ဖြတ်ကာ output တစ်ခု ဖြစ်လာပါတယ်။
-
-*(Diagram: dvgodoy, CC BY 4.0, via Wikimedia Commons)*
 
 ## 13. Parallel Computing ဘာကြောင့် အရေးကြီးတာလဲ?
 
@@ -470,12 +446,6 @@ flowchart TD
 
 ဒါက learning aid အနေနဲ့ ကြည့်တာပါ။ တကယ့် AI taxonomy ကို ဒီလို strict hierarchy တစ်ခုတည်းနဲ့ သတ်မှတ်လို့မရပါဘူး။
 
-![ရုပ်ပုံ 5 (Diagram 5): GPT architecture](../assets/diagrams/gpt-architecture.png)
-
-**ပုံရှင်းလင်းချက် (Diagram walkthrough) —** ဒီပုံက Generative Pre-trained Transformer (GPT) တစ်ခုလုံးရဲ့ architecture ဖြစ်ပါတယ်။ အောက်ခြေမှာ token တွေကို vector တွေအဖြစ် ပြောင်းတဲ့ token embedding နဲ့ စကားလုံး အစဉ်အလိုက် နေရာ အချက်အလက် ပေးတဲ့ positional embedding ကို ပေါင်းထည့်ပါတယ်။ အဲဒီကနေ transformer block တွေ — Masked Multi-Head Self-Attention နဲ့ Feed Forward အဆင့်တွေ (residual connection နဲ့ layer normalization ပါ) — ကို အထပ်လိုက် အကြိမ်များစွာ ဖြတ်သွားပါတယ်။ 'Masked' ဆိုတာ နောက်က token တွေကို မမြင်ရအောင် ကာထားတာ ဖြစ်လို့ GPT ဟာ decoder ပုံစံ ဖြစ်ပြီး စာသား ထုတ်လုပ်ရာမှာ သုံးပါတယ်။ အပေါ်ဆုံးမှာ vocabulary တစ်ခုလုံးအပေါ် probability တွေ ထွက်လာပြီး probability အမြင့်ဆုံး next token ကို ရွေးကာ ဒီအဆင့်ကို တစ်ကြိမ်ပြီးတစ်ကြိမ် ပြန်လုပ်ခြင်းဖြင့် စာသား တစ်ဆင့်ချင်း ထုတ်လုပ်ပါတယ်။
-
-*(Diagram: Original: Marxav, Vectorization: Mrmw, CC0, via Wikimedia Commons)*
-
 ## 17. Exam မှတ်ရန် — Transformer
 
 > **Transformer** = attention mechanisms တွေကို အသုံးပြုပြီး sequences တွေကို process လုပ်ဖို့ design လုပ်ထားတဲ့ Deep Learning architecture ဖြစ်ပြီး token တွေအကြား relationship တွေကို efficiently သင်ယူနိုင်စေပါတယ်။
@@ -541,15 +511,9 @@ The basic idea of the Transformer architecture was introduced in the 2017 resear
 
 ![သင်တန်းပုံ 1 (Training Slide 1): The Transformer Model](../assets/nca-aiio-slides/slide-014.jpg)
 
-**Slide walkthrough (Training Slide 1)** — This training slide is the deck's introductory view of the Transformer model. It presents the Transformer as the core deep learning architecture behind modern AI, especially Generative AI and Large Language Models (LLMs). The architecture diagram below (Diagram 1) then breaks the model down into its detailed components.
+**Slide walkthrough (Training Slide 1)** — This training slide is the deck's introductory view of the Transformer model. It presents the Transformer as the core deep learning architecture behind modern AI, especially Generative AI and Large Language Models (LLMs). The module's Mermaid figures below then break the model down into its detailed components.
 
 *(Source: NVIDIA NCA-AIIO training deck — study material)*
-
-![ရုပ်ပုံ 1 (Diagram 1): The Transformer model architecture](../assets/diagrams/transformer-architecture.png)
-
-**Diagram walkthrough —** This picture shows the whole Transformer architecture side by side: the left half is the encoder and the right half is the decoder. On the lower left, Input Embedding turns the text into vectors and Positional Encoding adds word-order information; from there the data moves up through Multi-Head Attention → Add & Norm → Feed Forward → Add & Norm, a block that is repeated N times. The decoder on the right starts at Output Embedding, passes through Masked Multi-Head Attention (which hides later tokens so the model cannot peek ahead), a Multi-Head Attention step that also receives the encoder output, and Feed Forward blocks. At the very top, Linear and Softmax produce output probabilities from which the next token is selected.
-
-*(Diagram: Yuening Jia, CC BY-SA 3.0, via Wikimedia Commons)*
 
 One of the most important concepts in a Transformer is the **Attention mechanism**.
 
@@ -564,12 +528,6 @@ For example:
 Here, what does "it" refer to — the dog or the cat?
 The model needs to look at the relationships between the words in the whole sentence to understand the context.
 The Attention mechanism helps the model learn these kinds of relationships.
-
-![ရုပ်ပုံ 2 (Diagram 2): Attention block](../assets/diagrams/attention-block.png)
-
-**Diagram walkthrough —** This diagram breaks one attention block into steps. The input at the top is split into three roles: a query (q), a key (k), and a value (v). The query and key are combined to compute attention scores — how strongly each token should relate to the others. A softmax turns those scores into weights that add up to 1 (100%), and those weights are applied to the values and summed to form the output. In short, the block works out by itself how much each token should attend to the others and returns a context-aware result.
-
-*(Diagram: dvgodoy, CC BY 4.0, via Wikimedia Commons)*
 
 Simple idea:
 
@@ -849,24 +807,12 @@ Therefore, remember:
 When you study Transformers for the exam, do not forget Attention.
 Attention can be understood as the mechanism that lets the model learn how strongly tokens in the input sequence relate to one another and use context effectively.
 
-![ရုပ်ပုံ 3 (Diagram 3): Encoder self-attention](../assets/diagrams/encoder-self-attention.png)
-
-**Diagram walkthrough —** This diagram zooms into encoder self-attention in detail. Each token in the sentence is split into three roles: a query (q), a key (k), and a value (v). Each token's query is then compared with the keys of every token in the sentence, including itself, filling in a grid of attention scores — this is exactly what 'self-attention' means: every token looks at all the others. Softmax normalizes each row of the grid to a total of 1, those weights are applied to the values, and the result is a new, context-aware representation for each token.
-
-*(Diagram: dvgodoy, CC BY 4.0, via Wikimedia Commons)*
-
 For example:
 
 > The animal didn't cross the road because it was tired.
 
 To understand "it", the model must use not only the nearby words but also the sentence context.
 Attention is important for the model to process these kinds of contextual relationships.
-
-![ရုပ်ပုံ 4 (Diagram 4): Multi-head attention](../assets/diagrams/multiheaded-attention.png)
-
-**Diagram walkthrough —** This diagram shows multi-head attention: instead of computing attention just once, the model splits the work into several heads running in parallel. The same input goes into every head, and each head computes its own attention — so different heads can pick up different kinds of relationships (for example, word meaning versus sentence structure) at the same time. The outputs of all the heads are joined together (concatenated) and passed through a final linear layer to produce the output.
-
-*(Diagram: dvgodoy, CC BY 4.0, via Wikimedia Commons)*
 
 ## 13. Why Is Parallel Computing Important?
 
@@ -992,12 +938,6 @@ flowchart TD
 **Figure walkthrough —** Start at the top with Artificial Intelligence, the broadest field, and move downward one step at a time: Machine Learning is an approach within AI, and Deep Learning is the ML approach that uses neural networks. Among neural network architectures sits the Transformer, and large language models are built on the Transformer. At the bottom node you reach Generative AI, which rests on all of these steps. Remember this picture is a learning aid, not a strict hierarchy.
 
 This is a learning aid. The real AI taxonomy cannot be defined by a single strict hierarchy like this.
-
-![ရုပ်ပုံ 5 (Diagram 5): GPT architecture](../assets/diagrams/gpt-architecture.png)
-
-**Diagram walkthrough —** This picture shows the full architecture of a Generative Pre-trained Transformer (GPT) model. At the bottom, tokens are turned into vectors (token embeddings) and word-order information is added (positional embeddings). From there the data goes up through stacked transformer blocks — each with a Masked Multi-Head Self-Attention step and a Feed Forward step (with residual connections and layer normalization). 'Masked' means later tokens are hidden from the model, which makes GPT a decoder-style stack built for generation. At the top the model produces probabilities over its whole vocabulary, picks the highest-probability next token, and repeating this step one token at a time is how GPT generates text.
-
-*(Diagram: Original: Marxav, Vectorization: Mrmw, CC0, via Wikimedia Commons)*
 
 ## 17. Exam Summary — Transformer
 

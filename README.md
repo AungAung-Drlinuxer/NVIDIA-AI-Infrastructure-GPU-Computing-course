@@ -114,7 +114,6 @@ NVIDIA AI infrastructure concepts and related certification topics.
 - ပြဿနာ → အဓိကအယူအဆ → နှိုင်းယှဉ်ခြင်း → ဥပမာ/configuration → သတိပြုရန် → ကိုယ်တိုင်စစ်ဆေးမေးခွန်းများ (self-check Q&A) progression
 - **Mermaid diagram ပုံများ** (GitHub/Obsidian/VS Code တွင် ပုံအဖြစ် render ဖြစ်) — ပုံတိုင်းနောက် ပုံရှင်းလင်းချက် (figure walkthrough) ပါ
 - **Real hardware photos** (`assets/hardware/`) — DGX, GPU cards, NICs, DPUs, switches များ
-- **Third-party explanatory diagrams** (`assets/diagrams/`) — Transformer architecture, attention, fat-tree topology, GDS/Triton architecture စသည် (license နှင့် attribution အပြည့်)
 - **Technical review notes** — ပြင်ဆင်ပြီး အချက်များ နှင့် verify လုပ်ရန် ကျန်အချက်များ
 
 ## Visual assets
@@ -123,7 +122,6 @@ NVIDIA AI infrastructure concepts and related certification topics.
 |---|---|---|
 | Mermaid figures | module ဖိုင်များအတွင်း inline | Figure 1, 2, ... နံပါတ်ပေး |
 | Real photos | [`assets/hardware/`](assets/hardware/) | NVIDIA official product images ([`IMAGES.md`](assets/hardware/IMAGES.md) တွင် source) |
-| Explanatory diagrams | [`assets/diagrams/`](assets/diagrams/) | CC/Public domain/NVIDIA docs ([`IMAGES.md`](assets/diagrams/IMAGES.md) တွင် author + license) |
 
 ## Suggested Study Method
 
@@ -150,4 +148,3 @@ claims များ flag ပြုလုပ်ခြင်း၊ chapter အဆ�
 
 - Course content — မူရင်း source content များမှ ပြန်လည်ရေးသားခြင်း + public NVIDIA documentation များမှ ဖြည့်စွက်ခြင်း
 - Hardware photos — NVIDIA official product images (educational use; image rights © NVIDIA)
-- Explanatory diagrams — Wikimedia Commons (CC0/CC BY/CC BY-SA) နှင့် NVIDIA docs — အသေးစိတ် [`assets/diagrams/IMAGES.md`](assets/diagrams/IMAGES.md)

@@ -78,23 +78,6 @@ translations or marketing language.
 - Add `*(Image: NVIDIA official product image)*` under each photo block;
   image rights belong to NVIDIA (educational use).
 
-## Third-party explanatory diagrams
-- When a well-known third-party diagram explains a concept far better
-  than a fresh Mermaid drawing (e.g., the classic Transformer architecture
-  diagram), it may be added with MANDATORY attribution.
-- Allowed sources: official vendor docs (e.g., docs.nvidia.com) and
-  openly licensed material (CC0 / CC BY / CC BY-SA, public domain) —
-  see `assets/diagrams/IMAGES.md` for the license record of every file.
-- Store in `assets/diagrams/`. Reference format:
-  `![ရုပ်ပုံ N (Diagram N): <title>](../assets/diagrams/<file>.png)` —
-  Diagram numbering is a third series alongside Figures and Photos.
-- Follow with a walkthrough (ပုံရှင်းလင်းချက်) like every other visual,
-  and put the credit under the block, e.g.
-  `*(Diagram: <author>, <license>, via Wikimedia Commons)*` or
-  `*(Diagram: NVIDIA docs)*`.
-- Same bilingual rules: both language sections, same numbering.
-- Do NOT add images with unclear copyright (random blog/book figures).
-
 ## Output
 - Use clean Markdown headings, short paragraphs, tables, and code blocks.
 - Preserve the supplied module and chapter numbering.

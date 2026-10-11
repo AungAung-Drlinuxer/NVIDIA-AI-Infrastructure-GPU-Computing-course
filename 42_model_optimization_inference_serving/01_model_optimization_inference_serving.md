@@ -168,16 +168,6 @@ flowchart TD
 
 Triton Inference Server ရဲ့ အတွင်းပိုင်း architecture ကို NVIDIA ရဲ့ ရုပ်ပုံမှာ အောက်ပါအတိုင်း ကြည့်ရှုနိုင်ပါတယ်—
 
-![ရုပ်ပုံ 1 (Diagram 1): Triton Inference Server architecture](../assets/diagrams/triton-architecture.jpg)
-
-**ပုံရှင်းလင်းချက် (Diagram walkthrough)**
-1. ပုံရဲ့ ဘယ်ဘက်မှာ client application တွေက HTTP/REST သို့မဟုတ် gRPC ဖြင့် inference request တွေ ပို့ပုံ ပါပါတယ်။
-2. Triton Inference Server ရဲ့ အလယ်ပိုင်းမှာ request တွေကို လက်ခံကိုင်တွယ်ပြီး model repository ထဲက model တွေကို load ပုံ ပြထားပါတယ်။
-3. ညာဘက်မှာ TensorRT၊ PyTorch၊ TensorFlow စတဲ့ framework backend တွေအမျိုးမျိုးက model တွေကို run ပုံ မြင်ရပါတယ်။
-4. Scheduler/dynamic batching က incoming request တွေကို batch အဖြစ် ပေါင်းပြီး GPU ပေါ်မှာ အတူတကွ လုပ်ဆောင်ပေးပုံ ဖြစ်ပါတယ်။
-
-*(Diagram: NVIDIA docs, NVIDIA docs (educational use))*
-
 #### 5.2 NIM Model Profile Selection
 
 NIM က model profiles များကို **'latency'** နှင့် **'throughput'** ဟု tag ပြုလုပ်ထားပြီး ကိုယ်တိုင် hardware ကို ရှာဖွေတွေ့ရှိ၍ profile ကို အလိုအလျောက် ရွေးချယ်ပေးပါတယ်။ ရွေးချယ်မှု အဆင့်လိုက် အစဉ်—
@@ -430,16 +420,6 @@ flowchart TD
 **Figure walkthrough** — Following the figure step by step, the trained model from a framework is exported/converted (e.g. ONNX), then quantized and optimized (PTQ, QAT with Model Optimizer) to produce an optimized engine (TensorRT or TensorRT-LLM). That engine is served to client applications over HTTP/REST or gRPC through a serving platform such as Triton Inference Server or NIM. For LLMs, the main engine is TensorRT-LLM.
 
 The internal architecture of the Triton Inference Server can be seen in NVIDIA's diagram below—
-
-![ရုပ်ပုံ 1 (Diagram 1): Triton Inference Server architecture](../assets/diagrams/triton-architecture.jpg)
-
-**Diagram walkthrough**
-1. On the left of the picture, client applications send inference requests over HTTP/REST or gRPC.
-2. In the middle of the Triton Inference Server, incoming requests are handled and models are loaded from the model repository.
-3. On the right you see the various framework backends — TensorRT, PyTorch, TensorFlow, and others — running the models.
-4. The scheduler/dynamic batching component combines incoming requests into batches and executes them together on the GPU.
-
-*(Diagram: NVIDIA docs, NVIDIA docs (educational use))*
 
 #### 5.2 NIM Model Profile Selection
 

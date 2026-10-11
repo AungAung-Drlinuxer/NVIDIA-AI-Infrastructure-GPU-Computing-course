@@ -102,16 +102,6 @@ Switches တွေက servers အများကြီးကို ချိတ�
 
 Switches အဆင့်ဆင့်နဲ့ တည်ဆောက်လေ့ရှိတဲ့ topology တွေထဲမှာ HPC cluster တွေ အသုံးများတဲ့ တစ်မျိုးကတော့ fat-tree topology ဖြစ်ပါတယ်—
 
-![ရုပ်ပုံ 1 (Diagram 1): Fat-tree network topology](../assets/diagrams/fat-tree.png)
-
-**ပုံရှင်းလင်းချက် (Diagram walkthrough)**
-1. အောက်ဆုံးအလွှာမှာ server/host node တွေကို မြင်ရပြီး တစ်ခုချင်းစီက edge switch တွေနဲ့ ချိတ်ဆက်ထားပါတယ်။
-2. အလယ်အလွှာတွေမှာ aggregation/core switch တွေ အဆင့်ဆင့် ရှိပြီး အောက်အလွှာ switch တိုင်းက အပေါ်အလွှာ switch တွေနဲ့ ချိတ်ဆက်မှု အများကြီးနဲ့ တက်သွားပါတယ်။
-3. root (ထိပ်ဆုံး) နားကို ရောက်လေလေ ချိတ်ဆက်မှုတွေ ပိုမိုထူထပ်ပြီး bandwidth ပိုများလေလေ ဖြစ်တာကြောင့် "fat-tree" လို့ ခေါ်ပါတယ်။
-4. switch အဆင့်တွေ ထပ်ချဲ့ပြီး node တွေ တိုးချဲ့နိုင်လို့ HPC cluster ကြီးတွေရဲ့ fabric topology အဖြစ် အသုံးများပါတယ်။
-
-*(Diagram: Konstantinos Agiannis, CC BY-SA 4.0, via Wikimedia Commons)*
-
 **C. Cables နဲ့ transceivers**
 
 Adapters နဲ့ switches တွေကြား physical links တွေ ပေးပါတယ်။ Hardware ပေါ် မူတည်ပြီး copper cables ဒါမှမဟုတ် optical connections တွေ သုံးနိုင်ပါတယ်။
@@ -423,16 +413,6 @@ Switches connect multiple servers and provide paths for data to travel between n
 *(Image: NVIDIA official product image)*
 
 One multi-tier topology widely used in HPC clusters is the fat-tree topology—
-
-![ရုပ်ပုံ 1 (Diagram 1): Fat-tree network topology](../assets/diagrams/fat-tree.png)
-
-**Diagram walkthrough**
-1. At the bottom tier you see the server/host nodes, each connected to the edge switches.
-2. Above them, aggregation/core switches form further tiers, and every lower-tier switch connects upward to the tier above with many links.
-3. Closer to the root (top) the connections become denser and carry more bandwidth — this is why it is called a "fat-tree."
-4. Because nodes can be added by expanding switch tiers, this topology is widely used as the fabric topology of large HPC clusters.
-
-*(Diagram: Konstantinos Agiannis, CC BY-SA 4.0, via Wikimedia Commons)*
 
 **C. Cables and transceivers**
 
