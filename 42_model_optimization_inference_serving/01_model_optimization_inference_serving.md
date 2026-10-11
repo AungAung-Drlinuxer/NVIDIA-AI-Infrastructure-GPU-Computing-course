@@ -38,6 +38,18 @@ Quantization ဆိုတာ model weights နှင့် computation မျာ
 
 NVIDIA TensorRT Model Optimizer toolkit က QAT models များ ဖန်တီးခြင်းနှင့် PTQ recipes များ (PyTorch/ONNX) ပြုလုပ်ခြင်းကို ပံ့ပိုးပါတယ်။
 
+**ပုံ ၁ (Figure 1) — PTQ နှင့် QAT workflow နှစ်မျိုး နှိုင်းယှဉ်ချက်**
+
+```mermaid
+flowchart TD
+    TM["Trained model"] --> PTQ["PTQ (Post-Training Quantization)"]
+    PTQ --> QM["Quantized model"]
+    TR["Training process"] --> QAT["QAT (Quantization-Aware Training)"]
+    QAT --> QM2["Quantized model"]
+```
+
+**ပုံရှင်းလင်းချက်** — ပုံမှာ quantization workflow နှစ်မျိုးကို ယှဉ်ပြထားပါတယ် — PTQ က train ပြီးသား model ကို retrain မလုပ်ဘဲ calibration data ဖြင့် scale သတ်မှတ်ပြီး quantize လုပ်တာ ဖြစ်ပြီး၊ QAT က training process အတွင်းမှာ quantization effect တွေကို ထည့်သွင်းစဉ်းစားပြီး train လုပ်တာ ဖြစ်ပါတယ်။ QAT က accuracy ကို ပိုမိုထိန်းသိမ်းနိုင်လေ့ ရှိပါတယ်။
+
 #### 3.2 Precision Types — INT8, FP8, INT4, FP4
 
 TensorRT quantization workflows မှာ ပံ့ပိုးထားသော quantized types များတွင် **INT8, FP8, INT4, FP4** တို့ ပါဝင်ပါတယ်။
@@ -67,6 +79,21 @@ TensorRT က trained model ကို လက်ခံပြီး optimized engin
 - **Kernel autotuning per GPU** — ပန်းတိုင် GPU အတွက် kernel များ ရွေးချယ် tune လုပ်ခြင်း
 
 ရလဒ် engine က GPU model နှင့် TensorRT version ပေါ် မူတည်၍ သီးခြားဖြစ်ပါတယ်။
+
+**ပုံ ၂ (Figure 2) — TensorRT က optimized engine ထုတ်လုပ်ပုံ**
+
+```mermaid
+flowchart LR
+    TM["Trained model"] --> TRT["TensorRT"]
+    TRT --> F["Layer / operation fusion"]
+    TRT --> QC["Precision calibration / quantization"]
+    TRT --> KT["Kernel autotuning per GPU"]
+    F --> E["Optimized engine"]
+    QC --> E
+    KT --> E
+```
+
+**ပုံရှင်းလင်းချက်** — TensorRT က trained model ကို လက်ခံပြီး layer/operation တွေကို kernel တစ်ခုအဖြစ် ပေါင်းစပ်ခြင်း (layer/operation fusion)၊ precision calibration/quantization လုပ်ခြင်း၊ ပန်းတိုင် GPU အတွက် kernel ရွေးချယ် tune လုပ်ခြင်းတို့ ပြုလုပ်ပြီး optimized engine ကို ထုတ်ပေးပါတယ်။ ရလဒ် engine က GPU model နဲ့ TensorRT version ပေါ် မူတည်ပြီး သီးခြားဖြစ်ပါတယ်။
 
 #### 3.5 Batching နှင့် KV Cache Reuse
 
@@ -126,6 +153,19 @@ Model တစ်ခုကို train လုပ်ပြီးနောက် သ
 
 LLM အတွက်ဆိုပါက အဓိက engine က TensorRT-LLM ဖြစ်ပြီး KV cache, continuous batching နှင့် tensor parallelism များ ပါဝင်ပါတယ်။ Triton က TensorRT-LLM backend ကို ပံ့ပိုးပါတယ်။
 
+**ပုံ ၃ (Figure 3) — Trained model မှ optimized engine နှင့် served endpoint အထိ workflow**
+
+```mermaid
+flowchart TD
+    TM["Trained Model (PyTorch / TensorFlow)"] --> EX["Export / Convert (ONNX)"]
+    EX --> QO["Quantization / Optimization (PTQ, QAT — Model Optimizer)"]
+    QO --> EN["Optimized Engine (TensorRT / TensorRT-LLM)"]
+    EN --> SV["Serving Platform (Triton Inference Server / NIM)"]
+    SV --> CL["Client Applications (HTTP/REST, gRPC)"]
+```
+
+**ပုံရှင်းလင်းချက်** — ပုံအတိုင်း အဆင့်လိုက် လိုက်ကြည့်ရင် framework က ထွက်လာတဲ့ trained model ကို အရင် export/convert လုပ်ပြီး၊ Model Optimizer ဖြင့် quantization/optimization ပြုလုပ်ကာ optimized engine (TensorRT သို့မဟုတ် TensorRT-LLM) ထုတ်ပါတယ်။ ၎င်း engine ကို Triton Inference Server သို့မဟုတ် NIM ကဲ့သို့ serving platform မှတစ်ဆင့် client applications တွေဆီ HTTP/REST သို့မဟုတ် gRPC ဖြင့် တင်ပို့ပါတယ်။ LLM အတွက် အဓိက engine က TensorRT-LLM ဖြစ်ပါတယ်။
+
 #### 5.2 NIM Model Profile Selection
 
 NIM က model profiles များကို **'latency'** နှင့် **'throughput'** ဟု tag ပြုလုပ်ထားပြီး ကိုယ်တိုင် hardware ကို ရှာဖွေတွေ့ရှိ၍ profile ကို အလိုအလျောက် ရွေးချယ်ပေးပါတယ်။ ရွေးချယ်မှု အဆင့်လိုက် အစဉ်—
@@ -150,6 +190,19 @@ Higher tensor parallelism (လိုအပ်ပါက)
 ```
 
 ရွေးချယ်ထားသော profile ကို ပြောင်းလဲချင်ပါက `NIM_MODEL_PROFILE` environment variable ဖြင့် override လုပ်နိုင်ပြီး ရရှိနိုင်သော profiles များကို `list-model-profiles` command ဖြင့် စစ်ဆေးနိုင်ပါတယ်။ Fine-tuned model များကို local engine build (NIM_FT_MODEL) ဖြင့် ပံ့ပိုးပါတယ်။
+
+**ပုံ ၄ (Figure 4) — NIM model profile ရွေးချယ်မှု အဆင့်လိုက် အစဉ်**
+
+```mermaid
+flowchart TD
+    HW["Detected GPU hardware"] --> CP["Compatibility — ကိုက်ညီသော profiles"]
+    CP --> BS["Backend selection (TensorRT-LLM backend ကို vLLM ထက် ဦးစားပေး)"]
+    BS --> PS["Precision selection (FP8 ကို FP16 ထက် ဦးစားပေး)"]
+    PS --> OP["Optimization profile (default: latency-optimized)"]
+    OP --> TP["Higher tensor parallelism (လိုအပ်ပါက)"]
+```
+
+**ပုံရှင်းလင်းချက်** — NIM က GPU hardware ကို ကိုယ်တိုင် ရှာဖွေတွေ့ရှိပြီး ကိုက်ညီတဲ့ profiles ထဲကနေ backend (ရရှိနိုင်ရင် TensorRT-LLM accelerated backend)၊ precision (FP16 ထက် FP8)၊ optimization profile (default က latency-optimized) တို့ကို အစဉ်လိုက် ရွေးချယ်ပြီး လိုအပ်ရင် tensor parallelism ကို ပိုမြှင့်ပေးပါတယ်။ ရွေးချယ်ထားသော profile ကို `NIM_MODEL_PROFILE` environment variable ဖြင့် override လုပ်နိုင်ပါတယ်။
 
 ### 6. Serving Metrics နှင့် Tradeoffs
 
@@ -236,6 +289,18 @@ Quantization represents model weights and computations with fewer bits (lower pr
 
 The NVIDIA TensorRT Model Optimizer toolkit supports creating QAT models and building PTQ recipes (PyTorch/ONNX).
 
+**Figure 1 — Comparing the two quantization workflows, PTQ and QAT**
+
+```mermaid
+flowchart TD
+    TM["Trained model"] --> PTQ["PTQ (Post-Training Quantization)"]
+    PTQ --> QM["Quantized model"]
+    TR["Training process"] --> QAT["QAT (Quantization-Aware Training)"]
+    QAT --> QM2["Quantized model"]
+```
+
+**Figure walkthrough** — The figure compares the two workflows: PTQ quantizes an already-trained model without retraining it, setting scales from calibration data, while QAT trains with quantization effects taken into account during the training process itself. QAT tends to preserve accuracy better.
+
 #### 3.2 Precision Types — INT8, FP8, INT4, FP4
 
 Quantized types supported in TensorRT quantization workflows include **INT8, FP8, INT4 and FP4**.
@@ -265,6 +330,21 @@ TensorRT takes a trained model and produces an optimized engine. This process in
 - **Kernel autotuning per GPU** — selecting and tuning kernels for the target GPU
 
 The resulting engine is specific to the GPU model and TensorRT version.
+
+**Figure 2 — How TensorRT produces an optimized engine**
+
+```mermaid
+flowchart LR
+    TM["Trained model"] --> TRT["TensorRT"]
+    TRT --> F["Layer / operation fusion"]
+    TRT --> QC["Precision calibration / quantization"]
+    TRT --> KT["Kernel autotuning per GPU"]
+    F --> E["Optimized engine"]
+    QC --> E
+    KT --> E
+```
+
+**Figure walkthrough** — TensorRT takes the trained model and combines layers/operations into single kernels (layer/operation fusion), applies precision calibration and quantization, and selects and tunes kernels for the target GPU to produce the optimized engine. The resulting engine is specific to the GPU model and TensorRT version.
 
 #### 3.5 Batching and KV Cache Reuse
 
@@ -324,6 +404,19 @@ After training, a model is exported/converted to a suitable format (e.g. ONNX), 
 
 For LLMs the main engine is TensorRT-LLM, with KV cache, continuous batching and tensor parallelism. Triton supports a TensorRT-LLM backend.
 
+**Figure 3 — The workflow from a trained model to a served endpoint**
+
+```mermaid
+flowchart TD
+    TM["Trained Model (PyTorch / TensorFlow)"] --> EX["Export / Convert (ONNX)"]
+    EX --> QO["Quantization / Optimization (PTQ, QAT — Model Optimizer)"]
+    QO --> EN["Optimized Engine (TensorRT / TensorRT-LLM)"]
+    EN --> SV["Serving Platform (Triton Inference Server / NIM)"]
+    SV --> CL["Client Applications (HTTP/REST, gRPC)"]
+```
+
+**Figure walkthrough** — Following the figure step by step, the trained model from a framework is exported/converted (e.g. ONNX), then quantized and optimized (PTQ, QAT with Model Optimizer) to produce an optimized engine (TensorRT or TensorRT-LLM). That engine is served to client applications over HTTP/REST or gRPC through a serving platform such as Triton Inference Server or NIM. For LLMs, the main engine is TensorRT-LLM.
+
 #### 5.2 NIM Model Profile Selection
 
 NIM tags its model profiles as **'latency'** and **'throughput'**, and selects a profile automatically based on the detected hardware. The selection order—
@@ -348,6 +441,19 @@ Higher tensor parallelism (when needed)
 ```
 
 To override the selected profile, use the `NIM_MODEL_PROFILE` environment variable, and list available profiles with the `list-model-profiles` command. Fine-tuned models are supported via local engine build (NIM_FT_MODEL).
+
+**Figure 4 — The NIM model profile selection order**
+
+```mermaid
+flowchart TD
+    HW["Detected GPU hardware"] --> CP["Compatibility — matching profiles"]
+    CP --> BS["Backend selection (TensorRT-LLM backend preferred over vLLM)"]
+    BS --> PS["Precision selection (FP8 preferred over FP16)"]
+    PS --> OP["Optimization profile (default: latency-optimized)"]
+    OP --> TP["Higher tensor parallelism (when needed)"]
+```
+
+**Figure walkthrough** — NIM detects the GPU hardware itself and, among the matching profiles, selects in order: the backend (preferring the TensorRT-LLM accelerated backend over vLLM when available), the precision (preferring FP8 over FP16), and the optimization profile (latency-optimized by default), raising tensor parallelism when needed. The selected profile can be overridden with the `NIM_MODEL_PROFILE` environment variable.
 
 ### 6. Serving Metrics and Tradeoffs
 
@@ -415,3 +521,5 @@ Answer — Because quantization can reduce accuracy, you must always measure the
 - NIM profile selection details (priority order, backend preference, precision preference) are documented per release and can change; learners should confirm against the current NIM optimization page. The NIM selection flow in §5.2 reflects the documented behavior at the time of research and should be re-checked against the latest release (needs verification for future releases).
 - Only documented environment variables and commands are named (`NIM_MODEL_PROFILE`, `list-model-profiles`, `NIM_FT_MODEL`); no additional CLI examples are reproduced.
 - The Burmese version is written in the course convention: technical terms (TensorRT, TensorRT-LLM, Triton, NIM, quantization, PTQ, QAT, KV cache, batching, latency, throughput, TTFT, TPOT, engine, backend) remain in English.
+
+- Mermaid figures (Figures 1–4) with figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline to both language sections; all existing text, ASCII diagrams, and review notes are unchanged.

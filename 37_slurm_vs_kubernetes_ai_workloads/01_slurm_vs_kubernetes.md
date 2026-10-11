@@ -103,6 +103,20 @@ Allocate compute resources
 Completed / Failed
 ```
 
+**Figure 1 — Slurm Job Execution Model**
+
+```mermaid
+flowchart TD
+    A["User Submits a Job"] --> B["Slurm Queue"]
+    B --> C["Check Resource Availability"]
+    C --> D["Allocate Compute Resources"]
+    D --> E["Run the Job"]
+    E --> F["Completed / Failed"]
+    F --> G["Resources Released for Other Jobs"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်က User က Job Submit လုပ်တာကစပြီး Slurm Queue ထဲ ဝင်ပါတယ်။ Resource ရရှိမှု စစ်ဆေးပြီး Compute Resources ခွဲဝေကာ Job ကို Run လုပ်ပါတယ်။ Job က Completed သို့မဟုတ် Failed ဖြစ်ပြီးနောက် ခွဲဝေထားတဲ့ Resources တွေ ပြန်လွတ်ကာ အခြား Jobs တွေ အသုံးပြုနိုင်ပါတယ် — ဒါက Batch Job ရဲ့ ပုံမှန်သဘောပါ။
+
 ဥပမာ Training Job တစ်ခုက 10 နာရီကြာ Run လုပ်ပြီး Model Checkpoint ကို သိမ်းဆည်းကာ ပြီးဆုံးသွားနိုင်ပါတယ်။ Job ပြီးသွားရင် သတ်မှတ်ထားတဲ့ Resources တွေကို အခြား Jobs များအတွက် ပြန်လည်အသုံးပြုနိုင်ပါတယ်။
 
 Slurm မှာ Job တစ်ခု ပြီးဆုံးရင် အဆုံးသတ်နိုင်တာက ပုံမှန် Batch Job Execution Model ဖြစ်ပါတယ်။
@@ -129,6 +143,21 @@ Declare desired state
         v
 Scale / replace failed Pods
 ```
+
+**Figure 2 — Kubernetes Desired-State Model**
+
+```mermaid
+flowchart TD
+    A["Declare Desired State"] --> B["Kubernetes API"]
+    B --> C["Scheduler Places Pods"]
+    C --> D["Controllers Reconcile State"]
+    D --> E["Maintain Desired Replicas"]
+    E --> F{"Replica Failed?"}
+    F -->|"Yes"| G["Create Replacement Pod"]
+    G --> D
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်မှာ Desired State (ဥပမာ Replica ၃ ခု) ကြေညာတာကစပြီး Kubernetes API ကတစ်ဆင့် Scheduler က Pod တွေကို Node ပေါ် နေရာချပါတယ်။ Controllers က လက်ရှိအခြေအနေကို Desired State နဲ့ အမြဲ နှိုင်းယှဉ်ညှိနှိုင်းပါတယ်။ Replica တစ်ခု ပျက်သွားရင် Pod အသစ် ဖန်တီးပြီး Desired State ဆီ ပြန်ရောက်အောင် လုပ်ပါတယ်။
 
 Replica တစ်ခု Failure ဖြစ်သွားရင် Kubernetes Controllers က Desired State ကို ပြန်ရောက်အောင် Pod အသစ် ဖန်တီးနိုင်ပါတယ်။ Service Demand တိုးလာတဲ့အခါ Autoscaling Policy ရှိပါက Replica တွေကိုလည်း တိုးနိုင်ပါတယ်။
 
@@ -251,6 +280,18 @@ NVIDIA GPUs
  Grafana Dashboards / Alerts
 ```
 
+**Figure 3 — GPU Monitoring Chain (DCGM မှ Grafana အထိ)**
+
+```mermaid
+flowchart LR
+    A["NVIDIA GPUs"] --> B["DCGM"]
+    B --> C["DCGM Exporter"]
+    C --> D["Prometheus"]
+    D --> E["Grafana Dashboards / Alerts"]
+```
+
+**ပုံရှင်းလင်းချက်** — ဘယ်ဘက်က NVIDIA GPUs ကနေ GPU Data တွေ စတင်ပြီး DCGM က စုဆောင်းပါတယ်။ DCGM Exporter က GPU Metrics တွေကို Prometheus-compatible Endpoint မှတစ်ဆင့် Prometheus ဆီ ပို့ပေးပြီး နောက်ဆုံးမှာ Grafana Dashboards / Alerts မှာ ကြည့်ရှုနိုင်ပါတယ်။ Monitoring နဲ့ Scheduling မတူသလို ဒီကွင်းဆက်က Scheduling Decision မချပေးပါဘူး။
+
 အရေးကြီးတာက DCGM နဲ့ DCGM Exporter ဟာ GPU Monitoring အတွက် ဖြစ်ပြီး Kubernetes Scheduler ကို တိုက်ရိုက်အစားထိုးတာ မဟုတ်ပါဘူး။ GPU Metrics တွေကို Schedule ဆုံးဖြတ်ချက်တွေအတွက် အသုံးပြုလိုရင် သက်ဆိုင်ရာ Integration နဲ့ Policy တွေ ထပ်မံလိုအပ်နိုင်ပါတယ်။
 
 တစ်နည်းပြောရရင် Monitoring နဲ့ Scheduling ဟာ မတူပါဘူး — DCGM နဲ့ DCGM Exporter က Scheduling Decision တွေ မချပေးပါဘူး။
@@ -313,6 +354,22 @@ Slurm က Command-Line Job Submission နဲ့ HPC Workflow များအတ�
 ဤဇယားက ပုံမှန်တာဝန်ခွဲဝေမှုကို ပြတာသာ ဖြစ်ပါတယ်။ အဖွဲ့အစည်းအလိုက် Role တစ်ခုတည်းက Slurm နဲ့ Kubernetes နှစ်မျိုးစလုံးကို စီမံနိုင်ပါတယ်။
 
 ## 12. Exam Scenarios
+
+**Figure 4 — Slurm နှင့် Kubernetes ရွေးချယ်မှု ဆုံးဖြတ်ချက်ပုံ**
+
+အောက်ပါပုံက အောက်ပါ Scenario များအတွက် ရွေးချယ်မှုလမ်းကြောင်းကို အကျဉ်းချုပ် ဖော်ပြထားခြင်း ဖြစ်ပါတယ်။
+
+```mermaid
+flowchart TD
+    A{"Workload ကဘာလဲ?"} -->|"Long-running Queued Training Job"| B["Slurm - Job Queue / GRES"]
+    A -->|"24/7 Replicated Inference API"| C["Kubernetes - Pods / Replicas"]
+    A -->|"GPU Components စီမံရန်"| D["NVIDIA GPU Operator"]
+    A -->|"GPU Metrics ကြည့်ရန်"| E["DCGM + Prometheus / Grafana"]
+    B --> F["Distributed Training on GPUs"]
+    C --> G["Inference Service Endpoint"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်က မေးခွန်းကနေ စပြီး ကိုယ့် Workload နဲ့ ကိုက်တဲ့ လမ်းကြောင်းကို ရွေးပါ။ Queue နဲ့ ကြာချိန်ရှည် Training Job ဆိုရင် ဘယ်ဘက်အပေါ်လမ်းကြောင်းအတိုင်း Slurm ကို သွားပြီး GPU ပေါ်မှာ Distributed Training လုပ်ပါတယ်။ ၂၄/၇ Replicated Inference API ဆိုရင် ညာဘက်လမ်းကြောင်းအတိုင်း Kubernetes ကို သွားပြီး Inference Service Endpoint ဖြစ်လာပါတယ်။ GPU Components စီမံချင်ရင် NVIDIA GPU Operator၊ GPU Metrics ကြည့်ချင်ရင် DCGM နဲ့ Prometheus / Grafana ကို ရွေးချယ်ပါ။
 
 **Scenario A:** Research Team တစ်ခုက GPU 32 ခုအသုံးပြုပြီး Distributed Training Job တစ်ခု Run လုပ်မယ်။ Job က 20 နာရီကြာနိုင်ပြီး Queue, Priority နဲ့ Resource Allocation လိုအပ်တယ်။
 
@@ -483,6 +540,20 @@ Allocate compute resources
 Completed / Failed
 ```
 
+**Figure 1 — Slurm Job Execution Model**
+
+```mermaid
+flowchart TD
+    A["User Submits a Job"] --> B["Slurm Queue"]
+    B --> C["Check Resource Availability"]
+    C --> D["Allocate Compute Resources"]
+    D --> E["Run the Job"]
+    E --> F["Completed / Failed"]
+    F --> G["Resources Released for Other Jobs"]
+```
+
+**Figure walkthrough** — Start at the top: the User submits a Job and it enters the Slurm Queue. Resource Availability is checked, Compute Resources are allocated, and the Job runs. When the Job is Completed or Failed, the allocated Resources are released so other Jobs can use them — this is the normal batch job behavior.
+
 For example, a training job may run for 10 hours, save model checkpoints, and finish. When the job completes, the allocated resources can be reused by other jobs.
 
 In Slurm, a job ending when it completes is the normal batch job execution model.
@@ -509,6 +580,21 @@ Declare desired state
         v
 Scale / replace failed Pods
 ```
+
+**Figure 2 — Kubernetes Desired-State Model**
+
+```mermaid
+flowchart TD
+    A["Declare Desired State"] --> B["Kubernetes API"]
+    B --> C["Scheduler Places Pods"]
+    C --> D["Controllers Reconcile State"]
+    D --> E["Maintain Desired Replicas"]
+    E --> F{"Replica Failed?"}
+    F -->|"Yes"| G["Create Replacement Pod"]
+    G --> D
+```
+
+**Figure walkthrough** — Start at the top by declaring the Desired State (for example, 3 replicas). Through the Kubernetes API, the Scheduler places Pods on Nodes, and Controllers keep reconciling the current state with the Desired State. If a Replica fails, a Replacement Pod is created and the system returns to the Desired State.
 
 If a replica fails, Kubernetes controllers can create a new Pod to return to the desired state. When service demand grows and an autoscaling policy exists, replicas can also be increased.
 
@@ -631,6 +717,18 @@ NVIDIA GPUs
  Grafana Dashboards / Alerts
 ```
 
+**Figure 3 — GPU Monitoring Chain (DCGM to Grafana)**
+
+```mermaid
+flowchart LR
+    A["NVIDIA GPUs"] --> B["DCGM"]
+    B --> C["DCGM Exporter"]
+    C --> D["Prometheus"]
+    D --> E["Grafana Dashboards / Alerts"]
+```
+
+**Figure walkthrough** — GPU data starts at the NVIDIA GPUs on the left and is collected by DCGM. DCGM Exporter sends the GPU Metrics to Prometheus through a Prometheus-compatible endpoint, and finally you view them in Grafana Dashboards / Alerts. Monitoring is not scheduling — this chain does not make scheduling decisions.
+
 The important point is that DCGM and DCGM Exporter are for GPU monitoring — they do not directly replace the Kubernetes Scheduler. If you want to use GPU metrics for scheduling decisions, you need the corresponding integration and policies.
 
 In other words, monitoring ≠ scheduling: DCGM and DCGM Exporter do not make scheduling decisions.
@@ -691,6 +789,22 @@ Slurm is convenient for command-line job submission and HPC workflows. Kubernete
 This table shows typical responsibility splits only. Depending on the organization, a single role may manage both Slurm and Kubernetes.
 
 ## 12. Exam Scenarios
+
+**Figure 4 — Slurm vs. Kubernetes Decision Diagram**
+
+The figure below summarizes the decision path for the scenarios that follow.
+
+```mermaid
+flowchart TD
+    A{"What Is the Workload?"} -->|"Long-running Queued Training Job"| B["Slurm - Job Queue / GRES"]
+    A -->|"24/7 Replicated Inference API"| C["Kubernetes - Pods / Replicas"]
+    A -->|"Manage GPU Components"| D["NVIDIA GPU Operator"]
+    A -->|"View GPU Metrics"| E["DCGM + Prometheus / Grafana"]
+    B --> F["Distributed Training on GPUs"]
+    C --> G["Inference Service Endpoint"]
+```
+
+**Figure walkthrough** — Start at the top question and pick the path that matches your workload. A long-running queued Training Job takes the upper-left path to Slurm and runs Distributed Training on GPUs. A 24/7 Replicated Inference API takes the right path to Kubernetes and becomes an Inference Service Endpoint. To manage GPU Components, choose the NVIDIA GPU Operator; to view GPU Metrics, choose DCGM with Prometheus / Grafana.
 
 **Scenario A:** A research team will run a distributed training job using 32 GPUs. The job may take 20 hours and needs queueing, priority, and resource allocation.
 
@@ -769,3 +883,4 @@ Key points for the exam — For training scenarios where job queues and compute 
 - The source's flattened transcript tables (§3, §6, §10, §11) were reflowed into Markdown tables with cell text unchanged; the three ASCII diagrams (§5.1, §5.2, §8.3) are reproduced verbatim in code blocks.
 - The 10 review questions are preserved from the source; concise answers were added in the same question/answer style used elsewhere in the course, drawn only from the module's own content.
 - The source's "အပိုင်း ၁" part label was folded into the standard `## မြန်မာဘာသာ version` / `## English Version` file structure required by WRITING_RULES.md.
+- Beginner-friendly Mermaid figures (Figure 1–4) with figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline in both the Myanmar and English sections, with matching figure numbering; all existing text, tables, and ASCII diagrams are unchanged.

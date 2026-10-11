@@ -34,6 +34,20 @@ NVIDIA ၏ အားသာချက်ကို အောက်ပါအချ�
 
 အဓိကအယူအဆက NVIDIA က GPU chip တစ်ခုတည်းကိုသာ မပေးဘဲ GPU ကို အကျိုးရှိစွာ အသုံးပြုနိုင်စေသော software ecosystem ကိုပါ ပံ့ပိုးပေးသည် ဆိုတာဖြစ်သည်။
 
+**ပုံ ၁ (Figure 1) — NVIDIA ၏ အားသာချက်ကို ဖွဲ့စည်းထားသော အစိတ်အပိုင်း ၅ ခု**
+
+```mermaid
+flowchart TD
+    A["GPU Hardware"] --> F["NVIDIA ၏ အားသာချက်"]
+    B["CUDA Platform"] --> F
+    C["Optimized Libraries — cuDNN, cuBLAS"] --> F
+    D["Framework Integration"] --> F
+    E["Developer Ecosystem"] --> F
+```
+
+**ပုံရှင်းလင်းချက်** — ဘယ်ဘက်က အစိတ်အပိုင်း ၅ ခုစလုံးက ညာဘက်က "NVIDIA ၏ အားသာချက်" ဆီကို မြားချောင်းတွေနဲ့ ဆက်နေပါသည်။ GPU hardware တစ်ခုတည်း မဟုတ်ဘဲ CUDA platform၊ optimized libraries၊ framework integration နှင့် developer ecosystem အားလုံး အတူတကွ အလုပ်လုပ်မှ ဤအားသာချက် ဖြစ်လာတာ ဖြစ်ပါသည်။
+
+
 ## 3. Python Code မှ GPU အထိ ဘယ်လိုသွားသလဲ?
 
 Developer တစ်ဦးက Python ဖြင့် Neural Network တစ်ခု တည်ဆောက်ထားသည်ဟု ယူဆပါစို့။
@@ -88,6 +102,20 @@ Conceptual software flow
 ```
 
 ဤပုံသည် နားလည်ရလွယ်စေရန် ဖော်ပြထားသော conceptual diagram ဖြစ်သည်။ တကယ့် execution path သည် Framework, operation, software version နှင့် configuration ပေါ်မူတည်သည်။ Operation အားလုံးက cuDNN ကို ဖြတ်သန်းရမည်ဟု မဆိုလိုပါ။ ဥပမာ general matrix multiplication အတွက် cuBLAS ကဲ့သို့ library ကို အသုံးပြုနိုင်သည်။
+
+**ပုံ ၂ (Figure 2) — Python Code မှ NVIDIA GPU အထိ ဆင်းသက်ပုံ**
+
+```mermaid
+flowchart TD
+    A["Python Application / Model Code"] --> B["PyTorch / TensorFlow"]
+    B --> C["Optimized Libraries — cuDNN, cuBLAS"]
+    C --> D["CUDA Runtime / CUDA Platform"]
+    D --> E["NVIDIA Driver"]
+    E --> F["NVIDIA GPU Hardware"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက Python code ကနေ အောက်သို့ တစ်ဆင့်ချင်း လိုက်ကြည့်ပါ။ Framework က operation တွေကို စီမံပြီး optimized libraries (cuDNN, cuBLAS) ကို အသုံးပြုနိုင်ပါသည်။ အောက်တွင် CUDA Runtime နှင့် NVIDIA Driver က ဖြတ်သန်းပြီး နောက်ဆုံးမှာ NVIDIA GPU hardware က computation ကို လုပ်ဆောင်ပါသည်။ အလယ်က software layer တွေကို developer က ကိုယ်တိုင်ရေးစရာ မလိုပါ။
+
 
 ## 4. CUDA ဆိုတာဘာလဲ?
 
@@ -147,6 +175,20 @@ cuBLAS နှင့် cuDNN တို့သည် အချို့ computatio
 
 မှတ်သားရန် — cuDNN သည် "CUDA Distributed Neural Network" မဟုတ်ပါ။ ၎င်း၏အမည်အပြည့်အစုံမှာ CUDA Deep Neural Network Library ဖြစ်သည်။
 
+**ပုံ ၃ (Figure 3) — Operation အမျိုးအစားအလိုက် cuBLAS နှင့် cuDNN သို့ ရောက်ရှိပုံ**
+
+```mermaid
+flowchart LR
+    A["Deep Learning Operations"] --> B{"Operation အမျိုးအစား"}
+    B -->|"Matrix / Vector"| C["cuBLAS"]
+    B -->|"Convolution / Attention"| D["cuDNN"]
+    C --> E["NVIDIA GPU"]
+    D --> E
+```
+
+**ပုံရှင်းလင်းချက်** — Operation တွေက ဘယ်ဘက်ကနေ အလယ်က ဆုံးဖြတ်ချက်ချတဲ့ နေရာကို ရောက်လာပါသည်။ Matrix/vector operation တွေကတော့ cuBLAS ဘက်ကို သွားပြီး convolution၊ attention ကဲ့သို့ deep learning operation တွေကတော့ cuDNN ဘက်ကို သွားပါသည်။ နှစ်ခုစလုံးက နောက်ဆုံးမှာ NVIDIA GPU ပေါ်တွင် အလုပ်လုပ်ပါသည်။
+
+
 ## 7. Framework က ဒီအရာတွေကို ဘယ်လိုအသုံးပြုသလဲ?
 
 Developer က PyTorch သို့မဟုတ် TensorFlow API ကို အသုံးပြုသောအခါ Framework သည် သက်ဆိုင်ရာ operation များကို စီမံပေးသည်။ Supported GPU operation များအတွက် CUDA နဲ့ optimized libraries များကို အသုံးပြုနိုင်သည်။
@@ -161,6 +203,27 @@ Developer က PyTorch သို့မဟုတ် TensorFlow API ကို အ�
 - GPU က သက်ဆိုင်ရာ computation များကို လုပ်ဆောင်သည်။
 
 လက်တွေ့တွင် Framework သည် operation တစ်ခုချင်းစီအတွက် cuDNN ကို အမြဲခေါ်မည်မဟုတ်ပါ။ Operation အမျိုးအစားနှင့် supported backend ပေါ်မူတည်ပြီး cuBLAS သို့မဟုတ် အခြား implementation များကို အသုံးပြုနိုင်သည်။
+
+**ပုံ ၄ (Figure 4) — Framework က Component များကို အသုံးပြုပုံ**
+
+```mermaid
+sequenceDiagram
+    participant Dev as Developer
+    participant FW as PyTorch / TensorFlow
+    participant LIB as cuDNN / cuBLAS
+    participant RT as CUDA Runtime
+    participant DRV as NVIDIA Driver
+    participant GPU as NVIDIA GPU
+    Dev->>FW: Model code ဖြင့် operation များ ပေးသည်
+    FW->>LIB: Supported operation အတွက် implementation ရွေးသည်
+    LIB->>RT: GPU kernel များအတွက် ပေးသည်
+    RT->>DRV: Kernel launch ပြုလုပ်သည်
+    DRV->>GPU: Computation များ လုပ်ဆောင်စေသည်
+    GPU-->>Dev: Computation result ပြန်ပေးသည်
+```
+
+**ပုံရှင်းလင်းချက်** — Developer က model code နဲ့ operation တွေကို framework ကို ပေးပါသည်။ Framework က operation အမျိုးအစားပေါ် မူတည်ပြီး cuDNN သို့မဟုတ် cuBLAS ကဲ့သို့ implementation ကို ရွေးချယ်၊ CUDA Runtime နှင့် NVIDIA Driver ကတစ်ဆင့် GPU ပေါ်တွင် computation လုပ်ဆောင်ပြီး ရလဒ် ပြန်ပေးပါသည်။
+
 
 ## 8. NVIDIA ၏ Differentiator ကို အနှစ်ချုပ်ကြည့်မယ်
 
@@ -251,6 +314,20 @@ NVIDIA's advantage can be understood through the following elements:
 
 The key idea is that NVIDIA provides not just a GPU chip, but also the software ecosystem that lets you use that GPU effectively.
 
+**Figure 1 — The Five Elements That Make Up NVIDIA's Advantage**
+
+```mermaid
+flowchart TD
+    A["GPU Hardware"] --> F["NVIDIA's Advantage"]
+    B["CUDA Platform"] --> F
+    C["Optimized Libraries — cuDNN, cuBLAS"] --> F
+    D["Framework Integration"] --> F
+    E["Developer Ecosystem"] --> F
+```
+
+**Figure walkthrough** — All five elements on the left connect with arrows to "NVIDIA's Advantage" on the right. It is not a single GPU hardware chip: the CUDA platform, optimized libraries, framework integration, and the developer ecosystem all work together to create the advantage.
+
+
 ## 3. How Does Code Go from Python to the GPU?
 
 Suppose a developer builds a neural network in Python.
@@ -305,6 +382,20 @@ Conceptual software flow
 ```
 
 This diagram is conceptual, for easier understanding. The real execution path depends on the framework, the operation, software versions and configuration. Not every operation passes through cuDNN — for example, general matrix multiplication may use a library such as cuBLAS.
+
+**Figure 2 — How Python Code Reaches the NVIDIA GPU**
+
+```mermaid
+flowchart TD
+    A["Python Application / Model Code"] --> B["PyTorch / TensorFlow"]
+    B --> C["Optimized Libraries — cuDNN, cuBLAS"]
+    C --> D["CUDA Runtime / CUDA Platform"]
+    D --> E["NVIDIA Driver"]
+    E --> F["NVIDIA GPU Hardware"]
+```
+
+**Figure walkthrough** — Start with the Python code at the top and move down one layer at a time. The framework manages the operations and can use optimized libraries (cuDNN, cuBLAS). Below that, the CUDA Runtime and the NVIDIA Driver carry the work down, and finally the NVIDIA GPU hardware performs the computation. The developer does not have to write these middle software layers by hand.
+
 
 ## 4. What Is CUDA?
 
@@ -364,6 +455,20 @@ cuBLAS and cuDNN can relate to each other for some kinds of computation, but the
 
 Note — cuDNN is **not** "CUDA Distributed Neural Network". Its full name is CUDA Deep Neural Network Library.
 
+**Figure 3 — How Operation Types Reach cuBLAS and cuDNN**
+
+```mermaid
+flowchart LR
+    A["Deep Learning Operations"] --> B{"Operation Type"}
+    B -->|"Matrix / Vector"| C["cuBLAS"]
+    B -->|"Convolution / Attention"| D["cuDNN"]
+    C --> E["NVIDIA GPU"]
+    D --> E
+```
+
+**Figure walkthrough** — Operations arrive from the left at the decision point in the middle. Matrix and vector operations go to cuBLAS, while deep learning operations such as convolution and attention go to cuDNN. Both ultimately run on the NVIDIA GPU.
+
+
 ## 7. How Do Frameworks Use These Components?
 
 When a developer uses a PyTorch or TensorFlow API, the framework handles the relevant operations. For supported GPU operations it can use CUDA and the optimized libraries.
@@ -378,6 +483,27 @@ Roughly —
 - The GPU performs the computations.
 
 In practice the framework will not call cuDNN for every single operation. Depending on the operation type and supported backend, it may use cuBLAS or other implementations.
+
+**Figure 4 — How a Framework Uses the Components**
+
+```mermaid
+sequenceDiagram
+    participant Dev as Developer
+    participant FW as PyTorch / TensorFlow
+    participant LIB as cuDNN / cuBLAS
+    participant RT as CUDA Runtime
+    participant DRV as NVIDIA Driver
+    participant GPU as NVIDIA GPU
+    Dev->>FW: Gives operations through model code
+    FW->>LIB: Selects an implementation for supported operations
+    LIB->>RT: Hands over GPU kernels
+    RT->>DRV: Launches the kernels
+    DRV->>GPU: Makes the GPU run the computations
+    GPU-->>Dev: Returns the computation result
+```
+
+**Figure walkthrough** — The developer gives the model code and its operations to the framework. Depending on the operation type, the framework selects an implementation such as cuDNN or cuBLAS, and through the CUDA Runtime and the NVIDIA Driver the computation runs on the GPU and the result comes back.
+
 
 ## 8. Summarizing NVIDIA's Differentiator
 
@@ -443,3 +569,4 @@ Understanding this whole software ecosystem is the key to understanding NVIDIA's
 - Source cut/seam points: the Module 34 body runs from its heading to the line before "Module 35 — Model Training vs. Model Inference" with no internal gaps; the "အပိုင်း ၁" label implies further parts may exist in other messages, but none were supplied. The Python example and both official documentation URLs are reproduced exactly as given in the source (no commands, specs or benchmarks were invented).
 - The source lists 6 review questions without answers; per WRITING_RULES they are reduced to 5 self-check questions with concise answers — questions 5 and 6 (how PyTorch involves CUDA/libraries, and whether Python code alone guarantees GPU acceleration) are merged into one question, so all six original topics remain covered.
 - Preserved source claims: cuDNN is not "CUDA Distributed Neural Network"; not every framework operation passes through cuDNN (general matrix multiplication may use cuBLAS); performance is not automatically guaranteed and depends on model architecture, input size, precision, batch size, GPU model, memory usage and software compatibility. The PyTorch snippet requires a suitable NVIDIA Driver and CUDA-enabled build, as the source states — version-specific compatibility is not asserted here (needs verification per environment).
+- Mermaid figures (Figure 1–4 in each language section, same numbering) with figure walkthroughs were added inline; all existing text, code examples, ASCII diagrams and section numbering are unchanged.

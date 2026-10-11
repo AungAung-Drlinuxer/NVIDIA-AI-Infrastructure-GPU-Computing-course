@@ -22,6 +22,20 @@ AI Infrastructure တစ်ခုကို တည်ဆောက်ပြီး�
 - **Model Training** — Training Data များမှ Pattern များကို သင်ယူစေပြီး Model Parameters သို့မဟုတ် Weights များကို Update လုပ်ပေးသည်။
 - **Model Inference** — Train လုပ်ပြီးသား Model ကို အသုံးပြုပြီး Input အသစ်များအတွက် Prediction, Classification သို့မဟုတ် Recommendation များ ထုတ်ပေးသည်။
 
+**Figure 1 — Training နှင့် Inference လုပ်ငန်းစဉ်နှစ်ခု**
+
+```mermaid
+flowchart LR
+    A["Training Data"] --> B["Model Training"]
+    B --> C["Updated Weights"]
+    C --> D["Trained Model"]
+    E["New Input"] --> D
+    D --> F["Model Inference"]
+    F --> G["Prediction"]
+```
+
+**ပုံရှင်းလင်းချက်** — ဘယ်ဘက်လမ်းကြောင်းကို အရင်ကြည့်ပါ။ Training Data က Model Training ထဲ ဝင်သွားပြီး Weights များ Update ဖြစ်ကာ Trained Model ဖြစ်လာပါတယ်။ ထို့နောက် ညာဘက်လမ်းကြောင်းအတိုင်း New Input ကို Trained Model ထဲ ထည့်ပြီး Model Inference မှတစ်ဆင့် Prediction ရရှိပါတယ်။ Training က Model ကို သင်ယူစေတဲ့အဆင့်၊ Inference က သင်ယူပြီးသား Model ကို အသုံးပြုတဲ့အဆင့်ဆိုတာ ပုံထဲမှာ ရှင်းလင်းစွာ တွေ့နိုင်ပါတယ်။
+
 ဥပမာ Credit Card Fraud Detection System တစ်ခုကို စဉ်းစားကြည့်ပါ။
 
 Training အဆင့်တွင် အရင်က ဖြစ်ပွားခဲ့သော Legitimate Transactions နှင့် Fraudulent Transactions များကို အသုံးပြုပြီး Model ကို သင်ကြားပေးသည်။ Inference အဆင့်တွင် Transaction အသစ်တစ်ခု ဝင်လာသောအခါ Model က Fraud ဖြစ်နိုင်ခြေကို ခန့်မှန်းပေးသည်။ အချိန်ကြာလာသည်နှင့်အမျှ Transaction Pattern များ ပြောင်းလဲလာပါက Data အသစ်များဖြင့် Model ကို ပြန်လည် Training လုပ်ရန် လိုအပ်နိုင်သည်။
@@ -48,6 +62,23 @@ Training ၏ ရည်ရွယ်ချက်မှာ Training Data မျာ�
 - **Backward Pass** — Loss မှတစ်ဆင့် Model Parameters များအပေါ် Gradient များကို တွက်ချက်သည်။
 - **Weight Update** — Optimizer က Gradient များကို အသုံးပြုပြီး Model Weights များကို Update လုပ်သည်။
 - **Iteration** — Batch များစွာနှင့် Epoch များစွာကို ဆက်လက်လုပ်ဆောင်သည်။
+
+**Figure 2 — Model Training ၏ လုပ်ငန်းစဉ် (Training Loop)**
+
+```mermaid
+flowchart TD
+    A["Input Batch"] --> B["Forward Pass"]
+    B --> C["Prediction"]
+    C --> D["Loss Calculation"]
+    D --> E["Backward Pass"]
+    E --> F["Gradients"]
+    F --> G["Weight Update"]
+    G --> H{"More Batches / Epochs?"}
+    H -->|"Yes"| A
+    H -->|"No"| I["Training Finished"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်က Input Batch ကစပြီး မြှားတွေအတိုင်း အောက်ကို လိုက်ကြည့်ပါ။ Forward Pass က Prediction ထုတ်ပေးပြီး Loss Calculation က အမှားပမာဏကို တိုင်းတာပါတယ်။ Backward Pass က Gradients တွက်ချက်ပြီး Weight Update က Weights များကို ပြင်ဆင်ပါတယ်။ နောက် Batch သို့မဟုတ် Epoch ရှိသေးရင် အပေါ်ကို ပြန်တက်သွားပြီး မရှိတော့ရင် Training ပြီးဆုံးပါတယ်။
 
 **အဓိက Technical Terms**
 
@@ -92,6 +123,18 @@ Forward Pass
     v
 Prediction / Response
 ```
+
+**Figure 3 — Model Inference လုပ်ငန်းစဉ်**
+
+```mermaid
+flowchart TD
+    A["New Input"] --> B["Preprocessing"]
+    B --> C["Trained Model"]
+    C --> D["Forward Pass"]
+    D --> E["Prediction / Response"]
+```
+
+**ပုံရှင်းလင်းချက်** — New Input ကစပြီး အောက်ကို တဆင့်ချင်း လိုက်ကြည့်ပါ။ Input ကို အရင် Preprocessing လုပ်ပြီး Trained Model ထဲ ထည့်ကာ Forward Pass တစ်ခုတည်း ဖြတ်သန်းပါတယ်။ နောက်ဆုံးမှာ Prediction သို့မဟုတ် Response ကို ရရှိပါတယ်။ Weight Update ဆိုတဲ့ အဆင့် မပါဝင်တာကို သတိပြုကြည့်ပါ — Inference မှာ Weights များ ပုံမှန် မပြောင်းလဲပါ။
 
 Inference အတွင်း ပုံမှန်အားဖြင့် Gradient တွက်ချက်ခြင်းနှင့် Weight Update လုပ်ခြင်း မလိုအပ်ပါ။ သို့သော် Input Processing, Model Execution, Output Processing နှင့် Network Communication တို့ကြောင့် Latency ဖြစ်ပေါ်နိုင်သည်။
 
@@ -210,6 +253,20 @@ Production Inference Workload များတွင် Request Volume သည် 
 
 Serverless Inference ကို အသုံးပြုပါက Infrastructure ကို ကိုယ်တိုင်စီမံရမှု လျော့နည်းနိုင်သော်လည်း Capacity, Cold Start, GPU Availability, Cost နှင့် Model Size တို့၏ ကန့်သတ်ချက်များကို စဉ်းစားရမည်။
 
+**Figure 4 — Training နှင့် Inference Scaling နည်းလမ်းများ**
+
+```mermaid
+flowchart LR
+    A["AI Workload"] --> B["Training Job"]
+    A --> C["Inference Service"]
+    B --> D["Distributed Scaling"]
+    C --> E["Elastic Scaling"]
+    D --> F["Data / Model / Pipeline Parallelism"]
+    E --> G["Replicas တိုး / လျှော့"]
+```
+
+**ပုံရှင်းလင်းချက်** — ဘယ်ဘက် Training Job လမ်းကြောင်းက Distributed Scaling ဆီ ဦးတည်ပြီး Data / Model / Pipeline Parallelism နည်းလမ်းတွေကို အသုံးပြုပါတယ်။ ညာဘက် Inference Service လမ်းကြောင်းကတော့ Elastic Scaling ဖြင့် Demand အလိုက် Replica အရေအတွက်ကို တိုး/လျှော့ ညှိပါတယ်။ Workload နှစ်မျိုးစလုံး Scale လုပ်နိုင်ပေမဲ့ Scaling နည်းလမ်း မတူကြပါဘူး။
+
 ## 11. Infrastructure ရွေးချယ်မှု — Scenario များ
 
 | Scenario | အဓိကလိုအပ်ချက် | စဉ်းစားသင့်သည့်အချက် |
@@ -292,6 +349,20 @@ Once an AI Infrastructure is built, the two main workloads it handles are Model 
 - **Model Training** — Learns patterns from Training Data and updates Model Parameters (Weights).
 - **Model Inference** — Uses a trained model to produce Predictions, Classifications, or Recommendations for new inputs.
 
+**Figure 1 — The Two Workloads: Training and Inference**
+
+```mermaid
+flowchart LR
+    A["Training Data"] --> B["Model Training"]
+    B --> C["Updated Weights"]
+    C --> D["Trained Model"]
+    E["New Input"] --> D
+    D --> F["Model Inference"]
+    F --> G["Prediction"]
+```
+
+**Figure walkthrough** — Follow the left path first: Training Data goes into Model Training, the Weights are updated, and a Trained Model results. Then follow the right path: a New Input goes into the Trained Model and Model Inference produces a Prediction. Training is the stage that teaches the model; Inference is the stage that applies the learned model.
+
 Consider a Credit Card Fraud Detection System as an example.
 
 At the Training stage, historical Legitimate Transactions and Fraudulent Transactions are used to teach the model. At the Inference stage, when a new Transaction arrives, the model estimates the probability that it is Fraud. Over time, as Transaction Patterns change, the model may need to be retrained with new data.
@@ -318,6 +389,23 @@ The main steps in a typical Neural Network Training run are—
 - **Backward Pass** — Compute Gradients of the model parameters from the Loss.
 - **Weight Update** — The Optimizer uses the Gradients to update the Model Weights.
 - **Iteration** — Repeat over many Batches and Epochs.
+
+**Figure 2 — The Model Training Loop**
+
+```mermaid
+flowchart TD
+    A["Input Batch"] --> B["Forward Pass"]
+    B --> C["Prediction"]
+    C --> D["Loss Calculation"]
+    D --> E["Backward Pass"]
+    E --> F["Gradients"]
+    F --> G["Weight Update"]
+    G --> H{"More Batches / Epochs?"}
+    H -->|"Yes"| A
+    H -->|"No"| I["Training Finished"]
+```
+
+**Figure walkthrough** — Start at the top with an Input Batch and follow the arrows down. Forward Pass produces a Prediction, Loss Calculation measures the error, Backward Pass computes Gradients, and Weight Update adjusts the Weights. If more Batches or Epochs remain, the loop repeats from the top; otherwise Training is finished.
 
 **Key Technical Terms**
 
@@ -362,6 +450,18 @@ Forward Pass
     v
 Prediction / Response
 ```
+
+**Figure 3 — The Model Inference Flow**
+
+```mermaid
+flowchart TD
+    A["New Input"] --> B["Preprocessing"]
+    B --> C["Trained Model"]
+    C --> D["Forward Pass"]
+    D --> E["Prediction / Response"]
+```
+
+**Figure walkthrough** — Start with the New Input at the top and move down step by step. The input is preprocessed, fed into the Trained Model, and passed through a single Forward Pass. At the bottom you get the Prediction or Response. Notice there is no Weight Update step — during Inference the Weights normally do not change.
 
 Inference normally does not require Gradient computation or Weight Update. However, Latency can still arise from Input Processing, Model Execution, Output Processing, and Network Communication.
 
@@ -480,6 +580,20 @@ This approach is called Elastic Scaling. Kubernetes Horizontal Pod Autoscaler, K
 
 Using Serverless Inference can reduce hands-on infrastructure management, but the limits of Capacity, Cold Start, GPU Availability, Cost, and Model Size must be considered.
 
+**Figure 4 — Training and Inference Scaling Strategies**
+
+```mermaid
+flowchart LR
+    A["AI Workload"] --> B["Training Job"]
+    A --> C["Inference Service"]
+    B --> D["Distributed Scaling"]
+    C --> E["Elastic Scaling"]
+    D --> F["Data / Model / Pipeline Parallelism"]
+    E --> G["Scale Replicas Up / Down"]
+```
+
+**Figure walkthrough** — The left Training Job path heads toward Distributed Scaling, using Data, Model, or Pipeline Parallelism. The right Inference Service path uses Elastic Scaling, adjusting the number of Replicas up or down with Demand. Both workloads can be scaled, but they are scaled in different ways.
+
 ## 11. Infrastructure Choices — Scenarios
 
 | Scenario | Main Requirement | What to Consider |
@@ -550,3 +664,4 @@ When choosing Infrastructure, do not assume "Training is always big and Inferenc
 - The example figures "200 milliseconds" (Latency) and "1,000 predictions/second" (Throughput) are illustrative examples from the source, not benchmark measurements.
 - No commands, specifications, URLs, or benchmark numbers were added beyond the source. No technically incorrect claims were found in the module body; statements about Retraining, Scaling Efficiency, Serverless Inference limits, and optimization trade-offs are correctly qualified in the source and kept as written.
 - `COURSE_OUTLINE.md` lists Module 35 under a different title ("AI Model Optimization and Inference Serving"); this file follows the title given in the supplied source transcript and the task header requirement ("Module 35 — Model Training vs. Model Inference"). Reconciling the outline title is left to the course editor.
+- Beginner-friendly Mermaid figures (Figure 1–4) with figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline in both the Myanmar and English sections, with matching figure numbering; all existing text, tables, and ASCII diagrams are unchanged.

@@ -107,6 +107,23 @@ Researcher / Data Scientist
   Completed / Failed / Requeue
 ```
 
+**Figure 1 — Slurm Job Lifecycle**
+
+```mermaid
+flowchart TD
+    A["Researcher / Data Scientist"] --> B["Submit Training Job"]
+    B --> C["Slurm Queue"]
+    C --> D["Scheduler Checks Priority / Resources"]
+    D --> E{"Resources Ready?"}
+    E -->|"No"| C
+    E -->|"Yes"| F["Allocate CPU / GPU / Memory"]
+    F --> G["Run on Compute Node(s)"]
+    G --> H["Completed / Failed / Requeue"]
+    H -->|"Requeue"| C
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်က Researcher က Training Job ကို Submit လုပ်ပုံကစပြီး Slurm Queue ထဲ ဝင်သွားပါတယ်။ Scheduler က Priority နဲ့ Resource အခြေအနေ စစ်ဆေးပြီး Resources မပြည့်စုံသေးရင် Queue ထဲမှာ ဆက်စောင့်ပါတယ်။ ပြည့်စုံမှ CPU / GPU / Memory ခွဲဝေပြီး Compute Node ပေါ်မှာ Run လုပ်ပါတယ်။ အောက်ဆုံးမှာ Completed, Failed သို့မဟုတ် Requeue ဖြစ်နိုင်ပြီး Requeue ဆိုရင် Queue ထဲ ပြန်ဝင်ပါတယ်။
+
 ဥပမာ Slurm ကို အသုံးပြုပြီး Training Job တစ်ခု Submit လုပ်နိုင်ပါတယ်။
 
 ```bash
@@ -213,6 +230,22 @@ Inference Service တစ်ခုအတွက် Kubernetes က အောက်�
 - Liveness Probe: Container ကို ဆက်လက် Run ထားသင့်သလား စစ်ဆေးခြင်း။
 - Horizontal Pod Autoscaler (HPA): သတ်မှတ်ထားသော Metrics အပေါ်မူတည်ပြီး Replica အရေအတွက် ပြောင်းလဲခြင်း။
 
+**Figure 2 — Kubernetes က Inference Service ကို စီမံပုံ**
+
+```mermaid
+flowchart TD
+    A["Deployment - Desired State"] --> B["Kubernetes Scheduler"]
+    B --> C["Pod 1"]
+    B --> D["Pod 2"]
+    B --> E["Pod 3"]
+    F["Service"] --> C
+    F --> D
+    F --> E
+    G["HPA"] --> A
+```
+
+**ပုံရှင်းလင်းချက်** — ဘယ်ဘက်အပေါ်က Deployment က Replica အရေအတွက်အပါအဝင် Desired State ကို သတ်မှတ်ပေးပါတယ်။ Kubernetes Scheduler က Pod သုံးခုကို Node တွေပေါ် နေရာချပေးပြီး Service က User Request တွေကို Pod တွေဆီ ဖြန့်ဝေပေးပါတယ်။ အောက်က HPA က Load အလိုက် Replica အရေအတွက်ကို Deployment ဆီ ပြန်ညှိပေးနိုင်ပါတယ်။
+
 ဥပမာ Inference API တစ်ခုအတွက် အခြေခံ Kubernetes Deployment ကို အောက်ပါအတိုင်း ရေးနိုင်ပါတယ်။
 
 ```yaml
@@ -263,6 +296,20 @@ Deployment ထဲမှာ `replicas: 3` သတ်မှတ်ထားခြင
 အဓိကမှတ်သားရန် — Kubernetes ကိုယ်တိုင်လည်း Workload Scheduling လုပ်ပါတယ်။ ထို့ကြောင့် “Slurm က Scheduling လုပ်ပြီး Kubernetes က Scheduling မလုပ်ဘူး” ဆိုတာ မမှန်ပါဘူး။
 
 အမှန်တကယ် ကွာခြားချက်က Slurm ဟာ HPC/Batch Job Scheduling နဲ့ Compute Resource Management အတွက် အထူးပြုထားပြီး Kubernetes ဟာ Containerized Applications တွေရဲ့ Desired State နဲ့ Lifecycle ကို စီမံတဲ့ Platform ဖြစ်တာပါ။
+
+**Figure 3 — Workload အလိုက် Job Scheduling နှင့် Container Orchestration ရွေးချယ်မှု**
+
+```mermaid
+flowchart TD
+    A{"Workload အမျိုးအစား"} -->|"Queued Training / Batch Job"| B["Job Scheduling"]
+    A -->|"24/7 Inference API / Microservice"| C["Container Orchestration"]
+    B --> D["Slurm"]
+    C --> E["Kubernetes"]
+    D --> F["GPU Compute Nodes"]
+    E --> G["Inference Pods"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်က Workload အမျိုးအစား မေးခွန်းကနေ စပါ။ Queue နဲ့ စောင့်ဆိုင်းရမယ့် Training / Batch Job ဆိုရင် ဘယ်ဘက်လမ်းကြောင်းအတိုင်း Job Scheduling ဆီ သွားပြီး Slurm ဖြင့် GPU Compute Nodes ပေါ်မှာ Run ပါတယ်။ ၂၄ နာရီ လက်ခံပေးရမယ့် Inference API / Microservice ဆိုရင် ညာဘက်လမ်းကြောင်းအတိုင်း Container Orchestration ဆီ သွားပြီး Kubernetes ဖြင့် Inference Pods အဖြစ် လည်ပတ်ပါတယ်။
 
 ## 10. လက်တွေ့ AI Infrastructure Architecture
 
@@ -337,6 +384,18 @@ NVIDIA GPUs
      v
  Grafana Dashboards / Alerts
 ```
+
+**Figure 4 — GPU Monitoring Chain (DCGM မှ Grafana အထိ)**
+
+```mermaid
+flowchart LR
+    A["NVIDIA GPUs"] --> B["DCGM"]
+    B --> C["DCGM Exporter"]
+    C --> D["Prometheus"]
+    D --> E["Grafana Dashboards / Alerts"]
+```
+
+**ပုံရှင်းလင်းချက်** — ဘယ်ဘက်က NVIDIA GPUs ကနေ GPU Data တွေ စတင်ပြီး DCGM က စုဆောင်းပါတယ်။ DCGM Exporter က GPU Metrics တွေကို Prometheus ဆီ ပို့ပေးပြီး နောက်ဆုံးမှာ Grafana Dashboards / Alerts မှာ ကြည့်ရှုနိုင်ပါတယ်။ ဒီကွင်းဆက်တစ်ခုလုံးက Monitoring အတွက်သာဖြစ်ပြီး Scheduling ဆုံးဖြတ်ချက် မချပေးပါဘူး။
 
 သတိပြုရန် — DCGM နဲ့ DCGM Exporter တို့သည် Monitoring Tools များသာ ဖြစ်ပြီး Kubernetes Scheduler ကို အစားထိုးတဲ့ Tools များ မဟုတ်ပါဘူး။ Pod Placement ကို ဆုံးဖြတ်တဲ့ Scheduling ကတော့ Resource Requests, Allocatable Resources နဲ့ Scheduling Constraints များအပေါ် အခြေခံပြီး ဆောင်ရွက်ပါတယ်။
 
@@ -477,6 +536,23 @@ Researcher / Data Scientist
   Completed / Failed / Requeue
 ```
 
+**Figure 1 — Slurm Job Lifecycle**
+
+```mermaid
+flowchart TD
+    A["Researcher / Data Scientist"] --> B["Submit Training Job"]
+    B --> C["Slurm Queue"]
+    C --> D["Scheduler Checks Priority / Resources"]
+    D --> E{"Resources Ready?"}
+    E -->|"No"| C
+    E -->|"Yes"| F["Allocate CPU / GPU / Memory"]
+    F --> G["Run on Compute Node(s)"]
+    G --> H["Completed / Failed / Requeue"]
+    H -->|"Requeue"| C
+```
+
+**Figure walkthrough** — Start at the top: the Researcher submits a Training Job and it enters the Slurm Queue. The Scheduler checks Priority and Resource Availability; if the resources are not ready, the job keeps waiting in the Queue. When they are ready, CPU / GPU / Memory are allocated and the job runs on Compute Node(s). At the bottom, the job ends as Completed, Failed, or Requeued — and a requeued job goes back into the Queue.
+
 For example, you can submit a Training Job using Slurm.
 
 ```bash
@@ -583,6 +659,22 @@ For an Inference Service, Kubernetes can use the following Components.
 - Liveness Probe: checks whether the Container should keep running.
 - Horizontal Pod Autoscaler (HPA): changes the number of Replicas based on configured Metrics.
 
+**Figure 2 — How Kubernetes Manages an Inference Service**
+
+```mermaid
+flowchart TD
+    A["Deployment - Desired State"] --> B["Kubernetes Scheduler"]
+    B --> C["Pod 1"]
+    B --> D["Pod 2"]
+    B --> E["Pod 3"]
+    F["Service"] --> C
+    F --> D
+    F --> E
+    G["HPA"] --> A
+```
+
+**Figure walkthrough** — At the top left, the Deployment defines the Desired State, including the Replica count. The Kubernetes Scheduler places the three Pods on Nodes, and the Service distributes user Requests across those Pods. At the bottom, HPA can adjust the Replica count in the Deployment according to Load.
+
 For example, a basic Kubernetes Deployment for an Inference API can be written as follows.
 
 ```yaml
@@ -633,6 +725,20 @@ However, Self-Healing cannot automatically fix every Application problem. It can
 Key point to remember — Kubernetes itself also does Workload Scheduling. So the claim "Slurm does Scheduling and Kubernetes does not" is wrong.
 
 The real difference is that Slurm specializes in HPC/Batch Job Scheduling and Compute Resource Management, while Kubernetes is a Platform that manages the Desired State and Lifecycle of Containerized Applications.
+
+**Figure 3 — Choosing Job Scheduling or Container Orchestration by Workload**
+
+```mermaid
+flowchart TD
+    A{"What Kind of Workload?"} -->|"Queued Training / Batch Job"| B["Job Scheduling"]
+    A -->|"24/7 Inference API / Microservice"| C["Container Orchestration"]
+    B --> D["Slurm"]
+    C --> E["Kubernetes"]
+    D --> F["GPU Compute Nodes"]
+    E --> G["Inference Pods"]
+```
+
+**Figure walkthrough** — Start at the top question node. A queued Training or Batch Job takes the left path through Job Scheduling to Slurm, which runs it on GPU Compute Nodes. A 24/7 Inference API or Microservice takes the right path through Container Orchestration to Kubernetes, which runs it as Inference Pods.
 
 ## 10. Practical AI Infrastructure Architecture
 
@@ -708,6 +814,18 @@ NVIDIA GPUs
  Grafana Dashboards / Alerts
 ```
 
+**Figure 4 — GPU Monitoring Chain (DCGM to Grafana)**
+
+```mermaid
+flowchart LR
+    A["NVIDIA GPUs"] --> B["DCGM"]
+    B --> C["DCGM Exporter"]
+    C --> D["Prometheus"]
+    D --> E["Grafana Dashboards / Alerts"]
+```
+
+**Figure walkthrough** — GPU data starts at the NVIDIA GPUs on the left and is collected by DCGM. DCGM Exporter sends the GPU Metrics to Prometheus, and finally you can view them in Grafana Dashboards / Alerts. The whole chain is for monitoring only — it does not make scheduling decisions.
+
 Caution — DCGM and DCGM Exporter are Monitoring Tools only; they are not Tools that replace the Kubernetes Scheduler. The Scheduling that decides Pod Placement works from Resource Requests, Allocatable Resources, and Scheduling Constraints.
 
 ## 12. Review Questions
@@ -753,3 +871,4 @@ Key points for the exam—
 - The sbatch script and the Kubernetes Deployment YAML are preserved verbatim. The source itself notes the script must match the Cluster's GPU Configuration, Slurm GRES Configuration, and Python Environment, and that `example.com/inference-api:1.0` must be replaced with a real Container Image (illustrative, not universal).
 - Exam scenarios are preserved as in the source: Slurm for long-running queued (multi-node/distributed) Training Jobs; Kubernetes for Replicated Inference APIs; NVIDIA GPU Operator / Device Plugin for GPU components on Kubernetes. The DCGM → DCGM Exporter → Prometheus → Grafana monitoring chain and its ASCII diagram are preserved from the adjacent Module 37 portion of the same transcript (the Module 36 slice only reaches "Monitoring / Operations" in its architecture diagram). The caveat that DCGM and DCGM Exporter are monitoring tools — not a Kubernetes Scheduler replacement — follows the transcript's own scheduling note that placement is based on Resource Requests, Allocatable Resources, and Scheduling Constraints, not live GPU metrics.
 - Source cut/seam points: the Module 36 portion runs from the "Module 36 — Job Scheduling vs. Container Orchestration" line to just before "Module 37 — Slurm vs. Kubernetes for AI Workloads"; the "အပိုင်း ၁" (Part 1) label suggests a matching English-language part exists in the source series but was not supplied. The claim that a Scheduler alone does not guarantee 100% GPU Utilization is preserved as given (no benchmark is attached to it).
+- Beginner-friendly Mermaid figures (Figure 1–4) with figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline in both the Myanmar and English sections, with matching figure numbering; all existing text, tables, and ASCII diagrams are unchanged.

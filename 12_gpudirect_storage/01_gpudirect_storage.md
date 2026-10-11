@@ -22,6 +22,16 @@ Host Memory (CPU bounce buffer)
 GPU Memory
 ```
 
+**ပုံ ၁ (Figure 1) — ရိုးရိုး storage I/O path မှာ bounce buffer ကြားခံ copy ဖြစ်ပုံ**
+
+```mermaid
+flowchart LR
+    S["Storage / Filesystem"] --> H["Host Memory (CPU bounce buffer)"]
+    H -->|"CPU-mediated copy"| G["GPU Memory"]
+```
+
+**ပုံရှင်းလင်းချက်** — data က Storage ကနေ အရင် Host Memory ထဲက bounce buffer ကို ရောက်ပြီးမှ CPU ကြားခံ copy ကတစ်ဆင့် GPU Memory ထဲ ရောက်ပါတယ်။ အလယ်က Host Memory အဆင့် ထပ်ပါလို့ extra copy ဖြစ်ပြီး memory bandwidth၊ CPU အားနဲ့ latency ပိုကုန်စေပါတယ်။
+
 ဒီ path မှာ ပြဿနာတွေက—
 
 - မလိုအပ်တဲ့ ကြားခံ data copies တွေ ဖြစ်ပေါ်ပြီး system memory bandwidth ကို စားသုံးပါတယ်။
@@ -48,6 +58,17 @@ GPUDirect ဆိုတာ Magnum IO ရဲ့ အစိတ်အပိုင်�
 | GPUDirect RDMA | GPU memory နဲ့ NIC (network adapter) ကြား |
 | GPUDirect Storage (GDS) | GPU memory နဲ့ storage ကြား |
 
+**ပုံ ၂ (Figure 2) — GPUDirect family ရဲ့ direct DMA ချိတ်ဆက်မှု သုံးမျိုး**
+
+```mermaid
+flowchart LR
+    GM["GPU Memory"] <--> GM2["GPU Memory (GPUDirect P2P)"]
+    GM <--> NIC["NIC (GPUDirect RDMA)"]
+    GM <--> ST["Storage (GPUDirect Storage / GDS)"]
+```
+
+**ပုံရှင်းလင်းချက်** — ပုံမှာ GPU Memory ကို ဗဟိုပြုပြီး ချိတ်ဆက်မှု သုံးမျိုးကို မြင်ရပါတယ် — GPUDirect P2P က GPU Memory နှစ်ခုကြား၊ GPUDirect RDMA က NIC (network adapter) နဲ့ကြား၊ GPUDirect Storage (GDS) က Storage နဲ့ကြား တိုက်ရိုက် DMA ဖြစ်ပါတယ်။ တစ်ခုချင်းစီရဲ့ endpoint မတူတာကို ကြည့်ပြီး ဘယ် technology ကို ဘယ်အခါ သုံးရမလဲ ခွဲခြားနိုင်ပါတယ်။
+
 ### 2.3 Direct DMA Path က ဘယ်လို အလုပ်လုပ်သလဲ
 
 ရိုးရိုး I/O path နဲ့ GDS direct path ကို နှိုင်းယှဉ်ကြည့်ပါ—
@@ -67,6 +88,17 @@ Storage ──────────────────► GPU Memory
 
 ရိုးရိုး path မှာ data က storage ကနေ host memory ထဲ အရင်ရောက်ပြီးမှ CPU ကြားခံ copy ကတစ်ဆင့် GPU memory ထဲ ရောက်ပါတယ်။ GDS direct path မှာတော့ storage data ကို host memory ထဲ ကြားခံမထည့်ဘဲ DMA engine က GPU memory ထဲကို တိုက်ရိုက် ရေးသွင်းပေးနိုင်ပါတယ်။ ဒါက extra copies တွေကို ဖယ်ရှားပေးပြီး CPU overhead နဲ့ latency ကို လျှော့ချပါတယ်။
 
+**ပုံ ၃ (Figure 3) — ရိုးရိုး I/O path နဲ့ GDS direct path နှိုင်းယှဉ်ချက်**
+
+```mermaid
+flowchart TD
+    SA["Storage"] --> HA["Host Memory (bounce buffer)"]
+    HA --> GA["GPU Memory"]
+    SB["Storage"] -->|"direct DMA"| GB["GPU Memory"]
+```
+
+**ပုံရှင်းလင်းချက်** — ပုံထဲမှာ data path နှစ်စကို ယှဉ်ပြထားပါတယ်။ တစ်ခုက Storage → Host Memory (bounce buffer) → GPU Memory ဆိုပြီး အဆင့်နှစ်ဆင့် ဖြတ်ရပြီး နောက်တစ်ခုကတော့ Storage က direct DMA ဖြင့် GPU Memory ထဲ တိုက်ရိုက် ရောက်ပါတယ်။ GDS က ဒုတိယ path ကို ဖွင့်ပေးခြင်းဖြစ်လို့ extra copy နဲ့ CPU overhead လျော့ကျသွားပါတယ်။
+
 ## 3. Software Components များ
 
 GDS software architecture ရဲ့ အဓိက အစိတ်အပိုင်းတွေက အောက်ပါအတိုင်း ဖြစ်ပါတယ်—
@@ -74,6 +106,19 @@ GDS software architecture ရဲ့ အဓိက အစိတ်အပိုင�
 1. **libcufile.so (user-level cuFile library)** — application တွေ အသုံးပြုတဲ့ cuFile API ကို ပေးပါတယ်။ cuFileRead/cuFileWrite က POSIX pread/pwrite နဲ့ ဆင်တူပြီး O_DIRECT နဲ့ အသုံးပြုပါတယ်။
 2. **nvidia-fs.ko (kernel-level driver)** — DKMS kernel module ဖြစ်ပြီး cuFile user library ကနေ လာတဲ့ IOCTLs တွေကို ကိုင်တွယ်ပါတယ်။ storage drivers တွေကနေ ခေါ်ယူတဲ့ DMA callbacks တွေကို implement လုပ်ပေးပြီး GPU virtual addresses တွေကို physical addresses တွေအဖြစ် ပြောင်းလဲပေးပါတယ်။
 3. **Storage kernel drivers** — cuFileDriverOpen မှတစ်ဆင့် nvidia-fs ဆီ callbacks တွေ register လုပ်ပါတယ်။
+
+**ပုံ ၄ (Figure 4) — GDS software components တွေ ချိတ်ဆက်အလုပ်လုပ်ပုံ**
+
+```mermaid
+flowchart LR
+    A["Application (cuFileRead / cuFileWrite)"] --> L["libcufile.so (cuFile library)"]
+    L -->|"IOCTLs"| K["nvidia-fs.ko (kernel module)"]
+    K --> D["Storage kernel drivers"]
+    D --> DM["DMA engine"]
+    DM --> G["GPU Memory"]
+```
+
+**ပုံရှင်းလင်းချက်** — Application က cuFile API ဖြင့် libcufile.so ကို ခေါ်ပြီး၊ ၎င်းက IOCTLs ဖြင့် nvidia-fs.ko kernel module ကို အသိပေးပါတယ်။ nvidia-fs.ko က storage kernel drivers ကနေ ခေါ်ယူတဲ့ DMA callbacks ကို ကိုင်တွယ်ပြီး DMA engine က data ကို GPU Memory ထဲ/ထဲကနေ တိုက်ရိုက် ရွှေ့ပေးပါတယ်။ Data path ပေါ်မှာ CPU ကြားခံ copy မပါဝင်ပါဘူး။
 
 Packaging အနေနဲ့ libraries နဲ့ kernel sources တွေကို CUDA toolkit နဲ့အတူ (Ubuntu/RedHat အတွက် debs/RPMs အဖြစ်) ထုပ်ပိုးထားပါတယ်။ nvidia_fs.ko kernel sources တွေကို DGX BaseOS 6.0+ releases တွေမှာလည်း တွေ့ရှိနိုင်ပါတယ်။
 
@@ -168,6 +213,16 @@ Host Memory (CPU bounce buffer)
 GPU Memory
 ```
 
+**Figure 1 — The bounce-buffer copy on a traditional storage I/O path**
+
+```mermaid
+flowchart LR
+    S["Storage / Filesystem"] --> H["Host Memory (CPU bounce buffer)"]
+    H -->|"CPU-mediated copy"| G["GPU Memory"]
+```
+
+**Figure walkthrough** — Data from storage first lands in the bounce buffer in host memory, and only then does a CPU-mediated copy move it into GPU memory. That extra host-memory step means extra copies, consuming memory bandwidth and CPU time, and adding latency.
+
 This path has several problems:
 
 - Unnecessary intermediate data copies occur and consume system memory bandwidth.
@@ -194,6 +249,17 @@ GPUDirect is a family of technologies that is part of Magnum IO, enhancing data 
 | GPUDirect RDMA | GPU memory and a NIC (network adapter) |
 | GPUDirect Storage (GDS) | GPU memory and storage |
 
+**Figure 2 — The three direct-DMA connections of the GPUDirect family**
+
+```mermaid
+flowchart LR
+    GM["GPU Memory"] <--> GM2["GPU Memory (GPUDirect P2P)"]
+    GM <--> NIC["NIC (GPUDirect RDMA)"]
+    GM <--> ST["Storage (GPUDirect Storage / GDS)"]
+```
+
+**Figure walkthrough** — With GPU memory at the center, the figure shows three connections: GPUDirect P2P links two GPU memories, GPUDirect RDMA links GPU memory and the NIC (network adapter), and GPUDirect Storage (GDS) links GPU memory and storage. Each endpoint tells you which technology fits which situation.
+
 ### 2.3 How a Direct DMA Path Works
 
 Compare the traditional I/O path with the GDS direct path:
@@ -213,6 +279,19 @@ Storage ──────────────────► GPU Memory
 
 On the traditional path, data lands in host memory first and reaches GPU memory through a CPU-mediated copy. On the GDS direct path, a DMA engine writes storage data straight into GPU memory without staging it through host memory. This removes extra copies and reduces CPU overhead and latency.
 
+**Figure 3 — Traditional I/O path vs. the GDS direct path**
+
+```mermaid
+flowchart TD
+    SA["Storage"] --> HA["Host Memory (bounce buffer)"]
+    HA --> GA["GPU Memory"]
+    SB["Storage"] -->|"direct DMA"| GB["GPU Memory"]
+```
+
+**Figure walkthrough** — The figure compares two data paths. One goes Storage → Host Memory (bounce buffer) → GPU Memory in two steps; the other delivers data from storage straight into GPU memory via direct DMA. GDS enables that second path, so extra copies and CPU overhead shrink.
+
+
+
 ## 3. Software Components
 
 The primary components of the GDS software architecture are:
@@ -220,6 +299,19 @@ The primary components of the GDS software architecture are:
 1. **libcufile.so (user-level cuFile library)** — provides the cuFile API that applications use. cuFileRead/cuFileWrite are similar to POSIX pread/pwrite and are used with O_DIRECT.
 2. **nvidia-fs.ko (kernel-level driver)** — a DKMS kernel module that handles IOCTLs from the cuFile user library. It implements DMA callbacks called from storage drivers and translates GPU virtual addresses to physical addresses.
 3. **Storage kernel drivers** — register callbacks to nvidia-fs via cuFileDriverOpen.
+
+**Figure 4 — How the GDS software components connect**
+
+```mermaid
+flowchart LR
+    A["Application (cuFileRead / cuFileWrite)"] --> L["libcufile.so (cuFile library)"]
+    L -->|"IOCTLs"| K["nvidia-fs.ko (kernel module)"]
+    K --> D["Storage kernel drivers"]
+    D --> DM["DMA engine"]
+    DM --> G["GPU Memory"]
+```
+
+**Figure walkthrough** — The application calls libcufile.so through the cuFile API, which notifies the nvidia-fs.ko kernel module with IOCTLs. nvidia-fs.ko handles the DMA callbacks called by the storage kernel drivers, and the DMA engine moves data directly into or out of GPU memory. No CPU-mediated copy sits on the data path.
 
 For packaging, the libraries and kernel sources ship with the CUDA toolkit (as debs/RPMs for Ubuntu/RedHat). The nvidia_fs.ko kernel sources are also available in DGX BaseOS 6.0+ releases.
 
@@ -309,3 +401,5 @@ I/O is a significant performance bottleneck; data transfers are explicit; buffer
 - gdscheck is referenced only as a known GDS verification tool; its usage details are flagged "see installation guide" because exact syntax was not verified here.
 - The GPUDirect developer page lists GPUDirect Video as a fourth family member; it is outside this module's scope and is only mentioned in passing in section 2.2.
 - The "10X better performance" figure on the GPUDirect developer page applies to GPUDirect RDMA, not GDS, and was deliberately not carried into this module. No GDS performance numbers are claimed anywhere.
+
+- Mermaid figures (Figures 1–4) with figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline to both language sections; all existing text, ASCII diagrams, and review notes are unchanged.

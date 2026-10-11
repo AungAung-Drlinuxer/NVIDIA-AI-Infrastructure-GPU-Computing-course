@@ -162,6 +162,23 @@ Training Pipeline ကို စနစ်တကျ တည်ဆောက်ထာ
 
 တို့ ပါဝင်နိုင်ပါတယ်။ အဆင့်အားလုံးကို မဖြစ်မနေ အလိုအလျောက်လုပ်ရမယ်လို့ မဆိုလိုပါဘူး။ Production Environment မှာ အချို့အဆင့်တွေမှာ Human Approval လိုအပ်နိုင်ပါတယ်။
 
+Pipeline အဆင့်တွေကို ပုံဖြင့် ကြည့်ရအောင်—
+
+**Figure 1 — Automated Training Pipeline အဆင့်များ**
+
+```mermaid
+flowchart TD
+    A["Data Validation"] --> B["Data Preprocessing"]
+    B --> C["Model Training"]
+    C --> D["Model Evaluation"]
+    D --> E["Model Artifact Registration"]
+    E --> F{"Deployment Approval"}
+    F -->|"ရရှိပါက"| G["Staging / Production Deployment"]
+    F -->|"မရသေးပါက"| H["Pipeline ရပ် / ပြန်လည်စစ်ဆေး"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ကနေ အောက်ကို ဖတ်ပါ။ Data Validation ကနေ စပြီး Data Preprocessing၊ Model Training၊ Model Evaluation ကို ဖြတ်သန်းပြီး Model Artifact Registration မှာ မှတ်တမ်းတင်ပါတယ်။ နောက်ဆုံး Deployment Approval ဆိုတဲ့ ဆုံးဖြတ်ချက်အမှတ်မှာ approval ရမှ deployment ဆက်သွားနိုင်ပြီး မရသေးရင် pipeline ကို ရပ်ပြီး ပြန်လည်စစ်ဆေးရပါမယ်။ အဆင့်အားလုံး အလိုအလျောက် မဟုတ်ဘဲ human approval လိုအပ်နိုင်တာကိုလည်း ဒီပုံက ပြပါတယ်။
+
 #### 5.5 Automated Deployment
 
 Model Evaluation က သတ်မှတ်ထားတဲ့ Quality Criteria ကို ဖြည့်ဆည်းနိုင်တဲ့အခါ Model ကို Deployment Pipeline မှတစ်ဆင့် Staging သို့မဟုတ် Production Environment ကို ပို့နိုင်ပါတယ်။ Deployment နည်းလမ်းတွေမှာ—
@@ -194,6 +211,23 @@ Model/Data Metrics ဥပမာ—
 - Delayed Ground-Truth Outcomes
 
 Monitoring ရလဒ်တွေက Model ကို ပြန်လည် Train လုပ်ဖို့ လိုအပ်သလား၊ Data Pipeline ကို ပြင်ဆင်ဖို့ လိုအပ်သလားဆိုတာ ဆုံးဖြတ်ရာမှာ ကူညီပေးနိုင်ပါတယ်။
+
+Monitoring နဲ့ Feedback လမ်းကြောင်းကို ပုံဖြင့် ကြည့်ရအောင်—
+
+**Figure 2 — Monitoring နှင့် Feedback လမ်းကြောင်း**
+
+```mermaid
+flowchart TD
+    A["Production Monitoring"] --> B["Operational Metrics: latency, throughput, error rate"]
+    A --> C["Model/Data Metrics: data drift, prediction distribution"]
+    B --> D{"ပြန်လည် Train လုပ်ရန် လိုအပ်သလား"}
+    C --> D
+    D -->|"လိုအပ်ပါက"| E["Model Retraining"]
+    D -->|"Data pipeline ပြဿနာ"| F["Data Pipeline ပြင်ဆင်"]
+    E --> G["Model အသစ်ကို ပြန်လည် စစ်ဆေး / Deploy"]
+```
+
+**ပုံရှင်းလင်းချက်** — Production Monitoring ကနေ operational metrics နဲ့ model/data metrics နှစ်မျိုး စုဆောင်းပြီး ဆုံးဖြတ်ချက်အမှတ်ကို ရောက်ပါတယ်။ Model performance ကျဆင်းလာရင် retraining လုပ်နိုင်သလို၊ data drift က data pipeline ပြဿနာကြောင့် ဖြစ်ရင် data pipeline ကို ပြင်ဆင်ရပါမယ်။ Monitoring ရလဒ်တွေက retraining လုပ်၊ မလုပ် ဆုံးဖြတ်ရာမှာ အခြေခံအချက် ဖြစ်တာကို ပုံက ပြပါတယ်။
 
 ### 6. MLOps Lifecycle ကို နားလည်ခြင်း
 
@@ -228,6 +262,26 @@ Retraining when needed
 ```
 
 ဒီ Workflow က Linear Process တစ်ခုတည်း မဟုတ်ပါဘူး။ Production Monitoring ကနေ ရရှိလာတဲ့ Feedback ကို အသုံးပြုပြီး Data Preparation, Training, Evaluation နဲ့ Deployment အဆင့်တွေကို ပြန်လည်လုပ်ဆောင်နိုင်ပါတယ်။
+
+ဒီ loop ကို ပုံဖြင့် ကြည့်ရအောင်—
+
+**Figure 3 — MLOps Lifecycle Loop**
+
+```mermaid
+flowchart TD
+    A["Data Collection"] --> B["Data Validation and Preparation"]
+    B --> C["Model Training"]
+    C --> D["Model Evaluation"]
+    D --> E["Model Registry / Versioning"]
+    E --> F["Deployment"]
+    F --> G["Production Monitoring"]
+    G --> H["Feedback / New Data"]
+    H --> I{"Retraining လိုအပ်သလား"}
+    I -->|"လိုအပ်ပါက"| B
+    I -->|"မလိုသေးပါက"| G
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်က Data Collection ကနေ စပြီး အဆင့်တစ်ဆင့်ချင်းစီ အောက်ကို ဆင်းသွားပါတယ် — Data Validation and Preparation၊ Model Training၊ Model Evaluation၊ Model Registry / Versioning၊ Deployment၊ Production Monitoring ပြီးရင် Feedback / New Data ရောက်ပါတယ်။ အောက်ဆုံးက ဆုံးဖြတ်ချက်အမှတ်က retraining လိုအပ်ရင် Data Validation and Preparation ဆီ ပြန်တက်သွားတာကြောင့် ဒီ workflow ဟာ linear တစ်ကြောင်းတည်း မဟုတ်ဘဲ loop ဖြစ်ကြောင်း မြင်ရပါမယ်။ မလိုသေးရင်တော့ production monitoring ကို ဆက်လက် စောင့်ကြည့်နေပါမယ်။
 
 Model ကို အချိန်တိုင်း Retrain လုပ်ဖို့ မလိုအပ်ပါဘူး။ Retraining က Model Performance, Data Drift, Business Requirements နဲ့ သတ်မှတ်ထားတဲ့ Policy တွေအပေါ် မူတည်သင့်ပါတယ်။
 
@@ -479,6 +533,23 @@ With a systematically built training pipeline, the training process can be re-ru
 
 Not every step must be automated. In production, some steps may require human approval.
 
+The pipeline stages can be seen as a figure—
+
+**Figure 1 — Automated Training Pipeline Stages**
+
+```mermaid
+flowchart TD
+    A["Data Validation"] --> B["Data Preprocessing"]
+    B --> C["Model Training"]
+    C --> D["Model Evaluation"]
+    D --> E["Model Artifact Registration"]
+    E --> F{"Deployment Approval"}
+    F -->|"Approved"| G["Staging / Production Deployment"]
+    F -->|"Not yet"| H["Pipeline stops / re-check"]
+```
+
+**Figure walkthrough** — Read from top to bottom. From data validation through preprocessing, model training and model evaluation, the model is then recorded at model artifact registration. At the final deployment-approval decision point, the pipeline continues to deployment only when approval is given; otherwise it stops and the work is re-checked. The figure also shows that not every stage is automatic — human approval can be required.
+
 #### 5.5 Automated Deployment
 
 When model evaluation meets the defined quality criteria, the model can be sent through a deployment pipeline to a staging or production environment. Deployment methods include—
@@ -511,6 +582,23 @@ Example model/data metrics—
 - Delayed ground-truth outcomes
 
 Monitoring results help decide whether the model needs retraining or the data pipeline needs fixing.
+
+The monitoring and feedback flow can be seen as a figure—
+
+**Figure 2 — Monitoring and Feedback Flow**
+
+```mermaid
+flowchart TD
+    A["Production Monitoring"] --> B["Operational Metrics: latency, throughput, error rate"]
+    A --> C["Model/Data Metrics: data drift, prediction distribution"]
+    B --> D{"Does the model need retraining?"}
+    C --> D
+    D -->|"Yes"| E["Model Retraining"]
+    D -->|"Data pipeline problem"| F["Fix the Data Pipeline"]
+    E --> G["Re-check / deploy the new model"]
+```
+
+**Figure walkthrough** — Production monitoring collects two kinds of signals — operational metrics and model/data metrics — and both feed the decision point. When model performance drops, retraining may follow; when data drift points to a data pipeline problem, the data pipeline is fixed instead. The figure shows that monitoring results are the basis for deciding whether to retrain.
 
 ### 6. Understanding the MLOps Lifecycle
 
@@ -545,6 +633,26 @@ Retraining when needed
 ```
 
 This workflow is not a single linear process. Feedback from production monitoring can be used to repeat the data preparation, training, evaluation and deployment stages.
+
+This loop can be seen as a figure—
+
+**Figure 3 — MLOps Lifecycle Loop**
+
+```mermaid
+flowchart TD
+    A["Data Collection"] --> B["Data Validation and Preparation"]
+    B --> C["Model Training"]
+    C --> D["Model Evaluation"]
+    D --> E["Model Registry / Versioning"]
+    E --> F["Deployment"]
+    F --> G["Production Monitoring"]
+    G --> H["Feedback / New Data"]
+    H --> I{"Is retraining needed?"}
+    I -->|"Yes"| B
+    I -->|"Not yet"| G
+```
+
+**Figure walkthrough** — Starting at the top with data collection, the stages flow downward — data validation and preparation, model training, model evaluation, model registry / versioning, deployment, production monitoring, and then feedback / new data. At the bottom decision point, when retraining is needed the path returns to data validation and preparation, so the workflow is a loop, not a single straight line. When it is not needed yet, production monitoring simply continues.
 
 A model does not need constant retraining. Retraining should depend on model performance, data drift, business requirements and defined policies.
 
@@ -643,3 +751,4 @@ Remember the kitchen analogy. A chef producing one good dish is only the beginni
 - Source material for this module is in Burmese (msg_2682.txt, module section); the English version is a faithful translation, not a word-for-word gloss. No technical claims were added beyond the source.
 - Source caveats preserved: retraining is not always automatic or necessary; deployment automation does not replace validation/approval; prediction accuracy cannot always be measured directly in production (delayed ground truth); Slurm, Kubernetes, DCGM and a Model Registry are complementary components, not a single platform.
 - The kitchen-analogy mapping and DevOps-vs-MLOps comparison were reflowed from the source transcript into Markdown tables; content is unchanged.
+- Beginner-friendly Mermaid figures (flowchart TD/LR) with captions and figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline in both language sections with matching figure numbering; existing text and ASCII diagrams are unchanged.

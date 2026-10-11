@@ -11,6 +11,24 @@ AI system တစ်ခုကို တည်ဆောက်ပြီး လု�
 - **Model Training** — Training data တွေကနေ pattern တွေကို သင်ယူပြီး model weights တွေကို update လုပ်တဲ့ အဆင့်။
 - **Model Inference** — train လုပ်ပြီးသား model ကို အသုံးပြုပြီး input အသစ်တွေအတွက် prediction ထုတ်ပေးတဲ့ အဆင့်။
 
+Workload နှစ်မျိုးရဲ့ ကွာခြားချက်ကို အောက်ပါပုံတွင် ကြည့်နိုင်ပါတယ်—
+
+**Figure 1 — Model Training နှင့် Model Inference နှိုင်းယှဉ်ခြင်း**
+
+```mermaid
+flowchart LR
+    M["တူညီသော Model Code"] --> T["Model Training"]
+    M --> I["Model Inference"]
+    T --> T1["Training data မှ pattern သင်ယူပြီး weights update"]
+    T --> T2["Bottleneck: compute-bound"]
+    T --> T3["Metric: throughput, time-to-convergence"]
+    I --> I1["Input အသစ်အတွက် prediction ထုတ်ပေး"]
+    I --> I2["Bottleneck: memory-bandwidth-bound"]
+    I --> I3["Metric: latency, TTFT, TPOT, tokens/sec"]
+```
+
+**ပုံရှင်းလင်းချက်** — ဘယ်ဘက်က တူညီတဲ့ Model Code တစ်ခုတည်းကနေ လမ်းကြောင်းနှစ်ခု ခွဲသွားတာကို မြင်ရပါမယ်။ အပေါ်ဘက် Model Training လမ်းကြောင်းမှာ weights update လုပ်ခြင်း၊ compute-bound ဖြစ်ခြင်းနဲ့ throughput ကို တိုင်းတာခြင်းတွေ ပါဝင်ပြီး၊ အောက်ဘက် Model Inference လမ်းကြောင်းမှာတော့ prediction ထုတ်ပေးခြင်း၊ memory-bandwidth-bound ဖြစ်ခြင်းနဲ့ latency metric တွေ ပါဝင်ပါတယ်။ Model code တူပေမယ့် bottleneck နဲ့ တိုင်းတာတဲ့ metric တွေ မတူတာက ဒီပုံရဲ့ အဓိကအချက် ဖြစ်ပါတယ်။
+
 Infrastructure engineer တစ်ယောက်အနေနဲ့ GPU တွေ ရွေးချယ်ဝယ်ယူတာ၊ cluster ဒီဇိုင်းဆွဲတာ၊ budget ချမှတ်တာတွေ လုပ်တဲ့အခါ ဒီ workload နှစ်မျိုးကို မခွဲခြားဘူးဆိုရင် မှားယွင်းတဲ့ ဆုံးဖြတ်ချက်တွေ ချမိတတ်ပါတယ်။ ဥပမာ — training အတွက် ကောင်းတဲ့ configuration က inference latency requirement ကို ဖြည့်ဆည်းပေးနိုင်ချင်မှ မဟုတ်သလို၊ inference အတွက် ပြည့်စုံတဲ့ sizing က training အတွက် memory မလောက်တတ်ပါဘူး။
 
 ဤ module သည် Part I ၏ မိတ်ဆက်အဆင့် ဖြစ်ပါသည်။ Training vs Inference ကို ပိုမိုနက်ရှိုင်းစွာ လေ့လာချင်ပါက **Module 35 — Model Training vs. Model Inference** ကို ဆက်လက်ဖတ်ရှုပါ။
@@ -39,6 +57,24 @@ Infrastructure engineer တစ်ယောက်အနေနဲ့ GPU တွေ
         (batch များ / epoch များ ဆက်လက်ပြန်လည်လုပ်ဆောင်)
 ```
 
+Training loop ကို Mermaid ပုံဖြင့်လည်း အောက်ပါအတိုင်း ကြည့်နိုင်ပါတယ်—
+
+**Figure 2 — Training Loop အဆင့်လေးဆင့်**
+
+```mermaid
+flowchart TD
+    A["Input Batch"] --> B["Forward Pass"]
+    B --> C["Prediction ရရှိ"]
+    B --> D["Loss Calculation"]
+    D --> E["Backward Pass"]
+    E --> F["Gradients တွက်ချက်"]
+    F --> G["Optimizer Update"]
+    G --> H["Weights ပြောင်းလဲ"]
+    H -->|"နောက် batch / epoch အတွက် ပြန်လည်"| A
+```
+
+**ပုံရှင်းလင်းချက်** — ပုံကို အပေါ်ကနေ အောက်ကို ဖတ်ပါ။ Input Batch ကနေ စပြီး Forward Pass မှာ Prediction ရ၊ Loss Calculation လုပ်၊ Backward Pass မှာ Gradients တွက်ချက်၊ Optimizer Update နဲ့ Weights ပြောင်းလဲတဲ့ အဆင့်လေးဆင့် အစဉ်လိုက် မြင်ရပါမယ်။ နောက်ဆုံး Weights ကနေ Input Batch ဆီ ပြန်သွားတဲ့ မြှားက ဒီအဆင့်တွေကို batch များစွာ၊ epoch များစွာ ကြိမ်ဖန်များစွာ ပြန်လည်လုပ်ဆောင်တာကို ရှင်းပြပါတယ်။
+
 Training အတွင်း GPU memory မှာ သိမ်းဆည်းထားရတဲ့ အရာတွေက — **weights, gradients, optimizer states နှင့် stored activations** တို့ ဖြစ်ပါတယ်။ လက်တွေ့ခန့်မှန်းချက်အနေနဲ့ mixed-precision Adam optimizer အတွက် activation များ မထည့်သေးမီ parameter တစ်ခုလျှင် ပျမ်းမျှ **~16 bytes/parameter** လောက် လိုအပ်သည်ဟု ဆိုလေ့ရှိပါတယ် (rule-of-thumb / engineering estimate သာ ဖြစ်ပါသည်)။
 
 **Inference** မှာမူ ရှေ့သို့သာ မောင်းနှင်ပါတယ် — **forward pass only**။ Gradient တွက်ချက်ခြင်းနှင့် weight update လုပ်ခြင်း မလိုအပ်ပါဘူး။ Memory မှာ **weights + runtime state** (LLM အတွက်ဆိုရင် KV cache) သာ သိမ်းဆည်းထားရပါတယ်။
@@ -47,6 +83,20 @@ Training အတွင်း GPU memory မှာ သိမ်းဆည်းထ�
 [New Input] ---> [Forward Pass] ---> [Prediction / Response]
                   (weights ပြောင်းလဲခြင်း မရှိပါ)
 ```
+
+Inference လုပ်ငန်းစဉ်ကို ပုံဖြင့် ကြည့်ရအောင်—
+
+**Figure 3 — Inference: Forward Pass Only**
+
+```mermaid
+flowchart LR
+    A["Input အသစ်"] --> B["Forward Pass သာ"]
+    B --> C["Prediction / Response"]
+    B -.->|"Backward pass နှင့် optimizer update မလိုအပ်"| D["Weights မပြောင်း"]
+    B -.-> E["Memory: weights + runtime state (LLM: KV cache)"]
+```
+
+**ပုံရှင်းလင်းချက်** — Inference မှာ Input အသစ်က Forward Pass တစ်ခုတည်း ဖြတ်သွားပြီး Prediction / Response ရတာကို မြင်ရပါတယ်။ စက်ကွင်းပျံ (dashed) မြှားတွေက Backward pass နဲ့ optimizer update မလိုအပ်တာ၊ weights မပြောင်းတာ၊ GPU memory ထဲမှာ weights + runtime state (LLM အတွက် KV cache) သာ သိမ်းရတာကို ဖြည့်စွက်ရှင်းပြပါတယ်။
 
 ### 3. Training vs Inference — နှိုင်းယှဉ်ဇယား
 
@@ -83,6 +133,21 @@ Prompt tokens:  [t1  t2  t3  ...  tN]
    | ဖတ်ရှု: t(N+1), t(N+2), ...        |
    +------------------------------------+
 ```
+
+**Figure 4 — LLM Inference: Prefill နှင့် Decode**
+
+```mermaid
+flowchart TD
+    A["Prompt tokens: t1 ... tN"] --> B["Prefill phase"]
+    B --> C["KV cache တည်ဆောက်ပြီး ပထမဆုံး output token ထုတ်"]
+    C --> D["Decode phase"]
+    D --> E["Token တစ်ခုချင်း ထုတ်ပြီး KV cache ဖတ်"]
+    E --> F["t(N+1), t(N+2), ..."]
+    B -.-> G["TTFT ကို ဤနေရာတွင် တိုင်းတာ"]
+    D -.-> H["TPOT ကို ဤနေရာတွင် တိုင်းတာ"]
+```
+
+**ပုံရှင်းလင်းချက်** — Prompt tokens တွေ ဝင်လာရင် ပထမ Prefill phase မှာ token အားလုံးကို parallel စီမံပြီး KV cache တည်ဆောက်ကာ ပထမဆုံး output token ထုတ်ပေးပါတယ်။ ပြီးမှ Decode phase မှာ token တစ်ခုချင်း ထုတ်ပြီး KV cache ကို step တိုင်း ပြန်ဖတ်ပါတယ်။ ဘယ်ဘက် dashed မြှားတွေက TTFT ကို Prefill မှာ၊ TPOT ကို Decode မှာ တိုင်းတာကြောင်း ဖော်ပြပါတယ်။
 
 ဒီ phase နှစ်ခုအတွက် latency metric တွေကို ခွဲခြားတိုင်းတာပါတယ် — **TTFT** (time-to-first-token) က prefill ကို ကိုယ်စားပြုပြီး၊ **TPOT** (time-per-output-token) က decode ကို ကိုယ်စားပြုပါတယ်။
 
@@ -146,6 +211,24 @@ When an AI system is built and put into production, two workloads dominate the G
 - **Model training** — the phase that learns patterns from training data and updates the model weights.
 - **Model inference** — the phase that uses the trained model to produce predictions for new inputs.
 
+The difference between the two workloads is shown in the following figure—
+
+**Figure 1 — Training vs Inference Comparison**
+
+```mermaid
+flowchart LR
+    M["Same model code"] --> T["Model Training"]
+    M --> I["Model Inference"]
+    T --> T1["Learns patterns, updates weights"]
+    T --> T2["Bottleneck: compute-bound"]
+    T --> T3["Metrics: throughput, time-to-convergence"]
+    I --> I1["Predicts for new inputs"]
+    I --> I2["Bottleneck: memory-bandwidth-bound"]
+    I --> I3["Metrics: latency, TTFT, TPOT, tokens/sec"]
+```
+
+**Figure walkthrough** — Start from the shared model code on the left; the path splits in two. The upper path is training: it updates weights, is compute-bound, and is measured with throughput. The lower path is inference: it only predicts, is memory-bandwidth-bound, and is measured with latency metrics. Same code, different bottlenecks and different metrics — that is the point of the figure.
+
 If you size a cluster, pick GPUs, or plan a budget without separating these two workloads, the decisions can go wrong in both directions. A configuration that is great for training may not meet inference latency requirements, and sizing that is perfect for inference may not leave enough memory for training.
 
 This module is the Part I introduction. For an in-depth treatment, continue with **Module 35 — Model Training vs. Model Inference**.
@@ -174,6 +257,24 @@ A **training loop** has four main steps — forward pass, loss calculation, back
         (repeated over many batches / epochs)
 ```
 
+The training loop can also be seen as a Mermaid figure—
+
+**Figure 2 — The Four Steps of the Training Loop**
+
+```mermaid
+flowchart TD
+    A["Input Batch"] --> B["Forward Pass"]
+    B --> C["Prediction"]
+    B --> D["Loss Calculation"]
+    D --> E["Backward Pass"]
+    E --> F["Gradients computed"]
+    F --> G["Optimizer Update"]
+    G --> H["Weights updated"]
+    H -->|"next batch / epoch"| A
+```
+
+**Figure walkthrough** — Read from top to bottom. From the input batch, the forward pass produces a prediction, the loss is calculated, the backward pass computes the gradients, and the optimizer update changes the weights — the four steps in order. The final arrow from the weights back to the input batch shows that these steps repeat over many batches and epochs.
+
 During training, GPU memory must hold **weights, gradients, optimizer states, and stored activations**. As a practical rule of thumb, mixed-precision Adam training needs on the order of **~16 bytes per parameter** before activations (this is a rule-of-thumb / engineering estimate, not a benchmark).
 
 **Inference** is forward-only: a **forward pass** and nothing else. No gradient computation, no weight updates. Memory holds **weights plus runtime state** — for LLMs, that runtime state is the KV cache.
@@ -182,6 +283,20 @@ During training, GPU memory must hold **weights, gradients, optimizer states, an
 [New Input] ---> [Forward Pass] ---> [Prediction / Response]
                   (weights stay fixed)
 ```
+
+The inference flow can be seen as a Mermaid figure—
+
+**Figure 3 — Inference: Forward Pass Only**
+
+```mermaid
+flowchart LR
+    A["New input"] --> B["Forward pass only"]
+    B --> C["Prediction / Response"]
+    B -.->|"no backward pass, no optimizer update"| D["Weights stay fixed"]
+    B -.-> E["Memory: weights + runtime state (LLM: KV cache)"]
+```
+
+**Figure walkthrough** — In inference, the new input goes through a forward pass only and produces the prediction / response. The dashed arrows add the rest: there is no backward pass and no optimizer update, the weights never change, and GPU memory only holds weights plus runtime state (for LLMs, the KV cache).
 
 ### 3. Training vs Inference — Comparison Table
 
@@ -218,6 +333,21 @@ Prompt tokens:  [t1  t2  t3  ...  tN]
    | step: t(N+1), t(N+2), ...           |
    +------------------------------------+
 ```
+
+**Figure 4 — LLM Inference: Prefill and Decode**
+
+```mermaid
+flowchart TD
+    A["Prompt tokens: t1 ... tN"] --> B["Prefill phase"]
+    B --> C["Build KV cache, emit first output token"]
+    C --> D["Decode phase"]
+    D --> E["Generate one token at a time, read KV cache"]
+    E --> F["t(N+1), t(N+2), ..."]
+    B -.-> G["TTFT is measured here"]
+    D -.-> H["TPOT is measured here"]
+```
+
+**Figure walkthrough** — When the prompt tokens arrive, the prefill phase first processes all tokens in parallel, builds the KV cache and emits the first output token. Then the decode phase generates tokens one at a time, reading the KV cache at every step. The dashed arrows on the left show where each latency metric is measured: TTFT at prefill, TPOT at decode.
 
 Latency is measured separately for each phase: **TTFT** (time-to-first-token) represents prefill, and **TPOT** (time-per-output-token) represents decode.
 
@@ -284,3 +414,4 @@ Answer — It stores the attention key/value tensors in GPU memory so each decod
 - The "~2 GB" KV cache figure is labeled exactly "NVIDIA blog example, illustrative" (7B Llama-2, FP16, batch 1, sequence length 4096) in both language versions.
 - The third Official reference URL (docs.nvidia.com DL performance training/inference page) returned HTTP 404 when checked; it is listed with a "needs verification" label rather than cited as a live source.
 - No commands, benchmark results, or hardware specifications beyond the research notes were introduced. Modules 35, 38, and 42 are cross-referenced for depth and operations, and Module 35 is explicitly named as the in-depth companion to avoid duplication.
+- Beginner-friendly Mermaid figures (flowchart TD/LR) with captions and figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline in both language sections with matching figure numbering; existing text and ASCII diagrams are unchanged.

@@ -71,6 +71,22 @@ Slurm က သတ်မှတ်ထားတဲ့ Resource Requirements, Job Pri
               Distributed Training
 ```
 
+**Figure 1 — Slurm ဖြင့် Multi-Node DGX Training ခွဲဝေမှု**
+
+```mermaid
+flowchart TD
+    A["AI Researcher"] --> B["Slurm Scheduler"]
+    B --> C["Resource Allocation"]
+    C --> D["DGX Node 1 - GPUs"]
+    C --> E["DGX Node 2 - GPUs"]
+    C --> F["DGX Node 3 - GPUs"]
+    D --> G["Distributed Training"]
+    E --> G
+    F --> G
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်က AI Researcher က Job တင်ပြီး Slurm Scheduler က Resource Requirements, Priority နဲ့ Resource Availability အပေါ် မူတည်ပြီး ခွဲဝေပေးပုံကို အောက်ကို လိုက်ကြည့်ပါ။ ခွဲဝေမှုအတိုင်း DGX Node တစ်ခုချင်းစီက ၎င်းရဲ့ GPUs နဲ့ Training Process တွေ Run ပြီး အောက်ဆုံးမှာ Distributed Training အဖြစ် ပေါင်းစပ် လုပ်ဆောင်ပါတယ်။
+
 ဤပုံမှာ Slurm က ဘယ် Nodes တွေကို Job အတွက် အသုံးပြုမလဲဆိုတာ စီမံပေးတဲ့ အယူအဆကို ပြထားပါတယ်။
 
 DGX SuperPOD ဆိုတာ DGX Servers တွေကို High-Performance Networking, Storage နဲ့ Management Infrastructure တို့နဲ့ ပေါင်းစပ်ထားတဲ့ ကြီးမားတဲ့ AI Infrastructure Architecture ဖြစ်ပါတယ်။ Slurm ကဲ့သို့ Scheduler ကို အသုံးပြုပြီး သင့်လျော်တဲ့ Training Jobs တွေကို ဒီလို Cluster များပေါ်မှာ Run လုပ်နိုင်ပါတယ်။ သို့သော် DGX SuperPOD တိုင်းမှာ Slurm ကို မဖြစ်မနေ သုံးရမယ်လို့ မဆိုလိုပါဘူး။
@@ -160,6 +176,20 @@ GPU 3 -> Local Gradients
      Model Update
 ```
 
+**Figure 2 — Distributed Training အတွက် NCCL AllReduce ကွင်းဆက်**
+
+```mermaid
+flowchart TD
+    A["GPU 0 - Local Gradients"] --> E["NCCL AllReduce"]
+    B["GPU 1 - Local Gradients"] --> E
+    C["GPU 2 - Local Gradients"] --> E
+    D["GPU 3 - Local Gradients"] --> E
+    E --> F["Synchronized Gradients"]
+    F --> G["Model Update"]
+```
+
+**ပုံရှင်းလင်းချက်** — ဘယ်ဘက်က GPU လေးခုစလုံးက မိမိ Mini-batch အတွက် Local Gradients တွေ တွက်ထားပါတယ်။ အလယ်က NCCL AllReduce က ထို Gradients တွေကို စုစည်း Reduce လုပ်ပြီး Synchronized Gradients ဖြစ်အောင် လုပ်ပေးပါတယ်။ အောက်ဆုံးမှာ ထို Result ဖြင့် Model Parameters ကို Model Update အဖြစ် ပြင်ဆင်နိုင်ပါတယ်။
+
 NCCL က Communication Operations တွေကို ပံ့ပိုးပေးပြီး အသုံးပြုနိုင်တဲ့ Hardware နဲ့ Software Configuration အပေါ်မူတည်ကာ NVLink, PCIe သို့မဟုတ် Network Transports တွေကို အသုံးချနိုင်ပါတယ်။
 
 Slurm က NCCL ကို အစားထိုးတာ မဟုတ်သလို NCCL က Slurm ကို အစားထိုးတာလည်း မဟုတ်ပါဘူး။ Slurm က Job ကို Schedule လုပ်ပြီး NCCL က Distributed Training Processes တွေအကြား Data Communication ကို ကူညီပေးပါတယ်။
@@ -202,6 +232,20 @@ Remote Network Adapter
     v
 Remote GPU Memory
 ```
+
+**Figure 3 — Traditional Data Path နှင့် GPUDirect RDMA Path**
+
+```mermaid
+flowchart LR
+    A["GPU Memory"] -->|"Traditional Path"| B["Host Memory"]
+    B --> C["Network Adapter"]
+    C --> D["Remote Network"]
+    A -->|"GPUDirect RDMA Path"| E["Compatible Network Adapter"]
+    E --> F["High-Speed Network"]
+    F --> G["Remote GPU Memory"]
+```
+
+**ပုံရှင်းလင်းချက်** — ပုံမှာ လမ်းကြောင်းနှစ်ခုကို နှိုင်းယှဉ်ပြထားပါတယ်။ အပေါ် Traditional Path မှာ Data က GPU Memory → Host Memory → Network Adapter ကို ဖြတ်သန်းရပါတယ်။ အောက် GPUDirect RDMA Path မှာတော့ GPU Memory ကနေ Compatible Network Adapter ကို တိုက်ရိုက်သွားပြီး High-Speed Network မှတစ်ဆင့် Remote GPU Memory အထိ ပိုမိုတိုက်ရိုက် ရောက်ရှိနိုင်ပါတယ်။
 
 GPUDirect RDMA ရဲ့ အကျိုးကျေးဇူးတွေက—
 
@@ -248,6 +292,18 @@ NVIDIA Device Plugin က GPU Resources တွေကို Kubernetes က အသ�
 
 ဥပမာ GPU-enabled Node တစ်ခုမှာ GPU 4 ခု ရှိတယ်ဆိုပါစို့။ Kubernetes က `nvidia.com/gpu` ကဲ့သို့ Resource Name နဲ့ GPU Resources တွေကို ကြေညာနိုင်ပါတယ်။
 
+**Figure 4 — Device Plugin ဖြင့် Kubernetes GPU Scheduling**
+
+```mermaid
+flowchart TD
+    A["NVIDIA Device Plugin"] --> B["Node Advertises nvidia.com/gpu"]
+    B --> C["Kubernetes Scheduler"]
+    C --> D["Pod Requests GPU"]
+    D --> E["GPU Allocated to Pod"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်က NVIDIA Device Plugin က GPU ကို `nvidia.com/gpu` ကဲ့သို့ Resource Name နဲ့ Node ပေါ်မှာ ကြေညာပေးပါတယ်။ ထို့နောက် Kubernetes Scheduler က GPU တောင်းဆိုထားတဲ့ Pod ကို သင့်တော်တဲ့ Node ပေါ် နေရာချပြီး အောက်ဆုံးမှာ GPU ကို Pod အတွက် ခွဲဝေပေးပါတယ်။
+
 အောက်ပါ YAML က ဥပမာတစ်ခု ဖြစ်ပါတယ်။
 
 ```yaml
@@ -293,6 +349,17 @@ Prometheus
     v
 Grafana Dashboards
 ```
+
+**Figure 5 — DCGM Exporter မှ Grafana အထိ GPU Monitoring Chain**
+
+```mermaid
+flowchart LR
+    A["NVIDIA GPU"] --> B["DCGM Exporter"]
+    B --> C["Prometheus"]
+    C --> D["Grafana Dashboards"]
+```
+
+**ပုံရှင်းလင်းချက်** — ဘယ်ဘက်က NVIDIA GPU ကနေ DCGM Exporter က GPU Metrics တွေ စုဆောင်းပြီး Prometheus ဆီ ပို့ပါတယ်။ Prometheus က သိမ်းဆည်းထားတဲ့ GPU Utilization, Memory Usage, Temperature စတဲ့ Metrics တွေကို နောက်ဆုံးမှာ Grafana Dashboards မှာ ကြည့်ရှုနိုင်ပါတယ်။ ဒီကွင်းဆက်က Monitoring အတွက်သာဖြစ်ပြီး Kubernetes Scheduler ရဲ့ ဆုံးဖြတ်ချက် မဟုတ်ပါဘူး။
 
 ဤ Architecture က GPU Utilization, Memory Usage, Temperature နဲ့ အခြား Metrics တွေကို ကြည့်ရှုနိုင်စေပါတယ်။
 
@@ -451,6 +518,22 @@ Slurm can schedule jobs based on the specified resource requirements, job priori
               Distributed Training
 ```
 
+**Figure 1 — Multi-Node DGX Training Allocation with Slurm**
+
+```mermaid
+flowchart TD
+    A["AI Researcher"] --> B["Slurm Scheduler"]
+    B --> C["Resource Allocation"]
+    C --> D["DGX Node 1 - GPUs"]
+    C --> E["DGX Node 2 - GPUs"]
+    C --> F["DGX Node 3 - GPUs"]
+    D --> G["Distributed Training"]
+    E --> G
+    F --> G
+```
+
+**Figure walkthrough** — At the top, the AI Researcher submits a Job and the Slurm Scheduler allocates resources based on resource requirements, job priority, and resource availability. Follow the arrows down: each DGX Node runs its training processes with its own GPUs, and at the bottom they join into one Distributed Training run.
+
 This diagram shows the concept of Slurm deciding which nodes are used for a job.
 
 A DGX SuperPOD is a large AI infrastructure architecture that combines DGX servers with high-performance networking, storage and management infrastructure. Suitable training jobs can be run on such clusters with a scheduler such as Slurm. However, this does not mean that every DGX SuperPOD must use Slurm.
@@ -540,6 +623,20 @@ GPU 3 -> Local Gradients
      Model Update
 ```
 
+**Figure 2 — NCCL AllReduce Chain for Distributed Training**
+
+```mermaid
+flowchart TD
+    A["GPU 0 - Local Gradients"] --> E["NCCL AllReduce"]
+    B["GPU 1 - Local Gradients"] --> E
+    C["GPU 2 - Local Gradients"] --> E
+    D["GPU 3 - Local Gradients"] --> E
+    E --> F["Synchronized Gradients"]
+    F --> G["Model Update"]
+```
+
+**Figure walkthrough** — On the left, each of the four GPUs computes its own Local Gradients for its mini-batch. In the middle, NCCL AllReduce combines those Gradients and produces Synchronized Gradients. At the bottom, that result is used for the Model Update of the model parameters.
+
 NCCL provides the communication operations and can use NVLink, PCIe or network transports depending on the available hardware and software configuration.
 
 Slurm does not replace NCCL, and NCCL does not replace Slurm. Slurm schedules jobs; NCCL helps with data communication between distributed training processes.
@@ -582,6 +679,20 @@ Remote Network Adapter
     v
 Remote GPU Memory
 ```
+
+**Figure 3 — Traditional Data Path vs. GPUDirect RDMA Path**
+
+```mermaid
+flowchart LR
+    A["GPU Memory"] -->|"Traditional Path"| B["Host Memory"]
+    B --> C["Network Adapter"]
+    C --> D["Remote Network"]
+    A -->|"GPUDirect RDMA Path"| E["Compatible Network Adapter"]
+    E --> F["High-Speed Network"]
+    F --> G["Remote GPU Memory"]
+```
+
+**Figure walkthrough** — The figure compares two paths. On the upper Traditional Path, data travels from GPU Memory through Host Memory to the Network Adapter. On the lower GPUDirect RDMA Path, the Compatible Network Adapter accesses GPU Memory more directly and reaches Remote GPU Memory over the High-Speed Network.
 
 Benefits of GPUDirect RDMA—
 
@@ -628,6 +739,18 @@ The NVIDIA Device Plugin helps Kubernetes recognize and allocate GPU resources.
 
 For example, suppose a GPU-enabled node has four GPUs. Kubernetes can advertise GPU resources with a resource name such as `nvidia.com/gpu`.
 
+**Figure 4 — Kubernetes GPU Scheduling with the Device Plugin**
+
+```mermaid
+flowchart TD
+    A["NVIDIA Device Plugin"] --> B["Node Advertises nvidia.com/gpu"]
+    B --> C["Kubernetes Scheduler"]
+    C --> D["Pod Requests GPU"]
+    D --> E["GPU Allocated to Pod"]
+```
+
+**Figure walkthrough** — At the top, the NVIDIA Device Plugin advertises the GPU on the Node under a resource name such as `nvidia.com/gpu`. Then the Kubernetes Scheduler places a Pod that requests a GPU on a suitable Node, and at the bottom the GPU is allocated to that Pod.
+
 The following YAML is an example.
 
 ```yaml
@@ -673,6 +796,17 @@ Prometheus
     v
 Grafana Dashboards
 ```
+
+**Figure 5 — GPU Monitoring Chain from DCGM Exporter to Grafana**
+
+```mermaid
+flowchart LR
+    A["NVIDIA GPU"] --> B["DCGM Exporter"]
+    B --> C["Prometheus"]
+    C --> D["Grafana Dashboards"]
+```
+
+**Figure walkthrough** — On the left, DCGM Exporter collects GPU Metrics from the NVIDIA GPU and sends them to Prometheus. Prometheus stores metrics such as GPU utilization, memory usage, and temperature, and at the end you can view them in Grafana Dashboards. This chain is for monitoring only — it is not a Kubernetes Scheduler decision.
 
 This architecture makes GPU utilization, memory usage, temperature and other metrics visible.
 
@@ -769,3 +903,4 @@ Key takeaway — GPU monitoring, job scheduling, collective communication and GP
 - The YAML example and all diagrams are reproduced from the source; `your-registry/your-inference-image:latest` is a placeholder as stated in the source.
 - The content following the `#SBATCH` example (Slurm commands, DCGM, NCCL, GPUDirect RDMA, Kubernetes sections, and the review questions/summary) is the same module continuing after the job-script example in both a Burmese detailed section and its English version, so the current bilingual structure is kept and section numbering continues unchanged.
 - Caveats preserved from source: monitoring ≠ scheduling; DCGM does not move jobs automatically; GPUDirect RDMA does not eliminate the CPU; GPU Operator does not necessarily install the full CUDA Toolkit; MIG is not supported on all GPUs; no default automatic GPU load balancing or live migration is assumed; NGC Registry is not a complete Model Registry; BCM (Base Command Manager) is not the same as Base Command Platform.
+- Beginner-friendly Mermaid figures (Figure 1–5) with figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline in both the Myanmar and English sections, with matching figure numbering; all existing text, tables, and ASCII diagrams are unchanged.

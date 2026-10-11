@@ -73,6 +73,18 @@ Enterprise AI Applications
 
 ဒီ diagram က conceptual view ဖြစ်ပါတယ်။ Actual deployment မှာ component အချို့က container အတွင်း၊ host ပေါ် သို့မဟုတ် Kubernetes cluster ထဲမှာ run လုပ်နိုင်ပါတယ်။
 
+**Figure 1 — NVIDIA AI Enterprise ရဲ့ နေရာ (layer အလိုက်)**
+
+```mermaid
+flowchart TD
+    A["Enterprise AI Applications - Chatbots, Vision, Recommendation, Agents"] --> B["NVIDIA AI Enterprise Software Platform - AI Frameworks, NIM, NeMo, GPU Management"]
+    B --> C["NVIDIA GPU Drivers and Runtime Components"]
+    C --> D["Operating System - Linux / supported OS"]
+    D --> E["Physical Infrastructure - GPU, CPU, RAM, Storage, Network"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 1):** ဒီပုံက AI Enterprise ဟာ operating system မဟုတ်ဘူးဆိုတာကို ရှင်းပြပါတယ်။ အောက်ဆုံးမှာ physical infrastructure (GPU, CPU, RAM, storage, network) ရှိပြီး အပေါ်မှာ operating system (Linux) ရှိပါတယ်။ GPU drivers တွေက အဲဒီ OS ပေါ်မှာ တက်လာပြီး NVIDIA AI Enterprise software platform က drivers ပေါ်မှာ ထပ်တက်လာပါတယ်။ အပေါ်ဆုံးမှာတော့ chatbot လို enterprise AI applications တွေ ရှိပါတယ်။ ဆိုလိုတာက AI Enterprise ဟာ OS ပေါ်မှာ run တဲ့ software platform ဖြစ်ပြီး OS တစ်ခု မဟုတ်ပါဘူး။
+
 အဓိကမှတ်ရန် — AI Enterprise က operating system တစ်ခုတည်း မဟုတ်ဘဲ enterprise AI lifecycle ကို ပံ့ပိုးပေးတဲ့ software platform ဖြစ်ပါတယ်။
 
 ## 3. NVIDIA AI Enterprise Architecture
@@ -94,6 +106,25 @@ NVIDIA ရဲ့ လက်ရှိ documentation မှာ AI Enterprise softwa
 | Storage / Networking                         |
 +----------------------------------------------+
 ```
+
+**Figure 2 — AI Enterprise ရဲ့ Application Development နဲ့ Infrastructure Management layers**
+
+```mermaid
+flowchart TD
+    AD["Application Development Layer"] --> NIM["NVIDIA NIM - inference microservices"]
+    AD --> NeMo["NVIDIA NeMo - model နဲ့ agent development"]
+    AD --> FW["PyTorch, TensorFlow, CUDA-X libraries"]
+    IM["Infrastructure Management Layer"] --> DRV["GPU drivers"]
+    IM --> OP["NVIDIA GPU Operator"]
+    IM --> RUNAI["NVIDIA Run:ai"]
+    IM --> BCM["NVIDIA Base Command Manager"]
+    IM --> PART["vGPU / MIG"]
+    AD --> IM
+    IM --> OS["Compatible operating system"]
+    OS --> HW["GPU servers, DGX systems, cloud instances"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 2):** အပေါ်က Application Development Layer မှာ AI application တည်ဆောက်ဖို့ NIM, NeMo နဲ့ AI frameworks တွေ ပါပါတယ်။ အောက်က Infrastructure Management Layer မှာတော့ ၎င်းတို့ run မယ့် infrastructure ကို စီမံမယ့် GPU drivers, GPU Operator, Run:ai, Base Command Manager နဲ့ vGPU / MIG တို့ ပါပါတယ်။ နောက်ဆုံးမှာ OS နဲ့ GPU servers / DGX / cloud instances တွေပေါ် မှီခိုပါတယ်။ Deployment တိုင်းမှာ ဒီ components အားလုံး မလိုအပ်ဘဲ လိုအပ်တာကိုသာ ရွေးချယ် အသုံးပြုပါတယ်။
 
 | Layer | ရည်ရွယ်ချက် | ဥပမာ Components |
 |---|---|---|
@@ -160,6 +191,17 @@ NIM နဲ့ NeMo ကို ခွဲခြားမှတ်ထားပါ။
 - **NIM** — Supported models တွေကို inference microservices အဖြစ် deploy လုပ်ဖို့ ပံ့ပိုးပေးတယ်။
 
 ဒီနှစ်ခုကို project တစ်ခုတည်းမှာလည်း သက်ဆိုင်ရာ workflow အလိုက် အသုံးပြုနိုင်ပါတယ်။
+
+**Figure 3 — NeMo နဲ့ NIM ရဲ့ ဆက်စပ်မှု**
+
+```mermaid
+flowchart LR
+    A["Model နဲ့ AI workflow development / customization - NeMo"] --> B["Customized သို့မဟုတ် supported model"]
+    B --> C["Inference microservice အဖြစ် deploy - NIM"]
+    C --> D["Enterprise application က API နဲ့ ခေါ်သုံးသည်"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 3):** ဘယ်ဘက်မှာ NeMo က model ကို develop / customize လုပ်တဲ့ အဆင့်ကို ကိုင်တွယ်ပါတယ်။ ရလာတဲ့ model ကို ညာဘက်မှာ NIM က inference microservice အဖြစ် deploy လုပ်ပေးပါတယ်။ နောက်ဆုံးမှာ enterprise application က API ကတစ်ဆင့် ခေါ်သုံးနိုင်ပါတယ်။ NeMo က တည်ဆောက်ခြင်းကို ပံ့ပိုးပြီး NIM က serve လုပ်ခြင်းကို ပံ့ပိုးတာဖြစ်လို့ project တစ်ခုတည်းမှာ workflow အလိုက် နှစ်ခုစလုံးကို အသုံးပြုနိုင်ပါတယ်။
 
 **4.3 AI Frameworks and Libraries**
 
@@ -305,6 +347,22 @@ Applications and Business Workflows
 
 ဒီ process ကို support လုပ်ဖို့ compute, storage, networking, software နဲ့ operations တို့ကို ပေါင်းစပ်ထားပါတယ်။
 
+**Figure 4 — AI Factory ရဲ့ data ကနေ AI outputs အထိ စီးဆင်းမှု**
+
+```mermaid
+flowchart TD
+    A["Data Sources"] --> B["Data Processing"]
+    B --> C["AI Training / Model Customization"]
+    C --> D["Model Deployment and Inference"]
+    D --> E["AI Outputs / Predictions / Generated Content"]
+    E --> F["Applications and Business Workflows"]
+    G["GPU compute, networking, storage, software, operations"] --> B
+    G --> C
+    G --> D
+```
+
+**ပုံရှင်းလင်းချက် (Figure 4):** ဘယ်ဘက်အပေါ်က data sources ကစပြီး data processing, training / model customization, deployment and inference ဆိုပြီး အဆင့်ဆင့် ဆင်းသွားပါတယ်။ အဲဒီကနေ AI outputs (predictions သို့မဟုတ် generated content) ထွက်လာပြီး business workflows ထဲ ရောက်သွားပါတယ်။ အောက်က GPU compute, networking, storage, software နဲ့ operations node က အလယ်က အဆင့်တွေ အားလုံးကို ပံ့ပိုးပေးပါတယ် — ဒါက AI Factory မှာ infrastructure တစ်ခုလုံး ပေါင်းစပ် ပါဝင်တယ်ဆိုတာ ဖြစ်ပါတယ်။
+
 **AI Enterprise vs AI Factory**
 
 | NVIDIA AI Enterprise | NVIDIA AI Factory |
@@ -317,6 +375,20 @@ Applications and Business Workflows
 အဓိကကွာခြားချက်က AI Enterprise ဟာ software platform ဖြစ်ပြီး AI Factory ဟာ hardware, software, data, workflows နဲ့ operations တွေကို ပေါင်းစပ်ထားတဲ့ ပိုမိုကျယ်ပြန့်တဲ့ AI production system concept ဖြစ်တယ် ဆိုတာပါ။
 
 ဒီနှစ်ခုဟာ အပြိုင်အဆိုင်ရွေးချယ်ရမယ့် products နှစ်ခု မဟုတ်ပါဘူး။ NVIDIA AI Enterprise ကို AI Factory architecture တစ်ခုရဲ့ software foundation အဖြစ် အသုံးပြုနိုင်ပါတယ်။
+
+**Figure 5 — NVIDIA AI Enterprise နဲ့ NVIDIA AI Factory ရဲ့ ဆက်နွယ်မှု**
+
+```mermaid
+flowchart TD
+    F["NVIDIA AI Factory - end-to-end AI production system"] --> S["NVIDIA AI Enterprise - software platform foundation"]
+    F --> H["GPU compute နဲ့ high-performance networking"]
+    F --> D["Storage နဲ့ data pipelines"]
+    F --> O["Monitoring, operations, security နဲ့ governance"]
+    S --> AD["Application development software - NIM, NeMo, frameworks"]
+    S --> IM["Infrastructure management software - GPU Operator, Run:ai, BCM"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 5):** အပေါ်ဆုံးက AI Factory ဆိုတာ data ကို AI outputs အဖြစ် ပြောင်းပေးတဲ့ production system တစ်ခုလုံး ဖြစ်ပါတယ်။ ၎င်းရဲ့ အောက်မှာ AI Enterprise က software foundation အနေနဲ့ ပါဝင်ပြီး GPU compute, networking, storage / data pipelines နဲ့ operations တွေနဲ့ ပေါင်းစပ်ပါတယ်။ အောက်ဆုံးနှစ်ခုကတော့ AI Enterprise ရဲ့ software components တွေ ဖြစ်ပါတယ်။ ဒါကြောင့် AI Enterprise နဲ့ AI Factory ဟာ ရွေးချယ်ရမယ့် ပြိုင်ဖက် products နှစ်ခု မဟုတ်ဘဲ AI Factory ထဲမှာ AI Enterprise ကို software foundation အဖြစ် အသုံးပြုတဲ့ ဆက်နွယ်မှု ဖြစ်ပါတယ်။
 
 ## 9. Practical Enterprise Scenario
 
@@ -508,6 +580,18 @@ Enterprise AI Applications
 
 This diagram is a conceptual view. In an actual deployment, some components may run inside containers, on a host, or inside a Kubernetes cluster.
 
+**Figure 1 — Where NVIDIA AI Enterprise sits (layer by layer)**
+
+```mermaid
+flowchart TD
+    A["Enterprise AI Applications - Chatbots, Vision, Recommendation, Agents"] --> B["NVIDIA AI Enterprise Software Platform - AI Frameworks, NIM, NeMo, GPU Management"]
+    B --> C["NVIDIA GPU Drivers and Runtime Components"]
+    C --> D["Operating System - Linux / supported OS"]
+    D --> E["Physical Infrastructure - GPU, CPU, RAM, Storage, Network"]
+```
+
+**Figure 1 walkthrough:** This figure explains that AI Enterprise is not an operating system. At the bottom is the physical infrastructure (GPU, CPU, RAM, storage, network); above it sits the operating system (Linux). The GPU drivers run on that OS, and the NVIDIA AI Enterprise software platform sits on top of the drivers. At the very top are enterprise AI applications such as chatbots. In other words, AI Enterprise is a software platform that runs on an OS — not an OS itself.
+
 The key point: AI Enterprise is not a single operating system — it is a software platform that supports the enterprise AI lifecycle.
 
 ## 3. NVIDIA AI Enterprise Architecture
@@ -529,6 +613,25 @@ In NVIDIA's current documentation, the AI Enterprise software platform is organi
 | Storage / Networking                         |
 +----------------------------------------------+
 ```
+
+**Figure 2 — The Application Development and Infrastructure Management layers of AI Enterprise**
+
+```mermaid
+flowchart TD
+    AD["Application Development Layer"] --> NIM["NVIDIA NIM - inference microservices"]
+    AD --> NeMo["NVIDIA NeMo - model and agent development"]
+    AD --> FW["PyTorch, TensorFlow, CUDA-X libraries"]
+    IM["Infrastructure Management Layer"] --> DRV["GPU drivers"]
+    IM --> OP["NVIDIA GPU Operator"]
+    IM --> RUNAI["NVIDIA Run:ai"]
+    IM --> BCM["NVIDIA Base Command Manager"]
+    IM --> PART["vGPU / MIG"]
+    AD --> IM
+    IM --> OS["Compatible operating system"]
+    OS --> HW["GPU servers, DGX systems, cloud instances"]
+```
+
+**Figure 2 walkthrough:** The top Application Development layer holds the components for building AI applications: NIM, NeMo, and AI frameworks. Below it, the Infrastructure Management layer manages the infrastructure they run on: GPU drivers, the GPU Operator, Run:ai, Base Command Manager, and vGPU / MIG. Everything rests on the operating system and on GPU servers, DGX systems, or cloud instances. Not every deployment needs every component — select only what the workload requires.
 
 | Layer | Purpose | Example Components |
 |---|---|---|
@@ -595,6 +698,17 @@ Keep NIM and NeMo distinct.
 - **NIM** — supports deploying supported models as inference microservices.
 
 Both can also be used within the same project, according to the relevant workflow.
+
+**Figure 3 — How NeMo and NIM relate**
+
+```mermaid
+flowchart LR
+    A["Model and AI workflow development / customization - NeMo"] --> B["Customized or supported model"]
+    B --> C["Deploy as an inference microservice - NIM"]
+    C --> D["Enterprise application calls it through an API"]
+```
+
+**Figure 3 walkthrough:** On the left, NeMo handles the stage of developing or customizing the model. The resulting model is deployed as an inference microservice by NIM on the right. Finally, an enterprise application calls it through an API. NeMo supports building; NIM supports serving — so both can be used in the same project according to the workflow.
 
 **4.3 AI Frameworks and Libraries**
 
@@ -738,6 +852,22 @@ Applications and Business Workflows
 
 To support this process, compute, storage, networking, software, and operations are combined.
 
+**Figure 4 — Data-to-AI-output flow in an AI Factory**
+
+```mermaid
+flowchart TD
+    A["Data Sources"] --> B["Data Processing"]
+    B --> C["AI Training / Model Customization"]
+    C --> D["Model Deployment and Inference"]
+    D --> E["AI Outputs / Predictions / Generated Content"]
+    E --> F["Applications and Business Workflows"]
+    G["GPU compute, networking, storage, software, operations"] --> B
+    G --> C
+    G --> D
+```
+
+**Figure 4 walkthrough:** Starting from data sources at the top left, the flow descends through data processing, training / model customization, and deployment and inference. From there AI outputs (predictions or generated content) come out and enter business workflows. The bottom node — GPU compute, networking, storage, software, and operations — supports every middle stage; that is what "the whole infrastructure is combined" means in an AI Factory.
+
 **AI Enterprise vs AI Factory**
 
 | NVIDIA AI Enterprise | NVIDIA AI Factory |
@@ -750,6 +880,20 @@ To support this process, compute, storage, networking, software, and operations 
 The key difference is that AI Enterprise is a software platform, while AI Factory is a broader AI production-system concept that combines hardware, software, data, workflows, and operations.
 
 These are not two competing products to choose between. NVIDIA AI Enterprise can be used as the software foundation of an AI Factory architecture.
+
+**Figure 5 — How NVIDIA AI Enterprise and NVIDIA AI Factory relate**
+
+```mermaid
+flowchart TD
+    F["NVIDIA AI Factory - end-to-end AI production system"] --> S["NVIDIA AI Enterprise - software platform foundation"]
+    F --> H["GPU compute and high-performance networking"]
+    F --> D["Storage and data pipelines"]
+    F --> O["Monitoring, operations, security and governance"]
+    S --> AD["Application development software - NIM, NeMo, frameworks"]
+    S --> IM["Infrastructure management software - GPU Operator, Run:ai, BCM"]
+```
+
+**Figure 5 walkthrough:** At the top, the AI Factory is the whole production system that turns data into AI outputs. Below it, AI Enterprise serves as the software foundation, combined with GPU compute, networking, storage / data pipelines, and operations. The bottom two nodes are AI Enterprise's own software components. So AI Enterprise and AI Factory are not competing products to choose between — an AI Factory architecture can use AI Enterprise as its software foundation.
 
 ## 9. Practical Enterprise Scenario
 
@@ -878,3 +1022,4 @@ The most important point is to understand NVIDIA AI Enterprise not as a single o
 - The support-matrix URL in the source points to the release-8 docs path (`.../release-8/latest/support/support-matrix.html`); if you follow it for a newer release, verify the current path (needs verification).
 - Source transcript for this module is labeled "Burmese Version"; the English Version here is a faithful technical translation of the same content, with diagrams and exam items preserved verbatim.
 - Product scope statements (e.g., NIM service types, NeMo use cases, Run:ai/BCM capabilities) are reproduced at the source's level of generality; exact component availability varies by release and license.
+- Beginner-friendly Mermaid figures (Figure 1–5) with figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline in both the Myanmar and English sections; all existing text and ASCII diagrams are unchanged.

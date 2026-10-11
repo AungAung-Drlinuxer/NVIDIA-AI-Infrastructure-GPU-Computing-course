@@ -34,6 +34,19 @@ Temporal partitioning (time slicing)          Spatial partitioning (MIG)
 +------------------------------------+        +------------------+-----------------+
 ```
 
+**ပုံ ၁ (Figure 1) — Temporal partitioning နှင့် Spatial partitioning ကွာခြားပုံ**
+
+```mermaid
+flowchart TD
+    GPU["Physical GPU"] --> T["Temporal partitioning (time slicing)"]
+    T --> V["VM1 → VM2 → VM3 အချိန်အလိုက် အလှည့်ကျ (memory မခွဲဝေ)"]
+    GPU --> S["Spatial partitioning (MIG)"]
+    S --> I1["GPU Instance 1 (dedicated SMs + memory)"]
+    S --> I2["GPU Instance 2 (dedicated SMs + memory)"]
+```
+
+**ပုံရှင်းလင်းချက်** — ပုံမှာ physical GPU တစ်လုံးကို မျှဝေတဲ့ အယူအဆ နှစ်ခုကို ယှဉ်ပြထားပါတယ်။ Temporal partitioning မှာ VM တွေက GPU pipeline ကို အချိန်အလိုက် အလှည့်ကျ သုံးကြပြီး memory ကို hardware အဆင့် မခွဲဝေပါဘူး။ Spatial partitioning (MIG) မှာတော့ GPU ကို hardware အဆင့်ကနေ instances တွေအဖြစ် ခွဲပြီး instance တစ်ခုချင်းစီကို dedicated SMs နဲ့ memory ပေးထားပါတယ်။
+
 ### 2.2 အသုံးအနှုန်းများ (Terminology)
 
 - **GPU passthrough (PCI passthrough)** — Physical GPU တစ်လုံးလုံးကို VM တစ်ခုတည်းထံ သီးသန့် ပေးအပ်ခြင်း။
@@ -47,6 +60,22 @@ Temporal partitioning (time slicing)          Spatial partitioning (MIG)
 ## 3. GPU Sharing Approaches များ
 
 အောက်ပါ approach ငါးခုက လက်တွေ့မှာ တွေ့ရများတဲ့ နည်းလမ်းတွေ ဖြစ်ပါတယ်။
+
+**ပုံ ၂ (Figure 2) — Passthrough၊ vGPU နှင့် MIG ဖြင့် GPU ခွဲဝေပုံ သုံးမျိုး**
+
+```mermaid
+flowchart TD
+    GPU["Physical GPU"] --> P["Passthrough — VM တစ်ခုတည်းက GPU တစ်လုံးလုံး ရယူ"]
+    GPU --> V["vGPU — Virtual GPU Manager ဖြင့် VM များစွာ မျှဝေ"]
+    V --> VM1["VM 1"]
+    V --> VM2["VM 2"]
+    V --> VM3["VM 3 ..."]
+    GPU --> M["MIG — hardware instances များအဖြစ် ခွဲဝေ"]
+    M --> MI1["MIG Instance 1"]
+    M --> MI2["MIG Instance 2"]
+```
+
+**ပုံရှင်းလင်းချက်** — ပုံမှာ physical GPU တစ်လုံးကို ခွဲဝေတဲ့ နည်းလမ်း သုံးမျိုးကို မြင်ရပါတယ် — passthrough မှာ VM တစ်ခုတည်းက GPU တစ်လုံးလုံးကို သီးသန့်ရပြီး၊ vGPU မှာ hypervisor အဆင့်က Virtual GPU Manager ကတစ်ဆင့် VM များစွာ အချိန်အလိုက် မျှဝေကြပြီး၊ MIG မှာတော့ GPU chip ကို hardware instances တွေအဖြစ် ခွဲထားလို့ instance တစ်ခုချင်းစီက mini-GPU လို ဖြစ်သွားပါတယ်။
 
 ### 3.1 GPU Passthrough (PCI Passthrough)
 
@@ -106,6 +135,18 @@ Time-sliced vGPU မှာ အဓိက component နှစ်ခု ပါဝ�
 1. **NVIDIA Virtual GPU Manager** — Hypervisor (vSphere, Citrix Hypervisor, KVM စသည် — သက်ဆိုင်ရာ release notes အလိုက် စစ်ဆေးပါ) အဆင့်မှာ တပ်ဆင်ပြီး၊ physical GPU ကို VM များစွာကြား ခွဲဝေ စီမံပါတယ်။ VM တစ်ခုချင်းစီကို GPU pipeline အသုံးပြုခွင့်ကို အချိန်အလိုက် အလှည့်ကျ ပေးပါတယ် (vGPU scheduler က round-robin ပုံစံ အလှည့်ကျ စီမံပါတယ် — KB မှာ best-effort က default scheduler ဖြစ်ကြောင်း ဖော်ပြထားပါတယ်)။
 2. **Guest VM drivers** — VM တစ်ခုချင်းစီအတွင်းမှာ NVIDIA guest driver များ တပ်ဆင်ရပါတယ်။ VM အတွက် vGPU device က normal GPU device တစ်ခုလို မြင်ရပြီး၊ application များက ပုံမှန်အတိုင်း CUDA/driver stack ကို အသုံးပြုနိုင်ပါတယ်။
 
+**ပုံ ၃ (Figure 3) — Virtual GPU Manager နှင့် guest drivers ပေါင်းစပ်အလုပ်လုပ်ပုံ**
+
+```mermaid
+flowchart TD
+    HV["Hypervisor"] --> M["NVIDIA Virtual GPU Manager"]
+    M -->|"round-robin turns on the GPU pipeline"| VM1["VM 1 + guest driver"]
+    M --> VM2["VM 2 + guest driver"]
+    M --> VM3["VM 3 + guest driver"]
+```
+
+**ပုံရှင်းလင်းချက်** — ပုံမှာ hypervisor အဆင့်က NVIDIA Virtual GPU Manager က physical GPU ကို စီမံပြီး VM တွေကို GPU pipeline အသုံးပြုခွင့်ကို round-robin အလှည့်ကျ ပေးပုံကို ပြထားပါတယ်။ VM တစ်ခုချင်းစီထဲမှာ guest driver သီးခြား တပ်ဆင်ထားပြီး၊ VM အတွက် vGPU device က normal GPU device တစ်ခုလို မြင်ရလို့ application တွေက ပုံမှန် CUDA/driver stack ဖြင့် အလုပ်လုပ်နိုင်ပါတယ်။
+
 vGPU profile များကို graphics (A/B/Q series) နဲ့ compute အလိုက် ရွေးချယ်နိုင်ပြီး၊ သက်ဆိုင်ရာ vGPU license လိုအပ်ပါတယ်။
 
 ### 4.2 MIG Slices
@@ -118,6 +159,20 @@ MIG mode ဖွင့်ထားတဲ့ GPU မှာ chip ကို GPU inst
 ရရှိပါတယ်။ ဒါကြောင့် instance တစ်ခုရဲ့ workload က နောက် instance ကို memory, fault သို့မဟုတ် performance ပိုင်း သက်ရောက်မှု မရှိစေပါဘူး။ Instance တစ်ခုချင်းစီက mini-GPU တစ်လုံးလို မြင်ရပါတယ်။
 
 MIG instance အရေအတွက်နဲ့ profile ပေါင်းစပ်မှုက GPU model နဲ့ supported configuration ပေါ် မူတည်ပါတယ်။
+
+**ပုံ ၄ (Figure 4) — MIG mode မှာ GPU chip ကို instances များအဖြစ် ခွဲဝေပုံ**
+
+```mermaid
+flowchart TD
+    GPU["Physical GPU (MIG mode)"] --> I1["GPU Instance 1"]
+    GPU --> I2["GPU Instance 2"]
+    I1 --> R1["dedicated SMs"]
+    I1 --> M1["dedicated memory + bandwidth"]
+    I2 --> R2["dedicated SMs"]
+    I2 --> M2["dedicated memory + bandwidth"]
+```
+
+**ပုံရှင်းလင်းချက်** — MIG mode ဖွင့်ထားတဲ့ GPU မှာ chip ကို GPU instances တွေအဖြစ် ခွဲပြီး instance တစ်ခုချင်းစီကို dedicated SMs၊ memory နဲ့ memory bandwidth ပေးထားပါတယ်။ ဒါကြောင့် instance တစ်ခုရဲ့ workload က နောက် instance ကို memory, fault သို့မဟုတ် performance ပိုင်း သက်ရောက်မှု မရှိစေဘဲ instance တစ်ခုချင်းစီက mini-GPU တစ်လုံးလို မြင်ရပါတယ်။
 
 ### 4.3 Kubernetes Time-Slicing ConfigMap
 
@@ -223,6 +278,19 @@ Temporal partitioning (time slicing)          Spatial partitioning (MIG)
 +------------------------------------+        +------------------+-----------------+
 ```
 
+**Figure 1 — Temporal partitioning vs. spatial partitioning**
+
+```mermaid
+flowchart TD
+    GPU["Physical GPU"] --> T["Temporal partitioning (time slicing)"]
+    T --> V["VM1 → VM2 → VM3 take turns (memory not divided)"]
+    GPU --> S["Spatial partitioning (MIG)"]
+    S --> I1["GPU Instance 1 (dedicated SMs + memory)"]
+    S --> I2["GPU Instance 2 (dedicated SMs + memory)"]
+```
+
+**Figure walkthrough** — The figure compares the two sharing ideas for one physical GPU. With temporal partitioning, VMs take turns on the GPU pipeline over time and memory is not divided at the hardware level. With spatial partitioning (MIG), the GPU is split at the hardware level into instances, each with its own dedicated SMs and memory.
+
 ### 2.2 Terminology
 
 - **GPU passthrough (PCI passthrough)** — assigning a whole physical GPU exclusively to one VM.
@@ -236,6 +304,22 @@ Temporal partitioning (time slicing)          Spatial partitioning (MIG)
 ## 3. Sharing Approaches
 
 Five approaches appear most often in practice.
+
+**Figure 2 — Three ways to partition one GPU: passthrough, vGPU, and MIG**
+
+```mermaid
+flowchart TD
+    GPU["Physical GPU"] --> P["Passthrough — one VM takes the whole GPU"]
+    GPU --> V["vGPU — shared by many VMs via Virtual GPU Manager"]
+    V --> VM1["VM 1"]
+    V --> VM2["VM 2"]
+    V --> VM3["VM 3 ..."]
+    GPU --> M["MIG — split into hardware instances"]
+    M --> MI1["MIG Instance 1"]
+    M --> MI2["MIG Instance 2"]
+```
+
+**Figure walkthrough** — The figure shows three ways to divide one physical GPU. With passthrough, a single VM takes the whole GPU exclusively. With vGPU, the Virtual GPU Manager at the hypervisor level shares the GPU among many VMs over time. With MIG, the GPU chip is split into hardware instances, so each instance looks like a mini-GPU.
 
 ### 3.1 GPU Passthrough (PCI Passthrough)
 
@@ -295,6 +379,18 @@ Time-sliced vGPU has two key components.
 1. **NVIDIA Virtual GPU Manager** — installed at the hypervisor level (vSphere, Citrix Hypervisor, KVM, etc. — check the relevant release notes), it divides and manages the physical GPU across many VMs, granting each VM exclusive turns on the GPU pipeline over time (the vGPU scheduler allocates turns in a round-robin fashion — the KB notes best-effort is the default scheduler).
 2. **Guest VM drivers** — NVIDIA guest drivers are installed inside each VM. The vGPU device looks like a normal GPU device to the VM, so applications use the usual CUDA/driver stack unchanged.
 
+**Figure 3 — How the Virtual GPU Manager and guest drivers work together**
+
+```mermaid
+flowchart TD
+    HV["Hypervisor"] --> M["NVIDIA Virtual GPU Manager"]
+    M -->|"round-robin turns on the GPU pipeline"| VM1["VM 1 + guest driver"]
+    M --> VM2["VM 2 + guest driver"]
+    M --> VM3["VM 3 + guest driver"]
+```
+
+**Figure walkthrough** — The figure shows the NVIDIA Virtual GPU Manager at the hypervisor level managing the physical GPU and giving each VM round-robin turns on the GPU pipeline. Each VM has its own guest driver, and because the vGPU device looks like a normal GPU device, applications run on the usual CUDA/driver stack unchanged.
+
 vGPU profiles come in graphics (A/B/Q series) and compute variants, and the corresponding vGPU license is required.
 
 ### 4.2 MIG Slices
@@ -307,6 +403,20 @@ On a GPU with MIG mode enabled, the chip is split into GPU instances. Each insta
 A workload in one instance therefore cannot affect the memory, faults, or performance of another instance. Each instance looks like a mini-GPU.
 
 The number of MIG instances and the usable profile combinations depend on the GPU model and supported configurations.
+
+**Figure 4 — Splitting the GPU chip into instances in MIG mode**
+
+```mermaid
+flowchart TD
+    GPU["Physical GPU (MIG mode)"] --> I1["GPU Instance 1"]
+    GPU --> I2["GPU Instance 2"]
+    I1 --> R1["dedicated SMs"]
+    I1 --> M1["dedicated memory + bandwidth"]
+    I2 --> R2["dedicated SMs"]
+    I2 --> M2["dedicated memory + bandwidth"]
+```
+
+**Figure walkthrough** — With MIG mode enabled, the chip is split into GPU instances, and each instance receives its own dedicated SMs, memory, and memory bandwidth. A workload in one instance therefore cannot affect another instance's memory, faults, or performance — each instance looks like a mini-GPU.
 
 ### 4.3 Kubernetes Time-Slicing ConfigMap
 
@@ -397,3 +507,5 @@ When choosing, combine the workload's isolation needs, performance predictabilit
 - The sample Kubernetes time-slicing ConfigMap is reproduced from the GPU Operator "Time-Slicing GPUs in Kubernetes" page and was verified against the live page; it is a documentation example, not a universal configuration.
 - Licensing: vGPU paths require an NVIDIA vGPU license (the KB confirms license enforcement applies to MIG-backed vGPU). Passthrough and Kubernetes time-slicing do not use vGPU software, so no vGPU license is claimed for them; confirm licensing for specific deployments against the NVIDIA License System documentation.
 - MIG support is limited to specific data center GPUs; the module points to the MIG User Guide instead of an exhaustive model list, per the research notes' caution. Hypervisor support for vGPU features is version-dependent and is marked "per release notes" throughout.
+
+- Mermaid figures (Figures 1–4) with figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline to both language sections; all existing text, ASCII diagrams, and review notes are unchanged.

@@ -65,6 +65,27 @@ Evaluation and Continuous Improvement
 
 ဤပုံက conceptual map ဖြစ်ပါတယ်။ Product တစ်ခုချင်းစီက အဆင့်တစ်ခုထက်ပို၍ ပံ့ပိုးနိုင်ပြီး အမှန်တကယ် workflow က model အမျိုးအစား၊ infrastructure နဲ့ deployment requirements အပေါ် မူတည်ပါတယ်။
 
+Lifecycle အဆင့်များနှင့် သက်ဆိုင်ရာ NVIDIA tools များကို အောက်ပါပုံတွင် စုစည်းကြည့်နိုင်ပါတယ်—
+
+**Figure 1 — NVIDIA MLOps Tool Map (Lifecycle အဆင့်များအလိုက်)**
+
+```mermaid
+flowchart TD
+    A["Data Preparation"] --> B["Model Training"]
+    B --> C["Model Optimization"]
+    C --> D["Model Deployment and Inference"]
+    D --> E["Monitoring and Management"]
+    E --> F["Evaluation and Continuous Improvement"]
+    F -->|"New data, fine-tuning, retraining"| B
+    A -.- A1["RAPIDS, NeMo Curator"]
+    B -.- B1["PyTorch, TensorFlow, NeMo; DGX, Slurm / Kubernetes"]
+    C -.- C1["TensorRT, TAO Toolkit"]
+    D -.- D1["Triton Inference Server, NVIDIA NIM"]
+    E -.- E1["DCGM, Prometheus / Grafana, Base Command Manager"]
+```
+
+**ပုံရှင်းလင်းချက်** — အလယ်က မြှားကြီးချောင်းက lifecycle အဆင့်ခြောက်ဆင့်ကို အပေါ်ကနေ အောက်ကို ပြပါတယ်။ ညာဘက် (dotted ချိတ်ဆက်မှု) က အဆင့်တစ်ဆင့်ချင်းစီအတွက် အဓိက NVIDIA tools တွေ ဖြစ်ပါတယ် — data preparation အတွက် RAPIDS နှင့် NeMo Curator၊ model training အတွက် PyTorch/TensorFlow/NeMo နှင့် DGX/Slurm/Kubernetes၊ model optimization အတွက် TensorRT နှင့် TAO Toolkit၊ deployment/inference အတွက် Triton Inference Server နှင့် NVIDIA NIM၊ monitoring အတွက် DCGM၊ Prometheus/Grafana နှင့် Base Command Manager တို့ ဖြစ်ပါတယ်။ အောက်ဆုံးက မြှားကတော့ evaluation ရလဒ်ကနေ new data, fine-tuning, retraining အတွက် training ဆီ ပြန်ချိတ်ပေးတာ ဖြစ်ပါတယ်။
+
 ### 3. Stage One — Data Preparation and Feature Engineering
 
 #### 3.1 Why Is Data Preparation Important?
@@ -239,7 +260,23 @@ Optimize with TensorRT
 Deploy for Inference
 ```
 
-TAO နှင့် TensorRT တို့တွင် ဆက်စပ်သော်လည်း မတူညီသော တာဝန်များ ရှိပါတယ်—
+ဤ workflow ကို Mermaid ပုံဖြင့်လည်း ကြည့်နိုင်ပါတယ်—
+
+**Figure 2 — TAO Toolkit နှင့် TensorRT ဖြင့် Model ပြင်ဆင်၍ Deploy လုပ်ခြင်း**
+
+```mermaid
+flowchart TD
+    A["Pretrained Model"] --> B["Prepare and Validate Data"]
+    B --> C["Fine-tune with TAO Toolkit"]
+    C --> D["Evaluate the Model"]
+    D --> E["Export Model (ONNX format ဖြင့် ဖြစ်နိုင်)"]
+    E --> F["Optimize with TensorRT"]
+    F --> G["Deploy for Inference"]
+```
+
+**ပုံရှင်းလင်းချက်** — Pretrained Model ကနေ စပြီး data ပြင်ဆင်/validate လုပ်၊ TAO Toolkit ဖြင့် fine-tune လုပ်၊ model ကို evaluate လုပ်ပါတယ်။ ပြီးရင် model ကို export လုပ် (ONNX format ဖြင့် ဖြစ်နိုင်) ပြီး TensorRT ဖြင့် optimize လုပ်ကာ inference အတွက် deploy လုပ်ပါတယ်။ TAO က model ကို adapt/train လုပ်တဲ့ အဆင့်တွေမှာ ပါဝင်ပြီး TensorRT က inference အတွက် optimize/execute လုပ်တဲ့ အဆင့်မှာ ပါဝင်တာကို ပုံက ခွဲပြထားပါတယ်။
+
+TAO နှင့် TensorRT တို့တွင် ဆက်စပ်သော်လည်း မတူညီသော တာဝန်များ ရှိပါတယ်— ဆက်စပ်သော်လည်း မတူညီသော တာဝန်များ ရှိပါတယ်—
 
 - **TAO Toolkit**: Supported models များ adapt နှင့် train လုပ်ရာတွင် ကူညီပါတယ်။
 - **TensorRT**: Supported models များကို inference အတွက် optimize နှင့် execute လုပ်ပါတယ်။
@@ -343,6 +380,21 @@ Grafana Dashboards and Alerts
 
 ဤ architecture က GPU utilization, memory usage, temperature နှင့် supported health information ကဲ့သို့ infrastructure-level signals များကို စောင့်ကြည့်ပါတယ်။
 
+Monitoring architecture ကို ပုံဖြင့် ကြည့်ရအောင်—
+
+**Figure 3 — GPU Monitoring Architecture (DCGM)**
+
+```mermaid
+flowchart TD
+    A["NVIDIA GPUs"] --> B["DCGM / DCGM Exporter"]
+    B --> C["Prometheus"]
+    C --> D["Grafana Dashboards and Alerts"]
+    D --> E["GPU utilization, memory, temperature စောင့်ကြည့်"]
+    E -.->|"Model prediction မှန်ကန်မှုကို မဆုံးဖြတ်နိုင်"| F["Model-level monitoring ထပ်မံလိုအပ်"]
+```
+
+**ပုံရှင်းလင်းချက်** — NVIDIA GPUs ကနေ DCGM / DCGM Exporter က GPU metrics တွေ ထုတ်ပေးပြီး Prometheus က စုဆောင်းကာ Grafana က dashboards နှင့် alerts အဖြစ် ပြပါတယ်။ ဒီလမ်းကြောင်းက GPU utilization, memory usage, temperature စတဲ့ infrastructure-level signals တွေကိုသာ စောင့်ကြည့်တာ ဖြစ်ပါတယ်။ အောက်က dashed မြှားကတော့ ML model ရဲ့ predictions တွေ မှန်ကန်မှုကို ဒီတစ်ခုတည်းနဲ့ မဆုံးဖြတ်နိုင်ဘဲ model-level monitoring အတွက် ထပ်မံ လိုအပ်ကြောင်း သတိပေးပါတယ်။
+
 ML model ၏ predictions များ မှန်ကန်ခြင်း ရှိ/မရှိကို ၎င်းတစ်ခုတည်းက မဆုံးဖြတ်ပါဘူး။ Model-level monitoring အတွက် ထပ်မံ application metrics, data-quality checks နှင့် ဖြစ်နိုင်ပါက ground-truth evaluation လိုအပ်ပါတယ်။
 
 #### 7.4 Triton နှင့် Inference Monitoring
@@ -423,6 +475,22 @@ Bank တစ်ခုက transaction fraud detection system တစ်ခု တ�
 **Step 6 — Improve** — Monitoring က တိုးတက်မှု လိုအပ်ကြောင်း ညွှန်းဆိုသောအခါ data အသစ် validate လုပ်ခြင်း၊ candidate ကို train သို့မဟုတ် fine-tune လုပ်ခြင်း၊ လက်ရှိ production version နှင့် နှိုင်းယှဉ်ခြင်းနှင့် လိုအပ်သော checks များ ပြီးမှသာ release လုပ်ခြင်း ပြုလုပ်ပါ။
 
 ဤဥပမာက NVIDIA technologies များက workload တိုင်းအတွက် NVIDIA product အားလုံး လိုအပ်သည်ဟု ဆိုလိုခြင်းမပါဘဲ MLOps architecture တစ်ခုကို မည်သို့ ပံ့ပိုးနိုင်ကြောင်း ပြသပါတယ်။
+
+ဥပမာ pipeline တစ်ခုလုံးကို ပုံဖြင့် ကြည့်ရအောင်—
+
+**Figure 4 — Enterprise Fraud Detection Pipeline ဥပမာ**
+
+```mermaid
+flowchart TD
+    A["Step 1: Prepare data (RAPIDS)"] --> B["Step 2: Train (PyTorch / TensorFlow, Slurm)"]
+    B --> C["Step 3: Evaluate and optimize (TensorRT လိုအပ်မှသာ)"]
+    C --> D["Step 4: Deploy (Triton သို့မဟုတ် NIM)"]
+    D --> E["Step 5: Monitor (GPU telemetry + service metrics)"]
+    E --> F["Step 6: Improve (data အသစ် validate, fine-tune / retrain)"]
+    F -->|"controlled release မှတစ်ဆင့်"| B
+```
+
+**ပုံရှင်းလင်းချက်** — အဆင့်ခြောက်ဆင့်ကို အပေါ်ကနေ အောက်ကို ဖတ်ပါ။ Data ပြင်ဆင်ခြင်း (RAPIDS) ကနေ စပြီး model train လုပ်ခြင်း (PyTorch/TensorFlow၊ လိုအပ်ရင် Slurm)၊ evaluate/optimize လုပ်ခြင်း (TensorRT ကို လိုအပ်မှသာ သုံး)၊ deploy လုပ်ခြင်း (Triton သို့မဟုတ် NIM)၊ monitor လုပ်ခြင်းတို့ကို ဖြတ်သွားပါတယ်။ နောက်ဆုံး improve အဆင့်ကနေ မြှားက data အသစ် validate လုပ်ပြီး controlled release မှတစ်ဆင့် training ဆီ ပြန်ချိတ်ပါတယ်။ အဆင့်တိုင်းမှာ NVIDIA product အားလုံး မလိုအပ်ကြောင်းလည်း ပုံက ပြပါတယ်။
 
 ### 11. Key Takeaways
 
@@ -527,6 +595,27 @@ Evaluation and Continuous Improvement
 ```
 
 This is a conceptual map. Individual products may support more than one stage, and the exact workflow depends on the model type, infrastructure and deployment requirements.
+
+The lifecycle stages and the relevant NVIDIA tools are gathered in the following figure—
+
+**Figure 1 — NVIDIA MLOps Tool Map Across Lifecycle Stages**
+
+```mermaid
+flowchart TD
+    A["Data Preparation"] --> B["Model Training"]
+    B --> C["Model Optimization"]
+    C --> D["Model Deployment and Inference"]
+    D --> E["Monitoring and Management"]
+    E --> F["Evaluation and Continuous Improvement"]
+    F -->|"New data, fine-tuning, retraining"| B
+    A -.- A1["RAPIDS, NeMo Curator"]
+    B -.- B1["PyTorch, TensorFlow, NeMo; DGX, Slurm / Kubernetes"]
+    C -.- C1["TensorRT, TAO Toolkit"]
+    D -.- D1["Triton Inference Server, NVIDIA NIM"]
+    E -.- E1["DCGM, Prometheus / Grafana, Base Command Manager"]
+```
+
+**Figure walkthrough** — The central arrows show the six lifecycle stages from top to bottom. The dotted links on the side name the main NVIDIA tools for each stage — RAPIDS and NeMo Curator for data preparation; PyTorch/TensorFlow/NeMo and DGX/Slurm/Kubernetes for model training; TensorRT and TAO Toolkit for model optimization; Triton Inference Server and NVIDIA NIM for deployment and inference; DCGM, Prometheus/Grafana and Base Command Manager for monitoring. The bottom arrow feeds evaluation results — new data, fine-tuning, retraining — back to training.
 
 ### 3. Stage One — Data Preparation and Feature Engineering
 
@@ -702,6 +791,22 @@ Optimize with TensorRT
 Deploy for Inference
 ```
 
+This workflow can also be seen as a Mermaid figure—
+
+**Figure 2 — Preparing and Deploying a Model with TAO Toolkit and TensorRT**
+
+```mermaid
+flowchart TD
+    A["Pretrained Model"] --> B["Prepare and Validate Data"]
+    B --> C["Fine-tune with TAO Toolkit"]
+    C --> D["Evaluate the Model"]
+    D --> E["Export Model (often ONNX format)"]
+    E --> F["Optimize with TensorRT"]
+    F --> G["Deploy for Inference"]
+```
+
+**Figure walkthrough** — Starting from the pretrained model, the data is prepared and validated, the model is fine-tuned with TAO Toolkit, and then evaluated. The model is then exported (often in ONNX format), optimized with TensorRT, and deployed for inference. The figure separates the stages where TAO takes part (adapt/train the model) from the stage where TensorRT takes part (optimize/execute the model for inference).
+
 TAO and TensorRT have related but distinct responsibilities—
 
 - **TAO Toolkit**: helps adapt and train supported models.
@@ -806,6 +911,21 @@ Grafana Dashboards and Alerts
 
 This architecture monitors infrastructure-level signals such as GPU utilization, memory usage, temperature and supported health information.
 
+The monitoring architecture can be seen as a figure—
+
+**Figure 3 — GPU Monitoring Architecture (DCGM)**
+
+```mermaid
+flowchart TD
+    A["NVIDIA GPUs"] --> B["DCGM / DCGM Exporter"]
+    B --> C["Prometheus"]
+    C --> D["Grafana Dashboards and Alerts"]
+    D --> E["Watch GPU utilization, memory, temperature"]
+    E -.->|"does not judge prediction correctness"| F["Model-level monitoring still needed"]
+```
+
+**Figure walkthrough** — From the NVIDIA GPUs, DCGM / DCGM Exporter exposes GPU metrics, Prometheus collects them, and Grafana shows dashboards and alerts. This path watches infrastructure-level signals only — GPU utilization, memory usage and temperature. The dashed arrow at the bottom warns that this stack alone cannot tell whether the ML model's predictions are correct; model-level monitoring is still needed.
+
 It does not, by itself, determine whether an ML model's predictions are correct. Model-level monitoring requires additional application metrics, data-quality checks and, where possible, ground-truth evaluation.
 
 #### 7.4 Triton and Inference Monitoring
@@ -887,6 +1007,22 @@ Imagine a bank building a transaction fraud detection system.
 
 This example demonstrates how NVIDIA technologies can support an MLOps architecture without implying that every workload needs every NVIDIA product.
 
+The example pipeline can be seen as a figure—
+
+**Figure 4 — Enterprise Fraud Detection Pipeline Example**
+
+```mermaid
+flowchart TD
+    A["Step 1: Prepare data (RAPIDS)"] --> B["Step 2: Train (PyTorch / TensorFlow, Slurm)"]
+    B --> C["Step 3: Evaluate and optimize (TensorRT only if beneficial)"]
+    C --> D["Step 4: Deploy (Triton or NIM)"]
+    D --> E["Step 5: Monitor (GPU telemetry + service metrics)"]
+    E --> F["Step 6: Improve (validate new data, fine-tune / retrain)"]
+    F -->|"through a controlled release"| B
+```
+
+**Figure walkthrough** — Read the six steps from top to bottom. Data preparation (RAPIDS) leads to training (PyTorch/TensorFlow, Slurm when needed), then evaluation and optimization (TensorRT is used only when it is beneficial), deployment (Triton or NIM) and monitoring (GPU telemetry plus service metrics). From the improve step, the arrow returns to training through a controlled release after new data is validated. The figure also shows that not every stage needs every NVIDIA product.
+
 ### 11. Key Takeaways
 
 - RAPIDS supports GPU-accelerated data processing and analytics.
@@ -934,3 +1070,4 @@ This example demonstrates how NVIDIA technologies can support an MLOps architect
 - Review questions were supplied in the source and are kept; concise answers were added in both language sections, derived from module content.
 - Source caveats preserved: no single NVIDIA product performs every MLOps responsibility; GPU acceleration is not faster for every operation; NeMo Curator does not guarantee unbiased/legal data; quantization can affect accuracy and must be benchmarked; TAO is not a universal replacement for PyTorch/TensorFlow/NeMo; TensorRT does not auto-optimize every model; Triton does not provide governance/approval/retraining; NGC Registry ≠ complete enterprise Model Registry; BCM ≠ Model Registry and ≠ Base Command Platform; DCGM monitoring does not determine prediction correctness; Fleet Command product availability/lifecycle must be verified and is not required for every deployment; fine-tuning/retraining/optimization/deployment are distinct activities.
 - All diagrams and the tool selection table are reproduced from the source (tables reflowed into Markdown); no commands or specifications were added.
+- Beginner-friendly Mermaid figures (flowchart TD/LR) with captions and figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline in both language sections with matching figure numbering; existing text and ASCII diagrams are unchanged.

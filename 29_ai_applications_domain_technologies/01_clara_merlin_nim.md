@@ -43,6 +43,19 @@ NVIDIA AI stack ကို အလွှာလိုက် စဉ်းစား�
 
 ဒီ diagram က conceptual view ဖြစ်ပါတယ်။ အမှန်တကယ် software stack မှာ application, framework, libraries နဲ့ deployment components တွေက အပြန်အလှန် ချိတ်ဆက်အသုံးပြုနိုင်ပါတယ်။
 
+**Figure 1 — NVIDIA AI stack အလွှာလိုက် ဖွဲ့စည်းပုံ**
+
+```mermaid
+flowchart TD
+    A["အပေါ်ဆုံး layer: Applications and Vertical Solutions - Clara, Merlin, NIM"] --> B["AI Frameworks, Models and Inference Software"]
+    B --> C["CUDA, GPU Libraries and Accelerated Software"]
+    C --> D["GPU Drivers and System Software"]
+    D --> E["GPU, CPU, Memory, Storage and Networking"]
+    E --> F["အောက်ခြေ: Physical Data Center Infrastructure"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 1):** ဒီပုံကို အောက်ခြေကနေ အပေါ်ကို ဖတ်ပါ။ အောက်ဆုံးက Physical Data Center Infrastructure က GPU, CPU, memory, storage နဲ့ network ကို ပေးပြီး တစ်ဆင့်ချင်း အပေါ်တက်လာတိုင်း driver, CUDA libraries, AI frameworks စတဲ့ software အလွှာတွေ ထပ်ပေါင်းလာပါတယ်။ အပေါ်ဆုံး application layer မှာ Clara, Merlin, NIM တို့က အောက်က အလွှာအားလုံးရဲ့ စွမ်းအားကို အသုံးပြုပြီး လုပ်ငန်းအလိုက် ပြဿနာတွေကို ဖြေရှင်းပေးပါတယ်။
+
 **ဒီ Layer ရဲ့ အဓိကအယူအဆ**
 
 - အောက်ခြေ layers တွေက compute capability နဲ့ infrastructure ကို ပံ့ပိုးပေးပါတယ်။
@@ -77,6 +90,20 @@ Clara နဲ့ ဆက်စပ်တဲ့ technologies တွေဟာ အေ�
 - Drug discovery နဲ့ life sciences research အချို့
 
 သက်ဆိုင်ရာ use case အတွက် ဘယ် component ကို ရွေးချယ်ရမလဲဆိုတာက project ရဲ့ လိုအပ်ချက်ပေါ် မူတည်ပါတယ်။
+
+**Figure 2 — NVIDIA Clara အသုံးပြုနိုင်တဲ့ healthcare use cases များ**
+
+```mermaid
+flowchart TD
+    C["NVIDIA Clara - Healthcare and Life Sciences"]
+    C --> U1["Medical imaging AI နဲ့ CT / MRI analysis"]
+    C --> U2["Digital pathology"]
+    C --> U3["Genomics analysis - Clara Parabricks"]
+    C --> U4["Medical-device AI နဲ့ smart hospitals"]
+    C --> U5["Drug discovery နဲ့ life sciences research"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 2):** အလယ်က NVIDIA Clara ဆိုတာ healthcare နဲ့ life sciences အတွက် tools နဲ့ technologies အစုအဝေးဖြစ်ပါတယ်။ ပတ်လည်က အကိုင်းတွေက Clara family အသုံးပြုနိုင်တဲ့ နယ်ပယ်တွေကို ပြထားတာဖြစ်ပြီး genomics အတွက်ဆို Clara Parabricks ကို ရွေးချယ်နိုင်ပါတယ်။ ကိုယ့် project ရဲ့ use case ကို ကြည့်ပြီး သင့်တော်တဲ့ component ကို ရွေးရမှာ ဖြစ်ပါတယ်။
 
 ### 3.2 Medical Imaging
 
@@ -190,6 +217,20 @@ Merlin ecosystem က recommender system development pipeline ရဲ့ အဆင
 - Retrieval နဲ့ ranking workflows
 - Session-based recommendations
 - Production inference နဲ့ deployment workflows
+
+**Figure 3 — NVIDIA Merlin နဲ့ recommendation pipeline အဆင့်များ**
+
+```mermaid
+flowchart LR
+    A["User နဲ့ product interaction data"] --> B["Feature engineering - NVTabular"]
+    B --> C["Model training - HugeCTR"]
+    C --> D["Retrieval - candidate items ရွေးထုတ်ခြင်း"]
+    D --> E["Ranking - relevance score အလိုက် စီခြင်း"]
+    E --> F["User အတွက် personalized recommendations"]
+    G["လက်ရှိ session activity - Transformers4Rec"] --> E
+```
+
+**ပုံရှင်းလင်းချက် (Figure 3):** ဘယ်ဘက်က user ရဲ့ အပြုအမူ data ကစပြီး ညာဘက်ကို စီးဆင်းသွားပါတယ်။ NVTabular က data ကို features အဖြစ် ပြင်ဆင်ပေးပြီး HugeCTR က model ကို train လုပ်ပါတယ်။ ပြီးရင် Retrieval နဲ့ Ranking ဆိုတဲ့ အဆင့်နှစ်ဆင့်နဲ့ candidate products အများကြီးထဲက သင့်တော်တာကို ရွေးပြီး အစီအစဉ်ချပါတယ်။ Transformers4Rec ကတော့ လက်ရှိ session ထဲက အပြုအမူတွေကို အသုံးပြုတဲ့ session-based recommendation အတွက် ဖြစ်ပါတယ်။
 
 ### 4.3 Feature Engineering and Preprocessing
 
@@ -315,6 +356,21 @@ NIM က supported models နဲ့ configurations အတွက် ဒီလု�
 
 ဒီပုံဟာ conceptual architecture ဖြစ်ပါတယ်။ NIM ရဲ့ internal components တွေဟာ model family နဲ့ NIM version ပေါ်မူတည်ပြီး ကွာခြားနိုင်ပါတယ်။
 
+**Figure 4 — NIM inference request ရဲ့ အဆင့်လိုက် စီးဆင်းမှု**
+
+```mermaid
+sequenceDiagram
+    participant App as AI Application
+    participant NIM as NVIDIA NIM Service
+    participant GPU as NVIDIA GPU
+    App->>NIM: API request နဲ့ input အသစ် ပို့သည်
+    NIM->>GPU: Model inference ကို GPU ပေါ်တွင် run သည်
+    GPU-->>NIM: Inference result ပြန်ပေးသည်
+    NIM-->>App: API response နဲ့ output ပြန်ပေးသည်
+```
+
+**ပုံရှင်းလင်းချက် (Figure 4):** ဘယ်ဘက်က AI Application က input ကို API ကတစ်ဆင့် NIM service ဆီ ပို့ပါတယ်။ NIM က model ကို NVIDIA GPU ပေါ်မှာ inference run ပြီး result ရလာရင် application ဆီကို API response အဖြစ် ပြန်ပို့ပါတယ်။ Application ဘက်က model ကို ကိုယ်တိုင် serve စရာ မလိုဘဲ endpoint တစ်ခုကို ခေါ်ရုံနဲ့ ရပါတယ်။
+
 ### 5.4 Example — Deploying an LLM
 
 Enterprise တစ်ခုမှာ Llama family ထဲက supported model တစ်ခုကို အသုံးပြုပြီး internal chatbot တစ်ခု တည်ဆောက်ချင်တယ်လို့ ယူဆပါ။ Conceptual workflow က —
@@ -409,6 +465,17 @@ NIM က model တစ်ခုကို serve လုပ်ရာမှာ အက�
 - **NIM = Inference** — AI model ကို API service အဖြစ် deploy လုပ်ခြင်း။
 
 ဒီ mnemonic က exam preparation အတွက်သာ အသုံးပြုတဲ့ မှတ်မိလွယ်စေမယ့် နည်းလမ်းဖြစ်ပါတယ်။
+
+**Figure 5 — Clara, Merlin, NIM ကို use case အလိုက် ရွေးချယ်ပုံ**
+
+```mermaid
+flowchart TD
+    U1["Healthcare, medical imaging, genomics"] --> C["NVIDIA Clara"]
+    U2["Personalized product သို့မဟုတ် content recommendations"] --> M["NVIDIA Merlin"]
+    U3["Supported AI model ကို API နောက်ကွယ်မှာ deploy လုပ်ခြင်း"] --> N["NVIDIA NIM"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 5):** ဘယ်ဘက်က ကိုယ့် use case ကို ရှာပါ။ Healthcare / genomics ဆိုရင် Clara၊ personalized recommendations ဆိုရင် Merlin၊ pretrained model တစ်ခုကို inference API အဖြစ် ထုတ်ပေးချင်ရင် NIM ကို ရွေးပါ။ ဒီသုံးခုဟာ တာဝန်မတူတဲ့ tools တွေဖြစ်လို့ တစ်ခုနဲ့တစ်ခု အစားထိုး မသုံးနိုင်ပါဘူး။
 
 ## 7. Practical Scenarios
 
@@ -578,6 +645,19 @@ Think of the NVIDIA AI stack layer by layer.
 
 This diagram is a conceptual view. In a real software stack, applications, frameworks, libraries, and deployment components are interconnected and used together.
 
+**Figure 1 — The NVIDIA AI stack layers**
+
+```mermaid
+flowchart TD
+    A["Top layer: Applications and Vertical Solutions - Clara, Merlin, NIM"] --> B["AI Frameworks, Models and Inference Software"]
+    B --> C["CUDA, GPU Libraries and Accelerated Software"]
+    C --> D["GPU Drivers and System Software"]
+    D --> E["GPU, CPU, Memory, Storage and Networking"]
+    E --> F["Bottom layer: Physical Data Center Infrastructure"]
+```
+
+**Figure 1 walkthrough:** Read the figure from the bottom up. The bottom layer provides the physical data center infrastructure — GPU, CPU, memory, storage, and networking. Each layer going up adds a software capability: drivers, then CUDA libraries, then AI frameworks. At the top, Clara, Merlin, and NIM use everything below them to solve industry-specific problems.
+
 **Key idea of this layer**
 
 - The lower layers provide compute capability and infrastructure.
@@ -612,6 +692,20 @@ Technologies in the Clara family are useful in use cases such as:
 - Some drug discovery and life sciences research
 
 Which component to choose for a given use case depends on the project's requirements.
+
+**Figure 2 — Healthcare use cases supported by NVIDIA Clara**
+
+```mermaid
+flowchart TD
+    C["NVIDIA Clara - Healthcare and Life Sciences"]
+    C --> U1["Medical imaging AI and CT / MRI analysis"]
+    C --> U2["Digital pathology"]
+    C --> U3["Genomics analysis - Clara Parabricks"]
+    C --> U4["Medical-device AI and smart hospitals"]
+    C --> U5["Drug discovery and life sciences research"]
+```
+
+**Figure 2 walkthrough:** NVIDIA Clara in the center is a collection of tools and technologies for healthcare and life sciences. The branches show the fields where the Clara family can be used; for genomics, for example, Clara Parabricks is the relevant component. Look at your own project's use case first, then choose the matching component.
 
 ### 3.2 Medical Imaging
 
@@ -725,6 +819,20 @@ The Merlin ecosystem can help with the various stages of a recommender system de
 - Retrieval and ranking workflows
 - Session-based recommendations
 - Production inference and deployment workflows
+
+**Figure 3 — Recommendation pipeline stages with NVIDIA Merlin**
+
+```mermaid
+flowchart LR
+    A["User and product interaction data"] --> B["Feature engineering - NVTabular"]
+    B --> C["Model training - HugeCTR"]
+    C --> D["Retrieval - select candidate items"]
+    D --> E["Ranking - order by relevance score"]
+    E --> F["Personalized recommendations for the user"]
+    G["Current session activity - Transformers4Rec"] --> E
+```
+
+**Figure 3 walkthrough:** The flow starts on the left with user behavior data and moves to the right. NVTabular prepares the data as features and HugeCTR trains the model. Retrieval and ranking are two separate stages: first select likely candidate products out of millions, then order them by relevance. Transformers4Rec covers session-based recommendations that use the current session's activity.
 
 ### 4.3 Feature Engineering and Preprocessing
 
@@ -850,6 +958,21 @@ However, NIM does not automatically eliminate all infrastructure setup. You may 
 
 This picture is a conceptual architecture. NIM's internal components can differ depending on the model family and NIM version.
 
+**Figure 4 — Step-by-step flow of a NIM inference request**
+
+```mermaid
+sequenceDiagram
+    participant App as AI Application
+    participant NIM as NVIDIA NIM Service
+    participant GPU as NVIDIA GPU
+    App->>NIM: Send API request with new input
+    NIM->>GPU: Run model inference on the GPU
+    GPU-->>NIM: Return the inference result
+    NIM-->>App: Return API response with the output
+```
+
+**Figure 4 walkthrough:** The AI application on the left sends its input (a question, an image, audio) to the NIM service through an API. NIM runs model inference on the NVIDIA GPU and sends the result back as an API response. The application does not serve the model itself — it just calls an endpoint.
+
 ### 5.4 Example — Deploying an LLM
 
 Suppose an enterprise wants to build an internal chatbot using a supported model from the Llama family. The conceptual workflow is—
@@ -944,6 +1067,17 @@ The differences between these three must be clearly separated.
 - **NIM = Inference** — Deploying an AI model as an API service.
 
 This mnemonic is only an easy-to-remember device for exam preparation.
+
+**Figure 5 — Choosing between Clara, Merlin, and NIM by use case**
+
+```mermaid
+flowchart TD
+    U1["Healthcare, medical imaging, genomics"] --> C["NVIDIA Clara"]
+    U2["Personalized product or content recommendations"] --> M["NVIDIA Merlin"]
+    U3["Deploy a supported AI model behind an API"] --> N["NVIDIA NIM"]
+```
+
+**Figure 5 walkthrough:** Find your use case on the left. Healthcare or genomics points to Clara; personalized recommendations point to Merlin; exposing a pretrained model as an inference API points to NIM. The three tools have different jobs and do not replace each other.
 
 ## 7. Practical Scenarios
 
@@ -1077,3 +1211,4 @@ This module covered the Application and Vertical Solutions layer of the NVIDIA A
 - The source transcript for this module was split across two messages (sections 1–5.1 in one message, sections 5.2–10 at the start of the next). The content was merged as-is; nothing from the module was dropped. The trailing NCCL material in the first message's file belongs to a different module and was not included here.
 - Claims kept as "needs verification": exact NIM endpoint paths and request formats (e.g. `POST /v1/chat/completions`) depend on the NIM service and version per the source; OpenAI-compatible API configurations and the NIM Operator on Kubernetes should be checked against https://docs.nvidia.com/nim/ before relying on them.
 - All workflow diagrams in this module are conceptual, as stated in the source; no commands, benchmark numbers, or product specifications were added.
+- Beginner-friendly Mermaid figures (Figure 1–5) with figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline in both the Myanmar and English sections; all existing text and ASCII diagrams are unchanged.

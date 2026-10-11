@@ -13,6 +13,17 @@ GPU workload တစ်ခုမှာ data ကို ရွှေ့ပြော
 
 ပုံမှန် path နှစ်ခုစလုံးမှာ data က host memory ထဲက bounce buffer မှတစ်ဆင့် အလယ်ကနေ ဖြတ်သန်း copy ဖြစ်တတ်ပါတယ်။ ဒီ intermediate copy တွေက memory bandwidth စားသုံးပြီး latency တိုးစေကာ CPU ပေါ် ဝန်ထုပ်ဝန်ပိုး ဖြစ်စေပါတယ်။ GPU တွေ ပိုမိုမြန်လာလေလေ IO bandwidth လိုအပ်ချက် ပိုတက်လာလေလေ ဖြစ်ပါတယ်။
 
+**ပုံ ၁ (Figure 1) — Network path နဲ့ Storage path နှစ်ခုစလုံး bounce buffer ဖြတ်ရပုံ**
+
+```mermaid
+flowchart LR
+    ST["Storage"] <--> HR["Host RAM (bounce buffer)"]
+    HR <--> GM["GPU Memory"]
+    HR <--> NIC["NIC"]
+```
+
+**ပုံရှင်းလင်းချက်** — Storage က data ဖြစ်ဖြစ် NIC က network data ဖြစ်ဖြစ် GPU Memory နဲ့ ဖလှယ်ရာမှာ Host RAM ထဲက bounce buffer ကို ဖြတ်ရပုံကို ပြထားပါတယ်။ ဒီကြားခံ copy တွေက memory bandwidth စားသုံးပြီး latency တိုးစေကာ CPU ပေါ် ဝန်ဖြစ်စေပါတယ်။
+
 NVIDIA GPUDirect က ဒီ ပြဿနာ နှစ်ခုစလုံးအတွက် CPU bounce buffer ကို ရှောင်ရှားတဲ့ DMA-based direct paths တွေ ပေးပါတယ် — ဒါပေမယ့် နှစ်ခုက ပြဿနာ မတူတဲ့အတွက် သီးခြား technology တွေ ဖြစ်ပါတယ်။
 
 ## 2. အယူအဆ — GPUDirect family ရဲ့ DMA paths
@@ -51,6 +62,19 @@ GPUDirect Storage: Storage နှင့် GPU memory ကြား တိုက�
 
 **GPUDirect Storage က ဘယ်လို အလုပ်လုပ်သလဲ** — cuFile API နဲ့ nvidia-fs kernel module မှတစ်ဆင့် storage နဲ့ GPU memory ကြား direct DMA path ကို ဖွင့်ပေးပါတယ်။ dataset loading၊ checkpoint read/write၊ storage ကနေ streaming IO တွေအတွက် ရည်ရွယ်ပါတယ်။
 
+**ပုံ ၂ (Figure 2) — GPUDirect RDMA (NIC ↔ GPU Memory) နှင့် GPUDirect Storage (Storage ↔ GPU Memory) နှိုင်းယှဉ်ချက်**
+
+```mermaid
+flowchart LR
+    GM1["GPU Memory (Host 1)"] <--> N1["NIC"]
+    N1 <--> NW["Network (InfiniBand / RoCE)"]
+    NW <--> N2["NIC"]
+    N2 <--> GM2["GPU Memory (Host 2)"]
+    ST["Storage (NVMe / NVMe-oF)"] <--> GM3["GPU Memory"]
+```
+
+**ပုံရှင်းလင်းချက်** — GPU Memory (Host 1) ကနေ NIC၊ Network၊ NIC ဖြတ်ပြီး GPU Memory (Host 2) ဆီ သွားတဲ့ ချိတ်ဆက်မှုက GPUDirect RDMA ဖြစ်ပြီး GPU Memory နဲ့ NIC ကြား တိုက်ရိုက် DMA ဖြစ်ပါတယ်။ Storage နဲ့ GPU Memory ကြား တိုက်ရိုက် ချိတ်ဆက်မှုကတော့ GPUDirect Storage ဖြစ်ပါတယ်။ Endpoint ကွာခြားတဲ့အတွက် network communication အတွက် RDMA၊ dataset/checkpoint IO အတွက် GDS ကို သုံးရပါမယ်။
+
 ## 3. နှိုင်းယှဉ်ချက် — အဓိက ကွာခြားချက်များ
 
 | အချက် | GPUDirect RDMA | GPUDirect Storage (GDS) |
@@ -70,6 +94,18 @@ GPUDirect Storage: Storage နှင့် GPU memory ကြား တိုက�
 - **GPUDirect Storage ကို သုံးရမယ့် အခါ** — data က storage နဲ့ GPU memory ကြား ရွှေ့ရမယ့်အခါ။ ဥပမာ—training မစမီ dataset ကြီး load ခြင်း၊ training အတွင်း checkpoint ရေး/ဖတ်ခြင်း၊ inference pipeline ထဲ storage ကနေ streaming လုပ်ခြင်း။
 - တစ်ခုက တစ်ခုကို အစားထိုးတာ မဟုတ်ပါဘူး။ ဘယ် data က ဘယ် endpoint ဆီ သွားလဲဆိုတဲ့ မေးခွန်းပေါ် မူတည်ပြီး ဆုံးဖြတ်ရပါတယ်။
 
+**ပုံ ၃ (Figure 3) — Data ရဲ့ သွားရာ endpoint ပေါ် မူတည်ပြီး ရွေးချယ်ပုံ**
+
+```mermaid
+flowchart TD
+    Q{"Data က ဘယ်ကို သွားသလဲ"} --> N["Network / NIC ဘက်"]
+    Q --> S["Storage ဘက်"]
+    N --> R["GPUDirect RDMA"]
+    S --> G["GPUDirect Storage (GDS)"]
+```
+
+**ပုံရှင်းလင်းချက်** — ပုံက ရွေးချယ်မှု စဉ်းစားပုံကို ပြပါတယ် — data က GPU Memory နဲ့ network (NIC) ကြား သွားမယ်ဆိုရင် GPUDirect RDMA ကို ရွေးပြီး၊ data က storage နဲ့ GPU Memory ကြား သွားမယ်ဆိုရင် GPUDirect Storage ကို ရွေးပါ။ တစ်ခုက တစ်ခုကို အစားထိုးတာ မဟုတ်ဘဲ data ရဲ့ endpoint ပေါ် မူတည်ပြီး ဆုံးဖြတ်ရတာ ဖြစ်ပါတယ်။
+
 ## 5. Real pipelines တွေမှာ နှစ်ခုစလုံး သုံးပါတယ်
 
 Multi-node training pipeline တစ်ခုကို စဉ်းစားကြည့်ပါ—
@@ -79,6 +115,17 @@ Multi-node training pipeline တစ်ခုကို စဉ်းစားက�
 3. **နောက်ပိုင်း (communication)** — gradients/parameters တွေကို nodes ကြား synchronize လုပ်ရပါတယ်။ NCCL ကဲ့သို့ collective communication library က **GPUDirect RDMA** ကို အသုံးပြုပြီး GPU memory နဲ့ network ကြား data ကို host-memory staging မပါဘဲ လွှဲပြောင်းပေးပါတယ်။
 
 ဒီ pipeline တစ်ခုလုံးမှာ နှစ်ခုစလုံးက မတူညီတဲ့ data-movement jobs တွေကို တစ်ချိန်တည်းမှာ ကိုင်တွယ်ပါတယ် — **complementary ဖြစ်ပြီး အစားထိုး alternatives မဟုတ်ပါဘူး**။ ဒီနေရာမှာ command တွေ မပါဝင်ပါဘူး — ဒါက architecture-level concept သက်သက် ဖြစ်ပါတယ်။
+
+**ပုံ ၄ (Figure 4) — Training pipeline တစ်ခုတွင် GDS နှင့် RDMA တို့ အတူတကွ အသုံးပြုပုံ**
+
+```mermaid
+flowchart LR
+    ST["Storage (dataset / checkpoint)"] -->|"GDS direct path"| GM["GPU Memory"]
+    GM --> CP["GPU compute (gradients)"]
+    CP --> GM    GM <-->|"GPUDirect RDMA"| NW["Network (other nodes' GPUs)"]
+```
+
+**ပုံရှင်းလင်းချက်** — ပုံမှာ training pipeline တစ်ခုတွင်းက data movement နှစ်မျိုးကို မြင်ရပါတယ် — dataset/checkpoint တွေက GDS direct path ဖြင့် Storage ကနေ GPU Memory ထဲ ရောက်ပြီး၊ compute ပြီးထွက်လာတဲ့ gradients တွေကိုတော့ GPUDirect RDMA ဖြင့် network ကတစ်ဆင့် တစ်ခြား nodes တွေရဲ့ GPU Memory ဆီ လွှဲပေးပါတယ်။ ဒါကြောင့် နှစ်ခုစလုံးက pipeline တစ်ခုတည်းမှာ အတူအလုပ်လုပ်တဲ့ complementary technologies တွေ ဖြစ်ပါတယ်။
 
 ## 6. သတိပြုရန် အချက်များ
 
@@ -121,6 +168,17 @@ GPU workloads move data in many places. Two spots commonly become bottlenecks:
 
 On both of the default paths, the data passes through a bounce buffer in host memory. These intermediate copies consume memory bandwidth, add latency, and load the CPU. The faster the GPUs become, the more IO bandwidth they demand.
 
+**Figure 1 — Both the network path and the storage path pass through the bounce buffer**
+
+```mermaid
+flowchart LR
+    ST["Storage"] <--> HR["Host RAM (bounce buffer)"]
+    HR <--> GM["GPU Memory"]
+    HR <--> NIC["NIC"]
+```
+
+**Figure walkthrough** — Whether the data is storage data or network data through the NIC, exchanging it with GPU memory goes through the bounce buffer in host RAM. These intermediate copies consume memory bandwidth, add latency, and load the CPU.
+
 NVIDIA GPUDirect provides DMA-based direct paths that avoid the CPU bounce buffer for both problems — but because the two problems are different, they are separate technologies.
 
 ## 2. Concepts — DMA Paths in the GPUDirect Family
@@ -159,6 +217,19 @@ These are conceptual examples; actual data paths vary with hardware, drivers, th
 
 **How GPUDirect Storage works** — through the cuFile API and the nvidia-fs kernel module, it opens a direct DMA path between storage and GPU memory. It targets dataset loading, checkpoint read/write, and streaming IO from storage.
 
+**Figure 2 — GPUDirect RDMA (NIC ↔ GPU memory) vs. GPUDirect Storage (Storage ↔ GPU memory)**
+
+```mermaid
+flowchart LR
+    GM1["GPU Memory (Host 1)"] <--> N1["NIC"]
+    N1 <--> NW["Network (InfiniBand / RoCE)"]
+    NW <--> N2["NIC"]
+    N2 <--> GM2["GPU Memory (Host 2)"]
+    ST["Storage (NVMe / NVMe-oF)"] <--> GM3["GPU Memory"]
+```
+
+**Figure walkthrough** — The chain running GPU Memory (Host 1) → NIC → Network → NIC → GPU Memory (Host 2) is GPUDirect RDMA: GPU memory connects directly to the NIC, and data crosses to another host's GPU memory. The direct link between Storage and GPU Memory is GPUDirect Storage. Because the endpoints differ, use RDMA for network communication and GDS for dataset/checkpoint IO.
+
 ## 3. Comparison — Key Differences
 
 | Aspect | GPUDirect RDMA | GPUDirect Storage (GDS) |
@@ -178,6 +249,18 @@ This table is the main reference for choosing between the two. They build on the
 - **Use GPUDirect Storage** when data moves between storage and GPU memory — for example, loading a large dataset before training, checkpointing during training, or streaming from storage into an inference pipeline.
 - One does not replace the other. The decision depends on the question: where is this data going?
 
+**Figure 3 — Choosing by where the data is going**
+
+```mermaid
+flowchart TD
+    Q{"Where is the data going"} --> N["To the network / NIC"]
+    Q --> S["To or from storage"]
+    N --> R["GPUDirect RDMA"]
+    S --> G["GPUDirect Storage (GDS)"]
+```
+
+**Figure walkthrough** — The figure shows the decision: if data moves between GPU memory and the network (NIC), choose GPUDirect RDMA; if data moves between storage and GPU memory, choose GPUDirect Storage. One does not replace the other — the decision follows the data's endpoint.
+
 ## 5. Real Pipelines Use Both
 
 Consider a multi-node training pipeline:
@@ -187,6 +270,17 @@ Consider a multi-node training pipeline:
 3. **Back (communication)** — gradients/parameters must be synchronized across nodes. A collective communication library such as NCCL can use **GPUDirect RDMA** to move data between GPU memory and the network without host-memory staging.
 
 In such a pipeline, the two technologies handle different data-movement jobs at the same time — they are **complementary, not alternatives**. No commands appear here; this is an architecture-level concept only.
+
+**Figure 4 — Using GDS and RDMA together in one training pipeline**
+
+```mermaid
+flowchart LR
+    ST["Storage (dataset / checkpoint)"] -->|"GDS direct path"| GM["GPU Memory"]
+    GM --> CP["GPU compute (gradients)"]
+    CP --> GM    GM <-->|"GPUDirect RDMA"| NW["Network (other nodes' GPUs)"]
+```
+
+**Figure walkthrough** — The figure shows two kinds of data movement inside one training pipeline: datasets and checkpoints reach GPU memory from storage over the GDS direct path, while the gradients produced by compute go over GPUDirect RDMA through the network to other nodes' GPU memory. Both technologies therefore work together as complements in one pipeline.
 
 ## 6. Cautions
 
@@ -231,3 +325,5 @@ No. It removes host-memory copies from the data path, while the CPU remains invo
 - No bandwidth/latency figures, benchmark numbers, command syntax, or compatibility matrices are stated anywhere in this module; validation is described at the tool-name level only (gdscheck, fabric-level tools) because exact command syntax was not part of the verified material.
 - The gdscheck tool name and the failure classes (unsupported filesystem mount, non-O_DIRECT IO, PCIe topology; fabric configuration, subnet manager, RoCE configuration) come from the research notes summarizing official GDS and GPUDirect documentation; exact tool invocation syntax needs verification against the GDS Installation and Troubleshooting Guide before being taught as commands.
 - The ASCII diagrams are conceptual, matching the style of Module 11; real data paths vary by OS, drivers, hardware, and software stack, as noted in the text.
+
+- Mermaid figures (Figures 1–4) with figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline to both language sections; all existing text, ASCII diagrams, and review notes are unchanged.

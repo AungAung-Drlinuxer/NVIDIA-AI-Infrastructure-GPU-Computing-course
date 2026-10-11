@@ -52,6 +52,21 @@ NVIDIA AI solution stack မှာ physical hardware ကနေ application အ�
 
 ဒီ diagram က conceptual view ဖြစ်ပါတယ်။ အမှန်တကယ်မှာ monitoring, orchestration, drivers နဲ့ libraries တို့ဟာ သီးခြား layers အဖြစ်သာ အလုပ်လုပ်တာမဟုတ်ဘဲ တစ်ခုနဲ့တစ်ခု ပေါင်းစပ်အလုပ်လုပ်ကြပါတယ်။
 
+**Figure 1 — NVIDIA AI software stack ရဲ့ အလွှာများ**
+
+```mermaid
+flowchart TD
+    A["Applications and Vertical Solutions - Clara, Merlin, NIM, custom apps"] --> B["AI Frameworks - PyTorch, TensorFlow"]
+    B --> C["GPU Libraries - CUDA, cuDNN, cuBLAS, NCCL"]
+    C --> D["Monitoring - NVIDIA-SMI, DCGM, DCGM Exporter"]
+    D --> E["Orchestration and Scheduling - Kubernetes, Slurm"]
+    E --> F["Containers - Images, Docker / compatible runtime"]
+    F --> G["GPU Software - Driver, CUDA compatibility, vGPU / MIG"]
+    G --> H["Hardware - GPU, CPU, Memory, Storage, Network"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 1):** ဒီပုံမှာ အပေါ်ဆုံး application layer ကနေ အောက်ဆုံး hardware အထိ အလွှာရှစ်ခုကို အစီအစဉ်တကျ ပြထားပါတယ်။ အပေါ်က layer တစ်ခုချင်းစီဟာ အောက်က layer ပေါ်မှာ မှီခို အလုပ်လုပ်ပါတယ် — ဥပမာ PyTorch application က container ထဲမှာ run ပြီး CUDA libraries နဲ့ GPU driver ကတစ်ဆင့် GPU ကို အသုံးပြုပါတယ်။ Monitoring နဲ့ orchestration ကတော့ workload တွေကို စီမံဖို့ ကြားခံ layer တွေ ဖြစ်ပါတယ်။ အလွှာတွေဟာ သီးခြား အလုပ်လုပ်တာ မဟုတ်ဘဲ တစ်ခုနဲ့တစ်ခု ပေါင်းစပ်မှ AI workload တစ်ခု ထိရောက်စွာ run နိုင်ပါတယ်။
+
 ဥပမာ DCGM Exporter ကို Kubernetes ပေါ်မှာ run လုပ်နိုင်သလို NVIDIA GPU Operator ကလည်း GPU-related components အချို့ကို Kubernetes environment ထဲမှာ စီမံပေးနိုင်ပါတယ်။
 
 အဓိကအယူအဆက GPU hardware တစ်ခုတည်းမဟုတ်ဘဲ software နဲ့ management components တွေ အတူတကွ အလုပ်လုပ်မှ AI workload တစ်ခုကို ထိရောက်စွာ run နိုင်တာ ဖြစ်ပါတယ်။
@@ -101,6 +116,18 @@ Running AI Container
       v
 NVIDIA GPU (when configured and supported)
 ```
+
+**Figure 2 — Container image ကနေ GPU အသုံးပြုမှုအထိ**
+
+```mermaid
+flowchart LR
+    A["AI Application"] --> B["Container Image"]
+    B --> C["Container Runtime"]
+    C --> D["Running AI Container"]
+    D --> E["NVIDIA GPU - configure လုပ်ထားမှ အသုံးပြုနိုင်"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 2):** AI application ကို အရင် container image အဖြစ် package လုပ်ပါတယ်။ Container runtime က image ကို run ပြီး running container ဖြစ်လာပါတယ်။ နောက်ဆုံးအဆင့်မှာတော့ compatible driver, NVIDIA Container Toolkit နဲ့ GPU device access တွေ ပြင်ဆင်ထားမှသာ container ထဲက application က GPU ကို အသုံးပြုနိုင်မှာ ဖြစ်ပါတယ်။ Container image ရှိရုံနဲ့ မလုံလောက်ပါဘူး။
 
 အရေးကြီးချက်: Container က virtual machine တစ်ခုနဲ့ မတူပါဘူး။ Container တွေဟာ ပုံမှန်အားဖြင့် host operating system ရဲ့ kernel ကို share လုပ်ကြပါတယ်။ VM မှာတော့ guest operating system တစ်ခုစီ ပါဝင်နိုင်ပါတယ်။
 
@@ -233,6 +260,18 @@ NVIDIA GPU
 
 ဒီ diagram က conceptual view ဖြစ်ပါတယ်။ အမှန်တကယ် call path မှာ CUDA Runtime, cuDNN, cuBLAS နဲ့ အခြား libraries တွေကို operation အမျိုးအစားပေါ်မူတည်ပြီး အသုံးပြုနိုင်ပါတယ်။
 
+**Figure 3 — Framework ကနေ GPU အထိ call path**
+
+```mermaid
+flowchart TD
+    A["PyTorch / TensorFlow Application"] --> B["Framework GPU Backend"]
+    B --> C["CUDA Runtime and GPU Libraries"]
+    C --> D["NVIDIA Driver"]
+    D --> E["NVIDIA GPU"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 3):** Developer က PyTorch သို့မဟုတ် TensorFlow API ကို သုံးရုံပါပဲ။ Framework ရဲ့ GPU backend က operation ကို CUDA runtime နဲ့ GPU libraries ဆီ ပို့ပေးပြီး NVIDIA driver ကတစ်ဆင့် GPU ပေါ်မှာ အမှန်တကယ် run ပါတယ်။ ဒါကြောင့် framework တစ်ခုတည်းနဲ့ မပြီးဘဲ driver, CUDA libraries နဲ့ GPU တို့ အားလုံး ကိုက်ညီမှ အလုပ်လုပ်ပါတယ်။
+
 ### 5.3 Example: PyTorch GPU Selection
 
 ```python
@@ -325,6 +364,19 @@ srun --gres=gpu:1 python train.py
 
 အချို့ architecture တွေမှာ integration သို့မဟုတ် shared infrastructure ကို အသုံးပြုနိုင်ပေမဲ့ integration method က platform design ပေါ်မူတည်ပါတယ်။
 
+**Figure 4 — Kubernetes နဲ့ Slurm ကို အတူတကွ အသုံးပြုပုံ**
+
+```mermaid
+flowchart LR
+    T["Multi-GPU training jobs"] --> SL["Slurm - job scheduler"]
+    I["Inference APIs နဲ့ application services"] --> K["Kubernetes - container orchestration"]
+    SL --> G["GPU cluster resources"]
+    K --> G
+    G --> M["Monitoring platform - GPU metrics ကို နှစ်ခုစလုံးက စုဆောင်းသည်"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 4):** ဘယ်ဘက်အပေါ်က training jobs တွေက Slurm ကတစ်ဆင့် schedule ဖြစ်ပြီး အောက်က inference services တွေကတော့ Kubernetes ပေါ်မှာ run ပါတယ်။ နှစ်ခုစလုံးက GPU cluster resources တွေကို အသုံးပြုပြီး monitoring platform တစ်ခုက environment နှစ်ခုစလုံးက GPU metrics တွေကို စုဆောင်းနိုင်ပါတယ်။ Slurm နဲ့ Kubernetes ဟာ တစ်ခုနဲ့တစ်ခု အစားထိုး မဟုတ်ဘဲ တာဝန်ခွဲပြီး အတူသုံးနိုင်တာကို ပြပါတယ်။
+
 **Exam keyword: Containerized application orchestration → Kubernetes။ HPC batch jobs and job queues → Slurm။**
 
 ## 7. GPU Monitoring: DCGM Exporter, Prometheus, and Grafana
@@ -383,6 +435,18 @@ Prometheus
     v
 Grafana Dashboards
 ```
+
+**Figure 5 — GPU monitoring pipeline**
+
+```mermaid
+flowchart LR
+    A["NVIDIA GPU"] --> B["DCGM"]
+    B --> C["DCGM Exporter"]
+    C --> D["Prometheus"]
+    D --> E["Grafana Dashboards"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 5):** GPU က ထွက်လာတဲ့ metrics တွေကို အရင် DCGM က စုဆောင်းပါတယ်။ DCGM Exporter က အဲဒီ metrics တွေကို Prometheus-compatible format နဲ့ ထုတ်ပေးပြီး Prometheus က scrape လုပ်ပြီး time-series data အဖြစ် သိမ်းဆည်းပါတယ်။ နောက်ဆုံးမှာ Grafana က အဲဒီ data ကို dashboard တွေအဖြစ် ပြသပေးပါတယ်။ မှတ်ထားရမှာက DCGM Exporter က metrics တွေကို ရေရှည် မသိမ်းဆည်းပါဘူး — သိမ်းဆည်းတာက Prometheus ဖြစ်ပါတယ်။
 
 Alerting ကိုလည်း configure လုပ်နိုင်ပေမဲ့ alert notification အတွက် alert rules နဲ့ Alertmanager သို့မဟုတ် သက်ဆိုင်ရာ notification integration တွေကို ပြင်ဆင်ထားဖို့ လိုအပ်နိုင်ပါတယ်။
 
@@ -470,6 +534,25 @@ NVIDIA GPU
 ```
 
 ဒီ diagram က conceptual architecture ဖြစ်ပါတယ်။ DCGM monitoring path နဲ့ AI workload execution path တို့ဟာ တစ်ခုနဲ့တစ်ခု ဆက်စပ်ပေမဲ့ monitoring က inference execution ရဲ့ အစိတ်အပိုင်းတစ်ခု မဟုတ်ပါဘူး။
+
+**Figure 6 — AI workload တစ်ခုရဲ့ end-to-end integration flow**
+
+```mermaid
+flowchart TD
+    A["Developer / AI Team"] --> B["AI Application and Model"]
+    B --> C["PyTorch / TensorFlow / NIM"]
+    C --> D["Container Image"]
+    D --> E["Kubernetes + GPU Integration"]
+    E --> F["NVIDIA Driver"]
+    F --> G["NVIDIA GPU"]
+    G --> H["AI Workload run ခြင်း"]
+    G --> I["DCGM"]
+    I --> J["DCGM Exporter"]
+    J --> K["Prometheus"]
+    K --> L["Grafana"]
+```
+
+**ပုံရှင်းလင်းချက် (Figure 6):** ဘယ်ဘက်အပေါ်က developer ကနေ စပြီး အောက်ကို တစ်ဆင့်ချင်း လိုက်ကြည့်ပါ — application နဲ့ model ကို framework သို့မဟုတ် NIM နဲ့ ချိတ်၊ container image ထဲ ထည့်၊ Kubernetes က GPU resource request နဲ့ သင့်တော်တဲ့ node ပေါ် တင်ပေး၊ NVIDIA driver ကတစ်ဆင့် GPU ပေါ်မှာ workload run ပါတယ်။ ညာဘက်ခွဲကတော့ monitoring path ဖြစ်ပြီး GPU ကနေ DCGM, DCGM Exporter, Prometheus ကတစ်ဆင့် Grafana အထိ metrics ရောက်ပါတယ်။ Monitoring path က inference execution ရဲ့ အစိတ်အပိုင်း မဟုတ်ဘဲ သီးခြား စောင့်ကြည့်ရေး လမ်းကြောင်းသာ ဖြစ်ပါတယ်။
 
 ## 9. How to Choose the Right Tool
 
@@ -660,6 +743,21 @@ The NVIDIA AI solution stack contains many layers, from physical hardware up to 
 
 This diagram is a conceptual view. In reality, monitoring, orchestration, drivers, and libraries do not work as isolated layers — they work together.
 
+**Figure 1 — Layers of the NVIDIA AI software stack**
+
+```mermaid
+flowchart TD
+    A["Applications and Vertical Solutions - Clara, Merlin, NIM, custom apps"] --> B["AI Frameworks - PyTorch, TensorFlow"]
+    B --> C["GPU Libraries - CUDA, cuDNN, cuBLAS, NCCL"]
+    C --> D["Monitoring - NVIDIA-SMI, DCGM, DCGM Exporter"]
+    D --> E["Orchestration and Scheduling - Kubernetes, Slurm"]
+    E --> F["Containers - Images, Docker / compatible runtime"]
+    F --> G["GPU Software - Driver, CUDA compatibility, vGPU / MIG"]
+    G --> H["Hardware - GPU, CPU, Memory, Storage, Network"]
+```
+
+**Figure 1 walkthrough:** The figure shows eight layers, from the application layer at the top down to hardware at the bottom. Each upper layer sits on top of and depends on the layer below it — for example, a PyTorch application runs inside a container and reaches the GPU through CUDA libraries and the GPU driver. Monitoring and orchestration are the middle layers that manage the workloads. These layers do not work in isolation; an AI workload runs effectively only when they work together.
+
 For example, DCGM Exporter can run on Kubernetes, and the NVIDIA GPU Operator can manage some GPU-related components inside a Kubernetes environment.
 
 The key idea is that an AI workload runs effectively only when GPU hardware plus the software and management components work together — not with GPU hardware alone.
@@ -709,6 +807,18 @@ Running AI Container
       v
 NVIDIA GPU (when configured and supported)
 ```
+
+**Figure 2 — From container image to GPU usage**
+
+```mermaid
+flowchart LR
+    A["AI Application"] --> B["Container Image"]
+    B --> C["Container Runtime"]
+    C --> D["Running AI Container"]
+    D --> E["NVIDIA GPU - usable when configured and supported"]
+```
+
+**Figure 2 walkthrough:** First the AI application is packaged as a container image. The container runtime runs the image, producing a running container. Only at the last step — with a compatible driver, the NVIDIA Container Toolkit, and GPU device access in place — can the application inside the container use the GPU. Having a container image alone is not enough.
 
 Important: A container is not the same as a virtual machine. Containers typically share the host operating system's kernel. A VM can include its own guest operating system.
 
@@ -839,6 +949,18 @@ NVIDIA GPU
 
 This diagram is a conceptual view. In the actual call path, CUDA Runtime, cuDNN, cuBLAS, and other libraries can be used depending on the type of operation.
 
+**Figure 3 — The call path from framework to GPU**
+
+```mermaid
+flowchart TD
+    A["PyTorch / TensorFlow Application"] --> B["Framework GPU Backend"]
+    B --> C["CUDA Runtime and GPU Libraries"]
+    C --> D["NVIDIA Driver"]
+    D --> E["NVIDIA GPU"]
+```
+
+**Figure 3 walkthrough:** The developer only uses the PyTorch or TensorFlow API. The framework's GPU backend passes the operation to the CUDA runtime and GPU libraries, and the NVIDIA driver runs it on the GPU. That is why the framework alone is not enough — the driver, CUDA libraries, and GPU all have to line up.
+
 ### 5.3 Example: PyTorch GPU Selection
 
 ```python
@@ -931,6 +1053,19 @@ Yes. An organization can use both Kubernetes and Slurm. For example—
 
 Some architectures can use integration or shared infrastructure, but the integration method depends on the platform design.
 
+**Figure 4 — Using Kubernetes and Slurm together**
+
+```mermaid
+flowchart LR
+    T["Multi-GPU training jobs"] --> SL["Slurm - job scheduler"]
+    I["Inference APIs and application services"] --> K["Kubernetes - container orchestration"]
+    SL --> G["GPU cluster resources"]
+    K --> G
+    G --> M["Monitoring platform collects GPU metrics from both"]
+```
+
+**Figure 4 walkthrough:** Training jobs at the top left are scheduled through Slurm, while the inference services below run on Kubernetes. Both use GPU cluster resources, and a single monitoring platform can collect GPU metrics from both environments. The figure shows that Slurm and Kubernetes divide the work — one does not replace the other.
+
 **Exam keyword: Containerized application orchestration → Kubernetes. HPC batch jobs and job queues → Slurm.**
 
 ## 7. GPU Monitoring: DCGM Exporter, Prometheus, and Grafana
@@ -989,6 +1124,18 @@ Prometheus
     v
 Grafana Dashboards
 ```
+
+**Figure 5 — GPU monitoring pipeline**
+
+```mermaid
+flowchart LR
+    A["NVIDIA GPU"] --> B["DCGM"]
+    B --> C["DCGM Exporter"]
+    C --> D["Prometheus"]
+    D --> E["Grafana Dashboards"]
+```
+
+**Figure 5 walkthrough:** DCGM first collects the metrics coming from the GPU. DCGM Exporter exposes those metrics in a Prometheus-compatible format, and Prometheus scrapes and stores them as time-series data. Finally, Grafana displays the data as dashboards. Note that the exporter does not store metrics long-term — Prometheus does the storing.
 
 Alerting can also be configured, but alert notifications may require alert rules and Alertmanager or the relevant notification integration to be set up.
 
@@ -1076,6 +1223,25 @@ NVIDIA GPU
 ```
 
 This diagram is a conceptual architecture. The DCGM monitoring path and the AI workload execution path are related, but monitoring is not a part of inference execution.
+
+**Figure 6 — End-to-end integration flow of an AI workload**
+
+```mermaid
+flowchart TD
+    A["Developer / AI Team"] --> B["AI Application and Model"]
+    B --> C["PyTorch / TensorFlow / NIM"]
+    C --> D["Container Image"]
+    D --> E["Kubernetes + GPU Integration"]
+    E --> F["NVIDIA Driver"]
+    F --> G["NVIDIA GPU"]
+    G --> H["AI Workload runs"]
+    G --> I["DCGM"]
+    I --> J["DCGM Exporter"]
+    J --> K["Prometheus"]
+    K --> L["Grafana"]
+```
+
+**Figure 6 walkthrough:** Start at the top left and follow the flow down: the application and model connect to a framework or NIM, get packaged into a container image, and Kubernetes places the workload on a suitable node based on the GPU resource request; the NVIDIA driver runs it on the GPU. The right branch is the monitoring path — GPU metrics travel through DCGM, DCGM Exporter, and Prometheus to Grafana. The monitoring path is not part of inference execution; it is a separate observation path.
 
 ## 9. How to Choose the Right Tool
 
@@ -1221,3 +1387,4 @@ This module connected the main components of NVIDIA AI infrastructure.
 - The source transcript for this module began mid-message with the practice-exam answer key split across two messages; the fragments were merged into one complete answer key (Questions 1–8). No answer-key content from unrelated exams was included.
 - The YAML example (`nvcr.io/nvidia/pytorch:25.01-py3`) and the Slurm example (`srun --gres=gpu:1 python train.py`) are illustrative, per the source's own caveats — the image tag is not a recommended production version, and some clusters use `--gpus=1` instead of `--gres=gpu:1`.
 - Operational cautions retained per course rules: monitoring ≠ scheduling; traffic load balancing ≠ GPU compute load balancing; the GPU Operator does not install the full CUDA Toolkit; there is no default automatic GPU load balancing or live migration. The GPU Operator component list matches the source; the CUDA Toolkit statement is a course-level caveat and should be checked against the current GPU Operator documentation for version-specific behavior (needs verification).
+- Beginner-friendly Mermaid figures (Figure 1–6) with figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline in both the Myanmar and English sections; all existing text and ASCII diagrams are unchanged.

@@ -36,6 +36,25 @@ Machine Learning project တစ်ခုကို စတင်တဲ့အခါ
 - **Model updates**: Model version အသစ်ကို ထုတ်တဲ့အခါ service မပြတ်တောက်ဘဲ update လုပ်နိုင်သလား။
 - **Reliability and security**: Failure ဖြစ်တဲ့အခါ ဘယ်လိုပြန်လည်ထိန်းချုပ်မလဲ။ Model နဲ့ data access ကို ဘယ်လိုကာကွယ်မလဲ။
 
+Model တစ်ခု train ပြီးရုံနဲ့ မလုံလောက်တာကို အောက်ပါပုံတွင် ကြည့်နိုင်ပါတယ်—
+
+**Figure 1 — Model Train ပြီးရုံနှင့် မလုံလောက်ခြင်း**
+
+```mermaid
+flowchart TD
+    A["Training Data ပြင်ဆင်"] --> B["Model Train လုပ်"]
+    B --> C["Evaluation ကောင်းမွန်"]
+    C --> D{"Production အတွက် အဆင်သင့်ဖြစ်ပြီလား"}
+    D -->|"မဖြစ်သေးပါ"| E["Deployment ချိတ်ဆက်မှု"]
+    D -->|"မဖြစ်သေးပါ"| F["Operational / Data Monitoring"]
+    D -->|"မဖြစ်သေးပါ"| G["Model Updates / Reliability"]
+    E --> H["MLOps ဖြင့် စနစ်တကျ စီမံ"]
+    F --> H
+    G --> H
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်က အဆင့်သုံးဆင့် (training data ပြင်ဆင်ခြင်း၊ model train လုပ်ခြင်း၊ evaluation ကောင်းမွန်ခြင်း) က development အဆင့် ဖြစ်ပါတယ်။ ဒါပေမဲ့ ဆုံးဖြတ်ချက်အမှတ်မှာ production အတွက် ထပ်ဖြေရှင်းရန် ကျန်သေးတဲ့ အချက်သုံးချက် — deployment ချိတ်ဆက်မှု၊ operational/data monitoring၊ model updates နဲ့ reliability — ကို တွေ့ရပါမယ်။ အဲဒီအချက်တွေကို MLOps ဖြင့် စနစ်တကျ စီမံရတာဖြစ်ကြောင်း ပုံက ပြပါတယ်။
+
 ဒီပြဿနာတွေဟာ model development တစ်ခုတည်းနဲ့ ဖြေရှင်းလို့မရပါဘူး။ Development နဲ့ Operations ကို ပေါင်းစပ်စီမံနိုင်ဖို့ MLOps လိုအပ်လာတာ ဖြစ်ပါတယ်။
 
 #### 2.2 What Happens Without MLOps?
@@ -194,6 +213,29 @@ Code / Data / Configuration changes
         Production monitoring
 ```
 
+        Production monitoring
+```
+
+ပုံမှန် software CI/CD ကို MLOps အတွက် ဘယ်လိုချဲ့ထွင်သလဲဆိုတာ အောက်ပါပုံတွင် ကြည့်နိုင်ပါတယ်—
+
+**Figure 2 — MLOps အတွက် ချဲ့ထွင်ထားသော CI/CD Pipeline**
+
+```mermaid
+flowchart TD
+    A["Code / Data / Configuration changes"] --> B["Code and data validation"]
+    B --> C["Automated training job"]
+    C --> D["Model evaluation"]
+    D --> E{"Quality gate / Approval"}
+    E -->|"Pass"| F["Model registration"]
+    E -->|"Fail"| G["Pipeline ရပ် / စုံစမ်းစစ်ဆေး"]
+    F --> H["Staging deployment"]
+    H --> I["Production validation"]
+    I --> J["Controlled rollout"]
+    J --> K["Production monitoring"]
+```
+
+**ပုံရှင်းလင်းချက်** — Code သာမက data နဲ့ configuration ပြောင်းလဲမှုကနေ စပါတယ်။ Validation ပြီးမှ automated training job နဲ့ model evaluation လုပ်ပြီး quality gate မှာ စစ်ဆေးပါတယ်။ Pass ဖြစ်ရင် model ကို register လုပ်ပြီး staging deployment၊ production validation၊ controlled rollout ကတစ်ဆင့် production monitoring အထိ ဆက်သွားပါတယ်။ Fail ဖြစ်ရင်တော့ pipeline ကို ရပ်ပြီး စုံစမ်းစစ်ဆေးရပါမယ်။ Code တစ်ခုတည်း မဟုတ်ဘဲ data, model artifacts နဲ့ evaluation results တွေပါ စစ်ဆေးရတာက ဒီ pipeline ရဲ့ ထူးခြားချက် ဖြစ်ပါတယ်။
+
 Quality gate ဆိုတာ model ကို နောက်တစ်ဆင့်သို့ ဆက်လက်တင်ပို့သင့်၊ မသင့် ဆုံးဖြတ်ပေးတဲ့ စည်းမျဉ်း သို့မဟုတ် checkpoint ဖြစ်ပါတယ်။ ဥပမာ—
 
 - Accuracy သို့မဟုတ် F1 score သတ်မှတ်ချက်ပြည့်မီသလား။
@@ -249,6 +291,29 @@ New transaction data arrives
                        v
               Deploy if authorized
 ```
+
+              Deploy if authorized
+```
+
+Event ကနေ retraining workflow စတင်ပုံကို ပုံဖြင့် ကြည့်ရအောင်—
+
+**Figure 3 — Event-Driven Retraining Flow**
+
+```mermaid
+flowchart TD
+    A["New transaction data arrives"] --> B["Data validation"]
+    B --> C{"Required data threshold met?"}
+    C -->|"No"| D["Wait for more data"]
+    C -->|"Yes"| E["Trigger pipeline"]
+    E --> F["Train model"]
+    F --> G["Evaluate model"]
+    G --> H{"Approved?"}
+    H -->|"Yes"| I["Register if approved"]
+    I --> J{"Deploy authorized?"}
+    J -->|"Yes"| K["Deploy if authorized"]
+```
+
+**ပုံရှင်းလင်းချက်** — Data အသစ် ရောက်လာရင် ပထမ data validation လုပ်ပါတယ်။ ပြီးရင် threshold ပြည့်၊ မပြည့် စစ်ပါတယ် — မပြည့်သေးရင် data ထပ်စောင့်ပြီး၊ ပြည့်ရင် pipeline ကို trigger လုပ်ပါတယ်။ ထို့နောက် model train လုပ်၊ evaluate လုပ်၊ approved ဖြစ်မှ register လုပ်ပြီး deploy လုပ်ခွင့် ရှိမှ deploy လုပ်ပါတယ်။ Training ကို အလိုအလျောက် လုပ်နိုင်ပေမဲ့ approval အဆင့်တွေ ဆက်လက် လိုအပ်သေးတာကို ပုံက ပြပါတယ်။
 
 #### 6.2 Scheduled Retraining
 
@@ -454,6 +519,33 @@ Data Collection
                      +------> Training Pipeline
 ```
 
+                     +------> Training Pipeline
+```
+
+End-to-end workflow loop ကို ပုံဖြင့် ကြည့်ရအောင်—
+
+**Figure 4 — End-to-End MLOps Workflow Loop**
+
+```mermaid
+flowchart TD
+    A["Data Collection"] --> B["Data Validation"]
+    B --> C["Training Pipeline"]
+    C --> D["Model Evaluation"]
+    D --> E{"Quality Gate"}
+    E -->|"Fail"| F["Investigate"]
+    E -->|"Pass"| G["Model Registry"]
+    G --> H["Staging Deployment"]
+    H --> I["Production Approval"]
+    I --> J["Production Deployment"]
+    J --> K["Operational Monitoring"]
+    K --> L["Model/Data Monitoring"]
+    L --> M{"Retraining Trigger"}
+    M -->|"လိုအပ်ပါက"| C
+    F -.->|"ပြင်ဆင်ပြီးပါက"| C
+```
+
+**ပုံရှင်းလင်းချက်** — Data Collection ကနေ စပြီး Data Validation၊ Training Pipeline၊ Model Evaluation ကို ဖြတ်ပြီး Quality Gate မှာ ဆုံးဖြတ်ပါတယ်။ Pass ဖြစ်ရင် Model Registry ကတစ်ဆင့် Staging Deployment၊ Production Approval၊ Production Deployment ဆီ ဆက်သွားပြီး operational နဲ့ model/data monitoring နှစ်မျိုး လုပ်ပါတယ်။ Fail ဖြစ်ရင် Investigate လုပ်ပြီး ပြင်ဆင်ပြီးမှ (dashed မြှား) Training Pipeline ဆီ ပြန်သွားနိုင်ပါတယ်။ နောက်ဆုံး Retraining Trigger က retraining လိုအပ်မှသာ Training Pipeline ဆီ ပြန်ချိတ်တာကြောင့် retraining က အမြဲတမ်း အလိုအလျောက် မဟုတ်ကြောင်း ပြပါတယ်။
+
 ဒီ workflow မှာ retraining က အမြဲတမ်း အလိုအလျောက် ဖြစ်ရမယ်လို့ မဆိုလိုပါဘူး။ Monitoring result, data availability, model requirements နဲ့ approval policies တွေပေါ် မူတည်ပြီး retraining လုပ်သင့်၊ မသင့် ဆုံးဖြတ်နိုင်ပါတယ်။
 
 ### 12. Key Takeaways
@@ -528,6 +620,25 @@ For example — suppose a bank trains an ML model to detect fraudulent transacti
 - **Model accuracy**: is prediction quality declining over time?
 - **Model updates**: can a new model version be released without service interruption?
 - **Reliability and security**: how is control restored on failure? How are model and data access protected?
+
+The gap between "trained" and "production-ready" can be seen in the following figure—
+
+**Figure 1 — Training Alone Is Not Enough**
+
+```mermaid
+flowchart TD
+    A["Prepare training data"] --> B["Train the model"]
+    B --> C["Good evaluation results"]
+    C --> D{"Ready for production?"}
+    D -->|"Not yet"| E["Deployment connection"]
+    D -->|"Not yet"| F["Operational / Data Monitoring"]
+    D -->|"Not yet"| G["Model Updates / Reliability"]
+    E --> H["Managed systematically with MLOps"]
+    F --> H
+    G --> H
+```
+
+**Figure walkthrough** — The three steps at the top (prepare training data, train the model, good evaluation) are the development stage. But at the decision point, three problems still have to be solved for production — the deployment connection, operational/data monitoring, and model updates with reliability. The figure shows that these are handled systematically with MLOps.
 
 These problems cannot be solved by model development alone. MLOps is needed to manage development and operations together.
 
@@ -687,6 +798,29 @@ Code / Data / Configuration changes
         Production monitoring
 ```
 
+        Production monitoring
+```
+
+How the traditional software CI/CD pipeline is extended for MLOps can be seen in the following figure—
+
+**Figure 2 — CI/CD Pipeline Extended for MLOps**
+
+```mermaid
+flowchart TD
+    A["Code / Data / Configuration changes"] --> B["Code and data validation"]
+    B --> C["Automated training job"]
+    C --> D["Model evaluation"]
+    D --> E{"Quality gate / Approval"}
+    E -->|"Pass"| F["Model registration"]
+    E -->|"Fail"| G["Pipeline stops / investigate"]
+    F --> H["Staging deployment"]
+    H --> I["Production validation"]
+    I --> J["Controlled rollout"]
+    J --> K["Production monitoring"]
+```
+
+**Figure walkthrough** — The flow starts from code, data and configuration changes. After validation come the automated training job and model evaluation, and then the quality gate checks the result. On a pass, the model is registered and the flow continues through staging deployment, production validation and controlled rollout to production monitoring. On a fail, the pipeline stops and the cause is investigated. What makes this pipeline different from ordinary software CI/CD is that data, model artifacts and evaluation results are checked too, not just code.
+
 A quality gate is a rule or checkpoint that decides whether the model should proceed to the next stage. For example—
 
 - Does accuracy or F1 score meet the threshold?
@@ -742,6 +876,29 @@ New transaction data arrives
                        v
               Deploy if authorized
 ```
+
+              Deploy if authorized
+```
+
+How an event starts a retraining workflow can be seen as a figure—
+
+**Figure 3 — Event-Driven Retraining Flow**
+
+```mermaid
+flowchart TD
+    A["New transaction data arrives"] --> B["Data validation"]
+    B --> C{"Required data threshold met?"}
+    C -->|"No"| D["Wait for more data"]
+    C -->|"Yes"| E["Trigger pipeline"]
+    E --> F["Train model"]
+    F --> G["Evaluate model"]
+    G --> H{"Approved?"}
+    H -->|"Yes"| I["Register if approved"]
+    I --> J{"Deploy authorized?"}
+    J -->|"Yes"| K["Deploy if authorized"]
+```
+
+**Figure walkthrough** — When new data arrives, it is validated first. Then the threshold is checked — if not met, more data is awaited; if met, the pipeline is triggered. Next the model is trained and evaluated, it is registered only when approved, and it is deployed only when deployment is authorized. The figure shows that while training can be automated, the approval stages are still required.
 
 #### 6.2 Scheduled Retraining
 
@@ -945,6 +1102,33 @@ Data Collection
                      +------> Training Pipeline
 ```
 
+                     +------> Training Pipeline
+```
+
+The end-to-end workflow loop can be seen as a figure—
+
+**Figure 4 — End-to-End MLOps Workflow Loop**
+
+```mermaid
+flowchart TD
+    A["Data Collection"] --> B["Data Validation"]
+    B --> C["Training Pipeline"]
+    C --> D["Model Evaluation"]
+    D --> E{"Quality Gate"}
+    E -->|"Fail"| F["Investigate"]
+    E -->|"Pass"| G["Model Registry"]
+    G --> H["Staging Deployment"]
+    H --> I["Production Approval"]
+    I --> J["Production Deployment"]
+    J --> K["Operational Monitoring"]
+    K --> L["Model/Data Monitoring"]
+    L --> M{"Retraining Trigger"}
+    M -->|"if needed"| C
+    F -.->|"after fixing"| C
+```
+
+**Figure walkthrough** — From data collection the flow passes data validation, the training pipeline and model evaluation to the quality gate. On a pass it continues through the model registry, staging deployment, production approval and production deployment, then both operational and model/data monitoring. On a fail, the cause is investigated and, once fixed (dashed arrow), the training pipeline runs again. Finally the retraining trigger connects back to the training pipeline only when retraining is needed — showing that retraining is not always automatic.
+
 In this workflow, retraining is not always automatic. Whether to retrain can be decided based on monitoring results, data availability, model requirements and approval policies.
 
 ### 12. Key Takeaways
@@ -991,3 +1175,4 @@ In this workflow, retraining is not always automatic. Whether to retrain can be 
 - Source material for this module is in Burmese (msg_2682.txt); the English version is a faithful translation. Review questions were already supplied in English in the source and are kept verbatim, with concise answers added; the same questions and answers appear in both language sections.
 - Source caveats preserved: ML training results are not always bit-identical (random initialization, nondeterministic operations); automated retraining ≠ automated production deployment; new data does not always justify retraining; data drift does not always mean accuracy decreased; ground-truth labels may arrive late so accuracy cannot always be measured immediately; a Model Registry does not by itself perform rollback; CI/CD automation does not remove validation/approval; Continuous Delivery and Continuous Deployment differ; the shown architecture (Slurm training + Kubernetes inference) is one option only.
 - The model-version example table (fraud-model-v1/v2/v3) is illustrative, as stated in the source.
+- Beginner-friendly Mermaid figures (flowchart TD/LR) with captions and figure walkthroughs (ပုံရှင်းလင်းချက်) were added inline in both language sections with matching figure numbering; existing text and ASCII diagrams are unchanged.

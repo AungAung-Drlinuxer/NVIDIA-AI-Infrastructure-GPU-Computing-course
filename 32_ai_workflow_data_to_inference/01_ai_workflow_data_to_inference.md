@@ -66,6 +66,20 @@ High-performance infrastructure တစ်ခုရှိရုံနှင့်
 
 ဤပုံသည် သင်ခန်းစာအတွက် high-level model ဖြစ်သည်။ လက်တွေ့လုပ်ငန်းတွင် evaluation, validation, monitoring, retraining နှင့် feedback loop များကိုလည်း ထည့်သွင်းရတတ်သည်။
 
+**ပုံ ၁ (Figure 1) — AI Workflow အဆင့် ၄ ဆင့် (Data Processing မှ Production Inference အထိ)**
+
+```mermaid
+flowchart TD
+    A["Raw Data"] --> B["အဆင့် ၁ — Data Processing"]
+    B --> C["အဆင့် ၂ — Model Training"]
+    C --> D["အဆင့် ၃ — Model Optimization"]
+    D --> E["အဆင့် ၄ — Inference / Deployment"]
+    E --> F["Production Output"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက Raw Data ကနေ စတင်ပြီး မြားချောင်းတွေကို အောက်သို့ တစ်ဆင့်ချင်း လိုက်ကြည့်ပါ။ အဆင့် ၁ တွင် data ကို သန့်စင်ပြင်ဆင်၊ အဆင့် ၂ တွင် model က data ထဲမှ pattern များ သင်ယူ၊ အဆင့် ၃ တွင် performance နှင့် resource usage ကို ချိန်ညှိပြီး၊ အဆင့် ၄ တွင် production environment တွင် အသုံးပြုနိုင်အောင် serve လုပ်ပါသည်။ အဆင့်တစ်ခုစီ၏ output သည် နောက်အဆင့်အတွက် input ဖြစ်သွားပါသည်။
+
+
 ## 3. အဆင့် ၁ — Data Processing
 
 **3.1 Data Processing ဘာကြောင့်လိုအပ်သလဲ?**
@@ -91,6 +105,23 @@ Data Processing တွင် ထိုပြဿနာများကို စ�
 | Feature Engineering | Model အတွက် အသုံးဝင်သော feature များ ဖန်တီးခြင်း | Transaction amount နှင့် ပုံမှန်အသုံးစရိတ်ကွာခြားချက်ကို တွက်ချက်ခြင်း |
 | Data Augmentation | ရှိပြီးသား data မှ သင့်လျော်သော variation များ ဖန်တီးခြင်း | Image ကို အနည်းငယ်လှည့်ခြင်း၊ crop လုပ်ခြင်း |
 | Data Splitting | Training, validation နှင့် test data ခွဲခြားခြင်း | 80% training, 10% validation, 10% test |
+
+**ပုံ ၂ (Figure 2) — Data Processing လုပ်ဆောင်ချက်များ အစဉ်လိုက်**
+
+```mermaid
+flowchart LR
+    A["Raw Data"] --> B["Data Cleaning"]
+    B --> C["Data Transformation"]
+    C --> D["Data Normalization"]
+    D --> E["Feature Engineering"]
+    E --> F["Data Augmentation"]
+    F --> G["Data Splitting"]
+    G --> H["Training Data"]
+    G --> I["Validation / Test Data"]
+```
+
+**ပုံရှင်းလင်းချက်** — ဘယ်ဘက်က Raw Data ကနေ စတင်ပြီး ညာဘက်သို့ လိုက်ကြည့်ပါ။ ပထမ data ကို သန့်စင်ခြင်း (Data Cleaning)၊ format ပြောင်းခြင်း (Data Transformation)၊ scale ချိန်ညှိခြင်း (Data Normalization)၊ feature အသစ် ဖန်တီးခြင်း (Feature Engineering)၊ variation များ ဖန်တီးခြင်း (Data Augmentation) တို့ကို အစဉ်လိုက် လုပ်ဆောင်ပါသည်။ နောက်ဆုံး Data Splitting တွင် training data နှင့် validation/test data ဟု ခွဲထွက်သွားပြီး အောက်ပါ သတိပြုချက်များအတိုင်း label နှင့် အဓိပ္ပာယ် မပျက်စေဘဲ ခွဲရမည် ဖြစ်ပါသည်။
+
 
 သတိပြုရန် — Data Augmentation သည် data အရေအတွက်ကို အတုအယောင် တိုးပေးခြင်းတစ်ခုတည်း မဟုတ်ပါ။ Label နှင့် အဓိပ္ပာယ်ကို ထိန်းသိမ်းထားသည့် သင့်လျော်သော variation များ ဖြစ်ရမည်။ ဥပမာအားဖြင့် စာသားပုံတစ်ပုံကို လှည့်ခြင်းကြောင့် စာသားဖတ်မရတော့ပါက ထို augmentation သည် အသုံးမဝင်နိုင်ပါ။
 
@@ -133,6 +164,22 @@ Bank တစ်ခုတွင် ယခင် transaction များရှိ�
 ဤဥပမာတွင် Label သည် supervised learning အတွက် အဖြေမှန်အဖြစ် အသုံးပြုမည့် target ဖြစ်သည်။ Training လုပ်စဉ် Model သည် transaction feature များနှင့် label များအကြား ဆက်နွယ်မှုကို သင်ယူရန် ကြိုးစားမည်။
 
 Training ပြီးသွားသောအခါ Model သည် မမြင်ဖူးသေးသော transaction အသစ်တစ်ခုကို လက်ခံရရှိပြီး fraud ဖြစ်နိုင်ခြေကို ခန့်မှန်းပေးနိုင်သည်။
+
+**ပုံ ၃ (Figure 3) — Training နှင့် Prediction လုပ်ဆောင်ပုံ (Fraud Detection ဥပမာ)**
+
+```mermaid
+sequenceDiagram
+    participant TD as Training Data
+    participant M as Model
+    participant NT as Transaction အသစ်
+    TD->>M: Feature များနှင့် Label များ ပေးသည်
+    M->>M: Feature နှင့် Label ကြား ဆက်နွယ်မှု သင်ယူသည်
+    NT->>M: Transaction အသစ် ပေးသည်
+    M-->>NT: Fraud ဖြစ်နိုင်ခြေ ခန့်မှန်းပေးသည်
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ပိုင်း မျဉ်းနှစ်ကြောင်းက Training အဆင့် ဖြစ်ပြီး Training Data မှ feature နှင့် label များ ပေးရာက Model က ဆက်နွယ်မှုကို သင်ယူပါသည်။ အောက်ပိုင်း မျဉ်းနှစ်ကြောင်းက Inference အဆင့် ဖြစ်ပြီး မမြင်ဖူးသေးသော transaction အသစ် ပေးလိုက်လျှင် Model က fraud ဖြစ်နိုင်ခြေကို ခန့်မှန်းပြန်ပေးပါသည်။
+
 
 လက်တွေ့တွင် fraud detection သည် feature များစွာ၊ imbalance ဖြစ်နေသော class များ၊ data privacy နှင့် false positive/false negative ကုန်ကျစရိတ်တို့ကို ထည့်သွင်းစဉ်းစားရသော ပြဿနာဖြစ်သည်။ အထက်ပါဇယားသည် အယူအဆနားလည်ရန်သာ ဖြစ်သည်။
 
@@ -221,6 +268,18 @@ Optimized Engine
 Inference Runtime
 ```
 
+**ပုံ ၄ (Figure 4) — TensorRT Engine Build လုပ်ဆောင်ပုံ**
+
+```mermaid
+flowchart TD
+    A["Trained Model"] --> B["Supported Model Format / Export"]
+    B --> C["TensorRT Optimization / Engine Build"]
+    C --> D["Optimized Engine"]
+    D --> E["Inference Runtime"]
+```
+
+**ပုံရှင်းလင်းချက်** — Trained Model ကနေ စတင်ပြီး အောက်သို့ လိုက်ကြည့်ပါ။ ပထမ model ကို supported format အဖြစ် export လုပ်၊ ထို့နောက် TensorRT က optimization လုပ်ပြီး engine တည်ဆောက်၊ ရရှိလာသော Optimized Engine ကို inference runtime တွင် အသုံးပြုပါသည်။ ဤအဆင့်များသည် model ကို production inference အတွက် ပြင်ဆင်သည့် အဆင့်များ ဖြစ်ပါသည်။
+
 TensorRT သည် Model ကို အလိုအလျောက် အမြဲတမ်းပိုမြန်စေမည်ဟု အာမမခံပါ။ Performance ကို target GPU, model architecture, input shape, precision, batch size နှင့် latency/throughput requirement များအပေါ် အခြေခံ၍ benchmark လုပ်ရမည်။
 
 Reference: NVIDIA TensorRT Documentation (https://docs.nvidia.com/deeplearning/tensorrt/latest/)
@@ -292,6 +351,18 @@ TensorRT နှင့် Triton သည် အစားထိုးသုံး�
                       v
                MODEL PREDICTION
 ```
+
+**ပုံ ၅ (Figure 5) — Triton နှင့် TensorRT အတူအသုံးပြုပုံ**
+
+```mermaid
+flowchart TD
+    A["Client Application"] -->|"HTTP / gRPC"| B["NVIDIA Triton Inference Server"]
+    B --> C["TensorRT Backend"]
+    C --> D["NVIDIA GPU"]
+    D --> E["Model Prediction"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက Client Application က HTTP သို့မဟုတ် gRPC ဖြင့် request ပို့ပါသည်။ Triton က request ကို စီမံပြီး TensorRT Backend က optimized engine ဖြင့် NVIDIA GPU ပေါ်တွင် inference လုပ်ကာ နောက်ဆုံးတွင် model prediction ပြန်ပေးပါသည်။ Triton သည် TensorRT ကိုသာ အသုံးပြုရမည်ဟု မဆိုလိုပါ။
 
 ဤ diagram သည် TensorRT backend ကို အသုံးပြုသည့် deployment ဥပမာဖြစ်သည်။ Triton သည် TensorRT ကိုသာ အသုံးပြုရမည် မဟုတ်ပါ။ Triton သည် PyTorch, ONNX Runtime, TensorRT နှင့် အခြား supported backend များကိုလည်း အသုံးပြုနိုင်သည်။
 
@@ -431,6 +502,20 @@ In this lesson the AI workflow has four stages.
 
 This diagram is a high-level model for the lesson. In real work, evaluation, validation, monitoring, retraining, and feedback loops may also be added.
 
+**Figure 1 — The Four Stages of the AI Workflow (Data Processing to Production Inference)**
+
+```mermaid
+flowchart TD
+    A["Raw Data"] --> B["Stage 1 — Data Processing"]
+    B --> C["Stage 2 — Model Training"]
+    C --> D["Stage 3 — Model Optimization"]
+    D --> E["Stage 4 — Inference / Deployment"]
+    E --> F["Production Output"]
+```
+
+**Figure walkthrough** — Start at Raw Data at the top and follow the arrows downward. Stage 1 cleans and prepares the data, Stage 2 lets the model learn patterns from the data, Stage 3 tunes performance and resource usage, and Stage 4 serves the model in a production environment. The output of each stage becomes the input of the next stage.
+
+
 ## 3. Stage 1 — Data Processing
 
 **3.1 Why Is Data Processing Needed?**
@@ -456,6 +541,23 @@ Data Processing checks and fixes these problems and converts the data into input
 | Feature Engineering | Create useful features for the model | Computing the difference between a transaction amount and typical spending |
 | Data Augmentation | Create suitable variations from existing data | Slightly rotating or cropping an image |
 | Data Splitting | Split training, validation, and test data | 80% training, 10% validation, 10% test |
+
+**Figure 2 — Data Processing Operations in Order**
+
+```mermaid
+flowchart LR
+    A["Raw Data"] --> B["Data Cleaning"]
+    B --> C["Data Transformation"]
+    C --> D["Data Normalization"]
+    D --> E["Feature Engineering"]
+    E --> F["Data Augmentation"]
+    F --> G["Data Splitting"]
+    G --> H["Training Data"]
+    G --> I["Validation / Test Data"]
+```
+
+**Figure walkthrough** — Start at Raw Data on the left and move to the right. First the data is cleaned (Data Cleaning), its format is changed (Data Transformation), feature scales are adjusted (Data Normalization), new features are created (Feature Engineering), and suitable variations are made (Data Augmentation). Finally Data Splitting branches into training data and validation/test data, which must be split without breaking labels and meaning as the notes below explain.
+
 
 Note — Data Augmentation is not simply about artificially inflating the data count. The variations must preserve labels and meaning. For example, if rotating a text image makes the text unreadable, that augmentation may be useless.
 
@@ -498,6 +600,22 @@ Assume a bank has past transactions.
 In this example, the Label is the target used as the correct answer for supervised learning. During training the model tries to learn the relationship between transaction features and labels.
 
 When training is finished, the model can receive a new, unseen transaction and estimate the probability that it is fraud.
+
+**Figure 3 — How Training and Prediction Work (Fraud Detection Example)**
+
+```mermaid
+sequenceDiagram
+    participant TD as Training Data
+    participant M as Model
+    participant NT as New Transaction
+    TD->>M: Features and labels are given
+    M->>M: Learns the relationship between features and labels
+    NT->>M: A new transaction is given
+    M-->>NT: Estimates the fraud probability
+```
+
+**Figure walkthrough** — The top two arrows are the training stage: training data provides features and labels, and the model learns the relationship between them. The bottom two arrows are the inference stage: when a new, unseen transaction is given, the model returns its estimated fraud probability.
+
 
 In practice, fraud detection is a problem that must account for many features, imbalanced classes, data privacy, and the cost of false positives/false negatives. The table above is only for understanding the concept.
 
@@ -586,6 +704,18 @@ Optimized Engine
 Inference Runtime
 ```
 
+**Figure 4 — TensorRT Engine Build Flow**
+
+```mermaid
+flowchart TD
+    A["Trained Model"] --> B["Supported Model Format / Export"]
+    B --> C["TensorRT Optimization / Engine Build"]
+    C --> D["Optimized Engine"]
+    D --> E["Inference Runtime"]
+```
+
+**Figure walkthrough** — Start with the Trained Model at the top and follow the arrows downward. First the model is exported to a supported format, then TensorRT applies optimizations and builds an engine, and the resulting Optimized Engine is used by the inference runtime. These stages prepare the model for production inference.
+
 TensorRT does not guarantee that a model will always become faster automatically. Performance must be benchmarked against the target GPU, model architecture, input shape, precision, batch size, and latency/throughput requirements.
 
 Reference: NVIDIA TensorRT Documentation (https://docs.nvidia.com/deeplearning/tensorrt/latest/)
@@ -657,6 +787,18 @@ TensorRT and Triton are not two interchangeable tools. They have different roles
                       v
                MODEL PREDICTION
 ```
+
+**Figure 5 — Using Triton and Triton's TensorRT Backend Together**
+
+```mermaid
+flowchart TD
+    A["Client Application"] -->|"HTTP / gRPC"| B["NVIDIA Triton Inference Server"]
+    B --> C["TensorRT Backend"]
+    C --> D["NVIDIA GPU"]
+    D --> E["Model Prediction"]
+```
+
+**Figure walkthrough** — At the top, the client application sends a request over HTTP or gRPC. Triton manages the request, the TensorRT backend runs inference with an optimized engine on the NVIDIA GPU, and the model prediction is returned at the bottom. Triton is not limited to the TensorRT backend.
 
 This diagram is an example of a deployment that uses the TensorRT backend. Triton does not have to use TensorRT only. Triton can also use PyTorch, ONNX Runtime, TensorRT, and other supported backends.
 
@@ -739,3 +881,4 @@ To remember the roles of the NVIDIA tools easily —
 - The RAPIDS → CUDA-X Data Science naming note is preserved as a source caveat (needs verification against current NVIDIA docs when reading newer material).
 - The source's self-check questions (7, unanswered) were consolidated into 5 questions with concise answers to match the course rule of 3–5 self-check questions; all source topics remain covered (stages order, training readiness, quantization, TensorRT vs Triton, deployment vs inference).
 - The source transcript for this module is labeled "Part 1 — Burmese"; the English Version here is a faithful technical translation of the same content, with all diagrams and tables preserved.
+- Mermaid figures (Figure 1–5 in each language section, same numbering) with figure walkthroughs were added inline; all existing text, ASCII diagrams and section numbering are unchanged.

@@ -36,6 +36,19 @@ PyTorch သို့မဟုတ် TensorFlow ကို အသုံးပြ�
 
 မှတ်ထားရန် — Framework က အလုပ်အားလုံးကို ကိုယ့်အစား အလိုအလျောက်ပြီးစီးပေးတဲ့ အရာမဟုတ်ပါဘူး။ Model architecture ရွေးချယ်ခြင်း၊ Data ပြင်ဆင်ခြင်း၊ Training configuration ချမှတ်ခြင်းနဲ့ Result စစ်ဆေးခြင်းတို့ကို Developer သို့မဟုတ် Data Scientist က ဆုံးဖြတ်လုပ်ဆောင်ရတုန်းပါပဲ။
 
+**ပုံ ၁ (Figure 1) — Framework မပါဘဲ တည်ဆောက်ခြင်းနှင့် Framework ဖြင့် တည်ဆောက်ခြင်း**
+
+```mermaid
+flowchart TD
+    A["Model တည်ဆောက်လိုခြင်း"] --> B["လမ်းကြောင်း ၁ — Framework မပါဘဲ"]
+    A --> C["လမ်းကြောင်း ၂ — Framework ဖြင့်"]
+    B --> D["Tensor ops, gradient, backprop, GPU wiring ကိုယ်တိုင်ရေးရမည်"]
+    C --> E["Tools, libraries, APIs များ အသင့်သုံးနိုင်မည်"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက Model တည်ဆောက်လိုသည့် ရည်ရွယ်ချက်ကနေ လမ်းကြောင်းနှစ်ခု ခွဲသွားပါသည်။ ဘယ်ဘက်လမ်းကြောင်းတွင် tensor operation, gradient တွက်ချက်ခြင်း၊ backpropagation နှင့် GPU operation ချိတ်ဆက်ခြင်း အားလုံးကို ကိုယ်တိုင်ရေးရမည်ဖြစ်၍ အချိန်ပိုကုန်ပြီး အမှားများနိုင်ပါသည်။ ညာဘက်လမ်းကြောင်းတွင် Framework က tools, libraries နှင့် APIs များ အသင့်ပေးထားသောကြောင့် ကိုယ့် model ဒီဇိုင်းအပေါ် အာရုံစိုက်နိုင်ပါသည်။
+
+
 ## 3. Framework က ဘာတွေ ပံ့ပိုးပေးသလဲ?
 
 Machine Learning Framework တစ်ခုမှာ အောက်ပါအရာများ ပါဝင်နိုင်ပါတယ်။
@@ -51,6 +64,25 @@ Machine Learning Framework တစ်ခုမှာ အောက်ပါအရ�
 | Model Utilities | Model save/load နှင့် training workflow အချို့ကို ပံ့ပိုးခြင်း | Checkpoint သိမ်းခြင်း၊ Model ပြန်ဖွင့်ခြင်း |
 
 Data Cleaning, Data Versioning, Experiment Tracking နှင့် Production Monitoring တို့ကို Framework တစ်ခုတည်းက အားလုံးပံ့ပိုးပေးမည်ဟု မယူဆသင့်ပါ။ ထိုလုပ်ငန်းများအတွက် သီးခြား Libraries, Platforms သို့မဟုတ် Tools များ လိုအပ်နိုင်ပါတယ်။
+
+**ပုံ ၂ (Figure 2) — Training Loop တွင် Layer, Loss Function နှင့် Optimizer ပါဝင်ပုံ**
+
+```mermaid
+sequenceDiagram
+    participant D as Training Data
+    participant M as Model
+    participant L as Loss Function
+    participant O as Optimizer
+    loop Training loop
+        D->>M: Input ပေးသည်
+        M->>L: Prediction ပေးသည်
+        L->>O: Loss နှင့် gradient ပေးသည်
+        O->>M: Parameter များကို update လုပ်သည်
+    end
+```
+
+**ပုံရှင်းလင်းချက်** — Training Data က input ပေးပြီး Model ရဲ့ layer တွေက prediction ကို တွက်ပေးပါသည်။ Loss Function က prediction နဲ့ အဖြေမှန် ဘယ်လောက်ကွာလဲဆိုတာကို loss အဖြစ် တိုင်းတာပြီး Automatic Differentiation ကနေ ရလာတဲ့ gradient နဲ့အတူ Optimizer ကို ပေးပါသည်။ Optimizer က model parameter တွေကို update လုပ်ပြီး loop က နောက် batch နဲ့ ဆက်လက် လည်ပတ်ပါသည်။
+
 
 ## 4. PyTorch ဆိုတာဘာလဲ?
 
@@ -180,6 +212,19 @@ Python code က framework API မှတစ်ဆင့် model နှင့် 
 
 ဤပုံသည် နားလည်ရလွယ်စေရန် ရေးဆွဲထားသော conceptual diagram ဖြစ်ပါတယ်။ တကယ့် software stack တွင် Framework, CUDA runtime, libraries, driver နှင့် အခြား component များ၏ ဆက်နွယ်မှုသည် framework version နှင့် installation method ပေါ်မူတည်နိုင်ပါတယ်။
 
+**ပုံ ၃ (Figure 3) — Python မှ Framework၊ CUDA ဖြင့် GPU သို့ သွားပုံ**
+
+```mermaid
+flowchart TD
+    A["Python Application"] --> B["PyTorch / TensorFlow"]
+    B --> C["CUDA / GPU Backend"]
+    C --> D["NVIDIA GPU"]
+    D --> E["Computation Results"]
+```
+
+**ပုံရှင်းလင်းချက်** — Python application က framework API ကတစ်ဆင့် model နဲ့ tensor operation တွေကို ဖော်ပြပါသည်။ Framework က ထောက်ပံ့ထားသော operation တွေကို CUDA / GPU backend ကတစ်ဆင့် NVIDIA GPU ပေါ်မှာ parallel computation အဖြစ် ဆောင်ရွက်ပြီး ရလဒ်တွေ ပြန်ပေးပါသည်။ Operation အားလုံး အလိုအလျောက် GPU ပေါ် မရောက်နိုင်ဘူးဆိုတာကိုလည်း မှတ်ထားပါ။
+
+
 **CPU နဲ့ GPU အခန်းကဏ္ဍ**
 
 CPU သည် Program logic, data preparation, orchestration နဲ့ အခြားအလုပ်များကို လုပ်ဆောင်နိုင်ပါတယ်။ GPU သည် သင့်လျော်သော parallel numerical operations များကို အရှိန်မြှင့်နိုင်ပါတယ်။
@@ -238,6 +283,21 @@ AI Infrastructure ကို လေ့လာရာတွင် ဤနာမည်
 | Triton Inference Server | Model များကို client application များထံ serving လုပ်ခြင်း |
 
 ဥပမာအားဖြင့် PyTorch ဖြင့် Model တစ်ခုကို Train လုပ်ပြီးနောက် လိုအပ်ပါက TensorRT အတွက် သင့်လျော်သော format သို့ export/convert လုပ်ကာ Triton Inference Server မှတစ်ဆင့် serving လုပ်နိုင်ပါတယ်။ သို့သော် model နှင့် backend အားလုံးအတွက် workflow တစ်ပုံစံတည်း မဟုတ်ပါ။
+
+**ပုံ ၄ (Figure 4) — Framework, CUDA, TensorRT နှင့် Triton တို့၏ အဆင့်လိုက် နေရာ**
+
+```mermaid
+flowchart TD
+    A["Client Application"] --> B["Triton Inference Server — Model Serving"]
+    B --> C["TensorRT — Inference Optimization"]
+    C --> D["PyTorch / TensorFlow — Model Development"]
+    D --> E["CUDA Libraries — cuDNN, cuBLAS"]
+    E --> F["CUDA Platform"]
+    F --> G["NVIDIA GPU"]
+```
+
+**ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက Client Application ကနေ အောက်ကို လိုက်ကြည့်ပါ။ Triton က model ကို client တွေဆီ serve လုပ်ပေးပြီး TensorRT က inference performance ကို optimize လုပ်ပေးပါသည်။ PyTorch / TensorFlow က model development နှင့် training အတွက် အလုပ်လုပ်ပြီး အောက်ဆုံးမှာ CUDA platform နဲ့ NVIDIA GPU က တကယ့် computation ကို လုပ်ဆောင်ပါသည်။ တစ်ခုချင်းစီရဲ့ တာဝန် မတူညီတာကို ဤပုံတွင် မြင်နိုင်ပါသည်။
+
 
 ## 10. Exam Notes
 
@@ -356,6 +416,19 @@ With PyTorch or TensorFlow, ready-to-use APIs and libraries exist for these oper
 
 Remember — a framework is not something that does all the work for you automatically. The developer or data scientist still decides the model architecture, prepares the data, sets the training configuration, and checks the results.
 
+**Figure 1 — Building without a Framework versus Building with a Framework**
+
+```mermaid
+flowchart TD
+    A["Goal: Build a Model"] --> B["Path 1 — Without a Framework"]
+    A --> C["Path 2 — With a Framework"]
+    B --> D["Write tensor ops, gradients, backprop, GPU wiring yourself"]
+    C --> E["Use ready-made tools, libraries, APIs"]
+```
+
+**Figure walkthrough** — At the top, the goal is to build a model, and two paths branch from it. On the left path you must write tensor operations, gradient computation, backpropagation, and GPU wiring yourself — slower and error-prone. On the right path the framework provides tools, libraries, and APIs, so you can focus on your model's design.
+
+
 ## 3. What Does a Framework Provide?
 
 A machine learning framework can include the following.
@@ -371,6 +444,25 @@ A machine learning framework can include the following.
 | Model Utilities | Supporting model save/load and some training workflows | Saving checkpoints, restoring a model |
 
 Do not assume a single framework provides everything — data cleaning, data versioning, experiment tracking, and production monitoring. Those tasks may require separate libraries, platforms, or tools.
+
+**Figure 2 — How Layers, the Loss Function, and the Optimizer Take Part in the Training Loop**
+
+```mermaid
+sequenceDiagram
+    participant D as Training Data
+    participant M as Model
+    participant L as Loss Function
+    participant O as Optimizer
+    loop Training loop
+        D->>M: Input is given
+        M->>L: Prediction is given
+        L->>O: Loss and gradients are given
+        O->>M: Parameters are updated
+    end
+```
+
+**Figure walkthrough** — Training data provides the input, and the model's layers compute the prediction. The loss function measures how far the prediction is from the expected answer and passes the loss, together with the gradients from automatic differentiation, to the optimizer. The optimizer updates the model parameters, and the loop continues with the next batch.
+
 
 ## 4. What Is PyTorch?
 
@@ -500,6 +592,19 @@ The Python code describes the model and tensor operations through framework APIs
 
 This figure is a conceptual diagram drawn to make the idea easy to understand. In a real software stack, how the framework, CUDA runtime, libraries, driver, and other components relate to one another can depend on the framework version and the installation method.
 
+**Figure 3 — From Python through the Framework and CUDA to the GPU**
+
+```mermaid
+flowchart TD
+    A["Python Application"] --> B["PyTorch / TensorFlow"]
+    B --> C["CUDA / GPU Backend"]
+    C --> D["NVIDIA GPU"]
+    D --> E["Computation Results"]
+```
+
+**Figure walkthrough** — The Python application describes the model and tensor operations through framework APIs. The framework runs its supported operations on the NVIDIA GPU as parallel computation through the CUDA / GPU backend and returns the results. Remember that not every operation automatically runs on the GPU.
+
+
 **CPU and GPU Roles**
 
 The CPU can handle program logic, data preparation, orchestration, and other work. The GPU can accelerate suitable parallel numerical operations.
@@ -558,6 +663,21 @@ When studying AI infrastructure, these names should not be treated as one single
 | Triton Inference Server | Serving models to client applications |
 
 For example, after training a model with PyTorch, you can export/convert it to a suitable format for TensorRT if needed and serve it through Triton Inference Server. However, this is not one single workflow for every model and backend.
+
+**Figure 4 — Where Framework, CUDA, TensorRT, and Triton Sit in the Stack**
+
+```mermaid
+flowchart TD
+    A["Client Application"] --> B["Triton Inference Server — Model Serving"]
+    B --> C["TensorRT — Inference Optimization"]
+    C --> D["PyTorch / TensorFlow — Model Development"]
+    D --> E["CUDA Libraries — cuDNN, cuBLAS"]
+    E --> F["CUDA Platform"]
+    F --> G["NVIDIA GPU"]
+```
+
+**Figure walkthrough** — Start at the Client Application at the top and move downward. Triton serves the model to clients, and TensorRT optimizes inference performance. PyTorch / TensorFlow handle model development and training, and at the bottom the CUDA platform and the NVIDIA GPU perform the actual computation. The figure shows that each component has a different responsibility.
+
 
 ## 10. Exam Notes
 
@@ -653,3 +773,4 @@ NVIDIA GPU acceleration availability also depends on the tool, version, operatio
 - The comparison claims (Autograd vs GradientTape, `torch.nn` vs `tf.keras`) follow the source table; "which framework to choose depends on project, team, and ecosystem" is preserved as the conclusion — no framework is claimed to be universally superior.
 - Stray `</box>` markup artifacts in the source house-building analogy were removed; the analogy's meaning is unchanged.
 - The claim that a framework does not replace data cleaning, data versioning, experiment tracking, or production monitoring is preserved as an operational caution.
+- Mermaid figures (Figure 1–4 in each language section, same numbering) with figure walkthroughs were added inline; all existing text, code examples, ASCII diagrams and section numbering are unchanged.
