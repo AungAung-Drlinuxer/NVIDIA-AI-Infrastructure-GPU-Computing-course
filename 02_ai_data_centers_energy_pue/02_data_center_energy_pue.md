@@ -1,0 +1,583 @@
+# Module — Data Center Energy Consumption and PUE
+
+> Part I · Course Module 02 (AI Data Centers, Energy Consumption and PUE) — topic notes
+
+## 1. AI Workload နှင့် Electricity Consumption
+
+AI workload တွေကို run လုပ်တဲ့အခါ electricity အများကြီးလိုအပ်နိုင်ပါတယ်။
+အထူးသဖြင့်—
+
+- AI Training
+- Large-scale AI Inference
+- High-density GPU workloads
+- Large GPU clusters
+
+တွေမှာ power consumption က အရေးကြီးတဲ့ consideration တစ်ခုဖြစ်လာပါတယ်။
+ဒါကြောင့် AI infrastructure ကို design လုပ်တဲ့အခါ performance တစ်ခုတည်းကိုပဲ မကြည့်ဘဲ energy efficiency ကိုပါ ကြည့်ဖို့လိုပါတယ်။
+
+အကြောင်းကတော့ electricity consumption မြင့်လာတာနဲ့အမျှ—
+
+- Operating cost တိုးလာနိုင်တယ်
+- Power infrastructure requirement တိုးလာတယ်
+- Cooling requirement တိုးလာတယ်
+- Environmental impact တိုးလာနိုင်တယ်
+
+## 2. Data Center တစ်ခုမှာ Electricity ကို ဘယ်မှာသုံးသလဲ?
+
+Data Center တစ်ခုမှာ electricity အားလုံးကို IT equipment တစ်ခုတည်းအတွက် မသုံးပါဘူး။
+အဓိကအားဖြင့်—
+
+```
+                 DATA CENTER POWER
+                        │
+       ┌────────────────┼────────────────┐
+       ▼                ▼                ▼
+   IT Equipment       Cooling       Other/Facility
+       │                │                │
+   Servers            Chillers        Lighting
+   GPUs               Fans            Fire Systems
+   Storage            Pumps           Monitoring
+   Network             etc.           etc.
+```
+
+**Power Consumption Areas**
+
+1. **IT Equipment** — Servers, CPUs, GPUs, Storage, Networking equipment
+2. **Cooling** — Chillers, Fans, Pumps, Cooling systems
+3. **Power Conversion and Distribution** — UPS, Power distribution, Power conversion equipment
+4. **Other Facility Systems** — Lighting, Fire suppression systems, Monitoring systems, Indicators, Other building/facility equipment
+
+## 3. Traditional Data Center Power Distribution
+
+မူရင်းသင်ခန်းစာမှာ traditional/older data center တစ်ခုရဲ့ power distribution ကို ဥပမာအနေနဲ့—
+**50% → IT Equipment, 50% → Cooling + Power Conversion + Other** လို့ရှင်းပြထားပါတယ်။
+
+```
+Traditional / Older Data Center
+
+Total Electricity = 100%
+┌────────────────────────────────────┐
+│                                    │
+│ IT Equipment       │ Other         │
+│                    │               │
+│       50%          │      50%      │
+│                    │               │
+│ Servers            │ Cooling       │
+│ GPU/CPU            │ Power         │
+│ Storage            │ Conversion    │
+│ Network            │ Other         │
+│                    │               │
+└────────────────────────────────────┘
+```
+
+ဒီလိုဆိုရင် Data Center ထဲကို ပေးလိုက်တဲ့ electricity ရဲ့ တစ်ဝက်ခန့်ကိုပဲ actual IT equipment က အသုံးပြုပြီး ကျန်တစ်ဝက်က supporting systems တွေမှာ သုံးနေရတာဖြစ်ပါတယ်။
+
+**အရေးကြီးတဲ့ Concept**
+
+- IT equipment power = Actual IT workload ကို run ဖို့အသုံးပြုတဲ့ power
+- Overhead power = IT equipment ကို run နိုင်အောင် supporting infrastructure တွေမှာသုံးတဲ့ power
+
+## 4. Modern Data Center ရဲ့ ရည်မှန်းချက်
+
+Modern Data Center တွေက—**More processing power per watt** ရရှိဖို့ ရည်မှန်းကြပါတယ်။
+အဓိကအားဖြင့်—
+
+- Efficient hardware
+- Efficient cooling
+- Better power distribution
+- Improved facility design
+- Better control mechanisms
+
+တွေကို အသုံးပြုပြီး overhead power ကို လျှော့ချဖို့ ကြိုးစားပါတယ်။
+မူရင်းသင်ခန်းစာရဲ့ ဥပမာအရ modern data center တစ်ခုမှာ—**90% → IT Equipment, 10% → Cooling + Power Conversion + Other** လောက်အထိ ရောက်နိုင်တယ်လို့ ရှင်းပြထားပါတယ်။
+
+```
+Modern Data Center
+
+Total Electricity = 100%
+┌────────────────────────────────────┐
+│                                    │
+│ IT Equipment          │ Overhead   │
+│                       │            │
+│         90%           │    10%     │
+│                       │            │
+│ Servers               │ Cooling    │
+│ GPU/CPU               │ Power      │
+│ Storage               │ Conversion │
+│ Network               │ Other      │
+│                       │            │
+└────────────────────────────────────┘
+```
+
+> ⚠️ **သတိပြုရန်**: 50/50 နဲ့ 90/10 က ဒီသင်ခန်းစာထဲမှာ illustrative examples အဖြစ် သုံးထားတဲ့အချက်တွေပါ။ Data center တိုင်းမှာ အတိအကျ ဒီရာခိုင်နှုန်းတွေဖြစ်မယ်လို့ မယူဆသင့်ပါဘူး။
+
+## 5. Why Energy Efficiency Matters
+
+Data Center တစ်ခုရဲ့ efficiency ကို နားလည်ဖို့—**Power Usage Effectiveness (PUE)** ဆိုတဲ့ metric ကို အသုံးပြုပါတယ်။
+PUE က Data Center တစ်ခုမှာ အသုံးပြုတဲ့ total energy နဲ့ actual IT equipment က အသုံးပြုတဲ့ energy ကို နှိုင်းယှဉ်ပေးတဲ့ metric ဖြစ်ပါတယ်။
+
+## 6. What Is PUE?
+
+**PUE = Power Usage Effectiveness**
+
+PUE ကို ဒီလိုသတ်မှတ်နိုင်ပါတယ်—
+
+> PUE is a metric that compares the total energy consumed by a data center with the energy consumed by its IT equipment.
+
+IT equipment ထဲမှာ—Servers, Storage, Networking, GPUs, Other IT equipment တွေ ပါဝင်နိုင်ပါတယ်။
+
+**Formula**
+
+```
+             Total Data Center Energy
+PUE = ───────────────────────────────────
+                 IT Equipment Energy
+```
+
+သို့မဟုတ်—`PUE = Total Facility Energy ÷ IT Equipment Energy`
+
+## 7. PUE ကို ဘာကြောင့်သုံးသလဲ?
+
+PUE က Data Center ရဲ့ energy efficiency ကို တိုင်းတာဖို့ အသုံးပြုပါတယ်။
+အထူးသဖြင့်—Cooling efficiency, Power distribution efficiency, Facility design, Infrastructure overhead, Energy optimization တွေကို နားလည်ဖို့ အထောက်အကူပြုပါတယ်။
+
+**အဓိက Principle** — PUE နိမ့်လေလေ Data Center က energy-efficient ပိုဖြစ်လေလေ။
+
+## 8. PUE Example — 1.2
+
+PUE = 1.2 ဆိုတာကို နားလည်ဖို့—Total Data Center Energy = 1.2, IT Equipment Energy = 1.0 ဖြစ်တယ်လို့ ယူဆပါ။
+
+```
+PUE = Total Energy / IT Energy
+
+1.2 = 1.2 / 1.0
+```
+
+အဓိပ္ပါယ်က IT equipment က 1 unit energy သုံးတဲ့အခါ Data Center တစ်ခုလုံးအတွက် total energy 1.2 units လောက်သုံးနေရတယ်ဆိုတဲ့သဘောပါ။
+ဒါကြောင့်—
+
+```
+IT Energy       = 1.0
+Overhead Energy = 0.2
+Total Energy    = 1.2
+```
+
+**Overhead**
+
+```
+Overhead = Total Energy - IT Energy
+         = 1.2 - 1.0
+         = 0.2
+```
+
+ဒါကြောင့် PUE 1.2 ဆိုတာ IT equipment energy ထက် overhead energy က 20% ဖြစ်တယ် လို့ နားလည်နိုင်ပါတယ်။
+
+## 9. PUE = 2.0 ဆိုရင်?
+
+PUE = 2.0 ဆိုရင်—IT Equipment Energy = 1.0, Total Energy = 2.0, Overhead = 1.0 ဖြစ်ပါတယ်။
+
+```
+PUE = Total Energy / IT Energy
+
+2.0 = 2.0 / 1.0
+```
+
+ဆိုလိုတာက IT equipment က 1 unit energy သုံးတဲ့အခါ Data Center တစ်ခုလုံးမှာ 2 units energy သုံးနေရတာဖြစ်ပါတယ်။
+
+```
+PUE = 2.0
+
+IT Equipment       1.0
+Overhead            1.0
+------------------------
+Total               2.0
+```
+
+ဒါကြောင့် PUE 2.0 ဟာ PUE 1.2 ထက် energy efficiency ပိုနည်းပါတယ်။
+
+## 10. PUE = 1.0 ဘာကြောင့် မဖြစ်နိုင်သလဲ?
+
+Theoretically—PUE = 1.0 ဆိုရင် Total Data Center Energy = IT Equipment Energy ဖြစ်ပါတယ်။
+အဓိပ္ပါယ်က—Data Center မှာ IT equipment ကလွဲပြီး ဘာ overhead energy မှ မရှိတော့ဘူး ဆိုတဲ့သဘောပါ။
+
+လက်တွေ့ Data Center မှာတော့—Cooling, Power distribution, UPS, Lighting, Security, Monitoring, Facility systems စတာတွေ လိုအပ်တာကြောင့် PUE 1.0 ကို practical real-world target အဖြစ် ရရှိဖို့ မဖြစ်နိုင်ပါဘူး။
+ဒါကြောင့် PUE က 1.0 နဲ့ ပိုနီးလေလေ ပို efficient ဖြစ်လေလေ ဆိုတဲ့ principle ကို မှတ်ထားပါ။
+
+## 11. PUE Scale ကို နားလည်ခြင်း
+
+Conceptually—
+
+```
+PUE
+ │
+ │  2.0+       → Less Efficient
+ │
+ │  1.5        → Better
+ │
+ │  1.2        → Highly Efficient
+ │
+ │  1.0        → Theoretical Ideal
+ ▼
+```
+
+> **မှတ်ရန်** — Lower PUE = Better Energy Efficiency
+
+## 12. PUE and AI Data Centers
+
+AI-centric Data Center တွေအတွက် PUE က ပိုအရေးကြီးလာပါတယ်။
+အကြောင်းက AI workloads တွေမှာ—GPU density မြင့်နိုင်တယ်, Power consumption မြင့်နိုင်တယ်, Cooling requirement မြင့်နိုင်တယ်။
+
+```
+High-Density GPU
+       │
+       ▼
+Higher IT Power
+       │
+       ▼
+More Heat
+       │
+       ▼
+More Cooling
+       │
+       ▼
+Potentially Higher Overhead
+       │
+       ▼
+PUE becomes an important metric
+```
+
+ဒါကြောင့် AI Data Center design မှာ—**Compute Efficiency + Power Efficiency + Cooling Efficiency** တို့ကို အတူတူ စဉ်းစားဖို့လိုပါတယ်။
+
+## 13. PUE and Environmental Impact
+
+AI workloads တွေဟာ electricity အများကြီးအသုံးပြုနိုင်တာကြောင့် energy efficiency က environmental consideration တစ်ခုလည်း ဖြစ်ပါတယ်။
+PUE နိမ့်လာရင်—
+
+- Same IT workload အတွက် total facility energy လျော့နိုင်တယ်
+- Cooling overhead လျော့နိုင်တယ်
+- Power infrastructure overhead လျော့နိုင်တယ်
+- Operating cost လျော့နိုင်တယ်
+- Energy efficiency တိုးလာနိုင်တယ်
+
+ဒါကြောင့် PUE ဟာ Data Center energy efficiency ကို ဆွေးနွေးတဲ့အခါ အရေးကြီးတဲ့ metric ဖြစ်ပါတယ်။
+
+## 14. Important Correction — PUE က Efficiency Percentage မဟုတ်ပါ
+
+PUE ကို percentage လို့ မယူဆသင့်ပါဘူး။
+ဥပမာ—PUE = 1.2 ဆိုတာ "Data Center က 120% efficient" လို့ မဆိုလိုပါဘူး။
+PUE ဟာ ratio ဖြစ်ပါတယ်။
+
+`PUE = Total Facility Energy / IT Equipment Energy`
+
+PUE 1.2 ဆိုရင်—For every 1 unit of IT energy → 1.2 units of total facility energy are consumed.
+
+## 15. Exam Preparation
+
+**Q1. What is PUE?**
+Answer: PUE stands for Power Usage Effectiveness. It is a metric that compares the total energy consumed by a data center with the energy consumed by its IT equipment.
+
+**Q2. What is the formula for PUE?**
+
+```
+PUE = Total Data Center Energy
+      ─────────────────────────
+       IT Equipment Energy
+```
+
+**Q3. What does a lower PUE indicate?**
+Answer: A lower PUE generally indicates better data center energy efficiency because less energy is being used for non-IT overhead.
+
+**Q4. What does PUE = 1.2 mean?**
+For every 1 unit of energy consumed by IT equipment, the data center consumes 1.2 units of total energy. Therefore, the overhead is: 1.2 − 1.0 = 0.2, or 20% of the IT energy.
+
+**Q5. What does PUE = 2.0 mean?**
+For every 1 unit of IT energy, the total facility consumes 2 units. Therefore: IT Energy = 1.0, Overhead = 1.0, Total Energy = 2.0.
+
+**Q6. Is PUE = 1.0 possible in a practical data center?**
+No. PUE 1.0 is a theoretical ideal because real data centers require additional energy for cooling, power distribution, UPS, lighting, security, monitoring, and other facility systems.
+
+**Exam Shortcut**
+
+- PUE = Power Usage Effectiveness
+- Formula: `PUE = Total Data Center Energy ÷ IT Equipment Energy`
+- Remember: Lower PUE = Better Energy Efficiency
+- PUE 1.2 → Highly Efficient · PUE 2.0 → Much More Overhead · PUE 1.0 → Theoretical Ideal
+
+**One-line Exam Answer**
+PUE measures data center energy efficiency by comparing total facility energy consumption with IT equipment energy consumption.
+
+---
+
+## English Version — Data Center Energy Consumption and PUE
+
+### 1. AI Workloads and Electricity Consumption
+
+AI workloads can require significant amounts of electricity. This is particularly important for:
+
+- AI training
+- Large-scale AI inference
+- High-density GPU workloads
+- Large GPU clusters
+
+Therefore, when designing AI infrastructure, we should consider not only performance but also energy efficiency.
+
+Higher electricity consumption can lead to:
+
+- Higher operating costs
+- Greater power infrastructure requirements
+- Higher cooling requirements
+- Potentially greater environmental impact
+
+### 2. Where Is Power Consumed in a Data Center?
+
+The electricity consumed by a data center is not used only by IT equipment. It can be broadly divided into:
+
+```
+                 DATA CENTER POWER
+                        │
+       ┌────────────────┼────────────────┐
+       ▼                ▼                ▼
+   IT Equipment       Cooling       Other/Facility
+       │                │                │
+   Servers            Chillers        Lighting
+   GPUs               Fans            Fire Systems
+   Storage            Pumps           Monitoring
+   Network             etc.           etc.
+```
+
+**Main Power Consumption Areas**
+
+1. **IT Equipment** — Servers, CPUs, GPUs, Storage, Networking equipment
+2. **Cooling** — Chillers, Fans, Pumps, Cooling systems
+3. **Power Conversion and Distribution** — UPS systems, Power distribution, Power conversion equipment
+4. **Other Facility Systems** — Lighting, Fire suppression, Monitoring systems, Indicators, Other facility equipment
+
+### 3. Traditional Data Center Power Distribution
+
+The source material gives an illustrative example of an older/traditional data center: 50% → IT Equipment, 50% → Cooling + Power Conversion + Other.
+
+```
+Traditional / Older Data Center
+
+Total Electricity = 100%
+┌────────────────────────────────────┐
+│                                    │
+│ IT Equipment       │ Other         │
+│                    │               │
+│       50%          │      50%      │
+│                    │               │
+│ Servers            │ Cooling       │
+│ GPU/CPU            │ Power         │
+│ Storage            │ Conversion    │
+│ Network            │ Other         │
+│                    │               │
+└────────────────────────────────────┘
+```
+
+This means that approximately half of the electricity in this illustrative example is used by the actual IT equipment, while the remaining half is used by supporting infrastructure.
+
+**Important Concept**
+
+- IT equipment power = Power used to run the actual IT workload.
+- Overhead power = Power used by supporting infrastructure required to operate the IT equipment.
+
+### 4. What Do Modern Data Centers Aim For?
+
+Modern data centers aim to achieve: **More processing power per watt**.
+
+This can be achieved through: More efficient hardware · More efficient cooling · Improved power distribution · Better facility design · Improved control mechanisms.
+
+The source material gives another illustrative example: 90% → IT Equipment, 10% → Cooling + Power Conversion + Other.
+
+```
+Modern Data Center
+
+Total Electricity = 100%
+┌────────────────────────────────────┐
+│                                    │
+│ IT Equipment          │ Overhead   │
+│                       │            │
+│         90%           │    10%     │
+│                       │            │
+│ Servers               │ Cooling    │
+│ GPU/CPU               │ Power      │
+│ Storage               │ Conversion │
+│ Network               │ Other      │
+│                       │            │
+└────────────────────────────────────┘
+```
+
+> ⚠️ **Important:** The 50/50 and 90/10 distributions in the source are illustrative examples, not universal values for every data center.
+
+### 5. Why Does Energy Efficiency Matter?
+
+To measure data center energy efficiency, we use a metric called: **PUE = Power Usage Effectiveness**. PUE compares the total energy consumed by a data center with the energy consumed by its IT equipment.
+
+### 6. What Is PUE?
+
+**PUE = Power Usage Effectiveness**
+
+Definition: PUE is a metric that compares the total energy consumed by a data center with the energy consumed by its IT equipment.
+
+The IT equipment can include: Servers, GPUs, Storage, Networking equipment, Other IT equipment.
+
+**Formula**
+
+```
+             Total Data Center Energy
+PUE = ───────────────────────────────────
+                 IT Equipment Energy
+```
+
+Or: `PUE = Total Facility Energy ÷ IT Equipment Energy`
+
+### 7. Why Does PUE Matter?
+
+PUE helps us measure data center energy efficiency. It can also help guide decisions related to: Cooling efficiency · Power distribution · Facility design · Energy optimization · Infrastructure overhead.
+
+**Key Principle** — Lower PUE generally means better energy efficiency.
+
+### 8. PUE Example — 1.2
+
+Suppose: Total Data Center Energy = 1.2, IT Equipment Energy = 1.0. Then:
+
+```
+PUE = 1.2 / 1.0
+    = 1.2
+```
+
+This means that for every 1 unit of energy used by IT equipment, the data center consumes 1.2 units of total energy. Therefore:
+
+```
+IT Energy       = 1.0
+Overhead Energy = 0.2
+Total Energy    = 1.2
+```
+
+The overhead is: 1.2 − 1.0 = 0.2. So the overhead is 20% of the IT energy consumption.
+
+### 9. What If PUE = 2.0?
+
+If PUE = 2.0 and IT equipment consumes 1 unit: IT Equipment Energy = 1.0, Total Energy = 2.0. Therefore:
+
+```
+Overhead = 2.0 - 1.0
+         = 1.0
+```
+
+```
+PUE = 2.0
+
+IT Equipment       1.0
+Overhead            1.0
+------------------------
+Total               2.0
+```
+
+This means that for every 1 unit of energy consumed by IT equipment, another 1 unit is consumed by non-IT overhead. Therefore, PUE 2.0 is less energy-efficient than PUE 1.2.
+
+### 10. Why Can't PUE Be 1.0?
+
+Theoretically, PUE = 1.0 would mean: Total Data Center Energy = IT Equipment Energy. There would be no additional overhead energy.
+
+In a real data center, however, energy is required for: Cooling, UPS, Power distribution, Lighting, Security, Monitoring, Other facility systems. Therefore, PUE 1.0 is a theoretical ideal rather than a practical real-world value. The closer PUE gets to 1.0, the lower the overhead becomes.
+
+### 11. Understanding the PUE Scale
+
+```
+PUE
+ │
+ │  2.0+       → Less Efficient
+ │
+ │  1.5        → Better
+ │
+ │  1.2        → Highly Efficient
+ │
+ │  1.0        → Theoretical Ideal
+ ▼
+```
+
+**Remember** — Lower PUE = Better Energy Efficiency
+
+### 12. PUE and AI Data Centers
+
+PUE is particularly relevant when discussing AI-centric data centers. AI workloads can involve: High GPU density, High IT power consumption, High heat generation, High cooling requirements.
+
+```
+High-Density GPU
+       │
+       ▼
+Higher IT Power
+       │
+       ▼
+More Heat
+       │
+       ▼
+More Cooling
+       │
+       ▼
+Potentially Higher Overhead
+       │
+       ▼
+PUE becomes an important metric
+```
+
+Therefore, AI data center design should consider: Compute Efficiency + Power Efficiency + Cooling Efficiency.
+
+### 13. PUE and Environmental Impact
+
+AI workloads can consume significant amounts of electricity, making energy efficiency an important environmental consideration. A lower PUE can mean:
+
+- Less total facility energy for the same IT workload
+- Lower cooling overhead
+- Lower power infrastructure overhead
+- Potentially lower operating costs
+- Better energy efficiency
+
+Therefore, PUE is an important metric when discussing data center sustainability and energy efficiency.
+
+### 14. Important Correction — PUE Is Not a Percentage
+
+PUE should not be interpreted as a percentage. For example, PUE = 1.2 does not mean "The data center is 120% efficient." PUE is a ratio.
+
+`PUE = Total Facility Energy / IT Equipment Energy`
+
+A PUE of 1.2 means: For every 1 unit of IT energy, the facility consumes 1.2 units of total energy.
+
+### 15. Exam Preparation
+
+**Q1. What does PUE stand for?**
+Answer: PUE stands for Power Usage Effectiveness.
+
+**Q2. What is PUE?**
+Answer: PUE is a metric that compares total data center energy consumption with the energy consumed by IT equipment.
+
+**Q3. What is the PUE formula?**
+
+```
+PUE = Total Data Center Energy
+      ─────────────────────────
+       IT Equipment Energy
+```
+
+**Q4. What does a lower PUE indicate?**
+Answer: A lower PUE generally indicates better data center energy efficiency because less energy is being used for non-IT overhead.
+
+**Q5. What does PUE = 1.2 mean?**
+For every 1 unit of energy consumed by IT equipment, the data center consumes 1.2 units of total energy. Therefore: IT Energy = 1.0, Overhead = 0.2, Total Energy = 1.2.
+
+**Q6. What does PUE = 2.0 mean?**
+For every 1 unit of IT energy, the total facility consumes 2 units. IT Energy = 1.0, Overhead = 1.0, Total Energy = 2.0.
+
+**Q7. Can a real data center have PUE = 1.0?**
+PUE 1.0 is a theoretical ideal. Real data centers require energy for cooling, power distribution, UPS, lighting, security, monitoring, and other facility systems.
+
+**Exam Shortcut**
+
+- PUE = Power Usage Effectiveness
+- Formula: `PUE = Total Data Center Energy ÷ IT Equipment Energy`
+- Remember: Lower PUE = Better Energy Efficiency
+- PUE 1.2 → Highly Efficient · PUE 2.0 → Much More Overhead · PUE 1.0 → Theoretical Ideal
+
+**One-Line Exam Answer**
+PUE measures data center energy efficiency by comparing total facility energy consumption with IT equipment energy consumption.

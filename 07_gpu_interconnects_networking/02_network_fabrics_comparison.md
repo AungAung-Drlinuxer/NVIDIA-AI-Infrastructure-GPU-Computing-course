@@ -1,0 +1,411 @@
+# Module — Comparison of AI Data Center Network Fabrics
+
+> Part II · Networking — topic notes
+
+## 1. Network Fabric ၄ မျိုးကို ပြန်လည်ကြည့်မယ်
+
+အခုဆိုရင် AI-centric Data Center ထဲမှာ အသုံးပြုတဲ့ network fabric ၄ မျိုးကို သိပြီးပါပြီ—
+
+- Compute Network
+- Storage Network
+- In-Band Management Network
+- Out-of-Band (OOB) Management Network
+
+ဒီ section မှာတော့ ဒီ network fabric ၄ မျိုးကို comparison လုပ်ပြီး ပိုမိုနားလည်အောင် လေ့လာပါမယ်။
+
+အဓိက compare လုပ်မယ့်အချက်တွေက—
+
+- Purpose — ဘာအတွက်အသုံးပြုသလဲ?
+- Implementation — Physical / Logical ဘယ်လိုတည်ဆောက်သလဲ?
+- Key Design Features — ဘာတွေက အရေးကြီးသလဲ?
+- Performance / Security / Scalability Considerations
+
+Exam မှာ ဒီ topic ကနေ question ထွက်နိုင်ပါတယ်။
+
+## 2. Overview Comparison
+
+| Network Fabric | Main Purpose | Typical Implementation | Main Requirement |
+|---|---|---|---|
+| Compute | GPU ↔️ GPU / Node ↔️ Node communication | InfiniBand, RoCE, NVLink | Extremely high throughput + ultra-low latency |
+| Storage | Compute nodes ↔️ Storage | InfiniBand, Ethernet/RoCE | High throughput + traffic isolation |
+| In-Band Management | Cluster/OS management | Ethernet, VLAN/VXLAN/EVPN | Reliable, secure, isolated management |
+| OOB Management | Remote hardware management/recovery | Dedicated physical management network | Always available + strong security |
+
+## 3. Compute Network — Purpose
+
+Compute network ရဲ့ အဓိကရည်ရွယ်ချက်က—**GPU-to-GPU communication within a node or across nodes** ဖြစ်ပါတယ်။
+
+AI workload တွေမှာ GPU အများကြီး ပါဝင်နိုင်ပါတယ်။ GPU တွေဟာ—
+
+- တစ်ခုနဲ့တစ်ခု
+- Server တစ်လုံးနဲ့တစ်လုံး
+- Compute node တစ်ခုနဲ့တစ်ခု
+
+communication လုပ်ရပါတယ်။ ဒါကြောင့် compute network ဟာ AI workload ရဲ့ backbone တစ်ခုဖြစ်လာပါတယ်။
+
+အထူးသဖြင့်—AI Training, AI Inference, Distributed AI workloads တွေအတွက် အရေးကြီးပါတယ်။
+
+## 4. Compute Network Implementation
+
+Source အရ compute fabric ကို အောက်ပါ technologies တွေနဲ့ implement လုပ်နိုင်ပါတယ်—
+
+- InfiniBand
+- RoCE
+- NVLink
+
+ဒီ technologies တွေကို နောက်ပိုင်း section တွေမှာ အသေးစိတ် လေ့လာပါမယ်။
+
+အဓိက idea ကတော့—Compute nodes တွေကြားမှာ data ကို အမြန်ဆုံး ရွှေ့နိုင်တဲ့ high-bandwidth interconnect ဖြစ်ရမယ်။
+
+## 5. Compute Network Design Requirements
+
+**① Extremely High Throughput** — AI workload တွေမှာ data အများကြီးကို node တစ်ခုနဲ့တစ်ခု အမြန်ဆုံး ပို့ရပါတယ်။ ဒါကြောင့် throughput အလွန်မြင့်ရပါမယ်။
+
+**② Ultra-Low Latency** — GPU တွေကြား communication မှာ delay နည်းရပါမယ်။ Lower latency = Faster communication
+
+**③ Scalability** — GPU node အရေအတွက် တိုးလာတဲ့အခါ network performance က အလွန်အမင်း မကျသွားရပါဘူး။ ဥပမာ—
+
+```
+10 GPU Nodes
+     │
+     ▼
+Good Performance
+
+100 GPU Nodes
+     │
+     ▼
+Should still scale reliably
+```
+
+More GPU nodes should not automatically mean unacceptable network slowdown.
+
+**Compute Fabric Shortcut** — `Compute = High Bandwidth + Ultra-Low Latency + High Throughput + Scalability`
+
+## 6. Storage Network — Purpose
+
+Storage network ရဲ့ အဓိကရည်ရွယ်ချက်က—**Compute nodes တွေကို Storage systems တွေနဲ့ ချိတ်ဆက်ပေးရန်** ဖြစ်ပါတယ်။
+
+ဥပမာ compute servers တွေက storage appliances တွေကို access လုပ်နေတယ်လို့ စဉ်းစားပါ။
+
+```
+Compute Nodes
+ ┌──────┬──────┬──────┐
+ │      │      │      │
+ ▼      ▼      ▼      ▼
+   ─── Storage Network ───
+              │
+              ▼
+       Storage Systems
+```
+
+Storage system တွေမှာ—Storage arrays, File servers, HDFS systems, Parallel file systems စတာတွေ ပါဝင်နိုင်ပါတယ်။
+
+## 7. Storage Network — What Traffic?
+
+Storage network က အောက်ပါ traffic တွေကို support လုပ်နိုင်ပါတယ်—
+
+- File system traffic
+- Checkpoint traffic
+- Storage I/O
+- Data access
+
+AI training မှာ checkpoint ရေးတာ၊ dataset ဖတ်တာတွေဟာ storage traffic အများကြီး ဖြစ်စေနိုင်ပါတယ်။ ဒါကြောင့် storage network ရဲ့ performance က AI workload အတွက် အရေးကြီးပါတယ်။
+
+## 8. Storage Network Implementation
+
+Storage network ကို design ပေါ်မူတည်ပြီး—InfiniBand, Ethernet, RoCE တို့နဲ့ implement လုပ်နိုင်ပါတယ်။
+
+တချို့ environment တွေမှာ technology တစ်ခုတည်းမဟုတ်ဘဲ combination ဖြစ်နိုင်ပါတယ်။
+
+အဓိကက—Storage traffic အတွက် လိုအပ်တဲ့ throughput နဲ့ isolation ရရှိအောင် design လုပ်ရမယ်။
+
+## 9. Storage Network Design Requirements
+
+**① High Throughput** — Compute node တစ်ခုချင်းစီအတွက် multi-GB-level throughput လိုအပ်နိုင်ပါတယ်။
+
+**② Traffic Isolation** — Storage traffic ကို compute traffic ကနေ သီးခြားထားဖို့ အရေးကြီးပါတယ်။ ဥပမာ—
+
+```
+Compute Traffic
+       │
+       ▼
+ Compute Fabric
+
+Storage Traffic
+       │
+       ▼
+ Storage Fabric
+```
+
+Compute traffic အများကြီး ဖြစ်လာလို့ storage network bottleneck ဖြစ်တာမျိုး မဖြစ်အောင် isolate လုပ်ထားနိုင်ပါတယ်။
+
+**Storage Fabric Shortcut** — `Storage = Compute-to-Storage + High Throughput + I/O + Isolation`
+
+## 10. In-Band Management Network — Purpose
+
+In-band management network ရဲ့ အဓိကတာဝန်က—**Control-plane traffic ကို handle လုပ်ရန်** ဖြစ်ပါတယ်။ ဥပမာ—
+
+- Cluster management
+- SSH
+- DNS
+- Job scheduling
+- Configuration
+- Deployment
+- Monitoring
+
+တို့ကို ဒီ network မှာ သုံးနိုင်ပါတယ်။
+
+## 11. External Repository Access
+
+In-band management network ကို infrastructure operations တွေအတွက်လည်း အသုံးပြုနိုင်ပါတယ်။ ဥပမာ—
+
+- Software dependencies install လုပ်ခြင်း
+- OS packages download လုပ်ခြင်း
+- Patches apply လုပ်ခြင်း
+- External repositories access လုပ်ခြင်း
+
+ဒါကြောင့် management network မှာ security က အရေးကြီးပါတယ်။
+
+## 12. In-Band Management — Performance
+
+Compute network နဲ့ Storage network လောက် throughput အလွန်မြင့်ဖို့ မလိုအပ်ပါဘူး။ ဒါပေမယ့်—**Reliable and reasonably high/moderate bandwidth** ရှိဖို့ လိုပါတယ်။
+
+ဥပမာ patching သို့မဟုတ် package download လုပ်တဲ့အချိန်မှာ traffic တက်နိုင်ပါတယ်။
+
+## 13. In-Band Management — Implementation
+
+Source အရ ဒီ network က—**Ethernet-based** ဖြစ်ပါတယ်။
+
+Network design မှာ Leaf-Spine architecture ကို အသုံးပြုနိုင်ပါတယ်။
+Isolation အတွက်—VLAN, VXLAN, EVPN စတဲ့ technologies တွေကို အသုံးပြုနိုင်ပါတယ်။
+
+```
+                Spine
+             /    |    \
+            /     |     \
+         Leaf    Leaf    Leaf
+          │        │       │
+        Servers  Servers  Servers
+```
+
+## 14. In-Band Management — Key Considerations
+
+- **Reliability** — Management traffic က reliable ဖြစ်ရပါမယ်။
+- **Security** — External repositories နဲ့ infrastructure access ပါဝင်နိုင်တဲ့အတွက် security က အရေးကြီးပါတယ်။
+- **Traffic Isolation** — Application/compute traffic နဲ့ management traffic ကို သီးခြားထားနိုင်ရပါမယ်။
+- **Adequate Bandwidth** — Compute network လောက် extreme bandwidth မလိုပေမယ့် management operations အတွက် လုံလောက်တဲ့ bandwidth ရှိရပါမယ်။
+
+**In-Band Shortcut** — `In-Band = Control Plane + SSH/DNS + Cluster Management + Patching + Monitoring`
+
+## 15. Out-of-Band Management Network — Purpose
+
+Out-of-Band Management Network ရဲ့ အဓိကရည်ရွယ်ချက်က—**Server ကို remotely manage လုပ်ရန် — server OS မအလုပ်လုပ်တော့တဲ့အချိန်မှာတောင်** ဖြစ်ပါတယ်။
+
+ဥပမာ—
+
+```
+Normal Situation
+
+SSH
+ │
+ ▼
+Server OS
+```
+
+ဒါပေမယ့်—
+
+```
+Server OS
+    │
+    X
+  CRASH
+```
+
+ဖြစ်သွားရင် SSH မရတော့နိုင်ပါဘူး။ ဒီအချိန်မှာ—
+
+```
+Administrator
+      │
+      ▼
+ OOB Network
+      │
+      ▼
+     BMC
+      │
+      ▼
+    Server
+```
+
+လိုမျိုး access လုပ်နိုင်ပါတယ်။
+
+## 16. OOB Management Functions
+
+OOB network က—Remote power control, Serial console, Hardware monitoring, Remote management, Recovery, Troubleshooting စတာတွေကို support လုပ်နိုင်ပါတယ်။
+
+ဒါကြောင့် OOB network ဟာ—**Last-resort management path** လိုမျိုး အရေးကြီးပါတယ်။
+
+## 17. OOB Network — Physical Implementation
+
+OOB network က compute/storage network လောက် bandwidth မလိုအပ်ပါဘူး။ ဘာကြောင့်လဲဆိုတော့ သူ့ရဲ့အဓိကရည်ရွယ်ချက်က—Remote management ဖြစ်ပြီး massive data transfer မဟုတ်လို့ပါ။
+
+ဒါကြောင့်—Dedicated physical management port, Low-speed management switches, Dedicated management network တွေကို အသုံးပြုနိုင်ပါတယ်။
+
+```
+Server 1 ──┐
+Server 2 ──┤
+Server 3 ──┼── OOB Switch
+Server 4 ──┤
+Server 5 ──┘
+```
+
+## 18. OOB Network — Availability
+
+OOB network ရဲ့ အရေးကြီးဆုံး requirement တစ်ခုက—**It must be highly available / always available.**
+
+ဘာကြောင့်လဲဆိုတော့ server failure ဖြစ်တဲ့အချိန်မှာပဲ ဒီ network ကို အများဆုံးလိုအပ်တာ ဖြစ်ပါတယ်။
+
+Normal network ပျက်နေတဲ့အချိန်မှာ OOB network ပါ ပျက်သွားရင် recovery လုပ်ဖို့ အခက်အခဲရှိပါမယ်။
+
+## 19. OOB Network — Security
+
+OOB network မှာ strong security and access control အလွန်အရေးကြီးပါတယ်။ ဘာကြောင့်လဲဆိုတော့ OOB access ရရှိတဲ့သူက server hardware ကို control လုပ်နိုင်တဲ့ capability ရှိနိုင်ပါတယ်။ ဥပမာ—
+
+- Power off
+- Power on
+- Reboot
+- Console access
+- Hardware configuration
+- Recovery operations
+
+ဒါကြောင့်—**OOB access must be strongly protected.**
+
+အရေးကြီးတဲ့ security controls တွေက—Strong authentication, Role-based access control, Network isolation, Restricted access, Audit logging တို့ ဖြစ်နိုင်ပါတယ်။
+
+## 20. OOB Implementation
+
+OOB management ကို server hardware ပေါ်မှာ ပါလာတဲ့ management controller ကနေ အသုံးပြုနိုင်ပါတယ်။ ဥပမာ—BMC (Baseboard Management Controller) သို့မဟုတ် server vendor ရဲ့ hardware management controller technology ဖြစ်နိုင်ပါတယ်။
+
+Server မှာ dedicated management port ရှိနိုင်ပါတယ်။
+
+```
+             Server
+        ┌───────────────┐
+        │               │
+        │     CPU       │
+        │      │        │
+        │      ▼        │
+        │     OS        │
+        │               │
+        │     BMC       │──── Dedicated Port
+        │               │          │
+        └───────────────┘          ▼
+                              OOB Network
+```
+
+## 21. Four Network Fabrics — Full Comparison
+
+| Feature | Compute | Storage | In-Band Management | OOB Management |
+|---|---|---|---|---|
+| Purpose | GPU/node communication | Compute ↔️ Storage | Control/management | Remote hardware management |
+| Typical Traffic | AI compute traffic | I/O, filesystem, checkpoints | SSH, DNS, monitoring, scheduling | Console, power, hardware management |
+| Bandwidth | Extremely high | High / multi-GB per node | Moderate | Low |
+| Latency | Ultra-low | Performance-sensitive | Moderate | Not primary requirement |
+| Typical Technology | InfiniBand, RoCE, NVLink | InfiniBand, Ethernet/RoCE | Ethernet | Dedicated Ethernet/management network |
+| Isolation | High | High | High | Very high |
+| OS Required | Usually for application traffic | Usually for normal data access | Yes for OS-level management | No host OS dependency for BMC access |
+| Failure Recovery | Not primary | Not primary | Normal management | Primary purpose |
+| Security | Important | Important | Important | Extremely important |
+| Scalability | Critical | Critical | Important | Important |
+
+## 22. The Most Important Difference
+
+ဒီ four fabrics ကို တစ်ကြောင်းတည်းနဲ့ ခွဲမယ်ဆိုရင်—
+
+- **Compute** — "How fast can my compute nodes communicate?"
+- **Storage** — "How fast can my compute nodes access data?"
+- **In-Band Management** — "How do I normally manage my servers and cluster?"
+- **OOB Management** — "How do I manage/recover a server when the normal path is broken?"
+
+## 23. Exam Shortcut
+
+```
+COMPUTE
+    ↓
+GPU ↔️ GPU
+Node ↔️ Node
+    ↓
+InfiniBand / RoCE / NVLink
+    ↓
+Ultra-Low Latency
+Very High Throughput
+
+STORAGE
+    ↓
+Compute ↔️ Storage
+    ↓
+InfiniBand / Ethernet / RoCE
+    ↓
+High Throughput
+Traffic Isolation
+
+IN-BAND
+    ↓
+Cluster Management
+SSH / DNS / Scheduling
+Patching / Repositories
+    ↓
+Ethernet
+VLAN / VXLAN / EVPN
+    ↓
+Security + Isolation + Reliability
+
+OOB
+    ↓
+Hardware Management
+Power / Console / Recovery
+    ↓
+BMC + Dedicated Management Network
+    ↓
+Low Bandwidth
+High Availability
+Strong Security
+```
+
+## 24. Final Memory Trick
+
+- Compute → Compute Fast
+- Storage → Get Data Fast
+- In-Band → Manage Normally
+- OOB → Recover When Normal Management Fails
+
+Or the shortest version:
+
+- Compute = GPU communication
+- Storage = Data access
+- In-Band = Normal management
+- OOB = Emergency management
+
+## 25. Key Exam Points
+
+**Compute Network**
+- Purpose: GPU-to-GPU and node-to-node communication
+- Technology: InfiniBand, RoCE, NVLink
+- Requirement: Extremely high throughput + ultra-low latency + scalability
+
+**Storage Network**
+- Purpose: Compute nodes ↔️ storage systems
+- Technology: InfiniBand, Ethernet, RoCE
+- Requirement: High throughput + I/O performance + isolation
+
+**In-Band Management**
+- Purpose: Cluster and OS-level management
+- Technology: Ethernet, VLAN, VXLAN, EVPN
+- Requirement: Reliability + security + traffic isolation + adequate bandwidth
+
+**Out-of-Band Management**
+- Purpose: Remote hardware management and recovery
+- Technology: BMC + dedicated management network
+- Requirement: Availability + strong security + independent access
+
+**Final One-Line Summary**
+Compute fabric moves compute traffic fast; Storage fabric moves data between compute and storage; In-Band fabric manages the running infrastructure; OOB fabric provides an independent path to manage and recover failed servers.
