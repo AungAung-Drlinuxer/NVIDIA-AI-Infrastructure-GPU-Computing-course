@@ -1,4 +1,4 @@
-# Module 18 — NVIDIA vGPU vs. MIG: Conceptual Fundamentals
+# Module 17 — NVIDIA vGPU vs. MIG: Conceptual Fundamentals
 
 > Part III · GPU Virtualization — topic notes
 

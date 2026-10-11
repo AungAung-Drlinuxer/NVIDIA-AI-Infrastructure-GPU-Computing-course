@@ -178,16 +178,81 @@ Machine Learning Framework သည် NVIDIA GPU ကို အသုံးပြ�
 
 Python code က framework API မှတစ်ဆင့် model နှင့် tensor operation များကို ဖော်ပြပြီး၊ framework က ထောက်ပံ့ထားသော operation များကို CUDA / GPU backend မှတစ်ဆင့် NVIDIA GPU ပေါ်တွင် parallel computation အဖြစ် ဆောင်ရွက်ပေးပါတယ်။ အားလုံးသော operation များ သို့မဟုတ် အမြဲတမ်း GPU ပေါ်တွင် အလိုအလျောက် မသွားပါ — model architecture, operator support, software version နှင့် configuration ပေါ် မူတည်ပါတယ်။
 
-## 8. Scikit-learn နှင့် XGBoost
+ဤပုံသည် နားလည်ရလွယ်စေရန် ရေးဆွဲထားသော conceptual diagram ဖြစ်ပါတယ်။ တကယ့် software stack တွင် Framework, CUDA runtime, libraries, driver နှင့် အခြား component များ၏ ဆက်နွယ်မှုသည် framework version နှင့် installation method ပေါ်မူတည်နိုင်ပါတယ်။
 
-Module ခေါင်းစဉ်တွင် Scikit-learn နှင့် XGBoost ကိုလည်း ဖော်ပြထားပါသည်။ မူရင်း transcript တွင် ၎င်းတို့ကို framework ရွေးချယ်မှုအကြောင်းအရာတွင်သာ ဖော်ပြထားပြီး အသေးစိတ် မရှင်းပြထားပါ။ အထွေထွေအားဖြင့်—
+**CPU နဲ့ GPU အခန်းကဏ္ဍ**
 
-- **Scikit-learn** — classification, regression, clustering ကဲ့သို့ classical machine learning algorithms များနှင့် data preprocessing utilities များ ပါဝင်သော Python library ဖြစ်သည်။
-- **XGBoost** — gradient boosted decision trees ကို အခြေခံသော gradient boosting library ဖြစ်ပြီး tabular data အတွက် အသုံးများသည်။
+CPU သည် Program logic, data preparation, orchestration နဲ့ အခြားအလုပ်များကို လုပ်ဆောင်နိုင်ပါတယ်။ GPU သည် သင့်လျော်သော parallel numerical operations များကို အရှိန်မြှင့်နိုင်ပါတယ်။
 
-PyTorch နှင့် TensorFlow သည် deep learning အတွက် အဓိက ဖြစ်ပြီး၊ Scikit-learn နှင့် XGBoost ကဲ့သို့ tools များက classical machine learning ပြဿနာများအတွက် သင့်လျော်နိုင်ပါသည်။ မည်သည့် framework ကို ရွေးချယ်မည်ဆိုသည်မှာ project ၏ requirements, data အမျိုးအစား, team experience နှင့် ecosystem ပေါ် မူတည်ပါသည်။ GPU acceleration ပံ့ပိုးမှုနှင့် version-specific detail များကိုမူ သက်ဆိုင်ရာ library ၏ documentation တွင် စစ်ဆေးရန် လိုအပ်ပါသည် (needs verification)။
+ဥပမာ Neural Network Training တွင် Matrix Multiplication ကဲ့သို့ computation များသည် GPU acceleration မှ အကျိုးကျေးဇူးရနိုင်ပါတယ်။
 
-## 9. ကိုယ်တိုင်စစ်ဆေးရန် မေးခွန်းများ (Self-Check Questions)
+သို့သော် Framework အသုံးပြုထားရုံဖြင့် Python code အားလုံးသည် GPU ပေါ်တွင် အလိုအလျောက် အလုပ်လုပ်မည် မဟုတ်ပါ။ Operation support, tensor placement, software installation နဲ့ device configuration တို့ မှန်ကန်ဖို့ လိုအပ်ပါတယ်။
+
+## 8. အခြား Framework များ — Scikit-learn နှင့် XGBoost
+
+PyTorch နဲ့ TensorFlow တို့သည် Deep Learning အတွက် လူသိများသော Framework များဖြစ်သော်လည်း Machine Learning အတွက် အခြားရွေးချယ်စရာများလည်း ရှိပါတယ်။
+
+**8.1 Scikit-learn**
+
+Scikit-learn သည် Classical Machine Learning အတွက် အသုံးများသော Python library ဖြစ်ပါတယ်။
+
+ဥပမာ—
+
+- Logistic Regression။
+- Decision Trees။
+- Random Forests။
+- Clustering။
+- Data preprocessing နှင့် model evaluation utilities။
+
+Tabular data များနှင့် classical ML problems များအတွက် အသုံးဝင်ပါတယ်။ သို့သော် Scikit-learn ၏ ပုံမှန် estimators အများစုသည် NVIDIA CUDA GPU acceleration ကို native အနေဖြင့် အလိုအလျောက် မသုံးပါ။ GPU acceleration လိုအပ်ပါက သက်ဆိုင်ရာ GPU-enabled library သို့မဟုတ် အခြား implementation တစ်ခု လိုအပ်နိုင်ပါတယ်။
+
+**8.2 XGBoost**
+
+XGBoost သည် Gradient Boosted Decision Trees ကို အခြေခံသော Machine Learning library ဖြစ်ပါတယ်။ Tabular data, classification, regression နှင့် ranking tasks များတွင် အသုံးများပါတယ်။
+
+သက်ဆိုင်ရာ version နှင့် supported configuration များတွင် XGBoost သည် NVIDIA GPU acceleration ကို အသုံးပြုနိုင်ပါတယ်။ ဥပမာ version အသစ်များတွင် `device="cuda"` ကဲ့သို့ setting ကို အသုံးပြုနိုင်သော်လည်း ကိုယ့် version ၏ documentation ကို စစ်ဆေးသင့်ပါတယ်။
+
+**8.3 ဘယ် Framework ကို ရွေးချယ်သင့်သလဲ?**
+
+| Use case | စတင်စဉ်းစားနိုင်သည့် Tool |
+|---|---|
+| Neural Network နှင့် Deep Learning | PyTorch သို့မဟုတ် TensorFlow |
+| LLM နှင့် Computer Vision development | PyTorch နှင့် သက်ဆိုင်ရာ model ecosystem |
+| Classical ML နှင့် tabular data | Scikit-learn |
+| Gradient-boosted trees | XGBoost |
+| NVIDIA GPU inference optimization | TensorRT |
+| Model serving | Triton Inference Server |
+
+ဤဇယားသည် စတင်ရွေးချယ်ရန် လမ်းညွှန်သာဖြစ်ပါတယ်။ Tool ရွေးချယ်မှုသည် model, data, compatibility, performance requirements နှင့် deployment architecture တို့အပေါ် မူတည်ပါတယ်။
+
+## 9. Framework, CUDA, TensorRT နှင့် Triton တို့၏ ကွာခြားချက်
+
+AI Infrastructure ကို လေ့လာရာတွင် ဤနာမည်များကို တစ်ခုတည်းလို မမှတ်ယူသင့်ပါ။
+
+| Technology | အဓိကတာဝန် |
+|---|---|
+| PyTorch / TensorFlow | Model development, training နှင့် inference APIs |
+| CUDA | NVIDIA GPU programming platform နှင့် programming model |
+| CUDA Libraries | GPU computation အတွက် optimized functions များ |
+| TensorRT | Supported NVIDIA GPU inference workload များကို optimize လုပ်ခြင်း |
+| Triton Inference Server | Model များကို client application များထံ serving လုပ်ခြင်း |
+
+ဥပမာအားဖြင့် PyTorch ဖြင့် Model တစ်ခုကို Train လုပ်ပြီးနောက် လိုအပ်ပါက TensorRT အတွက် သင့်လျော်သော format သို့ export/convert လုပ်ကာ Triton Inference Server မှတစ်ဆင့် serving လုပ်နိုင်ပါတယ်။ သို့သော် model နှင့် backend အားလုံးအတွက် workflow တစ်ပုံစံတည်း မဟုတ်ပါ။
+
+## 10. Exam Notes
+
+- **Framework** — Model development နှင့် training ကို လွယ်ကူစေသော tools, libraries နှင့် APIs များ။
+- **PyTorch** — Deep Learning framework။
+- **TensorFlow** — Machine Learning နှင့် Deep Learning framework။
+- **Layer** — Neural Network ၏ computation အစိတ်အပိုင်း။
+- **Loss Function** — Model prediction နှင့် expected answer တို့၏ ကွာခြားချက်ကို တိုင်းတာခြင်း။
+- **Optimizer** — Training အတွင်း model parameters များကို update လုပ်ရန် အသုံးပြုခြင်း။
+- **GPU Acceleration** — Supported operations များကို GPU ပေါ်တွင် အရှိန်မြှင့်လုပ်ဆောင်ခြင်း။
+- **Scikit-learn** — Classical Machine Learning library; ပုံမှန် estimators အများစုသည် CUDA GPU ကို native အနေဖြင့် မသုံးပါ။
+- **XGBoost** — Gradient-boosted trees library; supported configuration များတွင် GPU acceleration ရနိုင်သည်။
+- **Framework ≠ CUDA** — Framework က model development ကို ကူညီပေးပြီး CUDA က NVIDIA GPU programming ecosystem ၏ အစိတ်အပိုင်းဖြစ်သည်။
+
+## 11. ကိုယ်တိုင်စစ်ဆေးရန် မေးခွန်းများ (Review Questions)
 
 **မေးခွန်း ၁ — Machine Learning Framework ဆိုတာ ဘာလဲ? Framework မရှိဘဲ model တည်ဆောက်ရင် ဘာဖြစ်နိုင်သလဲ?**
 
@@ -215,7 +280,27 @@ prediction = model(x)
 
 အဖြေ — Python application က framework API မှတစ်ဆင့် model နှင့် tensor ops ကို ဖော်ပြပြီး framework က ၎င်းကို CUDA / GPU backend မှတစ်ဆင့် NVIDIA GPU ပေါ်တွင် parallel computation အဖြစ် ဆောင်ရွက်ပေးသည်။ သို့သော် operator support, model architecture, software version နှင့် configuration ပေါ်မူတည်၍ အားလုံး GPU ပေါ် အလိုအလျောက် မသွားနိုင်ဘဲ performance လည်း အလိုအလျောက် အကောင်းဆုံး မဖြစ်နိုင်ပါ။
 
-## 10. Module Summary
+**မေးခွန်း ၆ — Framework ကို အိမ်ဆောက်ခြင်းနှင့် နှိုင်းယှဉ်ခြင်းက ဘယ်လို နားလည်ရလွယ်စေသလဲ?**
+
+အဖြေ — Framework သည် ကိရိယာ၊ ပစ္စည်းနှင့် လုပ်ငန်းစဉ်အချို့ ကြိုတင်ပြင်ဆင်ပြီးသား workshop ကဲ့သို့ ဖြစ်ပြီး model သည် ကိုယ့်အိမ်ဒီဇိုင်းကဲ့သို့ ဖြစ်သည်။ အခြေခံအရာများကို ပြန်တည်ဆောက်စရာ မလိုသော်လည်း ဒီဇိုင်းနှင့် ဆုံးဖြတ်ချက်များကို ကိုယ်တိုင် ချမှတ်ရသေးသည်။
+
+**မေးခွန်း ၇ — PyTorch နှင့် TensorFlow တို့၏ အဓိကရည်ရွယ်ချက်က ဘာလဲ?**
+
+အဖြေ — PyTorch သည် deep learning model များ တည်ဆောက်၊ training နှင့် experiment လုပ်ရန် framework ဖြစ်ပြီး၊ TensorFlow သည် machine learning နှင့် deep learning model များ တည်ဆောက်၊ training နှင့် deploy လုပ်ရန် framework ဖြစ်သည်။ နှစ်ခုစလုံးသည် model development နှင့် training ကို အဓိက ပံ့ပိုးသည်။
+
+**မေးခွန်း ၈ — Layer, Loss Function နှင့် Optimizer တို့၏ အခန်းကဏ္ဍကို ရှင်းပြပါ။**
+
+အဖြေ — Layer သည် Neural Network ၏ computation အစိတ်အပိုင်းဖြစ်သည်။ Loss Function သည် model prediction နှင့် မျှော်လင့်ထားသော အဖြေတို့၏ ကွာခြားချက်ကို တိုင်းတာသည်။ Optimizer သည် training အတွင်း gradient များကို အသုံးပြုပြီး model parameters များကို update လုပ်ပေးသည်။
+
+**မေးခွန်း ၉ — Scikit-learn နှင့် XGBoost တို့သည် ဘယ်လိုကွာခြားသလဲ?**
+
+အဖြေ — Scikit-learn သည် classical machine learning library ဖြစ်ပြီး logistic regression, decision trees, random forests, clustering နှင့် preprocessing/evaluation utilities များ ပါဝင်သည်။ ၎င်း၏ ပုံမှန် estimators အများစုက CUDA GPU acceleration ကို native အနေဖြင့် မသုံးပါ။ XGBoost သည် gradient boosted decision trees library ဖြစ်ပြီး tabular data, classification, regression နှင့် ranking အတွက် အသုံးများပြီး သင့်လျော်သော version နှင့် supported configuration များတွင် GPU acceleration ရနိုင်သည် (ဥပမာ version အသစ်များတွင် `device="cuda"` — ကိုယ့် version ၏ documentation ကို စစ်ဆေးပါ)။
+
+**မေးခွန်း ၁၀ — Framework, CUDA, TensorRT နှင့် Triton Inference Server တို့၏ အဓိကတာဝန်များကို ခွဲခြားဖော်ပြပါ။**
+
+အဖြေ — PyTorch/TensorFlow က model development, training နှင့် inference APIs များ ပေးသည်။ CUDA က NVIDIA GPU programming platform နှင့် programming model ဖြစ်သည်။ CUDA libraries များက GPU computation အတွက် optimized functions များ ပေးသည်။ TensorRT က supported NVIDIA GPU inference workload များကို optimize လုပ်ပေးသည်။ Triton Inference Server က model များကို client application များထံ serving လုပ်ပေးသည်။
+
+## 12. Module Summary
 
 - **Machine Learning Framework** သည် model တည်ဆောက်ခြင်း၊ training, testing နှင့် အချို့အခြေအနေတွင် deployment ကို လွယ်ကူစေသော tools, libraries နှင့် APIs များ၏ အစုဖြစ်သည်။
 - Framework က tensor operations, model layers, loss functions, optimizers, automatic differentiation နှင့် hardware support ကို ပံ့ပိုးပေးသည်။
@@ -223,6 +308,17 @@ prediction = model(x)
 - **TensorFlow** သည် ML/DL model တည်ဆောက်၊ training နှင့် deployment အတွက် framework ဖြစ်ပြီး `tf.keras` ကဲ့သို့ APIs များ အသုံးပြုနိုင်သည်။
 - Framework ရွေးချယ်မှုသည် project, team နှင့် ecosystem ပေါ် မူတည်သည် — တစ်ခုက အမြဲ ပိုကောင်းသည်ဟု မဆိုနိုင်ပါ။
 - Framework က NVIDIA GPU ကို CUDA / GPU backend မှတစ်ဆင့် အသုံးပြု၍ supported computation များကို GPU ပေါ်တွင် parallel ဆောင်ရွက်နိုင်သည်။
+- **Scikit-learn** သည် classical ML အတွက် ဖြစ်ပြီး ၎င်း၏ ပုံမှန် estimators အများစုက CUDA GPU ကို native အနေဖြင့် မသုံးပါ။ **XGBoost** သည် gradient-boosted trees အတွက် ဖြစ်ပြီး သင့်လျော်သော version နှင့် configuration များတွင် GPU acceleration ရနိုင်သည်။
+- Framework မရှိဘဲ အရာအားလုံးကို အစမှရေးသားနိုင်သော်လည်း အချိန်ပိုကုန်ပြီး ရှုပ်ထွေးနိုင်သည်။
+
+**အဓိက မှတ်သားရန်**
+
+- PyTorch / TensorFlow = Model Development and Training
+- CUDA = NVIDIA GPU Programming Platform
+- TensorRT = Inference Optimization
+- Triton = Model Serving
+
+NVIDIA GPU acceleration ရရှိနိုင်မှုသည် tool, version, operation နှင့် configuration ပေါ်မူတည်ကြောင်းလည်း မှတ်သားထားရပါမယ်။
 
 **Memory trick** — Framework = workshop ၊ model = ကိုယ့်အိမ်ဒီဇိုင်း။ ကိရိယာတွေ အသင့်ရှိပေမဲ့ ဒီဇိုင်းနှင့် ဆုံးဖြတ်ချက်များကို ကိုယ်တိုင် ချမှတ်ရသေးသည်။
 
@@ -402,16 +498,81 @@ The simple conceptual flow is —
 
 The Python code describes the model and tensor operations through framework APIs, and the framework executes its supported operations on the NVIDIA GPU as parallel computation through the CUDA / GPU backend. Not every operation automatically runs on the GPU — it depends on the model architecture, operator support, software version, and configuration.
 
-## 8. Scikit-learn and XGBoost
+This figure is a conceptual diagram drawn to make the idea easy to understand. In a real software stack, how the framework, CUDA runtime, libraries, driver, and other components relate to one another can depend on the framework version and the installation method.
 
-The module title also names Scikit-learn and XGBoost. The source transcript mentions them only in the context of framework selection and does not explain them in depth. In general terms —
+**CPU and GPU Roles**
 
-- **Scikit-learn** — a Python library containing classical machine learning algorithms such as classification, regression, and clustering, plus data preprocessing utilities.
-- **XGBoost** — a gradient boosting library based on gradient boosted decision trees, commonly used for tabular data.
+The CPU can handle program logic, data preparation, orchestration, and other work. The GPU can accelerate suitable parallel numerical operations.
 
-PyTorch and TensorFlow are mainly for deep learning, while tools like Scikit-learn and XGBoost can suit classical machine learning problems. Which framework to choose depends on the project's requirements, the data type, team experience, and the ecosystem. GPU acceleration support and version-specific details should be checked in each library's documentation (needs verification).
+For example, in neural network training, computations such as matrix multiplication can benefit from GPU acceleration.
 
-## 9. Self-Check Questions
+However, using a framework alone does not make all Python code run automatically on the GPU. Operation support, tensor placement, software installation, and device configuration all need to be correct.
+
+## 8. Other Frameworks — Scikit-learn and XGBoost
+
+PyTorch and TensorFlow are well-known frameworks for deep learning, but other options also exist for machine learning.
+
+**8.1 Scikit-learn**
+
+Scikit-learn is a Python library commonly used for classical machine learning.
+
+Examples —
+
+- Logistic Regression.
+- Decision Trees.
+- Random Forests.
+- Clustering.
+- Data preprocessing and model evaluation utilities.
+
+It is useful for tabular data and classical ML problems. However, most regular Scikit-learn estimators do not use NVIDIA CUDA GPU acceleration natively by default. If GPU acceleration is needed, a suitable GPU-enabled library or another implementation may be required.
+
+**8.2 XGBoost**
+
+XGBoost is a machine learning library based on gradient boosted decision trees. It is commonly used for tabular data, classification, regression, and ranking tasks.
+
+In suitable versions and supported configurations, XGBoost can use NVIDIA GPU acceleration. For example, newer versions may support a setting such as `device="cuda"`, but you should check the documentation for your version.
+
+**8.3 Which Framework Should You Choose?**
+
+| Use case | Tool to start considering |
+|---|---|
+| Neural networks and deep learning | PyTorch or TensorFlow |
+| LLM and computer vision development | PyTorch and its related model ecosystem |
+| Classical ML and tabular data | Scikit-learn |
+| Gradient-boosted trees | XGBoost |
+| NVIDIA GPU inference optimization | TensorRT |
+| Model serving | Triton Inference Server |
+
+This table is only a starting guide. Tool choice depends on the model, data, compatibility, performance requirements, and deployment architecture.
+
+## 9. Differences between Framework, CUDA, TensorRT, and Triton
+
+When studying AI infrastructure, these names should not be treated as one single thing.
+
+| Technology | Main Responsibility |
+|---|---|
+| PyTorch / TensorFlow | Model development, training, and inference APIs |
+| CUDA | NVIDIA GPU programming platform and programming model |
+| CUDA Libraries | Optimized functions for GPU computation |
+| TensorRT | Optimizing supported NVIDIA GPU inference workloads |
+| Triton Inference Server | Serving models to client applications |
+
+For example, after training a model with PyTorch, you can export/convert it to a suitable format for TensorRT if needed and serve it through Triton Inference Server. However, this is not one single workflow for every model and backend.
+
+## 10. Exam Notes
+
+- **Framework** — tools, libraries, and APIs that make model development and training easier.
+- **PyTorch** — deep learning framework.
+- **TensorFlow** — machine learning and deep learning framework.
+- **Layer** — a computation building block of a neural network.
+- **Loss Function** — measures the difference between the model's prediction and the expected answer.
+- **Optimizer** — used to update model parameters during training.
+- **GPU Acceleration** — running supported operations faster on the GPU.
+- **Scikit-learn** — classical machine learning library; most regular estimators do not use CUDA GPUs natively.
+- **XGBoost** — gradient-boosted trees library; GPU acceleration can be available in supported configurations.
+- **Framework ≠ CUDA** — a framework helps with model development, while CUDA is part of the NVIDIA GPU programming ecosystem.
+
+## 11. Review Questions (Self-Check)
 
 **Question 1 — What is a machine learning framework? What can happen if you build a model without one?**
 
@@ -439,7 +600,27 @@ Answer — Neither is always better. Choose based on project requirements, model
 
 Answer — The Python application describes the model and tensor ops through framework APIs, and the framework runs them on the NVIDIA GPU as parallel computation through the CUDA / GPU backend. However, depending on operator support, model architecture, software version, and configuration, not everything automatically runs on the GPU, and performance is not automatically optimal.
 
-## 10. Module Summary
+**Question 6 — How does the house-building analogy help you understand a framework?**
+
+Answer — A framework is like a workshop where tools, materials, and some processes are prepared in advance, while the model is your own house design. You do not rebuild the basics, but the design and the decisions are still yours.
+
+**Question 7 — What are the main purposes of PyTorch and TensorFlow?**
+
+Answer — PyTorch is a deep learning framework for building, training, and experimenting with models. TensorFlow is a framework for building, training, and deploying machine learning and deep learning models. Both mainly support model development and training.
+
+**Question 8 — Explain the roles of Layer, Loss Function, and Optimizer.**
+
+Answer — A Layer is a computation building block of a neural network. A Loss Function measures the difference between the model's prediction and the expected answer. An Optimizer uses the gradients to update model parameters during training.
+
+**Question 9 — How do Scikit-learn and XGBoost differ?**
+
+Answer — Scikit-learn is a classical machine learning library (logistic regression, decision trees, random forests, clustering, preprocessing and evaluation utilities), and most of its regular estimators do not use CUDA GPU acceleration natively. XGBoost is a gradient boosted decision trees library commonly used for tabular data, classification, regression, and ranking; in suitable versions and supported configurations it can use NVIDIA GPU acceleration (for example `device="cuda"` in newer versions — check the documentation for your version).
+
+**Question 10 — Distinguish the main responsibilities of Framework, CUDA, TensorRT, and Triton Inference Server.**
+
+Answer — PyTorch/TensorFlow provide model development, training, and inference APIs. CUDA is the NVIDIA GPU programming platform and programming model. CUDA libraries provide optimized functions for GPU computation. TensorRT optimizes supported NVIDIA GPU inference workloads. Triton Inference Server serves models to client applications.
+
+## 12. Module Summary
 
 - A **machine learning framework** is a set of tools, libraries, and APIs that make building, training, testing, and in some cases deploying models easier.
 - A framework provides tensor operations, model layers, loss functions, optimizers, automatic differentiation, and hardware support.
@@ -447,13 +628,28 @@ Answer — The Python application describes the model and tensor ops through fra
 - **TensorFlow** is a framework for building, training, and deploying ML/DL models, with APIs such as `tf.keras`.
 - Framework choice depends on the project, team, and ecosystem — one is not always better.
 - A framework can use an NVIDIA GPU through the CUDA / GPU backend to run supported computations in parallel on the GPU.
+- **Scikit-learn** is for classical ML, and most of its regular estimators do not use CUDA GPUs natively. **XGBoost** is for gradient-boosted trees, and GPU acceleration can be available in suitable versions and configurations.
+- Everything can be written from scratch without a framework, but it takes more time and becomes complicated.
+
+**Key points to remember**
+
+- PyTorch / TensorFlow = Model Development and Training
+- CUDA = NVIDIA GPU Programming Platform
+- TensorRT = Inference Optimization
+- Triton = Model Serving
+
+NVIDIA GPU acceleration availability also depends on the tool, version, operation, and configuration.
 
 **Memory trick** — Framework = workshop, model = your house design. The tools are ready, but the design and decisions are still yours.
 
 ## Technical review notes
 
 - The PyTorch and TensorFlow code examples are preserved verbatim from the source transcript, including the comments; both examples perform forward computation only (no training), as the source notes.
-- The source transcript ends at the GPU execution flow diagram; sections on Scikit-learn/XGBoost, self-check questions, and the module summary were added to complete the chapter progression. The Scikit-learn/XGBoost section is intentionally general because the source only names them — GPU-accelerated variants and version-specific behavior are marked "needs verification".
+- The module tail — the conceptual-diagram disclaimer, CPU/GPU roles (§7), the other-frameworks section (§8: 8.1 Scikit-learn, 8.2 XGBoost, 8.3 framework choice table), the Framework vs CUDA vs TensorRT vs Triton differences (§9), Exam Notes (§10), review questions (§11) and summary (§12) — is taken from the supplied source transcript (msg_2792.txt). The source cut point is the line "Module 34 — NVIDIA's Differentiator: CUDA, cuDNN and GPU-Accelerated Frameworks", where the next module begins.
+- Seam note: the tail opens with a disclaimer about a conceptual diagram whose antecedent figure sits before the cut point; the disclaimer is placed at the end of section 7 beside the module's GPU execution flow diagram. Its wording — the real software stack relates the framework, CUDA runtime, libraries, driver, and other components, depending on framework version and installation method — is preserved.
+- The former section 8 "needs verification" stub is replaced with the real source content. Source caveats preserved: most regular Scikit-learn estimators do not use NVIDIA CUDA GPU acceleration natively; XGBoost GPU support depends on version and supported configuration (`device="cuda"` in newer versions — check your version's documentation).
+- The 8.3 tool choice table is preserved with its source caveat: it is only a starting guide, and tool choice depends on the model, data, compatibility, performance requirements, and deployment architecture. The "framework use alone does not automatically run all Python code on GPU" caution is preserved in section 7.
+- The source tail numbers these sections 8–12 and the file now follows that numbering; the previously editor-added self-check questions and module summary were renumbered to 11 and 12 and merged with the source's review questions and summary. Source review questions 1 and 5 are already covered by existing questions 1 and 5; the remaining source questions are added as 6–10 with concise answers per the course writing rules.
 - The comparison claims (Autograd vs GradientTape, `torch.nn` vs `tf.keras`) follow the source table; "which framework to choose depends on project, team, and ecosystem" is preserved as the conclusion — no framework is claimed to be universally superior.
 - Stray `</box>` markup artifacts in the source house-building analogy were removed; the analogy's meaning is unchanged.
 - The claim that a framework does not replace data cleaning, data versioning, experiment tracking, or production monitoring is preserved as an operational caution.

@@ -1,4 +1,4 @@
-# Module 38 — NVIDIA GPUs and Kubernetes Integration: Slurm, DCGM, NCCL, GPUDirect RDMA and Kubernetes
+# Module 38 — Slurm and Kubernetes Integration with NVIDIA Infrastructure
 
 > Part VII · AI Workload Operations and Orchestration — topic notes
 
@@ -6,31 +6,86 @@
 
 ### 1. Learning Objectives
 
-ဤ Module ကို လေ့လာပြီးနောက် အောက်ပါအချက်များကို နားလည်လာရမည်—
+ဒီ Module မှာ အောက်ပါအကြောင်းအရာတွေကို လေ့လာပါမယ်။
 
-- GPU Cluster မှာ Workload တွေကို စီမံရာတွင် Slurm ရဲ့ အခန်းကဏ္ဍ
-- DCGM က GPU Health နဲ့ Performance Monitoring ကို ဘယ်လို စောင့်ကြည့်သလဲ
-- NCCL က Multi-GPU / Multi-Node Training Communication ကို ဘယ်လို ဆောင်ရွက်ပေးသလဲ
-- GPUDirect RDMA က GPU Memory Data Transfer ကို ဘယ်လို ပိုမိုတိုက်ရိုက်ဖြစ်စေသလဲ
-- Kubernetes မှာ NVIDIA GPU Operator, Device Plugin, DCGM Exporter နဲ့ MIG တို့ ဘယ်လို အလုပ်လုပ်သလဲ
-- GPU Scheduling, Load Balancing နဲ့ Workload Rebalancing တို့ရဲ့ ကွာခြားချက်များ
-- Slurm နဲ့ Kubernetes ကို NVIDIA Integration ရှုထောင့်ကနေ ဘယ်လို နှိုင်းယှဉ်မလဲ
+- Slurm က Multi-Node NVIDIA GPU Training ကို ဘယ်လို Schedule လုပ်သလဲ။
+- DGX Systems နဲ့ DGX SuperPOD တို့ရဲ့ ဆက်စပ်မှု။
+- DCGM ရဲ့ GPU Health Monitoring နဲ့ Performance Telemetry အခန်းကဏ္ဍ။
+- NCCL က Multi-GPU နဲ့ Multi-Node Training အတွက် ဘယ်လို Communication လုပ်ပေးသလဲ။
+- GPUDirect RDMA က GPU Memory အကြား Data Transfer ကို ဘယ်လို အရှိန်မြှင့်ပေးနိုင်သလဲ။
+- Kubernetes နဲ့ NVIDIA GPU Operator ဘယ်လိုပေါင်းစပ်အလုပ်လုပ်သလဲ။
+- GPU Operator, Device Plugin, DCGM Exporter နဲ့ MIG Manager တို့ရဲ့ တာဝန်များ။
+- GPU Scheduling, Autoscaling, Load Balancing နဲ့ Workload Rescheduling တို့ ဘာကွာသလဲ။
+- Slurm နဲ့ Kubernetes တို့ကို AI Infrastructure တစ်ခုမှာ ဘယ်လိုပေါင်းစပ်အသုံးပြုနိုင်သလဲ။
 
-### 2. ပြဿနာ — GPU Workload တွေကို ဘယ်လို စီမံမလဲ
+### 2. NVIDIA AI Infrastructure ကို နားလည်ခြင်း
 
-AI Training နဲ့ Inference Workload တွေကို GPU အများအပြား၊ Node အများအပြားနဲ့ လုပ်ဆောင်ရတဲ့အခါ အောက်ပါ တာဝန်တွေကို သီးခြား စဉ်းစားရပါတယ်—
+AI Training အကြီးစားတစ်ခုကို Run လုပ်ဖို့ GPU တစ်ခုတည်းနဲ့ မလုံလောက်နိုင်ပါဘူး။ GPU အများအပြား၊ Compute Nodes အများအပြား၊ High-Speed Network နဲ့ Shared Storage တို့ လိုအပ်နိုင်ပါတယ်။
 
-- Job တွေကို ဘယ် Node မှာ ဘယ်အချိန် လုပ်ဆောင်မလဲ (Scheduling)
-- GPU Health နဲ့ Performance ကို ဘယ်လို စောင့်ကြည့်မလဲ (Monitoring)
-- GPU တွေအကြား Data ကို ဘယ်လို ဖလှယ်မလဲ (Communication)
-- GPU Memory ကနေ Network ဆီ Data ကို ဘယ်လို ပို့မလဲ (Data Transfer)
-- Containerized Application တွေကို ဘယ်လို Deploy နဲ့ စီမံမလဲ (Orchestration)
+ဥပမာ AI Training Cluster တစ်ခုမှာ အောက်ပါ Components တွေ ပါဝင်နိုင်ပါတယ်။
 
-ဒီတာဝန်တွေဟာ တစ်ခုနဲ့တစ်ခု မတူပါဘူး။ Tool တစ်ခုချင်းစီရဲ့ အခန်းကဏ္ဍကို ခွဲခြားနားလည်ထားခြင်းက ဒီ Module ရဲ့ အဓိကရည်ရွယ်ချက် ဖြစ်ပါတယ်။
+- GPU Compute: NVIDIA DGX Systems နဲ့ အခြား GPU Servers များ။
+- GPU Interconnect: NVLink နဲ့ NVSwitch ကဲ့သို့ GPU-to-GPU Communication Technologies။
+- Cluster Network: InfiniBand သို့မဟုတ် သင့်လျော်တဲ့ High-Performance Ethernet။
+- Communication Software: NCCL။
+- Memory Transfer Technology: GPUDirect RDMA ကို ပံ့ပိုးထားတဲ့ Hardware နဲ့ Software။
+- Job Scheduler: Slurm။
+- GPU Monitoring: DCGM နဲ့ သက်ဆိုင်ရာ Monitoring Tools။
+- Storage: Training Datasets, Model Checkpoints နဲ့ Model Artifacts များအတွက် Storage Systems။
 
-### 3. Slurm — Job Scheduling နဲ့ Resource Allocation
+ဒီ Components တွေက တာဝန်မတူကြပါဘူး။ Slurm က Job နဲ့ Resource Allocation ကို စီမံပြီး NCCL က Distributed GPU Workloads တွေအကြား Communication ကို ဆောင်ရွက်ပေးပါတယ်။ DCGM က GPU Health နဲ့ Telemetry ကို စောင့်ကြည့်ပေးပါတယ်။
 
-Slurm က Multi-Node GPU Training Jobs တွေအတွက် Scheduling နဲ့ Resource Allocation ကို စီမံပေးပါတယ်။ Job Script တစ်ခုမှာ Resource တောင်းဆိုမှုကို `#SBATCH` Directives တွေနဲ့ ဖော်ပြနိုင်ပါတယ်။
+### 3. Slurm နဲ့ NVIDIA DGX Infrastructure
+
+#### 3.1 DGX Systems နဲ့ Multi-Node Training
+
+NVIDIA DGX System တစ်ခုမှာ GPU အများအပြား ပါဝင်နိုင်ပါတယ်။ Training Workload ကြီးလာတဲ့အခါ DGX Systems အများအပြားကို Cluster အဖြစ် ချိတ်ဆက်အသုံးပြုနိုင်ပါတယ်။
+
+ဥပမာ—
+
+```
+DGX Node 1 — Training Process များ
+DGX Node 2 — Training Process များ
+DGX Node 3 — Training Process များ
+DGX Node 4 — Training Process များ
+```
+
+Slurm က သတ်မှတ်ထားတဲ့ Resource Requirements, Job Priority, Cluster Configuration နဲ့ Resource Availability တို့ကို အခြေခံပြီး Job ကို Schedule လုပ်ပေးနိုင်ပါတယ်။
+
+```
+                 AI Researcher
+                       |
+                       v
+                 Slurm Scheduler
+                       |
+              Resource Allocation
+                       |
+         +-------------+-------------+
+         |             |             |
+         v             v             v
+      DGX Node 1    DGX Node 2    DGX Node 3
+       GPUs           GPUs           GPUs
+         |             |             |
+         +-------------+-------------+
+                       |
+              Distributed Training
+```
+
+ဤပုံမှာ Slurm က ဘယ် Nodes တွေကို Job အတွက် အသုံးပြုမလဲဆိုတာ စီမံပေးတဲ့ အယူအဆကို ပြထားပါတယ်။
+
+DGX SuperPOD ဆိုတာ DGX Servers တွေကို High-Performance Networking, Storage နဲ့ Management Infrastructure တို့နဲ့ ပေါင်းစပ်ထားတဲ့ ကြီးမားတဲ့ AI Infrastructure Architecture ဖြစ်ပါတယ်။ Slurm ကဲ့သို့ Scheduler ကို အသုံးပြုပြီး သင့်လျော်တဲ့ Training Jobs တွေကို ဒီလို Cluster များပေါ်မှာ Run လုပ်နိုင်ပါတယ်။ သို့သော် DGX SuperPOD တိုင်းမှာ Slurm ကို မဖြစ်မနေ သုံးရမယ်လို့ မဆိုလိုပါဘူး။
+
+#### 3.2 Slurm က ဘာတွေကို စီမံပေးသလဲ?
+
+Slurm ရဲ့ အဓိကတာဝန်တွေက—
+
+- User က Submit လုပ်တဲ့ Job ကို လက်ခံခြင်း။
+- Job အတွက် CPU, GPU, Memory နဲ့ Node Requirements ကို စစ်ဆေးခြင်း။
+- Scheduling Policy နဲ့ Resource Availability ကို အခြေခံပြီး Job ကို Queue ထဲမှာ စောင့်စေခြင်း သို့မဟုတ် Run လုပ်ပေးခြင်း။
+- Job အတွက် သတ်မှတ်ထားတဲ့ Compute Resources တွေကို Allocate လုပ်ခြင်း။
+- Job Status နဲ့ Resource Allocation ကို စီမံခြင်း။
+
+Slurm မှာ NVIDIA GPU အသုံးပြုဖို့ GPU Resources တွေကို GRES (Generic Resources) နဲ့ သတ်မှတ်နိုင်ပါတယ်။ အောက်ပါ Job Script Directive က ဥပမာတစ်ခု ဖြစ်ပါတယ်။
 
 ```bash
 #SBATCH --nodes=2
@@ -331,31 +386,86 @@ Traffic Load Balancing နဲ့ GPU Compute Load Balancing ဟာ တစ်ထ�
 
 ### 1. Learning Objectives
 
-After completing this module, you should understand—
+In this module, you will learn about the following topics—
 
-- The role of Slurm in managing workloads on a GPU cluster
-- How DCGM monitors GPU health and performance
-- How NCCL handles multi-GPU and multi-node training communication
-- How GPUDirect RDMA makes GPU memory data transfer more direct
-- How the NVIDIA GPU Operator, Device Plugin, DCGM Exporter and MIG work in Kubernetes
-- The differences between GPU scheduling, load balancing and workload rebalancing
-- How to compare Slurm and Kubernetes from an NVIDIA integration perspective
+- How Slurm schedules multi-node NVIDIA GPU training.
+- How DGX Systems and DGX SuperPOD relate to each other.
+- The role of DCGM in GPU health monitoring and performance telemetry.
+- How NCCL handles communication for multi-GPU and multi-node training.
+- How GPUDirect RDMA accelerates data transfer between GPU memories.
+- How Kubernetes and the NVIDIA GPU Operator work together.
+- The responsibilities of the GPU Operator, Device Plugin, DCGM Exporter and MIG Manager.
+- How GPU scheduling, autoscaling, load balancing and workload rescheduling differ.
+- How Slurm and Kubernetes can be combined in an AI infrastructure.
 
-### 2. The Problem — How Do You Manage GPU Workloads?
+### 2. Understanding NVIDIA AI Infrastructure
 
-When AI training and inference workloads run across many GPUs and many nodes, several responsibilities must be considered separately—
+A large-scale AI training run may not be feasible with a single GPU. Many GPUs, many compute nodes, a high-speed network and shared storage may be required.
 
-- Which node runs which job, and when (scheduling)
-- How GPU health and performance are observed (monitoring)
-- How data is exchanged between GPUs (communication)
-- How data moves from GPU memory to the network (data transfer)
-- How containerized applications are deployed and managed (orchestration)
+An example AI training cluster may include the following components—
 
-These responsibilities are not the same. Understanding the distinct role of each tool is the main purpose of this module.
+- GPU Compute: NVIDIA DGX Systems and other GPU servers.
+- GPU Interconnect: GPU-to-GPU communication technologies such as NVLink and NVSwitch.
+- Cluster Network: InfiniBand or suitable high-performance Ethernet.
+- Communication Software: NCCL.
+- Memory Transfer Technology: hardware and software that support GPUDirect RDMA.
+- Job Scheduler: Slurm.
+- GPU Monitoring: DCGM and related monitoring tools.
+- Storage: storage systems for training datasets, model checkpoints and model artifacts.
 
-### 3. Slurm — Job Scheduling and Resource Allocation
+These components have different responsibilities. Slurm manages jobs and resource allocation, NCCL handles communication between distributed GPU workloads, and DCGM monitors GPU health and telemetry.
 
-Slurm manages scheduling and resource allocation for multi-node GPU training jobs. Resource requests in a job script are expressed with `#SBATCH` directives.
+### 3. Slurm and NVIDIA DGX Infrastructure
+
+#### 3.1 DGX Systems and Multi-Node Training
+
+An NVIDIA DGX system can include many GPUs. As the training workload grows, multiple DGX systems can be connected and used as a cluster.
+
+Example—
+
+```
+DGX Node 1 — Training Processes
+DGX Node 2 — Training Processes
+DGX Node 3 — Training Processes
+DGX Node 4 — Training Processes
+```
+
+Slurm can schedule jobs based on the specified resource requirements, job priority, cluster configuration and resource availability.
+
+```
+                 AI Researcher
+                       |
+                       v
+                 Slurm Scheduler
+                       |
+              Resource Allocation
+                       |
+         +-------------+-------------+
+         |             |             |
+         v             v             v
+      DGX Node 1    DGX Node 2    DGX Node 3
+       GPUs           GPUs           GPUs
+         |             |             |
+         +-------------+-------------+
+                       |
+              Distributed Training
+```
+
+This diagram shows the concept of Slurm deciding which nodes are used for a job.
+
+A DGX SuperPOD is a large AI infrastructure architecture that combines DGX servers with high-performance networking, storage and management infrastructure. Suitable training jobs can be run on such clusters with a scheduler such as Slurm. However, this does not mean that every DGX SuperPOD must use Slurm.
+
+#### 3.2 What Does Slurm Manage?
+
+Slurm's main responsibilities are—
+
+- Accepting jobs submitted by users.
+- Checking the CPU, GPU, memory and node requirements for a job.
+- Holding a job in a queue or running it based on scheduling policy and resource availability.
+- Allocating the specified compute resources for a job.
+- Managing job status and resource allocation.
+
+To use NVIDIA GPUs with Slurm, GPU resources can be specified with GRES (Generic Resources). The following job script directive is an example.
 
 ```bash
 #SBATCH --nodes=2
@@ -654,7 +764,8 @@ Key takeaway — GPU monitoring, job scheduling, collective communication and GP
 
 ## Technical review notes
 
-- The supplied source transcript for this module begins mid-sentence inside the Slurm `#SBATCH` job-script example; sections 1–3 (module framing and the Slurm scheduling introduction) were reconstructed minimally from the module's own review questions and summary. No commands or specifications beyond the supplied `#SBATCH` block and Slurm command list were added.
+- Sections 1–3 use the module's real source text (module transcript beginning at 'Module 38 — Slurm and Kubernetes Integration with NVIDIA Infrastructure'): learning objectives, understanding NVIDIA AI infrastructure, and Slurm with NVIDIA DGX infrastructure (DGX multi-node training, the AI Researcher → Slurm Scheduler → DGX Nodes diagram, DGX SuperPOD, and what Slurm manages including GRES). The source text is cut mid section 3.2 at the job-script directive example, which continues into the supplied `#SBATCH` block and the rest of the module content. No commands or specifications beyond the supplied `#SBATCH` block and Slurm command list were added.
 - The Slurm-vs-Kubernetes comparison in section 10 was reflowed from the source transcript into a Markdown table; content is unchanged.
 - The YAML example and all diagrams are reproduced from the source; `your-registry/your-inference-image:latest` is a placeholder as stated in the source.
-- Caveats preserved from source: monitoring ≠ scheduling; DCGM does not move jobs automatically; GPUDirect RDMA does not eliminate the CPU; GPU Operator does not necessarily install the full CUDA Toolkit; MIG is not supported on all GPUs; no default automatic GPU load balancing or live migration is assumed.
+- The content following the `#SBATCH` example (Slurm commands, DCGM, NCCL, GPUDirect RDMA, Kubernetes sections, and the review questions/summary) is the same module continuing after the job-script example in both a Burmese detailed section and its English version, so the current bilingual structure is kept and section numbering continues unchanged.
+- Caveats preserved from source: monitoring ≠ scheduling; DCGM does not move jobs automatically; GPUDirect RDMA does not eliminate the CPU; GPU Operator does not necessarily install the full CUDA Toolkit; MIG is not supported on all GPUs; no default automatic GPU load balancing or live migration is assumed; NGC Registry is not a complete Model Registry; BCM (Base Command Manager) is not the same as Base Command Platform.
