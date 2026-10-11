@@ -75,6 +75,18 @@ flowchart LR
 
 **ပုံရှင်းလင်းချက်** — GPU Memory (Host 1) ကနေ NIC၊ Network၊ NIC ဖြတ်ပြီး GPU Memory (Host 2) ဆီ သွားတဲ့ ချိတ်ဆက်မှုက GPUDirect RDMA ဖြစ်ပြီး GPU Memory နဲ့ NIC ကြား တိုက်ရိုက် DMA ဖြစ်ပါတယ်။ Storage နဲ့ GPU Memory ကြား တိုက်ရိုက် ချိတ်ဆက်မှုကတော့ GPUDirect Storage ဖြစ်ပါတယ်။ Endpoint ကွာခြားတဲ့အတွက် network communication အတွက် RDMA၊ dataset/checkpoint IO အတွက် GDS ကို သုံးရပါမယ်။
 
+နှိုင်းယှဉ်နေတဲ့ GDS data path architecture ကို NVIDIA ရဲ့ ရုပ်ပုံမှာ အောက်ပါအတိုင်း ကြည့်ရှုနိုင်ပါတယ်—
+
+![ရုပ်ပုံ 1 (Diagram 1): GPUDirect Storage architecture overview](../assets/diagrams/gds-arch-overview.png)
+
+**ပုံရှင်းလင်းချက် (Diagram walkthrough)**
+1. ပုံရဲ့ အပေါ်ဆုံးမှာ application က cuFile API ကတစ်ဆင့် GDS ကို ခေါ်သုံးပုံ ပါပါတယ်။
+2. အလယ်အလွှာတွေမှာ user-space cuFile library နဲ့ kernel-space nvidia-fs module တွေက data path ကို စီမံပုံ ပြထားပါတယ်။
+3. အောက်ဘက်မှာ local NVMe သို့မဟုတ် NVMe-oF ကဲ့သို့ storage နဲ့ DMA engine တွေ ရှိပြီး data ကို GPU memory ထဲ တိုက်ရိုက် ရွှေ့ပေးပုံ ဖြစ်ပါတယ်။
+4. ဒီ architecture ကြောင့် GDS က storage ↔ GPU memory ကြားမှာ RDMA က NIC ↔ GPU memory ကြားနဲ့ မတူဘဲ CPU bounce buffer မပါတဲ့ direct DMA path ကို ဖွင့်ပေးနိုင်တာ ဖြစ်ပါတယ်။
+
+*(Diagram: NVIDIA docs, NVIDIA docs (educational use))*
+
 ## 3. နှိုင်းယှဉ်ချက် — အဓိက ကွာခြားချက်များ
 
 | အချက် | GPUDirect RDMA | GPUDirect Storage (GDS) |
@@ -229,6 +241,18 @@ flowchart LR
 ```
 
 **Figure walkthrough** — The chain running GPU Memory (Host 1) → NIC → Network → NIC → GPU Memory (Host 2) is GPUDirect RDMA: GPU memory connects directly to the NIC, and data crosses to another host's GPU memory. The direct link between Storage and GPU Memory is GPUDirect Storage. Because the endpoints differ, use RDMA for network communication and GDS for dataset/checkpoint IO.
+
+The GDS data path being compared here can be seen in NVIDIA's architecture diagram below—
+
+![ရုပ်ပုံ 1 (Diagram 1): GPUDirect Storage architecture overview](../assets/diagrams/gds-arch-overview.png)
+
+**Diagram walkthrough**
+1. At the top of the picture, an application calls GDS through the cuFile API.
+2. In the middle layers, the user-space cuFile library and the kernel-space nvidia-fs module manage the data path.
+3. At the bottom are local NVMe or storage such as NVMe-oF, together with the DMA engines that move data straight into GPU memory.
+4. This architecture is what lets GDS open a direct DMA path between storage and GPU memory — unlike RDMA, which does the same between the NIC and GPU memory — with no CPU bounce buffer.
+
+*(Diagram: NVIDIA docs, NVIDIA docs (educational use))*
 
 ## 3. Comparison — Key Differences
 

@@ -1,0 +1,98 @@
+{
+ "transformer-architecture.png": {
+  "title": "File:The-Transformer-model-architecture.png",
+  "license": "CC BY-SA 3.0",
+  "artist": "Yuening Jia",
+  "source": "https://commons.wikimedia.org/wiki/File:The-Transformer-model-architecture.png",
+  "size": 48342,
+  "ok": true
+ },
+ "attention-block.png": {
+  "title": "File:Transformer, attention block diagram.png",
+  "license": "CC BY 4.0",
+  "artist": "dvgodoy",
+  "source": "https://commons.wikimedia.org/wiki/File:Transformer,_attention_block_diagram.png",
+  "size": 42720,
+  "ok": true
+ },
+ "multiheaded-attention.png": {
+  "title": "File:Multiheaded attention, block diagram.png",
+  "license": "CC BY 4.0",
+  "artist": "dvgodoy",
+  "source": "https://commons.wikimedia.org/wiki/File:Multiheaded_attention,_block_diagram.png",
+  "size": 33189,
+  "ok": true
+ },
+ "encoder-self-attention.png": {
+  "title": "File:Encoder self-attention, detailed diagram.png",
+  "license": "CC BY 4.0",
+  "artist": "dvgodoy",
+  "source": "https://commons.wikimedia.org/wiki/File:Encoder_self-attention,_detailed_diagram.png",
+  "size": 40337,
+  "ok": true
+ },
+ "gpt-architecture.png": {
+  "title": "File:Full GPT architecture.svg",
+  "license": "CC0",
+  "artist": "Original:  Marxav, Vectorization:  Mrmw",
+  "source": "https://commons.wikimedia.org/wiki/File:Full_GPT_architecture.svg",
+  "size": 237460,
+  "ok": true
+ },
+ "artificial-neuron.png": {
+  "title": "File:ArtificialNeuronModel english.png",
+  "license": "CC BY-SA 3.0",
+  "artist": "Chrislb",
+  "source": "https://commons.wikimedia.org/wiki/File:ArtificialNeuronModel_english.png",
+  "size": 100767,
+  "ok": true
+ },
+ "fat-tree.png": {
+  "title": "File:Fat-tree.svg",
+  "license": "CC BY-SA 4.0",
+  "artist": "Konstantinos Agiannis",
+  "source": "https://commons.wikimedia.org/wiki/File:Fat-tree.svg",
+  "size": 33597,
+  "ok": true
+ },
+ "cnn-feature-layers.gif": {
+  "title": "File:Convolutional Neural Network NeuralNetworkFeatureLayers.gif",
+  "license": "CC BY-SA 4.0",
+  "artist": "Cecbur",
+  "source": "https://commons.wikimedia.org/wiki/File:Convolutional_Neural_Network_NeuralNetworkFeatureLayers.gif",
+  "size": 129656,
+  "ok": true
+ },
+ "cnn-filters.gif": {
+  "title": "File:3 filters in a Convolutional Neural Network.gif",
+  "license": "CC BY-SA 4.0",
+  "artist": "Cecbur",
+  "source": "https://commons.wikimedia.org/wiki/File:3_filters_in_a_Convolutional_Neural_Network.gif",
+  "size": 186608,
+  "ok": true
+ },
+ "gds-paths-and-staging.png": {
+  "title": "NVIDIA GDS Overview Guide",
+  "license": "NVIDIA docs (educational use)",
+  "artist": "NVIDIA docs",
+  "source": "https://docs.nvidia.com/gpudirect-storage/overview-guide/_images/paths-and-staging.png",
+  "size": 27517,
+  "ok": true
+ },
+ "gds-arch-overview.png": {
+  "title": "NVIDIA GDS Overview Guide",
+  "license": "NVIDIA docs (educational use)",
+  "artist": "NVIDIA docs",
+  "source": "https://docs.nvidia.com/gpudirect-storage/overview-guide/_images/arch-overview.png",
+  "size": 75565,
+  "ok": true
+ },
+ "triton-architecture.jpg": {
+  "title": "NVIDIA Triton Inference Server User Guide",
+  "license": "NVIDIA docs (educational use)",
+  "artist": "NVIDIA docs",
+  "source": "https://docs.nvidia.com/deeplearning/triton-inference-server/user-guide/docs/_images/arch.jpg",
+  "size": 75118,
+  "ok": true
+ }
+}

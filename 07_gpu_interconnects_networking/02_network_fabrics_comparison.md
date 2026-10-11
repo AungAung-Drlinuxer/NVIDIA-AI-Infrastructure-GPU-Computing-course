@@ -130,6 +130,18 @@ Should still scale reliably
 
 GPU node အရေအတွက် များလာတိုင်း network performance က လက်မခံနိုင်လောက်အောင် ကျသွားရမယ်လို့ မဆိုလိုပါဘူး။
 
+Scalability ကို ဖြည့်ဆည်းပေးနိုင်တဲ့ နာမည်ကြီး network topology တစ်ခုကတော့ fat-tree topology ဖြစ်ပါတယ်—
+
+![ရုပ်ပုံ 1 (Diagram 1): Fat-tree network topology](../assets/diagrams/fat-tree.png)
+
+**ပုံရှင်းလင်းချက် (Diagram walkthrough)**
+1. ပုံရဲ့ အောက်ဆုံးအလွှာမှာ server/host node တွေကို တွေ့ရပြီး တစ်ခုချင်းစီက အောက်ဆုံးအလွှာက switch တွေနဲ့ ချိတ်ဆက်ထားပါတယ်။
+2. အပေါ်ဘက်မှာ switch အလွှာတွေ အဆင့်ဆင့် ရှိပြီး အောက်အလွှာ switch တွေက အပေါ်အလွှာ switch တွေဆီ ချိတ်ဆက်မှု အများကြီးနဲ့ တက်သွားပါတယ်။
+3. root (ထိပ်ဆုံး) နားကို ရောက်လေလေ ချိတ်ဆက်မှုလမ်းကြောင်းတွေ ပိုမိုထူထပ်ပြီး bandwidth ပိုများလေလေ ဖြစ်တာကို မြင်ရပါတယ် — ဒါကြောင့် "fat" tree လို့ ခေါ်တာ ဖြစ်ပါတယ်။
+4. ဒီဇိုင်းမှာ node အသစ်တွေ ထပ်ထည့်ရင် switch အဆင့်တွေ ထပ်ချဲ့ပြီး bandwidth ကို အဆင့်ဆင့် တိုးနိုင်လို့ HPC/AI cluster တွေရဲ့ network design မှာ အသုံးများပါတယ်။
+
+*(Diagram: Konstantinos Agiannis, CC BY-SA 4.0, via Wikimedia Commons)*
+
 **Compute Fabric Shortcut** — `Compute = High Bandwidth + Ultra-Low Latency + High Throughput + Scalability`
 
 ## 6. Storage Network — Purpose
@@ -638,6 +650,18 @@ Should still scale reliably
 ```
 
 More GPU nodes should not automatically mean unacceptable network slowdown.
+
+One well-known network topology that provides this scalability is the fat-tree topology—
+
+![ရုပ်ပုံ 1 (Diagram 1): Fat-tree network topology](../assets/diagrams/fat-tree.png)
+
+**Diagram walkthrough**
+1. At the very bottom of the picture you see server/host nodes, each connected to the switches in the lowest tier.
+2. Above them are tiers of switches; each lower-tier switch connects upward to the switches in the tier above with many links.
+3. Closer to the root (top), the connections become denser and carry more bandwidth — this is why it is called a "fat" tree.
+4. The design scales by adding nodes and expanding switch tiers while growing bandwidth tier by tier, which is why fat-tree topologies are common in HPC and AI cluster network design.
+
+*(Diagram: Konstantinos Agiannis, CC BY-SA 4.0, via Wikimedia Commons)*
 
 **Compute Fabric Shortcut** — `Compute = High Bandwidth + Ultra-Low Latency + High Throughput + Scalability`
 
