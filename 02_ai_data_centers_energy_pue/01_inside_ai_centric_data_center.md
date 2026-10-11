@@ -1,6 +1,8 @@
-# Module — Inside an AI-Centric Data Center
+# Module 02 — Inside an AI-Centric Data Center
 
-> Part I · Course Module 02 (AI Data Centers, Energy Consumption and PUE) — topic notes
+> Part I · AI Foundations and AI Infrastructure — Course Module 02 (AI Data Centers, Energy Consumption and PUE) — topic notes
+
+## မြန်မာဘာသာ version
 
 ## 1. AI-Centric Data Center ဆိုတာဘာလဲ?
 
@@ -255,7 +257,7 @@ Data Center
 
 စတာတွေကို စဉ်းစားရပါတယ်။
 
-> **Exam Point** — Power constraint = Limited electrical capacity available for high-density AI/GPU racks.
+> **Exam Point** — Power constraint = high-density AI/GPU racks တွေအတွက် ရနိုင်တဲ့ electrical capacity က အကန့်အသတ်ရှိခြင်းဖြစ်ပါတယ်။
 
 ## 10. Constraint 2 — Cooling
 
@@ -280,7 +282,7 @@ Cooling ကို—Rack level · Room level · Data Center level အဆင့�
 
 AI infrastructure design မှာ workload ကို run နိုင်ဖို့ power လုံလောက်ရုံနဲ့ မပြီးပါဘူး — အဲဒီ power ကနေ ဖြစ်လာတဲ့ heat ကိုလည်း ဖယ်ရှားနိုင်ရပါမယ်။
 
-> **Exam Point** — Cooling constraint = High-density GPU workloads generate significant heat, requiring sufficient cooling capacity.
+> **Exam Point** — Cooling constraint = high-density GPU workloads တွေက significant heat ထုတ်လုပ်တဲ့အတွက် လုံလောက်တဲ့ cooling capacity လိုအပ်ခြင်းဖြစ်ပါတယ်။
 
 ## 11. Constraint 3 — Physical Space
 
@@ -312,7 +314,7 @@ Available Floor Space
 နေရာမရှိတော့ရင် infrastructure ကို အလွယ်တကူ ထပ်ချဲ့လို့မရတော့ပါဘူး။
 ဒါကြောင့် AI Data Center design မှာ floor space နဲ့ rack placement ကိုလည်း စဉ်းစားရပါတယ်။
 
-> **Exam Point** — Physical Space constraint = Limited floor space restricts the number of racks and physical infrastructure that can be deployed.
+> **Exam Point** — Physical Space constraint = အကန့်အသတ်ရှိတဲ့ floor space ကြောင့် ထည့်သွင်းနိုင်တဲ့ racks နဲ့ physical infrastructure အရေအတွက် ကန့်သတ်ခံရခြင်းဖြစ်ပါတယ်။
 
 ## 12. Power + Cooling + Space Relationship
 
@@ -388,25 +390,25 @@ AI-centric Data Center က Traditional Data Center နဲ့ fundamental buildin
 
 ## 15. Exam Preparation
 
-**Q1. What are the four fundamental blocks of an AI-centric data center?**
-Answer: Compute · Network · Storage · Support Infrastructure
+**Q1. AI-centric data center ရဲ့ fundamental blocks လေးခုက ဘာတွေလဲ?**
+အဖြေ — Compute · Network · Storage · Support Infrastructure
 
-**Q2. Why do we need multiple compute nodes?**
+**Q2. Multiple compute nodes တွေ ဘာကြောင့် လိုအပ်တာလဲ?**
 AI workloads တွေမှာ processing requirement အလွန်မြင့်နိုင်တဲ့အတွက် server တစ်လုံးတည်းနဲ့ မလုံလောက်နိုင်ပါဘူး။ Multiple compute nodes တွေကို အသုံးပြုပြီး workload ကို distributed / parallel processing လုပ်နိုင်ပါတယ်။
 
-**Q3. Why is networking important in an AI data center?**
+**Q3. AI data center မှာ networking က ဘာကြောင့် အရေးကြီးတာလဲ?**
 Multiple compute nodes တွေအကြား data နဲ့ computation information တွေကို ဆက်သွယ်ပေးဖို့ Network လိုအပ်ပါတယ်။
 
-**Q4. What are the three key constraints for high-density AI workloads?**
+**Q4. High-density AI workloads အတွက် အဓိက constraint သုံးခုက ဘာတွေလဲ?**
 Power + Cooling + Physical Space
 
-**Q5. Why is power a constraint?**
+**Q5. Power က ဘာကြောင့် constraint ဖြစ်ရတာလဲ?**
 GPU-heavy workloads တွေမှာ electrical power requirement မြင့်နိုင်ပြီး rack တစ်ခုချင်းစီမှာ power capacity က အကန့်အသတ်ရှိတာကြောင့် ဖြစ်ပါတယ်။
 
-**Q6. Why is cooling a constraint?**
+**Q6. Cooling က ဘာကြောင့် constraint ဖြစ်ရတာလဲ?**
 High-density GPU workloads တွေဟာ power အများကြီးအသုံးပြုနိုင်ပြီး heat အများကြီး generate လုပ်နိုင်တာကြောင့် cooling capacity လုံလောက်ဖို့လိုပါတယ်။
 
-**Q7. Why is physical space a constraint?**
+**Q7. Physical space က ဘာကြောင့် constraint ဖြစ်ရတာလဲ?**
 AI infrastructure ကို scale လုပ်တဲ့အခါ GPU servers, racks, networking, storage နဲ့ supporting infrastructure တွေအတွက် floor space လိုအပ်ပါတယ်။ Floor space က unlimited မဟုတ်တဲ့အတွက် physical constraint ဖြစ်ပါတယ်။
 
 **Exam Shortcut**
@@ -414,14 +416,32 @@ AI infrastructure ကို scale လုပ်တဲ့အခါ GPU servers, ra
 - AI Data Center = 4 Fundamental Blocks: **Compute + Network + Storage + Support Infrastructure**
 - High-Density AI Workload = 3 Major Constraints: **Power + Cooling + Space**
 
-**One-Line Summary**
-An AI-centric data center is built around compute, network, storage, and support infrastructure, with particular attention to the power, cooling, and physical-space constraints created by high-density GPU workloads.
+**တစ်ကြောင်းတည်း အကျဉ်းချုပ်**
+AI-centric data center ကို compute, network, storage နဲ့ support infrastructure တွေကို အခြေခံပြီး တည်ဆောက်ထားပြီး၊ high-density GPU workloads တွေကြောင့် ဖြစ်လာတဲ့ power, cooling နဲ့ physical space constraints တွေကို အထူးဂရုစိုက်ရပါတယ်။
+
+## 16. ကိုယ်တိုင်စစ်ဆေးရန် မေးခွန်းများ (Self-Check Questions)
+
+**မေးခွန်း ၁ — AI-centric data center နဲ့ traditional data center ရဲ့ ဆင်တူချက်နဲ့ ကွာခြားချက်က ဘာလဲ?**
+
+အဖြေ — Fundamental building blocks (Compute, Network, Storage, Support Infrastructure) အရ ဆင်တူပါတယ်။ ဒါပေမယ့် AI workload ရဲ့ characteristics ကြောင့် density, power, cooling, networking နဲ့ storage performance တွေကို ပိုပြီး အထူးစဉ်းစားရပါတယ်။
+
+**မေးခွန်း ၂ — Storage system နှေးရင် ဘာဖြစ်နိုင်လဲ?**
+
+အဖြေ — Training data အများကြီးကို GPU nodes တွေဆီ အချိန်မီ မပေးနိုင်တဲ့အတွက် compute resources တွေ idle ဖြစ်ပြီး overall performance ကျနိုင်ပါတယ်။
+
+**မေးခွန်း ၃ — Power, Cooling နဲ့ Physical Space သုံးခု ဘယ်လိုဆက်စပ်နေသလဲ?**
+
+အဖြေ — GPU density များလာရင် power ပိုလိုပြီး heat ပိုများလာတဲ့အတွက် cooling ပိုလိုပါတယ် (More GPU Density → More Power → More Heat → More Cooling)။ GPU servers နဲ့ supporting infrastructure များလာတာနဲ့အမျှ physical space လည်း ပိုလိုလာပါတယ်။
+
+**မေးခွန်း ၄ — Support Infrastructure ထဲမှာ ဘာတွေ ပါဝင်နိုင်လဲ?**
+
+အဖြေ — Power, Cooling, Physical infrastructure, Security, Monitoring နဲ့ Facility management စတာတွေ ပါဝင်နိုင်ပါတယ်။
 
 ---
 
-## English Version — Inside an AI-Centric Data Center
+## English Version
 
-### 1. What Is Inside an AI-Centric Data Center?
+## 1. What Is Inside an AI-Centric Data Center?
 
 An AI-centric data center is a data center designed to support AI applications, AI-based data processing, and other demanding workloads such as VR.
 
@@ -442,7 +462,7 @@ AI workloads can require:
 
 Therefore, an AI-centric data center requires more careful planning around compute, networking, storage, power, cooling, and physical space.
 
-### 2. Four Fundamental Building Blocks
+## 2. Four Fundamental Building Blocks
 
 An AI-centric data center can be generalized into four fundamental blocks:
 
@@ -465,7 +485,7 @@ An AI-centric data center can be generalized into four fundamental blocks:
              Power / Cooling / Security
 ```
 
-### 3. Compute
+## 3. Compute
 
 The first fundamental component is Compute.
 Compute provides the resources required to process incoming requests and run AI workloads.
@@ -507,7 +527,7 @@ For small workloads, one server may be sufficient. However, large AI workloads c
 
 **Key Point** — Compute = The resources used to execute and process AI workloads.
 
-### 4. Network
+## 4. Network
 
 When multiple compute nodes are used, they need to communicate with each other. Therefore, Network is a fundamental component of an AI-centric data center.
 
@@ -533,7 +553,7 @@ If compute performance is very high but the network cannot move data fast enough
 
 **Key Point** — Network = The communication layer connecting compute nodes, storage, and other infrastructure.
 
-### 5. Storage
+## 5. Storage
 
 AI workloads require large amounts of data. This data may include:
 
@@ -565,7 +585,7 @@ For example, if a large training dataset cannot be delivered quickly enough to G
 
 **Key Point** — Storage = Infrastructure used to store AI data, models, checkpoints, and generated data.
 
-### 6. Support Infrastructure
+## 6. Support Infrastructure
 
 Compute, network, and storage cannot operate by themselves. They require supporting infrastructure such as:
 
@@ -594,7 +614,7 @@ DATA CENTER
 
 **Key Point** — Support Infrastructure = The facility infrastructure required to keep the IT infrastructure operating.
 
-### 7. High-Density GPU Workloads
+## 7. High-Density GPU Workloads
 
 One of the important terms when discussing AI-centric data centers is: **High-Density GPU Workload**.
 
@@ -620,7 +640,7 @@ As GPU density increases:
 
 Therefore, high-density GPU workloads require special consideration during data center design.
 
-### 8. Key Constraints of an AI-Centric Data Center
+## 8. Key Constraints of an AI-Centric Data Center
 
 When deploying high-density AI workloads, three major constraints are especially important:
 
@@ -634,7 +654,7 @@ When deploying high-density AI workloads, three major constraints are especially
 
 The three key constraints are: Power · Cooling · Physical Space.
 
-### 9. Constraint 1 — Power
+## 9. Constraint 1 — Power
 
 The first major constraint is Power. A data center can contain many racks, but the amount of electricity available to each rack is limited.
 
@@ -656,7 +676,7 @@ GPU-heavy workloads can require high and consistent power. Therefore, when desig
 
 > **Exam Point** — Power constraint = Limited electrical capacity available for high-density AI/GPU racks.
 
-### 10. Constraint 2 — Cooling
+## 10. Constraint 2 — Cooling
 
 High-density GPU workloads can generate significant amounts of heat. The relationship can be summarized as:
 
@@ -681,7 +701,7 @@ The important principle is: Having sufficient power is not enough. The data cent
 
 > **Exam Point** — Cooling constraint = High-density GPU workloads generate significant heat, requiring sufficient cooling capacity.
 
-### 11. Constraint 3 — Physical Space
+## 11. Constraint 3 — Physical Space
 
 The third major constraint is Physical Space. As an AI infrastructure environment grows, it may require:
 
@@ -712,7 +732,7 @@ If there is no available physical space, the infrastructure cannot simply be exp
 
 > **Exam Point** — Physical Space constraint = Limited floor space restricts the number of racks and physical infrastructure that can be deployed.
 
-### 12. Relationship Between Power, Cooling, and Space
+## 12. Relationship Between Power, Cooling, and Space
 
 These three constraints are interconnected.
 
@@ -735,7 +755,7 @@ These three constraints are interconnected.
 A simplified relationship is: **More GPU Density → More Power → More Heat → More Cooling**
 At the same time, adding more GPU servers and supporting infrastructure increases the requirement for Physical Space.
 
-### 13. Complete AI-Centric Data Center View
+## 13. Complete AI-Centric Data Center View
 
 ```
                      AI-CENTRIC DATA CENTER
@@ -767,7 +787,7 @@ At the same time, adding more GPU servers and supporting infrastructure increase
       Training                  Inference
 ```
 
-### 14. Traditional Data Center vs AI-Centric Data Center
+## 14. Traditional Data Center vs AI-Centric Data Center
 
 An AI-centric data center still shares the same fundamental building blocks with a traditional data center.
 
@@ -784,7 +804,7 @@ An AI-centric data center still shares the same fundamental building blocks with
 
 The key idea is: An AI data center is not a completely different type of data center. Instead, AI workloads create additional requirements and constraints around: **Density + Power + Cooling + Networking + Storage Performance**.
 
-### 15. Exam Preparation
+## 15. Exam Preparation
 
 **Q1. What are the four fundamental blocks of an AI-centric data center?**
 Answer: Compute · Network · Storage · Support Infrastructure
@@ -814,3 +834,29 @@ Scaling AI infrastructure requires additional GPU servers, racks, networking, st
 
 **One-Line Summary**
 An AI-centric data center is built around compute, network, storage, and support infrastructure, with particular attention to the power, cooling, and physical-space constraints created by high-density GPU workloads.
+
+## 16. Self-Check Questions
+
+**Question 1 — What do an AI-centric data center and a traditional data center have in common, and how do they differ?**
+
+Answer — They share the same fundamental building blocks (Compute, Network, Storage, Support Infrastructure). However, AI workload characteristics require more attention to density, power, cooling, networking, and storage performance.
+
+**Question 2 — What can happen if the storage system is slow?**
+
+Answer — Large training datasets cannot be delivered to GPU nodes in time, so compute resources can sit idle and overall performance can drop.
+
+**Question 3 — How are Power, Cooling, and Physical Space related?**
+
+Answer — Higher GPU density means more power and more heat, so more cooling is needed (More GPU Density → More Power → More Heat → More Cooling). More GPU servers and supporting infrastructure also increase the need for physical space.
+
+**Question 4 — What can be included in Support Infrastructure?**
+
+Answer — Power, Cooling, Physical infrastructure, Security, Monitoring, and Facility management.
+
+## Technical review notes
+
+- File restructured to the current bilingual convention: `# Module 02` header, the Part I / Course Module 02 blockquote, a `## မြန်မာဘာသာ version` section and an `## English Version` section with matching section numbering (1–16 in both).
+- Mixed-language content was resolved per section: the Burmese-section Exam Preparation Q&A (§15) previously used English questions and partly English answers; the questions and the one-line summary are now rendered in Burmese with technical terms (Compute, Network, Storage, Support Infrastructure, Power, Cooling, Physical Space, GPU, rack, workload) kept in English, and the original English wording is preserved in English §15. The "Exam Point" blockquotes in the Burmese sections 9–11 are now in Burmese; their English wording is preserved in the English section.
+- All original paragraphs, lists, tables, and ASCII diagrams are preserved unchanged in meaning in both sections. The comparison table keeps its source hedging ("may be required", "can occur") — no absolute performance or capacity claims were introduced.
+- Self-check questions with concise answers added at the end of each language section (§16) per WRITING_RULES.md; the source's seven Exam Preparation Q&As are preserved in full.
+- Claims needing verification: none. The file makes no numeric power, cooling, or PUE claims; the four building blocks and three key constraints are conceptual groupings preserved from the source.

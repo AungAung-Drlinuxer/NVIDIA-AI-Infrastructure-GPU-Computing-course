@@ -1,6 +1,8 @@
-# AI, ML, DL နှင့် Generative AI ကို Chess Analogy ဖြင့် နားလည်ခြင်း
+# Module 01 — AI, ML, DL and Generative AI: Chess Analogy
 
-> Part I · Course Module 01 (AI, ML, DL Fundamentals and AI Adoption) — topic notes
+> Part I · AI Foundations and AI Infrastructure — Course Module 01 (AI, ML, DL Fundamentals and AI Adoption) — topic notes
+
+## မြန်မာဘာသာ version — AI, ML, DL နှင့် Generative AI ကို Chess Analogy ဖြင့် နားလည်ခြင်း
 
 AI, ML, DL နဲ့ Generative AI တို့ရဲ့ relationship ကို အလွယ်တကူမှတ်မိဖို့ Chess Game analogy ကို အသုံးပြုနိုင်ပါတယ်။
 ဒီ analogy က concept တွေကို ကြာကြာမှတ်မိစေပြီး အခြားသူတစ်ယောက်ကိုလည်း ရှင်းပြတဲ့အခါ လွယ်ကူစေပါတယ်။
@@ -38,7 +40,7 @@ Move the Chess Piece
 ဥပမာ—"ဒီအခြေအနေမှာ ဒီလို move လုပ်ရမယ်" ဆိုတဲ့ rules တွေကို programmer က သတ်မှတ်ပေးနိုင်ပါတယ်။
 
 ဒါကြောင့်—
-**AI = Machine can perform intelligent tasks and make decisions.**
+**AI = Machine က intelligent tasks တွေကို လုပ်ဆောင်နိုင်ပြီး decision တွေ ချနိုင်ခြင်း** ဖြစ်ပါတယ်။
 
 ## 2. Machine Learning (ML) — Machine Learns from Past Games
 
@@ -61,11 +63,12 @@ Thousands / Millions of Chess Games
 
 Machine ကို—
 
-- Expert players တွေရဲ့ games
-- Winning games
-- Losing games
-- Different chess positions
-- Different moves
+- Expert players တွေ ကစားခဲ့တဲ့ games တွေ
+- နိုင်တဲ့ games တွေ
+- ရှုံးတဲ့ games တွေ
+- အမျိုးမျိုးသော chess positions တွေ
+- အမျိုးမျိုးသော moves တွေ
+- Game outcomes (ရလဒ်) တွေ
 
 စတဲ့ data တွေ ပေးနိုင်ပါတယ်။
 
@@ -77,7 +80,7 @@ Machine က အဲဒီ data တွေထဲက patterns တွေကို lea
 - AI example မှာ—Programmer က rules တွေကို explicitly define လုပ်ပေးတယ်။
 - ML example မှာ—Machine ကို data နဲ့ examples ပေးပြီး patterns တွေကို learn လုပ်ခိုင်းတယ်။
 
-> **Exam မှတ်ရန်** — ML = Learning from past data and examples.
+> **Exam မှတ်ရန်** — ML = past data နဲ့ examples တွေကနေ သင်ယူခြင်း (Learning from past data and examples)။
 
 ## 3. Deep Learning (DL) — Learning with Neural Networks
 
@@ -94,6 +97,24 @@ Chess analogy မှာ machine ကို chess games အများကြီ�
 
 တွေကို learn လုပ်နိုင်ပါတယ်။
 ဒီလို neural network က complex patterns တွေကို learn လုပ်ပြီး next move ကို predict လုပ်နိုင်ပါတယ်။
+
+ဥပမာ—
+
+```
+Chess Board Data
+      ↓
+Input Layer
+      ↓
+Hidden Layers
+      ↓
+More Hidden Layers
+      ↓
+Output
+      ↓
+Predicted Move
+```
+
+Neural network က ပိုပြီး complex ဖြစ်တဲ့ patterns တွေကို သင်ယူပြီး အဲဒီ patterns တွေကို အသုံးပြုကာ possible moves တွေကို predict / evaluate လုပ်နိုင်ပါတယ်။
 
 ### Self-Play Example
 
@@ -123,9 +144,9 @@ Game တစ်ပွဲပြီးတိုင်း result ကို analyze �
 
 ဒါပေမယ့် အရေးကြီးတာက—
 
-> **Self-play itself is not the definition of Deep Learning.**
+> **Self-play ဆိုတာ Deep Learning ရဲ့ definition မဟုတ်ပါဘူး။**
 
-Deep Learning ရဲ့ အဓိက definition က—"Using deep neural networks to learn complex patterns from data." ဖြစ်ပါတယ်။
+Deep Learning ရဲ့ အဓိက definition က—"Deep neural networks တွေကို အသုံးပြုပြီး data ထဲက complex patterns တွေကို သင်ယူခြင်း" ဖြစ်ပါတယ်။
 Self-play ကတော့ Deep Learning model ကို train လုပ်နိုင်တဲ့ **one possible training strategy** ဖြစ်ပါတယ်။
 
 ## 4. Generative AI — Generate a New Chess Game
@@ -165,26 +186,33 @@ New Rules / Configuration
 
 လိုမျိုး output အသစ်တစ်ခုကို generate လုပ်နိုင်ပါတယ်။
 
-ဒါကြောင့်—
-**Generative AI = Generate new content based on learned patterns and a given prompt.**
+ဆိုလိုတာက အောက်ပါအတိုင်း ပါဝင်နိုင်ပါတယ်—
 
-## 🧠 Chess Analogy ကို တစ်ခါတည်းမှတ်ရန်
+- ပိုသေးတဲ့ board
+- ပိုနည်းတဲ့ pieces
+- ကွဲပြားတဲ့ configurations
+- ပြင်ဆင်ထားတဲ့ rules
+
+ဒါကြောင့်—
+**Generative AI = learned patterns တွေနဲ့ given prompt ကို အသုံးပြုပြီး new content အသစ် generate လုပ်ခြင်း** ဖြစ်ပါတယ်။
+
+## 5. 🧠 Chess Analogy ကို တစ်ခါတည်းမှတ်ရန်
 
 ဒီလိုမှတ်ထားရင် အရမ်းလွယ်ပါတယ်။
 
-**AI** — Machine can play chess and make decisions based on the situation and rules.
+**AI** — Machine က chess ကစားနိုင်ပြီး အခြေအနေနဲ့ rules တွေပေါ် မူတည်ပြီး decision တွေ ချနိုင်ပါတယ်။
 *Keyword → Intelligence / Decision Making*
 
-**ML** — Machine learns how to play chess from many past chess games.
+**ML** — Machine က past chess games အများကြီးကနေ chess ကစားပုံကို သင်ယူပါတယ်။
 *Keyword → Learning from Data*
 
-**DL** — Machine uses Deep Neural Networks to learn complex chess patterns. Self-play လို methods တွေကိုလည်း အသုံးပြုနိုင်ပါတယ်။
+**DL** — Machine က Deep Neural Networks ကို သုံးပြီး complex chess patterns တွေကို သင်ယူပါတယ်။ Self-play လို training methods တွေကိုလည်း အသုံးပြုနိုင်ပါတယ်။
 *Keyword → Neural Networks*
 
-**Generative AI** — Machine uses what it has learned plus a prompt to generate a new chess-like game or new content.
+**Generative AI** — Machine က သင်ယူထားတဲ့အရာတွေနဲ့ prompt ကို ပေါင်းပြီး chess-like game အသစ် (သို့) content အသစ်တွေကို generate လုပ်ပါတယ်။
 *Keyword → Generate New Content*
 
-## ⭐️ Exam Focus
+## 6. ⭐️ Exam Focus
 
 ဒီ topic မှာ exam အတွက် အရေးကြီးဆုံးက AI, ML, DL ရဲ့ relationship ဖြစ်ပါတယ်။
 
@@ -209,12 +237,12 @@ Artificial Intelligence
 
 အလွယ်ဆုံးမှတ်ရရင်—
 
-- AI is the broader term.
-- ML is an approach within AI that allows machines to learn from data.
-- DL is an approach within ML that uses deep neural networks to learn complex patterns.
-- Generative AI uses learned patterns to generate new content.
+- AI က ပိုကျယ်ဝန်းတဲ့ term ဖြစ်ပါတယ်။
+- ML က AI ထဲက approach တစ်ခုဖြစ်ပြီး machine တွေကို data ကနေ သင်ယူနိုင်စေပါတယ်။
+- DL က ML ထဲက approach တစ်ခုဖြစ်ပြီး deep neural networks တွေကို အသုံးပြုပြီး complex patterns တွေကို သင်ယူပါတယ်။
+- Generative AI က learned patterns တွေကို အသုံးပြုပြီး new content တွေကို generate လုပ်ပါတယ်။
 
-## 🎯 Four Keywords
+## 7. 🎯 Four Keywords
 
 | | |
 |---|---|
@@ -225,13 +253,31 @@ Artificial Intelligence
 
 ဒီ four keywords ကိုမှတ်ထားရင် concept ကို exam မှာ ရှင်းပြဖို့ အလွန်လွယ်ပါတယ်။
 
+## 8. ကိုယ်တိုင်စစ်ဆေးရန် မေးခွန်းများ (Self-Check Questions)
+
+**မေးခွန်း ၁ — AI နဲ့ ML ရဲ့ အဓိကကွာခြားချက်က ဘာလဲ?**
+
+အဖြေ — AI example မှာ programmer က rules တွေကို explicitly သတ်မှတ်ပေးပြီး machine က rule အတိုင်း decision ချတာဖြစ်ပါတယ်။ ML example မှာတော့ machine ကို data နဲ့ examples တွေပေးပြီး patterns တွေကို သင်ယူခိုင်းတာဖြစ်ပါတယ်။
+
+**မေးခွန်း ၂ — Self-play က Deep Learning ရဲ့ definition ဟုတ်လား?**
+
+အဖြေ — မဟုတ်ပါဘူး။ Deep Learning ရဲ့ definition က deep neural networks တွေကို အသုံးပြုပြီး data ထဲက complex patterns တွေကို သင်ယူခြင်းဖြစ်ပြီး၊ self-play ကတော့ model ကို train လုပ်နိုင်တဲ့ training strategy တစ်ခုသာ ဖြစ်ပါတယ်။
+
+**မေးခွန်း ၃ — Generative AI က content အသစ်တွေကို ဘယ်လို generate လုပ်သလဲ?**
+
+အဖြေ — သင်ယူထားတဲ့ patterns တွေ (learned patterns) နဲ့ ပေးထားတဲ့ prompt ကို ပေါင်းပြီး instruction အတိုင်း content / game concept အသစ်တွေကို generate လုပ်ပါတယ်။
+
+**မေးခွန်း ၄ — AI, ML, DL တို့ရဲ့ relationship ကို ရှင်းပြပါ။**
+
+အဖြေ — AI က အကျယ်ဆုံး term ဖြစ်ပါတယ်။ ML က AI ထဲမှာ ပါဝင်တဲ့ approach တစ်ခုဖြစ်ပြီး data ကနေ သင်ယူနိုင်စေပါတယ်။ DL က ML ထဲမှာ ပါဝင်တဲ့ approach တစ်ခုဖြစ်ပြီး deep neural networks တွေကို အသုံးပြုပါတယ်။ Generative AI ကတော့ သင်ယူထားတဲ့ patterns တွေကို အသုံးပြုပြီး new content တွေ ထုတ်လုပ်ပါတယ်။
+
 ---
 
 ## English Version — AI, ML, Deep Learning and Generative AI: Chess Analogy
 
 An analogy is a very useful way to remember the relationship between AI, Machine Learning, Deep Learning, and Generative AI. The chess example makes the differences easier to understand and also makes it easier to explain the concepts to someone else.
 
-### 1. Artificial Intelligence (AI) — A Machine Can Play Chess
+## 1. Artificial Intelligence (AI) — A Machine Can Play Chess
 
 First, consider Artificial Intelligence. Chess is a game that requires a lot of reasoning, thinking, and decision making rather than physical strength.
 
@@ -263,7 +309,7 @@ The machine is performing an intelligent task and making decisions based on the 
 
 Therefore: **AI = A machine performing intelligent tasks and making decisions.**
 
-### 2. Machine Learning (ML) — Learning from Past Chess Games
+## 2. Machine Learning (ML) — Learning from Past Chess Games
 
 Now let's introduce Machine Learning. Instead of explicitly programming every possible chess move, we provide the machine with a large amount of past chess game data.
 
@@ -296,7 +342,7 @@ When the machine encounters a new chess position, it can use what it learned fro
 
 > **Exam Keyword** — ML = Learning from Data
 
-### 3. Deep Learning (DL) — Learning with Neural Networks
+## 3. Deep Learning (DL) — Learning with Neural Networks
 
 Now let's look at Deep Learning. Deep Learning is a Machine Learning approach that uses Artificial Neural Networks, particularly networks with multiple layers.
 
@@ -352,7 +398,7 @@ However, there is an important point for the exam: **Self-play is not the defini
 
 The actual definition of Deep Learning is: **Deep Learning uses multi-layer neural networks to learn complex patterns from data.**
 
-### 4. Generative AI — Generate a New Chess Game
+## 4. Generative AI — Generate a New Chess Game
 
 Now let's consider Generative AI. Suppose the machine has already learned a lot about chess. We can then give it a prompt such as: "Create a new chess-like game using some concepts of chess, but use fewer pieces and a smaller board."
 
@@ -384,7 +430,7 @@ The important concept is that the system is generating new content based on lear
 
 Therefore: **Generative AI = Generating new content using learned patterns and a given prompt.**
 
-### 🧠 Remember the Chess Analogy
+## 5. 🧠 Remember the Chess Analogy
 
 **AI** — A machine can play chess and make decisions based on the situation and rules. *Keyword → Intelligence / Decision Making*
 
@@ -394,7 +440,7 @@ Therefore: **Generative AI = Generating new content using learned patterns and a
 
 **Generative AI** — A machine uses what it has learned, together with a prompt, to generate a new chess-like game or other new content. *Keyword → Generate New Content*
 
-### ⭐️ Exam Focus
+## 6. ⭐️ Exam Focus
 
 The most important part of this topic is understanding the relationship between AI, ML, and DL.
 
@@ -424,7 +470,7 @@ The simplest way to remember it is:
 - DL is an approach within ML that uses deep neural networks to learn complex patterns.
 - Generative AI uses learned patterns to generate new content.
 
-### 🎯 Four Keywords to Remember
+## 7. 🎯 Four Keywords to Remember
 
 | | |
 |---|---|
@@ -434,3 +480,29 @@ The simplest way to remember it is:
 | GenAI | → Generation |
 
 If you remember these four keywords, you can reconstruct the explanation during the exam instead of memorizing the entire paragraph.
+
+## 8. Self-Check Questions
+
+**Question 1 — What is the main difference between AI and ML?**
+
+Answer — In the AI example, the programmer explicitly defines the rules and the machine makes decisions according to those rules. In the ML example, the machine is given data and examples and learns patterns from them.
+
+**Question 2 — Is self-play the definition of Deep Learning?**
+
+Answer — No. Deep Learning is defined as using deep neural networks to learn complex patterns from data. Self-play is only one possible training strategy for such a model.
+
+**Question 3 — How does Generative AI generate new content?**
+
+Answer — It combines the patterns it has learned with a given prompt and generates new content or a new game concept according to the instruction.
+
+**Question 4 — Explain the relationship between AI, ML, and DL.**
+
+Answer — AI is the broadest term. ML is an approach within AI that allows machines to learn from data. DL is an approach within ML that uses deep neural networks. Generative AI uses learned patterns to produce new content.
+
+## Technical review notes
+
+- File restructured to the current bilingual convention: `# Module 01` header, the Part I / Course Module 01 blockquote, a `## မြန်မာဘာသာ version` section and an `## English Version` section with matching section numbering (1–8 in both).
+- Mixed-language sentences inside each body were rendered fully in that section's language: the one-line definitions ("AI = Machine can perform intelligent tasks and make decisions.", "Generative AI = Generate new content based on learned patterns and a given prompt."), the "Exam မှတ်ရန်" blockquote, the self-play definition note, and the summary bullets. Original English wording is preserved in the English section; the Burmese section carries a faithful translation. Technical terms (AI, ML, DL, Generative AI, prompt, neural network, self-play, training strategy) stay in English in both versions.
+- The neural-network layer diagram (Chess Board Data → Input Layer → Hidden Layers → Output → Predicted Move) previously existed only in the English section; it now appears in both. The generated-game characteristics list (smaller board, fewer pieces, different configurations, modified rules) previously existed only in the English section and is now also in the Burmese section; the "Game outcomes" data item previously existed only in the English section and is now also in the Burmese section.
+- Self-check questions with concise answers added at the end of each language section per WRITING_RULES.md.
+- Claims needing verification: none. The note that self-play is a training strategy rather than the definition of Deep Learning is preserved as a correction to a common misconception; no commands, benchmarks, or numeric model specifications are claimed.

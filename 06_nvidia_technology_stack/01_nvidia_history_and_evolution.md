@@ -1,14 +1,16 @@
-# Module — NVIDIA Technology Stack: History and Evolution
+# Module 06 — NVIDIA Technology Stack: History and Evolution
 
-> Part I · Course Module 06 (NVIDIA AI Infrastructure and DGX Systems) — topic notes
+> Part I · AI Foundations and AI Infrastructure — Course Module 06 (NVIDIA AI Infrastructure and DGX Systems) — topic notes
 
-## 1. Introduction
+## မြန်မာဘာသာ version
+
+### 1. Introduction
 
 ဒီအချိန်မှာ NVIDIA technology နဲ့ NVIDIA certification ကို လေ့လာဖို့လိုအပ်တဲ့ fundamental concepts တွေကို အခြေခံအားဖြင့် နားလည်လာပြီလို့ ယူဆနိုင်ပါတယ်။
 အခုကနေစပြီး NVIDIA Technology Stack ရဲ့ Core Concepts တွေကို လေ့လာသွားပါမယ်။
 ဒီအပိုင်းမှာ အရင်ဆုံး NVIDIA ရဲ့ technology innovation က ဘယ်လိုစတင်ခဲ့သလဲ၊ ဘယ်လိုအဆင့်ဆင့် တိုးတက်လာသလဲဆိုတဲ့ NVIDIA history and evolution ကို နားလည်ဖို့ အရေးကြီးပါတယ်။
 
-## 2. NVIDIA ကို ဘယ်လိုစတင်ခဲ့သလဲ?
+### 2. NVIDIA ကို ဘယ်လိုစတင်ခဲ့သလဲ?
 
 NVIDIA ကို 1993 ခုနှစ်မှာ တည်ထောင်ခဲ့ပါတယ်။
 အစပိုင်းမှာ NVIDIA ရဲ့ အဓိက focus က Graphics / Gaming ပိုင်းဖြစ်ပါတယ်။
@@ -47,7 +49,7 @@ Modern AI Data Center
 
 ဆိုတဲ့ flow ကို မှတ်ထားနိုင်ပါတယ်။
 
-## 3. NVIDIA NV1
+### 3. NVIDIA NV1
 
 1995 ခုနှစ်မှာ NVIDIA က **NV1** ဆိုတဲ့ graphics product ကို ထုတ်လုပ်ခဲ့ပါတယ်။
 ဒါဟာ NVIDIA ရဲ့ အစောပိုင်း graphics technology ထဲက တစ်ခုဖြစ်ပြီး NVIDIA ရဲ့ graphics innovation ကို စတင်တိုးချဲ့သွားစေတဲ့ အရေးကြီးတဲ့ အဆင့်တစ်ခုဖြစ်ပါတယ်။
@@ -61,7 +63,7 @@ Modern AI Data Center
 
 တို့ကို ပိုမိုကောင်းမွန်အောင်လုပ်ပေးရန် ဖြစ်ပါတယ်။
 
-## 4. GeForce 256 — GPU ဆိုတဲ့ Concept
+### 4. GeForce 256 — GPU ဆိုတဲ့ Concept
 
 နောက်ပိုင်းမှာ NVIDIA က graphics capability ကို ဆက်လက်တိုးတက်အောင်လုပ်ပြီး **GeForce 256** ကို ထုတ်လုပ်ခဲ့ပါတယ်။
 GeForce 256 ကို NVIDIA က **GPU — Graphics Processing Unit** ဆိုတဲ့ term နဲ့ market လုပ်ခဲ့ပါတယ်။
@@ -87,7 +89,7 @@ Image
 
 ဒါကြောင့် GPU ရဲ့ architecture က နောက်ပိုင်းမှာ AI workloads အတွက် အလွန်အရေးကြီးလာပါတယ်။
 
-## 5. Gaming မှ Parallel Computing သို့
+### 5. Gaming မှ Parallel Computing သို့
 
 NVIDIA ရဲ့ အရေးကြီးတဲ့ innovation တစ်ခုက—
 
@@ -119,7 +121,7 @@ GPU
 ဆိုပြီး GPU ကို workload အမျိုးမျိုးအတွက် အသုံးပြုနိုင်လာပါတယ်။
 ဒီဟာကို **GPGPU — General-Purpose computing on GPUs** လို့ခေါ်ပါတယ်။
 
-## 6. CUDA — NVIDIA ရဲ့ အရေးကြီးတဲ့ Turning Point
+### 6. CUDA — NVIDIA ရဲ့ အရေးကြီးတဲ့ Turning Point
 
 GPU ကို programming လုပ်ပြီး general-purpose computing အတွက် အသုံးချနိုင်ဖို့ NVIDIA က **CUDA** ကို ဖန်တီးခဲ့ပါတယ်။
 
@@ -153,7 +155,7 @@ CPU
 
 ဒီအချက်ကြောင့် GPU ဟာ graphics processor တစ်ခုတည်းကနေ parallel computing accelerator တစ်ခုအဖြစ် ပြောင်းလဲလာပါတယ်။
 
-## 7. Parallel Computing နှင့် HPC
+### 7. Parallel Computing နှင့် HPC
 
 AI workload တွေမှာ computation အများကြီးကို တစ်ချိန်တည်းမှာ လုပ်ဆောင်ဖို့လိုပါတယ်။
 ဥပမာ Neural Network တစ်ခုမှာ—
@@ -187,7 +189,7 @@ AI / ML
 
 ဆိုပြီး တိုးချဲ့လာခဲ့ပါတယ်။
 
-## 8. Tesla — GPU Computing for AI and HPC
+### 8. Tesla — GPU Computing for AI and HPC
 
 Transcript ထဲမှာ "20 1217 timeframe" လို့ ပါလာတဲ့နေရာကို context အရ **2017 timeframe** လို့ နားလည်ရပါတယ်။ (မူရင်းတွင် "20 1217" ဟု ပါရှိ — clarification အနေဖြင့် 2017 ဟု ဖော်ပြ)
 
@@ -210,7 +212,7 @@ Tesla / Data Center GPU
 
 ဒီလိုနဲ့ NVIDIA ဟာ AI/HPC ecosystem ထဲမှာ အရေးကြီးတဲ့နေရာကို ရရှိလာပါတယ်။
 
-## 9. NVIDIA နှင့် AI Dominance
+### 9. NVIDIA နှင့် AI Dominance
 
 NVIDIA ရဲ့ AI dominance ဟာ GPU hardware တစ်ခုတည်းကြောင့် မဟုတ်ပါဘူး။
 အရေးကြီးတာက **Hardware + Software + Architecture + Ecosystem** တစ်ခုလုံးကို တည်ဆောက်နိုင်ခဲ့တာပါ။
@@ -234,7 +236,7 @@ NVIDIA ရဲ့ AI dominance ဟာ GPU hardware တစ်ခုတည်းက
 
 ဒါကြောင့် NVIDIA ရဲ့ AI ecosystem ကို နားလည်တဲ့အခါ GPU တစ်ခုတည်းကို မကြည့်ဘဲ entire technology stack ကို ကြည့်ဖို့လိုပါတယ်။
 
-## 10. DGX — Multi-GPU System
+### 10. DGX — Multi-GPU System
 
 NVIDIA က GPU တစ်လုံးတည်းကိုပဲ မရပ်ဘဲ multiple GPUs တွေကို system တစ်ခုအနေနဲ့ ပေါင်းစပ်ပြီး AI workload တွေအတွက် အသုံးချနိုင်တဲ့ **DGX systems** တွေကို ဖန်တီးလာပါတယ်။
 
@@ -256,7 +258,7 @@ GPU တစ်လုံးတည်းထက် GPU အများကြီး�
 
 ဒီကနေ multi-GPU computing နဲ့ scale-out AI infrastructure concept တွေ ပိုပြီး အရေးကြီးလာပါတယ်။
 
-## 11. Data Center GPU
+### 11. Data Center GPU
 
 NVIDIA ဟာ gaming GPU ကနေ **Data Center GPU** တွေအဖြစ်လည်း တိုးချဲ့လာပါတယ်။
 Data Center GPU တွေကို
@@ -297,7 +299,7 @@ Deep Learning
 AI Data Center
 ```
 
-## 12. CPU + GPU + Complete AI Platform
+### 12. CPU + GPU + Complete AI Platform
 
 NVIDIA ရဲ့ နောက်ပိုင်း evolution မှာ GPU တစ်ခုတည်းအပေါ် အာရုံစိုက်တာမဟုတ်တော့ဘဲ **CPU + GPU + Networking + DPU/Infrastructure + Software** စတဲ့ complete platform concept ကို တိုးချဲ့လာပါတယ်။
 
@@ -326,7 +328,7 @@ AI Data Center တစ်ခုမှာ—
 
 > Modern AI infrastructure = GPU တစ်ခုတည်း မဟုတ်ပါ။
 
-## 13. Blackwell နှင့် နောက်ထပ် Generations
+### 13. Blackwell နှင့် နောက်ထပ် Generations
 
 Transcript မှာ "Blackwell CPU" လို့ ပြောထားပေမယ့် ဒီနေရာမှာ technical clarification လိုပါတယ်။
 **Blackwell** ဟာ NVIDIA ရဲ့ AI/HPC accelerator architecture generation ဖြစ်ပြီး Blackwell GPU platform ကို အဓိကရည်ညွှန်းတာပါ။ NVIDIA ရဲ့ **Grace CPU** နဲ့ Blackwell GPU ကို ပေါင်းစပ်ထားတဲ့ systems တွေလည်း ရှိပါတယ်။ (မူရင်း "Blackwell CPU" ဖော်ပြချက်ကို clarification အနေနဲ့ မှတ်သားထားသည်)
@@ -351,7 +353,7 @@ Complete AI Infrastructure
 
 Transcript မှာ နောက်လာမယ့် architectures အဖြစ် **Rubin** နဲ့ **Vera Rubin** / future NVIDIA platforms စတာတွေကို ရည်ညွှန်းထားပါတယ်။ ဒီ lesson ရဲ့ အဓိကရည်ရွယ်ချက်က product specification ကျက်မှတ်ရန်ထက် NVIDIA ရဲ့ continuous innovation path ကို နားလည်ရန်ဖြစ်ပါတယ်။
 
-## 14. NVIDIA Technology Evolution — Timeline
+### 14. NVIDIA Technology Evolution — Timeline
 
 အခုအပိုင်းကို timeline အနေနဲ့ မှတ်ထားရင် ပိုလွယ်ပါတယ်။
 
@@ -400,7 +402,7 @@ Blackwell
 Future Architectures
 ```
 
-## 15. အရေးကြီးဆုံး Concept
+### 15. အရေးကြီးဆုံး Concept
 
 NVIDIA ရဲ့ history ကို product name အများကြီးအနေနဲ့ပဲ မမှတ်ပါနဲ့။
 **Evolution of the technology** ကို နားလည်ပါ။
@@ -426,7 +428,7 @@ Neural network computation တွေဟာ GPU parallelism နဲ့ အလွ�
 **Step 7 — AI Data Center**
 GPU တစ်ခုတည်းမဟုတ်တော့ဘဲ CPU, GPU, networking, storage, software စတဲ့ components တွေကို platform တစ်ခုအဖြစ် ပေါင်းစပ်လာတယ်။
 
-## 16. Exam Shortcut
+### 16. Exam Shortcut
 
 NVIDIA evolution ကို ဒီစာကြောင်းတစ်ကြောင်းနဲ့ မှတ်ထားနိုင်ပါတယ်။
 
@@ -446,7 +448,7 @@ NVIDIA evolution ကို ဒီစာကြောင်းတစ်ကြေ�
 | Data Center GPU | GPU designed for AI/HPC/data-center workloads |
 | Blackwell | NVIDIA GPU/accelerator architecture generation |
 
-## 17. Final Mental Model
+### 17. Final Mental Model
 
 NVIDIA ရဲ့ technology evolution ကို အောက်ပါပုံစံနဲ့ စဉ်းစားပါ။
 
@@ -490,9 +492,20 @@ Technology evolution အနေနဲ့—
 
 ဒီ concept ကို နားလည်ထားရင် နောက်လာမယ့် NVIDIA Technology Stack — GPU architecture, CUDA, networking, NVLink, InfiniBand, DGX, AI Enterprise, NIM, TensorRT, Triton စတဲ့ topics တွေကို ဆက်လက်လေ့လာရာမှာ အများကြီးပိုလွယ်လာပါလိမ့်မယ်။
 
----
+### ကိုယ်တိုင်စစ်ဆေးရန် မေးခွန်းများ (Self-Check Questions)
 
-## English Version — NVIDIA Technology Stack: History and Evolution
+1. **NVIDIA ကို ဘယ်အချိန်မှာ တည်ထောင်ခဲ့ပြီး အစပိုင်း focus က ဘာလဲ?**
+   **A:** 1993 ခုနှစ်မှာ တည်ထောင်ခဲ့ပြီး အစပိုင်း focus က Graphics / Gaming ဖြစ်ပါတယ်။
+2. **GPU ဆိုတာ ဘာလဲ၊ ဘာကြောင့် parallel processing အတွက် သင့်တော်တာလဲ?**
+   **A:** GPU = Graphics Processing Unit။ Graphics rendering မှာ pixel အများကြီးကို တစ်ချိန်တည်း processing လုပ်ရတာကြောင့် GPU architecture က parallel processing အတွက် အလွန်သင့်တော်ပြီး နောက်ပိုင်းမှာ AI workloads အတွက် အရေးကြီးလာပါတယ်။
+3. **CUDA ဆိုတာ ဘာလဲ?**
+   **A:** Compute Unified Device Architecture — NVIDIA GPU တွေကို general-purpose parallel computing အတွက် programming လုပ်နိုင်စေတဲ့ platform / programming model ဖြစ်ပါတယ်။
+4. **DGX နဲ့ Data Center GPU တွေက ဘာအတွက် ရည်ရွယ်သလဲ?**
+   **A:** DGX က multiple GPUs ကို system တစ်ခုအဖြစ် ပေါင်းစပ်ထားတဲ့ multi-GPU AI system / platform ဖြစ်ပြီး Data Center GPU တွေကို AI Training, AI Inference, Deep Learning, HPC, Scientific Computing, Large-scale parallel workloads တွေအတွက် design လုပ်ထားပါတယ်။
+5. **NVIDIA ရဲ့ AI success ရဲ့ အဓိကအကြောင်းရင်းက ဘာလဲ?**
+   **A:** GPU hardware တစ်ခုတည်းကြောင့် မဟုတ်ဘဲ Hardware + Software + Architecture + Ecosystem တစ်ခုလုံးကို တည်ဆောက်နိုင်ခဲ့ခြင်း ဖြစ်ပါတယ်။
+
+## English Version
 
 ### 1. Introduction
 
@@ -956,10 +969,24 @@ NVIDIA's success should not be viewed as just a "GPU company." In terms of techn
 
 Understanding this concept will make it much easier to continue studying the NVIDIA Technology Stack — GPU architecture, CUDA, networking, NVLink, InfiniBand, DGX, AI Enterprise, NIM, TensorRT, Triton, and other topics.
 
----
+### Self-check questions
+
+1. **When was NVIDIA founded, and what was its initial focus?**
+   **A:** NVIDIA was founded in 1993, and its initial focus was Graphics / Gaming.
+2. **What is a GPU, and why does it suit parallel processing?**
+   **A:** GPU = Graphics Processing Unit. Because graphics rendering processes many pixels at the same time, the GPU architecture is highly suitable for parallel processing — which later made it critical for AI workloads.
+3. **What is CUDA?**
+   **A:** Compute Unified Device Architecture — the platform / programming model that lets developers program NVIDIA GPUs for general-purpose parallel computing.
+4. **What are DGX and Data Center GPUs for?**
+   **A:** DGX is a multi-GPU AI system / platform that combines multiple GPUs into one system. Data Center GPUs are designed for AI Training, AI Inference, Deep Learning, HPC, Scientific Computing, and large-scale parallel workloads.
+5. **What is the main reason for NVIDIA's AI success?**
+   **A:** Not GPU hardware alone — NVIDIA built the entire Hardware + Software + Architecture + Ecosystem.
 
 ## Technical review notes
 
-- Source transcript: "20 1217 timeframe" — context အရ 2017 timeframe ဟု clarification ပြုလုပ်ထားသည် (မူရင်း wording ကို ထိန်းထားသည်)။
-- Source transcript: "Blackwell CPU" — Blackwell သည် GPU/accelerator architecture generation ဖြစ်ကြောင်း၊ Grace CPU + Blackwell GPU systems ရှိကြောင်း clarification ပြုထားသည်။
-- 1993 founding, 1995 NV1, GeForce 256 GPU term, CUDA, Tesla, DGX, Blackwell, Rubin/Vera Rubin — source အတိုင်း။
+- Corrections made: header and topic-note blockquote updated to the course bilingual convention; the existing Burmese and English bodies moved under `## မြန်မာဘာသာ version` and `## English Version`; numbered section headings normalized to `###` under each language section (numbering unchanged, 1–17 in both); five self-check questions with concise answers added at the end of each language section.
+- Source transcript: "20 1217 timeframe" — clarified from context as the **2017 timeframe** (original wording preserved).
+- Source transcript: "Blackwell CPU" — clarified: Blackwell is an NVIDIA GPU/accelerator architecture generation referring mainly to the Blackwell GPU platform; NVIDIA also has systems combining the **Grace CPU** with Blackwell GPUs (original phrasing noted).
+- Preserved from source without change: 1993 founding, 1995 NV1, GeForce 256 "GPU" term, CUDA, Tesla, DGX, Blackwell, Rubin / Vera Rubin references.
+- Needs verification: the Tesla product-family timing ("2017 timeframe") derives from a garbled transcript token; check the intended date against NVIDIA's official Tesla documentation before treating it as fact.
+- Historical accuracy check: this module makes no Mellanox acquisition claim. If one is added later, NVIDIA acquired Mellanox in **2020** (not 2022).

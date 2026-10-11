@@ -1,8 +1,10 @@
-# Module — AI-Centric Data Center Compute: CPU, GPU, CUDA and the Evolution of GPU Computing
+# Module 03 — AI-Centric Data Center Compute: CPU, GPU, CUDA and the Evolution of GPU Computing
 
-> Part I · Course Module 03 (CPU vs GPU and Parallel Computing) — source module notes (Burmese + English)
+> Part I · AI Foundations and AI Infrastructure — Course Module 03 (CPU vs GPU and Parallel Computing) — topic notes
 
-## 1. AI-Centric Data Center မှာ Compute
+## မြန်မာဘာသာ version
+
+### 1. AI-Centric Data Center မှာ Compute
 
 AI-centric Data Center ရဲ့ components တွေကို လေ့လာတဲ့အခါ ပထမဆုံး Compute ကနေ စတင်လေ့လာနိုင်ပါတယ်။
 နောက်ပိုင်းမှာ—
@@ -21,7 +23,7 @@ AI-centric Data Center ရဲ့ components တွေကို လေ့လာ�
 ဖြစ်ပါတယ်။
 Data Center ထဲမှာ Compute က workload တွေကို process လုပ်ပေးတဲ့ processing resources တွေကို ဆိုလိုပါတယ်။
 
-## 2. CPU — Traditional Compute
+### 2. CPU — Traditional Compute
 
 အများစုက Compute လို့ပြောရင် CPU ကို အရင်ဆုံးစဉ်းစားကြပါတယ်။
 CPU ဆိုတာ—
@@ -53,7 +55,7 @@ CPU က—
 စတာတွေကို run လုပ်နိုင်ပါတယ်။
 ဒါကြောင့် Traditional Data Center တွေမှာ CPU ဟာ အဓိက compute component တစ်ခုဖြစ်ပါတယ်။
 
-## 3. Why Does AI Need GPU?
+### 3. AI အတွက် GPU ဘာကြောင့် လိုအပ်သလဲ?
 
 AI-centric Data Center ကို ပြောတဲ့အခါ CPU တစ်ခုတည်းနဲ့ မပြီးတော့ပါဘူး။
 နောက်ထပ် အရေးကြီးတဲ့ compute component တစ်ခုက—
@@ -73,7 +75,7 @@ AI-centric Data Center ကို ပြောတဲ့အခါ CPU တစ်ခ
 
 Modern AI workloads တွေမှာ GPU ဟာ အလွန်အရေးကြီးတဲ့ role တစ်ခု ရှိလာပါတယ်။
 
-## 4. GPU ကို ဘာကြောင့် တီထွင်ခဲ့တာလဲ?
+### 4. GPU ကို ဘာကြောင့် တီထွင်ခဲ့တာလဲ?
 
 GPU ရဲ့ အစောပိုင်းရည်ရွယ်ချက်က AI မဟုတ်ပါဘူး။
 GPU technology ရဲ့အစောပိုင်း development ဟာ—
@@ -93,7 +95,7 @@ Video game တွေမှာ—
 စတာတွေကို real-time နီးပါးနဲ့ render လုပ်ဖို့ processing power အများကြီးလိုပါတယ်။
 ဒါကြောင့် graphics processing ကို အထူးပြုလုပ်ပေးနိုင်တဲ့ hardware တွေ တဖြည်းဖြည်း ဖွံ့ဖြိုးလာခဲ့ပါတယ်။
 
-## 5. Early 3D Graphics — Quake and 3D Accelerators
+### 5. အစောပိုင်း 3D Graphics — Quake နှင့် 3D Accelerators
 
 Source material မှာ **Quake** ကို early 3D gaming example အဖြစ် ပြောထားပါတယ်။
 1990s ကာလမှာ 3D games တွေဟာ ပိုပြီး realistic ဖြစ်လာပြီး 3D rendering workload လည်း ပိုမိုကြီးလာပါတယ်။
@@ -132,7 +134,7 @@ GPU / Graphics Accelerator
 
 ဒီကနေ specialized parallel processing ရဲ့ အရေးပါမှုကို မြင်နိုင်ပါတယ်။
 
-## 6. GPU Evolution Through Gaming
+### 6. Gaming မှတစ်ဆင့် GPU Evolution
 
 Gaming industry တိုးတက်လာတာနဲ့အမျှ graphics processing requirement တွေလည်း တိုးလာပါတယ်။
 ဥပမာ—
@@ -145,7 +147,7 @@ Gaming industry တိုးတက်လာတာနဲ့အမျှ graphics 
 လို games တွေမှာ ပိုပြီး realistic graphics နဲ့ real-time rendering လိုအပ်လာပါတယ်။
 ဒီလို graphics workload တွေကို handle လုပ်ဖို့ GPU technology တွေကလည်း ပိုမိုတိုးတက်လာပါတယ်။
 
-## 7. NVIDIA GeForce 256
+### 7. NVIDIA GeForce 256
 
 1999 ခုနှစ်မှာ NVIDIA က—
 
@@ -159,7 +161,7 @@ GPU ဆိုတဲ့ term ကို NVIDIA က popularize လုပ်ခဲ�
 
 ဖြစ်ပါတယ်။
 
-## 8. From Graphics to General-Purpose Computing
+### 8. Graphics မှ General-Purpose Computing သို့
 
 GPU development ရဲ့ အရေးကြီးဆုံး turning point တစ်ခုက—
 
@@ -178,7 +180,7 @@ Researchers တွေက ဒီလိုစဉ်းစားလာကြပါ�
 
 လို့ ခေါ်ပါတယ်။
 
-## 9. Ian Buck and Brook
+### 9. Ian Buck နှင့် Brook
 
 Source transcript ထဲမှာ **"Ian Beck"** လို့ ပါလာပေမယ့် technical context အရ—
 
@@ -208,7 +210,7 @@ GPU → Graphics
 
 ဖြစ်ပါတယ်။
 
-## 10. CUDA — Major Turning Point
+### 10. CUDA — အဓိက Turning Point
 
 2006 ခုနှစ်မှာ NVIDIA က—
 
@@ -238,18 +240,18 @@ GPU
  └── AI Workloads
 ```
 
-## 11. Why CUDA Was Important for AI
+### 11. AI အတွက် CUDA ဘာကြောင့် အရေးကြီးခဲ့သလဲ?
 
 CUDA ရဲ့အရေးကြီးမှုက—
 
-**Developers could use NVIDIA GPUs for general-purpose computation.**
+**Developers တွေက NVIDIA GPUs တွေကို general-purpose computation အတွက် အသုံးပြုနိုင်ခဲ့တယ်။**
 
 ဆိုတာပါ။
 
 AI နဲ့ Machine Learning workloads တွေမှာ matrix operations, vector operations, tensor operations စတဲ့ parallel mathematical computations အများကြီးလိုအပ်ပါတယ်။
 GPU architecture က ဒီလို parallel computation တွေအတွက် သင့်တော်တာကြောင့် GPU ကို Machine Learning အတွက် အသုံးပြုနိုင်ဖို့ CUDA ecosystem က အရေးကြီးတဲ့ foundation ဖြစ်လာပါတယ်။
 
-## 12. AlexNet — GPU + Deep Learning Breakthrough
+### 12. AlexNet — GPU နှင့် Deep Learning Breakthrough
 
 GPU computing နဲ့ Machine Learning သမိုင်းမှာ အရေးကြီးတဲ့ breakthrough တစ်ခုက—
 
@@ -274,7 +276,7 @@ Better Image Recognition
 
 ဒါဟာ GPU တွေဟာ gaming နဲ့ graphics အတွက်ပဲ အသုံးဝင်တာမဟုတ်ဘဲ Deep Learning training အတွက်လည်း အလွန်အစွမ်းထက်တယ် ဆိုတာကို လက်တွေ့အနေနဲ့ ပြသခဲ့တဲ့ အရေးကြီးတဲ့ milestone တစ်ခုဖြစ်ပါတယ်။
 
-## 13. GPU Evolution — Big Picture
+### 13. GPU Evolution — အနှစ်ချုပ် (Big Picture)
 
 GPU ရဲ့ evolution ကို ဒီလိုမှတ်နိုင်ပါတယ်—
 
@@ -308,7 +310,7 @@ Modern AI
 
 ဒါဟာ AI-centric Data Center တွေမှာ GPU ဘာကြောင့် အရေးကြီးလာသလဲဆိုတာကို နားလည်ဖို့ အလွန်အရေးကြီးတဲ့ history ဖြစ်ပါတယ်။
 
-## 14. CPU vs GPU — Basic Concept
+### 14. CPU vs GPU — အခြေခံသဘောတရား
 
 CPU နဲ့ GPU ကို ရိုးရိုးရှင်းရှင်း ဒီလိုမှတ်နိုင်ပါတယ်။
 
@@ -323,7 +325,7 @@ CPU နဲ့ GPU ကို ရိုးရိုးရှင်းရှင်�
 
 > **သတိပြုရန်**: CPU vs GPU ကို "CPU = sequential, GPU = parallel" လို့ အလွန်အကျွံ ရိုးရှင်းအောင် မမှတ်သင့်ပါဘူး။ CPU တွေလည်း parallelism support လုပ်နိုင်ပြီး GPU တွေလည်း sequential/control operations လုပ်နိုင်ပါတယ်။ အဓိကက GPU architecture က highly parallel workloads အတွက် အထူးသင့်တော်တာ ဖြစ်ပါတယ်။
 
-## 15. Why GPU Is Powerful for AI
+### 15. AI အတွက် GPU ဘာကြောင့် စွမ်းအားကြီးသလဲ?
 
 AI training မှာ အောက်ပါ operations တွေ အများကြီးလုပ်ရပါတယ်—
 
@@ -356,11 +358,11 @@ Large Mathematical Operations
 
 ဒါကြောင့် modern AI infrastructure မှာ GPU ဟာ အဓိက compute accelerator ဖြစ်လာပါတယ်။
 
-## 16. The Key Story to Remember
+### 16. မှတ်သားထားရမည့် အဓိက ဇာတ်လမ်း
 
 ဒီ lesson ရဲ့ main story ကို—
 
-**GPU was not originally created for AI.**
+**GPU ကို အစကတည်းက AI အတွက် ဖန်တီးခဲ့တာ မဟုတ်ပါဘူး။**
 
 လို့ စမှတ်ပါ။
 ပြီးရင်—
@@ -387,34 +389,22 @@ Modern AI
 
 ဆိုတဲ့ evolution ကို မှတ်ထားပါ။
 
-## Exam Preparation
+### Self-Check Questions (အဖြေများပါဝင်သည်)
 
-**Q1. What is Compute?**
-Answer: Compute refers to the processing resources or processing power used to execute workloads.
+**Q1. Compute ဆိုတာ ဘာလဲ။ CPU နဲ့ GPU က ဘာတွေလဲ?**
+Answer: Compute = workload တွေကို execute လုပ်ဖို့ အသုံးပြုတဲ့ processing resources / processing power ဖြစ်ပါတယ်။ CPU = Central Processing Unit — computing tasks အမျိုးမျိုးကို လုပ်ဆောင်ဖို့ design လုပ်ထားတဲ့ general-purpose processor ဖြစ်ပါတယ်။ GPU = Graphics Processing Unit — မူလက graphics processing အတွက် ဖွံ့ဖြိုးခဲ့ပြီး massively parallel computation အတွက် အလွန်သင့်တော်ပါတယ်။
 
-**Q2. What is CPU?**
-CPU = Central Processing Unit. It is a general-purpose processor used to execute a wide variety of computing tasks.
+**Q2. GPUs တွေက AI အတွက် ဘာကြောင့် အသုံးဝင်သလဲ။ GPU တွေရဲ့ မူလ ရည်ရွယ်ချက်က ဘာလဲ?**
+Answer: AI နဲ့ Deep Learning workloads တွေမှာ matrix နဲ့ tensor operations စတဲ့ highly parallel mathematical operations အများကြီး ပါဝင်ပါတယ်။ GPU technology ရဲ့ မူလရည်ရွယ်ချက်က graphic processing — အထူးသဖြင့် 3D graphics နဲ့ gaming ဖြစ်ပါတယ်။
 
-**Q3. What is GPU?**
-GPU = Graphics Processing Unit. It was originally developed for graphics processing and is highly suitable for massively parallel computation.
+**Q3. GPGPU ဆိုတာ ဘာလဲ?**
+Answer: GPGPU = General-Purpose computing on Graphics Processing Units — GPU တွေကို graphics အပြင် အထွေထွေ computational workloads တွေအတွက် အသုံးပြုခြင်း ဖြစ်ပါတယ်။
 
-**Q4. Why are GPUs useful for AI?**
-Because many AI and Deep Learning operations involve highly parallel mathematical computations such as matrix and tensor operations.
+**Q4. CUDA ဆိုတာ ဘာလဲ။ ဘာကြောင့် အရေးကြီးခဲ့သလဲ?**
+Answer: CUDA = Compute Unified Device Architecture — NVIDIA GPUs တွေကို general-purpose computing အတွက် အသုံးပြုနိုင်ဖို့ NVIDIA ရဲ့ platform / programming ecosystem ဖြစ်ပါတယ်။ CUDA က GPU computing ကို graphics workload တွေအပြင် developers တွေအတွက် ပိုမိုလွယ်ကူစေပြီး scientific computing, Machine Learning နဲ့ AI အတွက် GPU acceleration ကို ဖြစ်နိုင်စေခဲ့ပါတယ်။
 
-**Q5. What was the original purpose of GPUs?**
-The original purpose of GPU technology was primarily graphics processing, especially 3D graphics and gaming.
-
-**Q6. What is GPGPU?**
-GPGPU = General-Purpose computing on Graphics Processing Units. It means using GPUs for general computational workloads beyond graphics.
-
-**Q7. What is CUDA?**
-CUDA = Compute Unified Device Architecture. It is NVIDIA's platform and programming ecosystem that enables developers to use NVIDIA GPUs for general-purpose computing.
-
-**Q8. Why was CUDA important?**
-CUDA made GPU computing much more accessible to developers beyond traditional graphics workloads and helped enable GPU acceleration for scientific computing, Machine Learning, and AI.
-
-**Q9. What was AlexNet's significance?**
-AlexNet demonstrated the effectiveness of GPU-accelerated Deep Learning by training a deep neural network on GPUs and achieving a major breakthrough in ImageNet image recognition in 2012.
+**Q5. AlexNet ရဲ့ အရေးပါမှုက ဘာလဲ?**
+Answer: 2012 ခုနှစ်မှာ AlexNet က GPUs တွေပေါ်မှာ deep neural network ကို train လုပ်ပြီး ImageNet image recognition မှာ ကြီးမားတဲ့ breakthrough ရရှိခဲ့ခြင်းအားဖြင့် GPU-accelerated Deep Learning ရဲ့ ထိရောက်မှုကို သရုပ်ပြခဲ့ပါတယ်။
 
 **Exam Shortcut**
 
@@ -429,7 +419,7 @@ GPU
 GPU → Highly Parallel Computation
 
 CUDA
-CUDA → Use NVIDIA GPUs for General-Purpose Computing
+CUDA → NVIDIA GPUs တွေကို General-Purpose Computing အတွက် အသုံးပြုခြင်း
 
 AlexNet
 AlexNet → GPU-Accelerated Deep Learning Breakthrough
@@ -438,9 +428,7 @@ AlexNet → GPU-Accelerated Deep Learning Breakthrough
 **One-Line Evolution**
 Gaming → Graphics → GPU → GPGPU → CUDA → Machine Learning → AlexNet → Deep Learning → Modern AI
 
----
-
-## English Version — AI-Centric Data Center Compute: CPU, GPU, CUDA and the Evolution of GPU Computing
+## English Version
 
 ### 1. Compute in an AI-Centric Data Center
 
@@ -779,34 +767,22 @@ Modern AI
 
 This history explains how a processor originally designed for graphics became one of the most important components of modern AI-centric data centers.
 
-### Exam Preparation
+### Self-Check Questions (with answers)
 
-**Q1. What is Compute?**
-Compute refers to the processing resources or processing power used to execute workloads.
+**Q1. What is Compute, and what are the CPU and the GPU?**
+Answer: Compute refers to the processing resources or processing power used to execute workloads. CPU = Central Processing Unit, a general-purpose processor designed to execute a wide range of computing tasks. GPU = Graphics Processing Unit, originally developed for graphics processing and highly suitable for massively parallel computation.
 
-**Q2. What is a CPU?**
-CPU = Central Processing Unit. It is a general-purpose processor designed to execute a wide range of computing tasks.
+**Q2. Why are GPUs useful for AI, and what was the original purpose of GPUs?**
+Answer: Many AI and Deep Learning workloads involve highly parallel mathematical operations, including matrix and tensor operations. The original purpose of GPU technology was primarily graphics processing, especially 3D graphics and gaming.
 
-**Q3. What is a GPU?**
-GPU = Graphics Processing Unit. It was originally developed for graphics processing and is highly suitable for massively parallel computation.
+**Q3. What is GPGPU?**
+Answer: GPGPU = General-Purpose computing on Graphics Processing Units. It refers to using GPUs for general computational workloads beyond graphics.
 
-**Q4. Why are GPUs useful for AI?**
-Because many AI and Deep Learning workloads involve highly parallel mathematical operations, including matrix and tensor operations.
+**Q4. What is CUDA, and why was it important?**
+Answer: CUDA = Compute Unified Device Architecture, NVIDIA's platform and programming ecosystem for using NVIDIA GPUs for general-purpose computing. CUDA made GPU computing accessible to a broader range of developers and enabled GPU acceleration for scientific computing, Machine Learning, and AI workloads.
 
-**Q5. What was the original purpose of GPUs?**
-The original purpose of GPU technology was primarily graphics processing, especially 3D graphics and gaming.
-
-**Q6. What is GPGPU?**
-GPGPU = General-Purpose computing on Graphics Processing Units. It refers to using GPUs for general computational workloads beyond graphics.
-
-**Q7. What is CUDA?**
-CUDA = Compute Unified Device Architecture. It is NVIDIA's platform and programming ecosystem for using NVIDIA GPUs for general-purpose computing.
-
-**Q8. Why was CUDA important?**
-CUDA made GPU computing accessible to a broader range of developers and enabled GPU acceleration for scientific computing, Machine Learning, and AI workloads.
-
-**Q9. What was the significance of AlexNet?**
-AlexNet demonstrated the effectiveness of GPU-accelerated Deep Learning by training a deep neural network on GPUs and achieving a major breakthrough in ImageNet image recognition in 2012.
+**Q5. What was the significance of AlexNet?**
+Answer: AlexNet demonstrated the effectiveness of GPU-accelerated Deep Learning by training a deep neural network on GPUs and achieving a major breakthrough in ImageNet image recognition in 2012.
 
 **Exam Shortcut**
 
@@ -834,6 +810,9 @@ Gaming → Graphics → GPU → GPGPU → CUDA → Machine Learning → AlexNet 
 
 ## Technical review notes
 
-- Source transcript says "Ian Beck" — technical context points to **Ian Buck** (Brook GPU programming language, Stanford). Correction noted inline in both versions, မူရင်း wording ကိုလည်း ဖော်ပြထားသည်။
-- 3dfx Voodoo, Quake, Unreal Tournament, Quake III Arena, Doom — source ၏ examples အတိုင်း ထားသည်။
-- AlexNet 2012, CUDA 2006, GeForce 256 1999 — source dates အတိုင်း။
+- Correction made (from source): the source transcript says "Ian Beck"; the technical context points to **Ian Buck** (Brook GPU programming language). The correction is noted inline in both language sections, and the original wording is preserved in the Burmese section note.
+- Correction made: English-language headings and full English sentences inside the Burmese body were rendered in Burmese with technical terms kept in English; meaning unchanged.
+- Correction made: the original nine-question "Exam Preparation" blocks were consolidated into 5 self-check questions per WRITING_RULES; all facts from the original answers are preserved in the merged answers, and the Exam Shortcut / one-line evolution blocks are kept intact.
+- Needs verification: game titles and the 3dfx Voodoo reference (Quake, Unreal Tournament, Quake III Arena, Doom) are retained exactly as listed in the source; exact release-era details were not independently verified.
+- Needs verification: dates retained from the source (GeForce 256 — 1999, CUDA — 2006, AlexNet / ImageNet — 2012) are consistent with widely documented industry history but were not re-verified against primary NVIDIA or academic documentation in this pass.
+- The phrase "the world's first GPU" is kept as NVIDIA's marketing wording for the GeForce 256 (a quoted vendor claim), not as an independently established fact.

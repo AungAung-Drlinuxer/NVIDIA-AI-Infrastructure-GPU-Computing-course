@@ -1,4 +1,4 @@
-# Module — NVLink, NVSwitch, PCIe, RDMA vs. NCCL
+# Module 23 — NVLink, NVSwitch, PCIe, RDMA vs. NCCL
 
 > Part IV · Course Module 23 — topic notes
 

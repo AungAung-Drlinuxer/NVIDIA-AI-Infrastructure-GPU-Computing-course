@@ -1,6 +1,8 @@
 # Module — Networking in an AI-Centric Data Center
 
-> Part II · Networking — topic notes
+> Part II · GPU Interconnects, Networking and Data Movement — topic notes
+
+## မြန်မာဘာသာ version
 
 ## 1. AI-Centric Data Center မှာ Network ဘာကြောင့်လိုသလဲ?
 
@@ -449,11 +451,17 @@ AI-centric data center တစ်ခုမှာ Network ကို traffic အာ
 
 ပြီးတော့—`Separate the traffic to isolate performance, latency, failures, security, and scalability requirements.`
 
----
+## Self-Check Questions (အဖြေများပါဝင်သည်)
 
-## English Version — Networking in an AI-Centric Data Center
+1. **AI-centric data center မှာ network ကို ဘာကြောင့် traffic အမျိုးအစားအလိုက် ခွဲသင့်သလဲ?** — Traffic တစ်မျိုးချင်းစီရဲ့ bandwidth, latency, security requirement တွေ မတူညီလို့ ဖြစ်ပါတယ်။ ခွဲထားခြင်းက performance, latency, failure isolation, security, scalability အတွက် အကျိုးရှိပါတယ်။
+2. **အဓိက network fabric ၄ မျိုးက ဘာတွေလဲ?** — Compute Fabric, Storage Fabric, In-Band Management Fabric, Out-of-Band Management Fabric တို့ ဖြစ်ပါတယ်။
+3. **In-Band Management နဲ့ Out-of-Band Management ရဲ့ အဓိကကွာခြားချက်က ဘာလဲ?** — In-Band က host OS အလုပ်လုပ်နေချိန်မှာ OS-level network path ကနေ manage လုပ်တာဖြစ်ပြီး၊ OOB က OS မအလုပ်လုပ်တော့ချိန်မှာတောင် BMC ကတစ်ဆင့် server ကို remotely manage/recover လုပ်နိုင်တာ ဖြစ်ပါတယ်။
+4. **BMC ဆိုတာ ဘာလဲ?** — Baseboard Management Controller ဖြစ်ပြီး host Operating System နဲ့ သီးခြား management capability ပေးတဲ့ server hardware ပေါ်က management controller ဖြစ်ပါတယ်။
+5. **Storage Fabric ရဲ့ ရည်ရွယ်ချက်က ဘာလဲ?** — Compute nodes တွေကို storage system နဲ့ ချိတ်ဆက်ပေးပြီး data ကို performance bottleneck မဖြစ်အောင် high throughput, high bandwidth, reliable data access တွေနဲ့ ပို့ပေးရန် ဖြစ်ပါတယ်။
 
-### 1. Why Do We Need a Network in an AI-Centric Data Center?
+## English Version
+
+## 1. Why Do We Need a Network in an AI-Centric Data Center?
 
 By now, we already understand the compute aspect of an AI-centric data center.
 The main compute components are:
@@ -488,7 +496,7 @@ Between these nodes, we have to carry:
 - Management traffic
 - Monitoring traffic
 
-### 2. Why Not Use a Single Network?
+## 2. Why Not Use a Single Network?
 
 Let's think about this first.
 
@@ -521,7 +529,7 @@ OOB Management
 
 That is why traffic can be separated logically or physically.
 
-### 3. Benefits of Network Separation
+## 3. Benefits of Network Separation
 
 The main reasons for separating the network are:
 
@@ -531,7 +539,7 @@ The main reasons for separating the network are:
 - Security
 - Scalability
 
-### 4. Performance Isolation
+## 4. Performance Isolation
 
 The compute network and the storage network can need a lot of bandwidth. For example:
 
@@ -555,7 +563,7 @@ If all traffic shares a single network, management traffic and compute traffic h
 
 Separating the network means that one kind of traffic does not unnecessarily degrade the performance of another.
 
-### 5. Latency Isolation
+## 5. Latency Isolation
 
 Latency matters in AI workloads.
 In particular, some compute traffic can be latency-sensitive.
@@ -564,7 +572,7 @@ Mixing compute traffic too heavily with management traffic and storage traffic c
 
 That is why isolating latency-sensitive compute traffic on its own network/fabric benefits performance.
 
-### 6. Failure Isolation and Robustness
+## 6. Failure Isolation and Robustness
 
 Another important point is failure isolation.
 
@@ -597,7 +605,7 @@ OOB Network        → OK
 
 In particular, if you have an Out-of-Band Management Network, you can still access the system remotely even while an operating network is having problems.
 
-### 7. Security
+## 7. Security
 
 Network separation is also important for security.
 
@@ -620,7 +628,7 @@ Internal Infrastructure
 
 This kind of separation lets you define security policy more precisely, per workload.
 
-### 8. Scalability
+## 8. Scalability
 
 Another reason is scalability.
 
@@ -641,7 +649,7 @@ Storage Requirement
 
 With network separation, you can scale each workload according to its own requirements.
 
-### 9. What is Network Fabric?
+## 9. What is Network Fabric?
 
 In AI-centric data center networking, you will hear the term Network Fabric.
 
@@ -655,7 +663,7 @@ According to this lesson's framework, the main four are:
 - In-Band Management Fabric
 - Out-of-Band Management Fabric
 
-### 10. Compute Network / Compute Fabric
+## 10. Compute Network / Compute Fabric
 
 The first one is the Compute Network.
 
@@ -682,7 +690,7 @@ In AI workloads, many GPU nodes work on a single workload in a distributed way, 
 
 That is why the compute network may require high bandwidth and low latency.
 
-### 11. Storage Network / Storage Fabric
+## 11. Storage Network / Storage Fabric
 
 AI workloads need a lot of data. For example:
 
@@ -711,7 +719,7 @@ The main purpose of the storage network is to deliver the data the compute nodes
 
 For a storage network, high throughput, high bandwidth, and reliable data access are what matter most.
 
-### 12. In-Band Management Network
+## 12. In-Band Management Network
 
 Another network is the In-Band Management Network.
 
@@ -726,7 +734,7 @@ This network is used for management activities. For example:
 
 While the server's Operating System is running, you can manage it over the OS-level network path.
 
-### 13. Why Keep the In-Band Management Network Separate?
+## 13. Why Keep the In-Band Management Network Separate?
 
 If application traffic and management traffic are combined on the same network, traffic congestion can occur.
 
@@ -746,7 +754,7 @@ Management Traffic
 
 This separation helps management activities avoid unnecessarily disrupting application traffic.
 
-### 14. Out-of-Band Management Network
+## 14. Out-of-Band Management Network
 
 The last one is the Out-of-Band Management Network, abbreviated OOB.
 
@@ -754,7 +762,7 @@ The main purpose of this network is to let you manage the server remotely even w
 
 This is the key difference from In-Band Management.
 
-### 15. In-Band vs Out-of-Band
+## 15. In-Band vs Out-of-Band
 
 Suppose a server's OS crashes.
 
@@ -771,7 +779,7 @@ At that point, normal network access is no longer available. For example, SSH, R
 
 This is exactly when OOB Management becomes useful.
 
-### 16. BMC — Baseboard Management Controller
+## 16. BMC — Baseboard Management Controller
 
 Server hardware can include a management controller called the BMC — Baseboard Management Controller.
 
@@ -799,7 +807,7 @@ The BMC provides a management capability separate from the host Operating System
 
 So even if the host OS has crashed, a BMC-based management path can still let you manage the hardware remotely.
 
-### 17. What Can You Do with OOB Management?
+## 17. What Can You Do with OOB Management?
 
 Using OOB management, you can remotely manage and monitor server infrastructure. For example:
 
@@ -812,7 +820,7 @@ Using OOB management, you can remotely manage and monitor server infrastructure.
 
 The most important concept is that a management path still exists even when the OS is no longer working.
 
-### 18. In-Band vs OOB Management
+## 18. In-Band vs OOB Management
 
 | Feature | In-Band Management | Out-of-Band Management |
 |---|---|---|
@@ -825,7 +833,7 @@ The most important concept is that a management path still exists even when the 
 | Remote power control | Usually not | Common BMC capability |
 | Recovery | Normal operations | Failure/recovery scenarios |
 
-### 19. The Four Network Fabrics
+## 19. The Four Network Fabrics
 
 Now you can remember the four network fabrics in an AI-centric data center like this.
 
@@ -849,7 +857,7 @@ Now you can remember the four network fabrics in an AI-centric data center like 
 3. **In-Band Management** — Configuration, deployment, monitoring, OS-level management
 4. **Out-of-Band Management** — Independent remote management and recovery
 
-### 20. Simple Memory Trick
+## 20. Simple Memory Trick
 
 Remember these four for the exam like this:
 
@@ -865,7 +873,7 @@ Or:
 - In-Band = Manage Normally
 - OOB = Recover Remotely
 
-### 21. Final Exam Summary
+## 21. Final Exam Summary
 
 In an AI-centric data center, instead of using a single network for all traffic, you can separate it. The main reasons are:
 
@@ -882,8 +890,24 @@ And the four main network fabrics are:
 - **In-Band Management Fabric** — For configuration, deployment, monitoring, and normal OS-level management.
 - **Out-of-Band Management Fabric** — So you can remotely manage and recover the server through the BMC even when the OS is no longer working.
 
-### 22. One-Line Memory
+## 22. One-Line Memory
 
 `AI Data Center Network = Compute + Storage + In-Band Management + Out-of-Band Management`
 
 And: `Separate the traffic to isolate performance, latency, failures, security, and scalability requirements.`
+
+## Self-Check Questions (with answers)
+
+1. **Why separate traffic types onto different networks in an AI-centric data center?** — Each traffic type has different bandwidth, latency, and security requirements; separation provides performance, latency, and failure isolation plus better security and scalability.
+2. **What are the four main network fabrics?** — Compute Fabric, Storage Fabric, In-Band Management Fabric, and Out-of-Band Management Fabric.
+3. **What is the key difference between In-Band and Out-of-Band management?** — In-Band management uses the OS-level network path while the host OS is running; OOB uses the BMC over an independent path to manage and recover the server even when the OS is down.
+4. **What is a BMC?** — A Baseboard Management Controller: a management controller on the server hardware that provides management capability independent of the host Operating System.
+5. **What is the purpose of the Storage Fabric?** — To connect compute nodes to the storage system and deliver data with high throughput, high bandwidth, and reliable access without becoming a performance bottleneck.
+
+## Technical review notes
+
+- Structure normalized to the bilingual convention: blockquote updated to the full Part II title ("GPU Interconnects, Networking and Data Movement"), `## မြန်မာဘာသာ version` and `## English Version` section headers added, the redundant `---` separator removed, and the English section's subsection levels (`### N.`) aligned with the Burmese section (`## N.`) so numbering matches across both language sections.
+- Self-check questions with concise answers added at the end of each language section.
+- No content removed: all paragraphs, lists, ASCII diagrams, and the In-Band vs OOB comparison table are preserved in both language sections.
+- Needs verification: the In-Band vs OOB table rows "OS required — No host OS dependency for core BMC access" and "Remote power control — Common BMC capability" are broadly true for BMC-equipped servers but are vendor/implementation-dependent (verify per server vendor and BMC firmware).
+- The note is conceptual; it asserts no commands, benchmark numbers, or model-specific specifications.

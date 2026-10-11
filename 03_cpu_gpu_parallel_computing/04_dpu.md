@@ -1,6 +1,181 @@
-# Module — DPU (Data Processing Unit)
+# Module 03 — DPU (Data Processing Unit)
 
-> Part I · Course Module 03 (CPU vs GPU and Parallel Computing) — topic notes
+> Part I · AI Foundations and AI Infrastructure — Course Module 03 (CPU vs GPU and Parallel Computing) — topic notes
+
+## မြန်မာဘာသာ version
+
+
+## 1. DPU — Data Processing Unit
+
+CPU နဲ့ GPU ကို နားလည်ပြီးရင် နောက်အရေးကြီးတဲ့ compute device က DPU ဖြစ်ပါတယ်။
+
+DPU = Data Processing Unit
+
+Modern AI-centric data center တွေမှာ infrastructure operation တွေက CPU resource အများကြီး စားသုံးနိုင်ပါတယ်။ DPU က သင့်တော်တဲ့ infrastructure task တွေကို CPU ကနေ ခွဲပေးပြီး (offload) CPU က application workload ပေါ် အာရုံစိုက်နိုင်အောင် ကူညီပါတယ်။
+
+## 2. DPU ဆိုတာ ဘာလဲ?
+
+DPU က data movement နှင့် infrastructure task တွေကို ကိုင်တွယ်ဖို့ ဒီဇိုင်းထုတ်ထားတဲ့ specialized processor ဖြစ်ပါတယ်။
+
+```
+                DATA CENTER
+                      │
+       ┌──────────────┼──────────────┐
+       │              │              │
+      CPU            GPU            DPU
+       │              │              │
+  Application     AI Compute    Data Movement
+  General Tasks   Parallel      Infrastructure
+                  Workloads     Offload
+```
+
+အဓိက idea က ရိုးရှင်းပါတယ်— CPU နဲ့ GPU က specialized infrastructure hardware က ထိရောက်စွာ ကိုင်တွယ်နိုင်တဲ့ task တွေအတွက် resource မဖြုန်းသင့်ပါဘူး။
+
+## 3. လေကြောင်း နှိုင်းယှဉ်ချက် — CPU, GPU နှင့် DPU
+
+AI data center ကို လေဆိပ်စနစ်တစ်ခုလို စဉ်းစားကြည့်ပါ။
+
+- **CPU = လေကြောင်း လုပ်ငန်း စီမံခန့်ခွဲသူ** — ဆုံးဖြတ်ချက်များနှင့် ယေဘုယျ လုပ်ငန်းများကို ညှိနှိုင်းပေးသည်
+- **GPU = လေယာဉ်** — ဝန်လေးတဲ့ payload (AI computation) ကို သယ်ဆောင်သည်
+- **DPU = မြေပြင်ဝန်ထမ်းများ၊ ခရီးဆောင်အိတ် ကိုင်တွယ်ခြင်း၊ ဆီဖြည့်ခြင်း၊ စားသောက်ဖွယ်ရာ၊ logistics** — အားလုံး ထိရောက်စွာ ရွေ့လျားနေစေသည်
+
+လေယာဉ် (GPU) က ပျံသန်းဖို့ (AI computation) ဒီဇိုင်းထုတ်ထားပေမယ့် နောက်ခံမှာ data movement နှင့် infrastructure အလုပ်တွေ ကိုင်တွယ်ပေးတဲ့ ground services (DPU) မပါဘဲ ထိရောက်စွာ မလည်ပတ်နိုင်ပါဘူး။
+
+## 4. CPU vs GPU vs DPU
+
+| Aspect | CPU | GPU | DPU |
+|---|---|---|---|
+| အဓိက အခန်းကဏ္ဍ | General-purpose computing | Parallel AI/HPC compute | Data movement နှင့် infrastructure offload |
+| နှိုင်းယှဉ်ချက် | လေကြောင်း လုပ်ငန်း စီမံခန့်ခွဲသူ | လေယာဉ် | မြေပြင်ဝန်ထမ်းနှင့် logistics |
+| ပုံမှန်အလုပ် | Application logic, OS, control flow | Matrix/tensor operation, AI training, inference | Networking, storage access, security, data transfer |
+| အားသာချက် | ရှုပ်ထွေးသော sequential task | Massive parallelism | ထိရောက်သော data movement |
+
+## 5. DPU က ဘယ်လို task တွေကို offload လုပ်နိုင်သလဲ?
+
+DPU-based infrastructure offload က data center operation များစွာအတွက် အသုံးဝင်ပါတယ်။ ဥပမာ—
+
+- Storage access
+- Data movement
+- Network traffic handling
+- Storage protocol processing
+- Data transfer acceleration
+- Infrastructure processing
+
+Storage နှင့် ဆိုင်သော operation များ—
+
+- File access
+- Storage I/O
+- Storage နှင့် compute ကြား data transfer
+- Storage protocol processing
+
+အဓိက idea က သင့်တော်တဲ့ data နှင့် infrastructure task တွေကို CPU ကနေ specialized hardware ဆီ ရွှေ့ပြီး CPU က application workload ပေါ် အာရုံစိုက်နိုင်စေခြင်း ဖြစ်ပါတယ်။
+
+## 6. Networking Offload
+
+Networking က DPU-based infrastructure offload အတွက် အရေးကြီးဆုံးနေရာတွေထဲက တစ်ခုဖြစ်ပါတယ်။ ဥပမာ—
+
+- Packet processing
+- Network protocol handling
+- Routing-related task များ
+- Load balancing
+- Network traffic management
+
+Modern data center မှာ network traffic အလွန်များနိုင်ပါတယ်။ CPU က network processing လုပ်နိုင်ပေမယ့် CPU resource စားသုံးပါတယ်။
+
+```
+DPU Offload မပါဘဲ
+
+Application
+     │
+     ▼
+    CPU ───► Network processing
+     │
+     ▼
+  Infrastructure task များက
+  application workload နှင့် ယှဉ်ပြိုင်နေ
+
+DPU Offload ပါရင်
+
+Application
+     │
+     ▼
+    CPU
+     │
+     ▼
+ Application workload
+
+Infrastructure
+     │
+     ▼
+    DPU ───► Network processing
+```
+
+## 7. Security Workloads
+
+Security က DPU-based infrastructure offload အသုံးဝင်နိုင်တဲ့ နောက်ထပ်နေရာတစ်ခုဖြစ်ပါတယ်။ ဥပမာ—
+
+- Firewall processing
+- Packet inspection
+- IPsec offload
+- TLS offload
+- Multi-tenant isolation
+- Zero-trust enforcement
+
+CPU က ဒီ operation တွေ လုပ်နိုင်ပေမယ့် CPU resource စားသုံးပါတယ်။ DPU ရဲ့ ရည်ရွယ်ချက်က သင့်တော်တဲ့ infrastructure/security processing ကို specialized hardware ဆီ ရွှေ့ခြင်းဖြစ်ပါတယ်။
+
+ရည်မှန်းချက်က— CPU နှင့် GPU ကို application နှင့် compute workload များပေါ် အာရုံစိုက်နိုင်စေရန် ဖြစ်ပါတယ်။
+
+## 8. Data Center ရဲ့ Control Tower နှင့် Ground Services အဖြစ် DPU
+
+DPU ကို data center ရဲ့ control tower နှင့် ground services နှင့် ဆင်တူသည်ဟု စဉ်းစားနိုင်ပါတယ်။ ၎င်းရဲ့ အလုပ်က CPU သို့မဟုတ် GPU ကို အစားထိုးခြင်း မဟုတ်ပါဘူး။ ထိုအစား data နှင့် infrastructure operation တွေကို—
+
+- လုံခြုံစွာ
+- ထိရောက်စွာ
+- Throughput မြင့်မြင့်
+- CPU သို့မဟုတ် GPU ကို မလိုအပ်ဘဲ ဝန်မတင်ဘဲ
+
+ကိုင်တွယ်ပေးနိုင်ပါတယ်။
+
+DPU က အောက်ပါနေရာများအတွက် hardware acceleration နှင့် offload ပေးနိုင်ပါတယ်—
+
+- Networking
+- Storage
+- Security
+- Encryption
+- Load balancing
+- Data movement
+
+## 9. အကျဉ်းချုပ်
+
+```
+CPU  = Application နှင့် general-purpose computing
+GPU  = AI နှင့် parallel compute acceleration
+DPU  = Data movement နှင့် infrastructure offload
+```
+
+မှတ်ရန်— CPU က စဉ်းစားပြီး ညှိနှိုင်းပေးသည်၊ GPU က တွက်ချက်ပေးသည်၊ DPU က data ကို ရွှေ့ပြီး ကာကွယ်ပေးသည် — စက်တစ်ခုချင်းစီက မိမိအကောင်းဆုံးလုပ်နိုင်သော အလုပ်ပေါ် အာရုံစိုက်ခြင်းကြောင့် စနစ်တစ်ခုလုံး ပိုကောင်းမွန်စွာ လုပ်ဆောင်နိုင်ပါတယ်။
+
+## 10. စစ်ဆေးရန် မေးခွန်းများနှင့် အဖြေများ (Self-Check Questions and Answers)
+
+**မေးခွန်း ၁။** DPU ဆိုတာ ဘာလဲ။
+
+**အဖြေ။** Data Processing Unit ဖြစ်ပြီး data movement နှင့် infrastructure task များကို ကိုင်တွယ်ရန် ဒီဇိုင်းထုတ်ထားသော specialized processor ဖြစ်ပါတယ်။
+
+**မေးခွန်း ၂။** CPU, GPU နှင့် DPU တို့ရဲ့ အဓိက အခန်းကဏ္ဍ ဘယ်လို ကွာခြားသလဲ။
+
+**အဖြေ။** CPU = general-purpose computing နှင့် control flow၊ GPU = parallel AI/HPC compute၊ DPU = data movement နှင့် infrastructure offload ဖြစ်ပါတယ်။
+
+**မေးခွန်း ၃။** DPU က ဘယ်လို task တွေကို offload လုပ်နိုင်သလဲ။
+
+**အဖြေ။** Networking (packet processing, network protocol handling, load balancing)၊ Storage (file access, storage I/O, storage protocol processing) နှင့် Security (firewall processing, packet inspection, IPsec/TLS offload, multi-tenant isolation) စသော infrastructure task များ ဖြစ်ပါတယ်။
+
+**မေးခွန်း ၄။** DPU က CPU နှင့် GPU တို့ကို အစားထိုးသလား။
+
+**အဖြေ။** မဟုတ်ပါဘူး။ DPU က data center ရဲ့ control tower နှင့် ground services ကဲ့သို့ data နှင့် infrastructure operation များကို လုံခြုံစွာ၊ ထိရောက်စွာ၊ throughput မြင့်မြင့် ကိုင်တွယ်ပေးပြီး CPU နှင့် GPU တို့ကို application နှင့် compute workload များပေါ် အာရုံစိုက်နိုင်စေပါတယ်။
+
+---
+
+## English Version
 
 ## 1. DPU — Data Processing Unit
 
@@ -154,156 +329,28 @@ DPU  = Data movement and infrastructure offload
 
 Remember: The CPU thinks and coordinates, the GPU computes, and the DPU moves and protects data — each device focuses on what it does best so the whole system performs better.
 
+## 10. Self-Check Questions and Answers
+
+**Q1.** What is a DPU?
+
+**A1.** A Data Processing Unit — a specialized processor designed to handle data movement and infrastructure tasks.
+
+**Q2.** How do the primary roles of the CPU, GPU, and DPU differ?
+
+**A2.** CPU = general-purpose computing and control flow; GPU = parallel AI/HPC compute; DPU = data movement and infrastructure offload.
+
+**Q3.** What kinds of tasks can a DPU offload?
+
+**A3.** Networking (packet processing, network protocol handling, load balancing), storage (file access, storage I/O, storage protocol processing), and security (firewall processing, packet inspection, IPsec/TLS offload, multi-tenant isolation) infrastructure tasks.
+
+**Q4.** Does a DPU replace the CPU or the GPU?
+
+**A4.** No. Like a control tower and ground services, it handles data and infrastructure operations securely, efficiently, and at high throughput so the CPU and GPU can focus on application and compute workloads.
+
 ---
 
-## မြန်မာဘာသာ — DPU (Data Processing Unit)
+## Technical review notes
 
-### 1. DPU — Data Processing Unit
-
-CPU နဲ့ GPU ကို နားလည်ပြီးရင် နောက်အရေးကြီးတဲ့ compute device က DPU ဖြစ်ပါတယ်။
-
-DPU = Data Processing Unit
-
-Modern AI-centric data center တွေမှာ infrastructure operation တွေက CPU resource အများကြီး စားသုံးနိုင်ပါတယ်။ DPU က သင့်တော်တဲ့ infrastructure task တွေကို CPU ကနေ ခွဲပေးပြီး (offload) CPU က application workload ပေါ် အာရုံစိုက်နိုင်အောင် ကူညီပါတယ်။
-
-### 2. DPU ဆိုတာ ဘာလဲ?
-
-DPU က data movement နှင့် infrastructure task တွေကို ကိုင်တွယ်ဖို့ ဒီဇိုင်းထုတ်ထားတဲ့ specialized processor ဖြစ်ပါတယ်။
-
-```
-                DATA CENTER
-                      │
-       ┌──────────────┼──────────────┐
-       │              │              │
-      CPU            GPU            DPU
-       │              │              │
-  Application     AI Compute    Data Movement
-  General Tasks   Parallel      Infrastructure
-                  Workloads     Offload
-```
-
-အဓိက idea က ရိုးရှင်းပါတယ်— CPU နဲ့ GPU က specialized infrastructure hardware က ထိရောက်စွာ ကိုင်တွယ်နိုင်တဲ့ task တွေအတွက် resource မဖြုန်းသင့်ပါဘူး။
-
-### 3. လေကြောင်း နှိုင်းယှဉ်ချက် — CPU, GPU နှင့် DPU
-
-AI data center ကို လေဆိပ်စနစ်တစ်ခုလို စဉ်းစားကြည့်ပါ။
-
-- **CPU = လေကြောင်း လုပ်ငန်း စီမံခန့်ခွဲသူ** — ဆုံးဖြတ်ချက်များနှင့် ယေဘုယျ လုပ်ငန်းများကို ညှိနှိုင်းပေးသည်
-- **GPU = လေယာဉ်** — ဝန်လေးတဲ့ payload (AI computation) ကို သယ်ဆောင်သည်
-- **DPU = မြေပြင်ဝန်ထမ်းများ၊ ခရီးဆောင်အိတ် ကိုင်တွယ်ခြင်း၊ ဆီဖြည့်ခြင်း၊ စားသောက်ဖွယ်ရာ၊ logistics** — အားလုံး ထိရောက်စွာ ရွေ့လျားနေစေသည်
-
-လေယာဉ် (GPU) က ပျံသန်းဖို့ (AI computation) ဒီဇိုင်းထုတ်ထားပေမယ့် နောက်ခံမှာ data movement နှင့် infrastructure အလုပ်တွေ ကိုင်တွယ်ပေးတဲ့ ground services (DPU) မပါဘဲ ထိရောက်စွာ မလည်ပတ်နိုင်ပါဘူး။
-
-### 4. CPU vs GPU vs DPU
-
-| Aspect | CPU | GPU | DPU |
-|---|---|---|---|
-| အဓိက အခန်းကဏ္ဍ | General-purpose computing | Parallel AI/HPC compute | Data movement နှင့် infrastructure offload |
-| နှိုင်းယှဉ်ချက် | လေကြောင်း လုပ်ငန်း စီမံခန့်ခွဲသူ | လေယာဉ် | မြေပြင်ဝန်ထမ်းနှင့် logistics |
-| ပုံမှန်အလုပ် | Application logic, OS, control flow | Matrix/tensor operation, AI training, inference | Networking, storage access, security, data transfer |
-| အားသာချက် | ရှုပ်ထွေးသော sequential task | Massive parallelism | ထိရောက်သော data movement |
-
-### 5. DPU က ဘယ်လို task တွေကို offload လုပ်နိုင်သလဲ?
-
-DPU-based infrastructure offload က data center operation များစွာအတွက် အသုံးဝင်ပါတယ်။ ဥပမာ—
-
-- Storage access
-- Data movement
-- Network traffic handling
-- Storage protocol processing
-- Data transfer acceleration
-- Infrastructure processing
-
-Storage နှင့် ဆိုင်သော operation များ—
-
-- File access
-- Storage I/O
-- Storage နှင့် compute ကြား data transfer
-- Storage protocol processing
-
-အဓိက idea က သင့်တော်တဲ့ data နှင့် infrastructure task တွေကို CPU ကနေ specialized hardware ဆီ ရွှေ့ပြီး CPU က application workload ပေါ် အာရုံစိုက်နိုင်စေခြင်း ဖြစ်ပါတယ်။
-
-### 6. Networking Offload
-
-Networking က DPU-based infrastructure offload အတွက် အရေးကြီးဆုံးနေရာတွေထဲက တစ်ခုဖြစ်ပါတယ်။ ဥပမာ—
-
-- Packet processing
-- Network protocol handling
-- Routing-related task များ
-- Load balancing
-- Network traffic management
-
-Modern data center မှာ network traffic အလွန်များနိုင်ပါတယ်။ CPU က network processing လုပ်နိုင်ပေမယ့် CPU resource စားသုံးပါတယ်။
-
-```
-DPU Offload မပါဘဲ
-
-Application
-     │
-     ▼
-    CPU ───► Network processing
-     │
-     ▼
-  Infrastructure task များက
-  application workload နှင့် ယှဉ်ပြိုင်နေ
-
-DPU Offload ပါရင်
-
-Application
-     │
-     ▼
-    CPU
-     │
-     ▼
- Application workload
-
-Infrastructure
-     │
-     ▼
-    DPU ───► Network processing
-```
-
-### 7. Security Workloads
-
-Security က DPU-based infrastructure offload အသုံးဝင်နိုင်တဲ့ နောက်ထပ်နေရာတစ်ခုဖြစ်ပါတယ်။ ဥပမာ—
-
-- Firewall processing
-- Packet inspection
-- IPsec offload
-- TLS offload
-- Multi-tenant isolation
-- Zero-trust enforcement
-
-CPU က ဒီ operation တွေ လုပ်နိုင်ပေမယ့် CPU resource စားသုံးပါတယ်။ DPU ရဲ့ ရည်ရွယ်ချက်က သင့်တော်တဲ့ infrastructure/security processing ကို specialized hardware ဆီ ရွှေ့ခြင်းဖြစ်ပါတယ်။
-
-ရည်မှန်းချက်က— CPU နှင့် GPU ကို application နှင့် compute workload များပေါ် အာရုံစိုက်နိုင်စေရန် ဖြစ်ပါတယ်။
-
-### 8. Data Center ရဲ့ Control Tower နှင့် Ground Services အဖြစ် DPU
-
-DPU ကို data center ရဲ့ control tower နှင့် ground services နှင့် ဆင်တူသည်ဟု စဉ်းစားနိုင်ပါတယ်။ ၎င်းရဲ့ အလုပ်က CPU သို့မဟုတ် GPU ကို အစားထိုးခြင်း မဟုတ်ပါဘူး။ ထိုအစား data နှင့် infrastructure operation တွေကို—
-
-- လုံခြုံစွာ
-- ထိရောက်စွာ
-- Throughput မြင့်မြင့်
-- CPU သို့မဟုတ် GPU ကို မလိုအပ်ဘဲ ဝန်မတင်ဘဲ
-
-ကိုင်တွယ်ပေးနိုင်ပါတယ်။
-
-DPU က အောက်ပါနေရာများအတွက် hardware acceleration နှင့် offload ပေးနိုင်ပါတယ်—
-
-- Networking
-- Storage
-- Security
-- Encryption
-- Load balancing
-- Data movement
-
-### 9. အကျဉ်းချုပ်
-
-```
-CPU  = Application နှင့် general-purpose computing
-GPU  = AI နှင့် parallel compute acceleration
-DPU  = Data movement နှင့် infrastructure offload
-```
-
-မှတ်ရန်— CPU က စဉ်းစားပြီး ညှိနှိုင်းပေးသည်၊ GPU က တွက်ချက်ပေးသည်၊ DPU က data ကို ရွှေ့ပြီး ကာကွယ်ပေးသည် — စက်တစ်ခုချင်းစီက မိမိအကောင်းဆုံးလုပ်နိုင်သော အလုပ်ပေါ် အာရုံစိုက်ခြင်းကြောင့် စနစ်တစ်ခုလုံး ပိုကောင်းမွန်စွာ လုပ်ဆောင်နိုင်ပါတယ်။
+- Structure normalized to the course convention: a single top-of-file header and blockquote, `## မြန်မာဘာသာ version` placed before `## English Version`, and identical `## N.` section numbering (1–10) in both language sections. All existing paragraphs, ASCII diagrams, lists, and tables are preserved unchanged in meaning.
+- The four self-check questions per language were written strictly from this module's own content; no specifications, commands, URLs, or benchmark numbers were added.
+- Claims needing verification: none material. The offload capability lists (networking, storage, security) are generic infrastructure tasks from the source; no DPU product-specific specifications (for example, BlueField model details) or performance numbers were introduced.

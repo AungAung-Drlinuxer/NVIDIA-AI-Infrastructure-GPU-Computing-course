@@ -1,6 +1,8 @@
 # Module — Converged Ethernet (CE) and RoCE
 
-> Part II · Networking — topic notes
+> Part II · GPU Interconnects, Networking and Data Movement — topic notes
+
+## မြန်မာဘာသာ version
 
 ## 1. Converged Ethernet ဆိုတာဘာလဲ?
 
@@ -128,7 +130,7 @@ Source မှာ—**Physically it is one cable** လို့ ရှင်း�
 
 ဒါကြောင့် physical connectivity ကို redundant links နဲ့ တည်ဆောက်နိုင်ပါတယ်။
 
-**Important Concept** — Converged does not mean single point of failure. Redundant links တွေ ထားနိုင်တာကြောင့် availability ကို ထိန်းသိမ်းနိုင်ပါတယ်။
+**Important Concept** — Converged ဆိုတာ single point of failure ကို ဆိုလိုတာ မဟုတ်ပါဘူး။ Redundant links တွေ ထားနိုင်တဲ့အတွက် availability ကို ထိန်းသိမ်းနိုင်ပါတယ်။
 
 ## 7. What Traffic Can Be Converged?
 
@@ -332,9 +334,9 @@ SERVER
 
 ## 16. Important Clarification
 
-**Converged Ethernet does not mean that all traffic becomes identical.** It means: Different traffic types share a common Ethernet infrastructure/fabric. The traffic can still be logically separated and managed according to its requirements.
+**Converged Ethernet ဆိုတာ traffic အားလုံး တူညီသွားတယ်လို့ မဆိုလိုပါဘူး။** ဆိုလိုတာက—Traffic အမျိုးအစား မတူတာတွေက common Ethernet infrastructure/fabric တစ်ခုတည်းကို share လုပ်ကြတယ် ဆိုတာ ဖြစ်ပါတယ်။ Traffic တွေကို requirement အလိုက် logically သီးခြားခွဲပြီး စီမံနိုင်ပါသေးတယ်။
 
-For example:
+ဥပမာ—
 
 ```
 Ethernet Fabric
@@ -400,13 +402,21 @@ Converged Data Center
           Low Latency       High Throughput
 ```
 
-**Remember:**
-- Converged Ethernet = One shared Ethernet fabric for multiple traffic types.
-- RoCE = RDMA over Converged Ethernet.
-- RDMA = Efficient remote memory-to-memory data movement with reduced CPU involvement.
-- Convergence reduces separate infrastructure; it does not mean removing redundancy.
+**မှတ်ထားရန်—**
+- Converged Ethernet = Traffic အမျိုးမျိုးအတွက် shared Ethernet fabric တစ်ခုတည်း။
+- RoCE = RDMA over Converged Ethernet။
+- RDMA = CPU involvement လျှော့ချပြီး remote memory-to-memory data ကို ထိရောက်စွာ ရွှေ့ပြောင်းခြင်း။
+- Convergence က separate infrastructure ကို လျှော့ချပေးတာဖြစ်ပြီး redundancy ကို ဖယ်ရှားတာ မဟုတ်ပါဘူး။
 
-## English Version — Converged Ethernet (CE) and RoCE
+## Self-Check Questions (အဖြေများပါဝင်သည်)
+
+1. **Converged Ethernet မှာ "converged" ဆိုတာ ဘာကို ဆိုလိုသလဲ?** — LAN, Storage/SAN, HPC စတဲ့ traffic အမျိုးအစားတွေကို သီးခြား network တွေနဲ့ မသယ်တော့ဘဲ Ethernet fabric တစ်ခုတည်းပေါ်မှာ ပေါင်းစည်းသယ်ဆောင်ခြင်းကို ဆိုလိုပါတယ်။
+2. **Converged ဆိုတာ single point of failure ကို ဆိုလိုသလား?** — မဆိုလိုပါဘူး။ Server တစ်ခုကနေ redundant links အနည်းဆုံးနှစ်ခုထွက်နိုင်ပြီး availability ကို ထိန်းသိမ်းနိုင်ပါတယ်။
+3. **RoCE ဆိုတာ ဘာလဲ?** — RDMA over Converged Ethernet ဖြစ်ပြီး Ethernet infrastructure ပေါ်မှာ RDMA-style high-performance data transfer ကို လုပ်နိုင်စေပါတယ်။
+4. **Network converge လုပ်ခြင်းရဲ့ အားသာချက်တွေက ဘာတွေလဲ?** — NIC, cable, switch နဲ့ separate infrastructure နည်းလာခြင်း၊ power သုံးစွဲမှု နည်းလာခြင်း၊ management ရိုးရှင်းလာခြင်း၊ high bandwidth နဲ့ RDMA/RoCE ကြောင့် low latency ရရှိနိုင်ခြင်း တို့ ဖြစ်ပါတယ်။
+5. **Converged fabric ပေါ်က traffic တွေ အားလုံး တူညီသွားသလား?** — မတူညီသွားပါဘူး။ Traffic အမျိုးအစားတွေက physical fabric တစ်ခုတည်းကို share လုပ်ပေမယ့် traffic handling, prioritization, isolation စတာတွေကို design အလိုက် သီးခြားစီ စီမံနိုင်ပါတယ်။
+
+## English Version
 
 ## 1. What Is Converged Ethernet?
 
@@ -813,3 +823,19 @@ Converged Data Center
 - RoCE = RDMA over Converged Ethernet.
 - RDMA = Efficient remote memory-to-memory data movement with reduced CPU involvement.
 - Convergence reduces separate infrastructure; it does not mean removing redundancy.
+
+## Self-Check Questions (with answers)
+
+1. **What does "converged" mean in Converged Ethernet?** — Carrying multiple traffic types (LAN, Storage/SAN, HPC) on a single shared Ethernet fabric instead of separate networks per traffic type.
+2. **Does converged mean a single point of failure?** — No. At least two connections can come out of each server, so redundant links can preserve availability.
+3. **What is RoCE?** — RDMA over Converged Ethernet: it enables RDMA-style high-performance data transfer over Ethernet infrastructure.
+4. **What are the benefits of converging the network?** — Fewer NICs, cables, switches, and separate infrastructures; lower power usage; simpler management; and high bandwidth with low latency when RDMA/RoCE is used.
+5. **Does all traffic on a converged fabric become identical?** — No. The traffic types share one physical fabric but can still be logically separated and managed per requirements (traffic handling, prioritization, isolation).
+
+## Technical review notes
+
+- Structure normalized to the bilingual convention: blockquote updated to the full Part II title ("GPU Interconnects, Networking and Data Movement"), `## မြန်မာဘာသာ version` and `## English Version` section headers added, and self-check questions with concise answers appended to each language section.
+- English fragments inside the Burmese body (section 6 important-concept line, section 16 clarification paragraph, section 20 remember bullets) were translated into Burmese; the unchanged English originals remain in the English section. Tables and ASCII diagrams are preserved verbatim in both sections.
+- Correction made (already present in the source text and preserved): the source transcript's phonetic spelling of "rock" is corrected to the standard term **RoCE — RDMA over Converged Ethernet**.
+- Needs verification: the example bandwidth levels "40 / 100 / 200 / 400 Gbps" (section 8) are source examples, not a specification of Converged Ethernet in general. The statement "at least two connections can come out of each server" (section 6) is a source claim about typical redundancy practice and is deployment-dependent.
+- Needs verification: the source's "DGX / SGX server" and "OpenSim" terminology (section 17) appears in the transcript without explanation and may contain transcription artifacts; no NVIDIA-specific architecture details were added.

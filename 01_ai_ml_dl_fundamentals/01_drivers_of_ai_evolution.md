@@ -1,8 +1,10 @@
-# Module — AI Fundamentals: Drivers of AI Evolution
+# Module 01 — AI Fundamentals: Drivers of AI Evolution
 
-> Part I · Course Module 01 (AI, ML, DL Fundamentals and AI Adoption) — topic notes
+> Part I · AI Foundations and AI Infrastructure — Course Module 01 (AI, ML, DL Fundamentals and AI Adoption) — topic notes
 
-## 1. Why Has AI Become So Important?
+## မြန်မာဘာသာ version
+
+### 1. Why Has AI Become So Important?
 
 ယနေ့ခေတ်မှာ Artificial Intelligence (AI) ဟာ Technology လောကရဲ့ အရေးအကြီးဆုံး နယ်ပယ်တွေထဲက တစ်ခုဖြစ်လာပါတယ်။
 AI ကို Healthcare, Banking, Manufacturing, Automotive, Retail, Cybersecurity နဲ့ Software Development စတဲ့ နယ်ပယ်များစွာမှာ အသုံးပြုနေကြပါတယ်။
@@ -16,9 +18,9 @@ AI တိုးတက်လာဖို့ အချက်အလက်မျာ�
 
 ဒီသုံးခုဟာ AI evolution ကို နားလည်ဖို့ အရေးကြီးတဲ့ အခြေခံအချက်တွေ ဖြစ်ပါတယ်။
 
-## 2. Driver 1 — Explosion of Data
+### 2. Driver 1 — Explosion of Data
 
-### 2.1 What is an Explosion of Data?
+#### 2.1 What is an Explosion of Data?
 
 Explosion of Data ဆိုတာ Digital data ပမာဏဟာ အလွန်လျင်မြန်စွာ တိုးပွားလာတာကို ဆိုလိုပါတယ်။
 Internet, smartphones, social media, online transactions နဲ့ Internet of Things (IoT) devices တွေ တိုးတက်လာတာကြောင့် data အမြောက်အမြားကို နေ့စဉ် ထုတ်လုပ်လာကြပါတယ်။
@@ -34,7 +36,7 @@ Internet, smartphones, social media, online transactions နဲ့ Internet of T
 
 ဒီလို data တွေဟာ AI models တွေကို train လုပ်ဖို့ အသုံးပြုနိုင်တဲ့ အရင်းအမြစ်တွေ ဖြစ်လာပါတယ်။
 
-### 2.2 Why Does AI Need Data?
+#### 2.2 Why Does AI Need Data?
 
 Machine Learning (ML) model တွေဟာ training data ထဲက patterns နဲ့ relationships တွေကို သင်ယူပါတယ်။
 
@@ -62,7 +64,7 @@ Training Images
 Model ကို ကားပုံတွေ၊ ဘတ်စ်ကားပုံတွေ၊ ထရပ်ကားပုံတွေနဲ့ လုံလောက်စွာ train လုပ်ပေးရင် model က အဲဒီအမျိုးအစားတွေကြားက ကွာခြားချက်တွေကို သင်ယူနိုင်ပါတယ်။
 နောက်ပိုင်းမှာ မမြင်ဖူးသေးတဲ့ ပုံတစ်ပုံကို ပေးလိုက်တဲ့အခါ ဘယ်အမျိုးအစား ဖြစ်နိုင်တယ်ဆိုတာ ခန့်မှန်းနိုင်ပါတယ်။
 
-### 2.3 Does More Data Always Mean Better AI?
+#### 2.3 Does More Data Always Mean Better AI?
 
 အရေးကြီးတဲ့အချက်တစ်ခု ရှိပါတယ်။
 
@@ -83,9 +85,9 @@ Data ပိုများလာတာက အထောက်အကူပြု�
 >
 > The rapid growth of digital data from the internet, smartphones, IoT devices, and business systems has provided more data for training AI models.
 
-## 3. Driver 2 — Growth in Computational Power
+### 3. Driver 2 — Growth in Computational Power
 
-### 3.1 What is Computational Power?
+#### 3.1 What is Computational Power?
 
 Computational Power ဆိုတာ Computer system တစ်ခုက calculations နဲ့ data-processing tasks တွေကို ဘယ်လောက်မြန်မြန်၊ ဘယ်လောက်ထိရောက်စွာ လုပ်ဆောင်နိုင်သလဲဆိုတာနဲ့ သက်ဆိုင်ပါတယ်။
 
@@ -93,7 +95,7 @@ AI model တွေကို train လုပ်တဲ့အခါ mathematical ca
 အထူးသဖြင့် Deep Learning models တွေမှာ neural network parameters တွေကို update လုပ်ဖို့ ကြီးမားတဲ့ computational resources တွေ လိုအပ်နိုင်ပါတယ်။
 Computing power တိုးတက်လာခြင်းက ဒီလို training tasks တွေကို ပိုမိုကြီးမားတဲ့ scale နဲ့ လုပ်ဆောင်နိုင်စေပါတယ်။
 
-### 3.2 CPU vs GPU
+#### 3.2 CPU vs GPU
 
 CPU နဲ့ GPU ကို အရင်နားလည်ထားရပါမယ်။
 
@@ -102,7 +104,7 @@ CPU နဲ့ GPU ကို အရင်နားလည်ထားရပါမ�
 
 GPU တွေကို မူလက graphics processing အတွက် အဓိကတီထွင်ခဲ့ပေမဲ့ ယနေ့ခေတ်မှာ AI training နဲ့ inference အတွက်လည်း အလွန်အရေးကြီးလာပါတယ်။
 
-### 3.3 What is Parallel Processing?
+#### 3.3 What is Parallel Processing?
 
 Parallel processing ဆိုတာ Computation တစ်ခုရဲ့ လုပ်ဆောင်ချက်များစွာကို တစ်ပြိုင်နက်တည်း လုပ်ဆောင်ခြင်း ဖြစ်ပါတယ်။
 
@@ -126,7 +128,7 @@ Input ────┼── Task 3 ──┼──── Results
 အလုပ်တွေက parallel လုပ်ဆောင်နိုင်တဲ့ပုံစံ ဖြစ်ပြီး hardware နဲ့ software က ထောက်ပံ့ပေးနိုင်ရင် အချိန်ကို လျှော့ချနိုင်ပါတယ်။
 အလုပ်တိုင်းကို အပြည့်အဝ parallel လုပ်လို့ရတာတော့ မဟုတ်ပါဘူး။
 
-### 3.4 What is Cloud Computing's Role?
+#### 3.4 What is Cloud Computing's Role?
 
 Cloud computing က computing resources တွေကို လိုအပ်သလို ရယူအသုံးပြုနိုင်စေပါတယ်။
 
@@ -143,7 +145,7 @@ Cloud computing က computing resources တွေကို လိုအပ်သ
 
 သို့သော် "one click နဲ့ server သန်းချီရနိုင်တယ်" ဆိုတာ သင်ခန်းစာထဲက ဥပမာဆန်တဲ့ ပြောဆိုချက်ပါ။ တကယ်တမ်းမှာ resource availability, quota, budget, networking နဲ့ capacity ကန့်သတ်ချက်တွေ ရှိပါတယ်။
 
-### 3.5 Why Does AI Need So Much Compute?
+#### 3.5 Why Does AI Need So Much Compute?
 
 Large AI models တွေမှာ parameters အများအပြား ပါဝင်နိုင်ပါတယ်။ Training လုပ်တဲ့အခါ model က predictions တွေကို တွက်ချက်ပြီး errors တွေအပေါ် မူတည်ကာ parameters တွေကို ပြန်လည်ညှိနှိုင်းရပါတယ်။
 
@@ -174,16 +176,16 @@ Powerful GPUs, specialized AI accelerators နဲ့ distributed computing တ�
 >
 > Advances in CPUs, GPUs, AI accelerators, and cloud computing have made it possible to train and deploy larger AI models more efficiently.
 
-## 4. Driver 3 — Algorithmic Breakthroughs
+### 4. Driver 3 — Algorithmic Breakthroughs
 
-### 4.1 What Are Algorithmic Breakthroughs?
+#### 4.1 What Are Algorithmic Breakthroughs?
 
 AI တိုးတက်လာရတဲ့ နောက်ထပ်အရေးကြီးတဲ့ အကြောင်းရင်းက Algorithms, model architectures နဲ့ training methods တွေမှာ တိုးတက်မှုများ ဖြစ်ပေါ်လာခြင်း ဖြစ်ပါတယ်။
 
 Data တွေ အများကြီးရှိပြီး computing power ကောင်းနေရုံနဲ့ AI ကို အမြဲတမ်း ထိရောက်အောင် လုပ်လို့မရပါဘူး။
 Data ကို ဘယ်လိုအသုံးပြုမလဲ၊ model ကို ဘယ်လို design လုပ်မလဲ၊ training ကို ဘယ်လိုလုပ်မလဲဆိုတာတွေလည်း အရေးကြီးပါတယ်။
 
-### 4.2 Important AI Breakthroughs
+#### 4.2 Important AI Breakthroughs
 
 **A. Neural Networks and Deep Learning**
 
@@ -254,7 +256,7 @@ Text-to-image model တစ်ခုကို "A red sports car on a mountain roa
 >
 > Improvements in neural networks, Deep Learning, Transformer architectures, reinforcement learning, and diffusion models have expanded AI capabilities and improved how models are trained and used.
 
-## 5. How Do the Three Drivers Work Together?
+### 5. How Do the Three Drivers Work Together?
 
 AI evolution ကို အကောင်းဆုံး နားလည်ဖို့ ဒီ Drivers သုံးခုကို သီးခြားစီမဟုတ်ဘဲ အတူတကွ စဉ်းစားရပါမယ်။
 
@@ -266,11 +268,21 @@ AI evolution ကို အကောင်းဆုံး နားလည်ဖ�
 
 ဒီအချက်တွေ အတူတကွ တိုးတက်လာတာကြောင့် ယနေ့ခေတ်မှာ Large Language Models နဲ့ Generative AI systems တွေကို တည်ဆောက်နိုင်လာတာပါ။
 
+```
+Explosion of Data
+        +
+Growth in Computational Power
+        +
+Algorithmic Breakthroughs
+        ↓
+More Capable AI Systems
+```
+
 **သတိပြုရန်** — AI တိုးတက်မှုဟာ ဒီသုံးချက်တည်းကြောင့် မဟုတ်ပါဘူး။ Research investment, engineering improvements, data quality, infrastructure နဲ့ deployment techniques တွေကလည်း အရေးကြီးပါတယ်။ ဒီသင်ခန်းစာမှာတော့ အဓိက Drivers သုံးခုကို အာရုံစိုက်ထားတာ ဖြစ်ပါတယ်။
 
-## 6. Exam Preparation — Must Remember
+### 6. Exam Preparation — Must Remember
 
-### The Three Drivers of AI Evolution
+#### The Three Drivers of AI Evolution
 
 | Driver | Meaning | Example |
 |---|---|---|
@@ -278,92 +290,301 @@ AI evolution ကို အကောင်းဆုံး နားလည်ဖ�
 | Computational Power Growth | Computing စွမ်းအား တိုးတက်လာခြင်း | GPUs, AI accelerators, cloud computing |
 | Algorithmic Breakthroughs | Model architectures နဲ့ training methods တိုးတက်လာခြင်း | Deep Learning, Transformers, RL, diffusion models |
 
-**Short-answer question**
+#### Final Summary
 
-Q: What are the three major drivers of AI evolution?
+| Driver | အဓိကစကားစု (Key phrase) |
+|---|---|
+| Explosion of Data | သင်ယူဖို့ data ပိုများလာခြင်း |
+| Computational Power Growth | Computing စွမ်းအား ပိုများလာခြင်း |
+| Algorithmic Breakthroughs | သင်ယူနည်းနဲ့ architectures ပိုကောင်းလာခြင်း |
+
+မှတ်ထားရန် — **Data + Compute + Algorithms = AI evolution ရဲ့ အဓိက drivers သုံးခု။**
+
+### Self-check questions — ကိုယ့်ကိုယ်ကို စစ်ဆေးရန် မေးခွန်းများ
+
+**Q1: AI evolution ရဲ့ အဓိက drivers သုံးခုက ဘာတွေလဲ?**
 
 Answer:
 1. Explosion of Data
 2. Growth in Computational Power
 3. Algorithmic Breakthroughs
 
-**Understanding question**
+**Q2: AI evolution ကို data တစ်ခုတည်းနဲ့ ဘာကြောင့် မမောင်းနှင်နိုင်တာလဲ?**
 
-Q: Why is data alone not enough to drive AI evolution?
+Answer: Data က သင်ယူဖို့ ဥပမာတွေ ပေးပေမဲ့ လုပ်ငန်းကြီးတွေကို process လုပ်ဖို့ powerful computing resources လိုအပ်ပြီး အဲဒီ data ထဲက အသုံးဝင်တဲ့ patterns တွေကို သင်ယူဖို့ effective algorithms တွေလည်း လိုအပ်ပါတယ်။
 
-Answer: Data provides examples for learning, but powerful computing resources are needed to process large workloads, and effective algorithms are needed to learn useful patterns from that data.
+**Q3: Organization တစ်ခုမှာ dataset ကြီးကြီးရှိပေမဲ့ သင့်တော်တဲ့အချိန်အတွင်း AI model ကို train မလုပ်နိုင်ဘူး။ ဘယ် driver က အဓိက ကန့်သတ်ချက်လဲ?**
 
-**Application question**
+Answer: Growth in Computational Power — computing resources မလုံလောက်တာက training speed ကို ကန့်သတ်နေခြင်း ဖြစ်ပါတယ်။
 
-Q: An organization has a huge dataset but cannot train its AI model within a reasonable time. Which driver is a major limitation?
+**Q4: Company တစ်ခုမှာ data များများနဲ့ powerful GPUs ရှိပေမဲ့ model architecture ရဲ့ performance ညံ့တယ်။ ဘယ် driver က သက်ဆိုင်သလဲ?**
 
-Answer: Growth in Computational Power — specifically, insufficient computing resources may be limiting training speed.
+Answer: Algorithmic Breakthroughs — model architectures နဲ့ training methods တွေကို ပိုကောင်းအောင် ပြုပြင်ခြင်းက အထောက်အကူပြုနိုင်ပါတယ်။
 
-**Application question**
-
-Q: A company has plenty of data and powerful GPUs, but its model architecture performs poorly. Which driver is relevant?
-
-Answer: Algorithmic Breakthroughs — improvements to model architectures and training methods may help.
-
----
-
-## English Version — Drivers of AI Evolution
+## English Version
 
 ### 1. Why Has AI Become So Important?
 
-Artificial Intelligence has become a major area of technology because it can help organizations automate tasks, analyze large amounts of information, make predictions, and generate content.
+Today, Artificial Intelligence (AI) has become one of the most important areas in technology.
+AI is used in many fields, including Healthcare, Banking, Manufacturing, Automotive, Retail, Cybersecurity, and Software Development.
 
-However, AI did not evolve overnight. Several developments contributed to its progress.
+However, AI did not improve overnight. Many factors contributed to its progress. This lesson focuses on three major drivers:
 
-Three major drivers are:
+- **Explosion of Data** — the massive growth of available data
+- **Growth in Computational Power** — advances in computing capability
+- **Algorithmic Breakthroughs** — improvements in AI algorithms and model architectures
 
-- Explosion of Data
-- Growth in Computational Power
-- Algorithmic Breakthroughs
+These three are the key foundations for understanding AI evolution.
 
-### 2. Driver One: Explosion of Data
+### 2. Driver 1 — Explosion of Data
 
-The explosion of data refers to the rapid growth in the amount of digital information generated by the internet, smartphones, IoT devices, social media, and business systems.
+#### 2.1 What Is an Explosion of Data?
 
-Machine Learning models learn patterns from training data. For example, a model trained on many labeled images of cars, buses, trucks, and motorcycles can learn to classify previously unseen images.
+The explosion of data refers to the extremely rapid growth in the volume of digital data.
+Because of the growth of the internet, smartphones, social media, online transactions, and Internet of Things (IoT) devices, vast amounts of data are produced every day.
 
-However, more data does not automatically guarantee better results. Data quality, relevance, diversity, and bias also affect model performance.
+For example—
 
-> **Exam definition:** The rapid growth of digital data has provided more examples and information that can be used to train AI models.
+- **Internet:** Websites, articles, documents, and online content
+- **Smartphones:** Photos, videos, voice recordings, and location-related data
+- **Social Media:** Posts, comments, images, and videos
+- **IoT Devices:** Sensors, temperature readings, machine telemetry, and device status
+- **Business Systems:** Customer records, sales transactions, and inventory data
+- **Healthcare:** Medical images, laboratory results, and clinical records
 
-### 3. Driver Two: Growth in Computational Power
+This data becomes a resource that can be used to train AI models.
 
-Computational power determines how efficiently a system can perform calculations and process data.
+#### 2.2 Why Does AI Need Data?
 
-Modern AI benefits from advances in:
+Machine Learning (ML) models learn patterns and relationships from training data.
 
-- CPUs for general-purpose computing
-- GPUs for parallel computation
-- Specialized AI accelerators
-- Cloud computing and distributed infrastructure
+For example, consider an AI model that can classify car images.
 
-Large Deep Learning models require substantial computation during training. GPUs and other accelerators can speed up operations such as matrix multiplication and tensor processing.
+```
+Training Images
+       │
+       ├── Car
+       ├── Bus
+       ├── Truck
+       ├── Motorcycle
+       └── Bicycle
+              │
+              ▼
+       Machine Learning
+              │
+              ▼
+       Trained AI Model
+              │
+              ▼
+    Predict an Unseen Image
+```
 
-Cloud computing also allows organizations to provision and scale computing resources without having to build all their infrastructure themselves.
+If the model is trained sufficiently on images of cars, buses, and trucks, it can learn the differences between those categories.
+Later, when it is given an image it has never seen before, it can predict which category the image probably belongs to.
 
-> **Exam definition:** Advances in computing hardware, parallel processing, and cloud infrastructure have made it more practical to train and deploy large AI models.
+#### 2.3 Does More Data Always Mean Better AI?
 
-### 4. Driver Three: Algorithmic Breakthroughs
+There is one important point.
 
-Algorithmic breakthroughs include improvements in algorithms, model architectures, and training techniques.
+**More data does not automatically mean better AI.**
 
-Important examples include:
+More data can help, but the quality, relevance, and diversity of the data also matter.
 
-- **Neural Networks and Deep Learning:** Learn complex patterns from data.
-- **Transformers:** Use attention mechanisms to model relationships between tokens and process contextual information.
-- **Reinforcement Learning:** Learn through actions and rewards from an environment.
-- **Diffusion Models:** Generate content, particularly images, through a learned denoising process.
+For example—
 
-These advances have expanded the types of problems AI can solve and improved the capabilities of modern AI systems.
+- If the data contains many errors, the model can learn wrong patterns.
+- If the data represents only one type of situation, performance may drop under other conditions.
+- If the data contains bias, the model's predictions can also be biased.
+- If the data does not match the task, even more data will not produce good results.
 
-> **Exam definition:** Advances in AI algorithms, model architectures, and training techniques have enabled models to learn more effectively and perform increasingly sophisticated tasks.
+Therefore, achieving the best results requires **large amounts of relevant, high-quality data**.
 
-### 5. How the Three Drivers Work Together
+> **Exam Point — Driver 1: Explosion of Data**
+>
+> The rapid growth of digital data from the internet, smartphones, IoT devices, and business systems has provided more data for training AI models.
+
+### 3. Driver 2 — Growth in Computational Power
+
+#### 3.1 What Is Computational Power?
+
+Computational power relates to how quickly and how efficiently a computer system can perform calculations and data-processing tasks.
+
+Training AI models requires a large number of mathematical calculations.
+Especially in Deep Learning models, updating neural network parameters can require large computational resources.
+Advances in computing power make it possible to run these training tasks at a larger scale.
+
+#### 3.2 CPU vs GPU
+
+First, understand CPU and GPU.
+
+- **CPU** is the computer's general-purpose processor. It runs the operating system, applications, system management, and a wide variety of computing tasks. *(Remember — General-purpose computing)*
+- **GPU** is a processor suited to performing many computations in parallel. It can accelerate matrix multiplication and tensor operations, which are common in Deep Learning. *(Remember — Parallel computation)*
+
+GPUs were originally designed mainly for graphics processing, but today they are also critically important for AI training and inference.
+
+#### 3.3 What Is Parallel Processing?
+
+Parallel processing means performing many parts of a computation at the same time.
+
+For example, suppose you must calculate values from a large amount of data.
+
+Sequential processing:
+
+```
+Task 1 → Task 2 → Task 3 → Task 4
+```
+
+Parallel processing:
+
+```
+          ┌── Task 1 ──┐
+          ├── Task 2 ──┤
+Input ────┼── Task 3 ──┼──── Results
+          └── Task 4 ──┘
+```
+
+When the work can run in parallel and the hardware and software support it, the total time can be reduced.
+Not every task can be fully parallelized.
+
+#### 3.4 What Is Cloud Computing's Role?
+
+Cloud computing lets you obtain computing resources on demand.
+
+For example, for an AI training project you can use—
+
+- GPU-enabled virtual machines
+- Multiple servers
+- Distributed storage
+- High-speed networking
+- Managed AI infrastructure
+
+from a cloud provider.
+Previously an organization might have needed to build its own data center and a large amount of hardware, but cloud computing makes infrastructure much easier to scale.
+
+However, "millions of servers with one click" is an illustrative statement from the lesson. In practice there are limits such as resource availability, quota, budget, networking, and capacity.
+
+#### 3.5 Why Does AI Need So Much Compute?
+
+Large AI models can contain very many parameters. During training, the model computes predictions and then adjusts its parameters based on the errors.
+
+Conceptually—
+
+```
+Training Data
+      │
+      ▼
+Forward Pass
+      │
+      ▼
+Calculate Loss
+      │
+      ▼
+Backpropagation
+      │
+      ▼
+Update Parameters
+      │
+      └──── Repeat
+```
+
+This process may be repeated many times over large amounts of data.
+Powerful GPUs, specialized AI accelerators, and distributed computing help run these workloads more efficiently.
+
+> **Exam Point — Driver 2: Growth in Computational Power**
+>
+> Advances in CPUs, GPUs, AI accelerators, and cloud computing have made it possible to train and deploy larger AI models more efficiently.
+
+### 4. Driver 3 — Algorithmic Breakthroughs
+
+#### 4.1 What Are Algorithmic Breakthroughs?
+
+Another important reason AI has advanced is progress in algorithms, model architectures, and training methods.
+
+Having lots of data and good computing power alone does not always make AI effective.
+How the data is used, how the model is designed, and how training is performed also matter.
+
+#### 4.2 Important AI Breakthroughs
+
+**A. Neural Networks and Deep Learning**
+
+Neural networks use interconnected computational units to learn patterns in data.
+Deep Learning uses neural networks with multiple layers to learn more complex patterns.
+
+Example tasks—
+
+- Image recognition
+- Speech recognition
+- Natural language processing
+- Complex prediction tasks
+
+**B. Transformer Architecture**
+
+The Transformer architecture was introduced in 2017 in the research paper "Attention Is All You Need".
+One key element of the Transformer is the Attention mechanism. It lets the model learn relationships between tokens in a sequence and make use of context.
+Transformer-based models have become the foundation of modern Large Language Models (LLMs) and many Generative AI applications.
+
+**C. Reinforcement Learning**
+
+Reinforcement Learning (RL) is a Machine Learning approach in which an agent takes actions inside an environment and learns from rewards or penalties.
+
+```
+Agent
+         │
+         ▼
+       Action
+         │
+         ▼
+    Environment
+         │
+         ▼
+  Reward / Feedback
+         │
+         └────→ Agent learns
+```
+
+For example—
+
+- Game-playing systems
+- Robotics
+- Sequential decision-making
+- Control and optimization problems
+
+Reinforcement Learning is useful in some AI training and decision-making tasks. However, not every AI model is trained with RL.
+
+**D. Diffusion Models**
+
+Diffusion models are a model family commonly used in Generative AI, especially for image generation.
+The basic idea is to learn, during training, what noise-corrupted data looks like, and then, at generation time, to progressively create from noise an output that matches a defined content distribution.
+
+For example—
+
+```
+Text Prompt
+     │
+     ▼
+Diffusion Model
+     │
+     ▼
+Generated Image
+```
+
+Given a text-to-image model the prompt "A red sports car on a mountain road", it can generate an image.
+
+> **Exam Point — Driver 3: Algorithmic Breakthroughs**
+>
+> Improvements in neural networks, Deep Learning, Transformer architectures, reinforcement learning, and diffusion models have expanded AI capabilities and improved how models are trained and used.
+
+### 5. How Do the Three Drivers Work Together?
+
+To understand AI evolution best, consider the three drivers together rather than separately.
+
+For example, when building a Large Language Model—
+
+- **Data:** Text, code, and other training data are needed.
+- **Compute:** GPUs and infrastructure are needed to train the model.
+- **Algorithms:** The Transformer architecture and training techniques determine how the model learns.
+
+Because these factors have advanced together, today's Large Language Models and Generative AI systems have become possible.
 
 ```
 Explosion of Data
@@ -375,11 +596,19 @@ Algorithmic Breakthroughs
 More Capable AI Systems
 ```
 
-For example, training a Large Language Model requires suitable training data, sufficient computing resources, and an effective architecture such as a Transformer.
+**Note** — AI progress is not due to these three factors alone. Research investment, engineering improvements, data quality, infrastructure, and deployment techniques also matter. This lesson focuses on the three major drivers.
 
-None of these factors alone explains all of AI's progress. Their combined development has been particularly important.
+### 6. Exam Preparation — Must Remember
 
-### Final Exam Summary
+#### The Three Drivers of AI Evolution
+
+| Driver | Meaning | Example |
+|---|---|---|
+| Explosion of Data | The volume of digital data keeps growing | Internet, smartphones, IoT |
+| Computational Power Growth | Computing capability keeps improving | GPUs, AI accelerators, cloud computing |
+| Algorithmic Breakthroughs | Model architectures and training methods advance | Deep Learning, Transformers, RL, diffusion models |
+
+#### Final Summary
 
 | Driver | Key phrase |
 |---|---|
@@ -388,3 +617,31 @@ None of these factors alone explains all of AI's progress. Their combined develo
 | Algorithmic Breakthroughs | Better learning methods and architectures |
 
 Remember: **Data + Compute + Algorithms = Three major drivers of AI evolution.**
+
+### Self-check questions
+
+**Q1: What are the three major drivers of AI evolution?**
+
+Answer:
+1. Explosion of Data
+2. Growth in Computational Power
+3. Algorithmic Breakthroughs
+
+**Q2: Why is data alone not enough to drive AI evolution?**
+
+Answer: Data provides examples for learning, but powerful computing resources are needed to process large workloads, and effective algorithms are needed to learn useful patterns from that data.
+
+**Q3: An organization has a huge dataset but cannot train its AI model within a reasonable time. Which driver is a major limitation?**
+
+Answer: Growth in Computational Power — specifically, insufficient computing resources may be limiting training speed.
+
+**Q4: A company has plenty of data and powerful GPUs, but its model architecture performs poorly. Which driver is relevant?**
+
+Answer: Algorithmic Breakthroughs — improvements to model architectures and training methods may help.
+
+## Technical review notes
+
+- Corrections made: normalized the file header to `# Module 01 — …` and the module blockquote to the course convention (`> Part I · AI Foundations and AI Infrastructure — Course Module 01 …`).
+- Corrections made: unified section numbering (`### 1.`–`### 6.` with `#### x.y` subsections) across both language sections; all original Burmese body text, diagrams, tables, and Exam Point notes are preserved unchanged in meaning.
+- Corrections made: expanded the English section to full parity with the Burmese section (faithful translation only — no new commands, specifications, URLs, or benchmark numbers) and moved the English-language self-check Q&A from the Burmese section into the English section, with a matching Burmese Q&A set added.
+- Claims needing verification: none outstanding. The statement "millions of servers with one click" is retained as an explicitly illustrative example with its in-text caveat; this module contains no model-specific specs or benchmark figures.

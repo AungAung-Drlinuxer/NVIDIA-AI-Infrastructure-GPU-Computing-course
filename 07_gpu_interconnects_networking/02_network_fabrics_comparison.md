@@ -1,6 +1,8 @@
 # Module — Comparison of AI Data Center Network Fabrics
 
-> Part II · Networking — topic notes
+> Part II · GPU Interconnects, Networking and Data Movement — topic notes
+
+## မြန်မာဘာသာ version
 
 ## 1. Network Fabric ၄ မျိုးကို ပြန်လည်ကြည့်မယ်
 
@@ -77,7 +79,7 @@ Good Performance
 Should still scale reliably
 ```
 
-More GPU nodes should not automatically mean unacceptable network slowdown.
+GPU node အရေအတွက် များလာတိုင်း network performance က လက်မခံနိုင်လောက်အောင် ကျသွားရမယ်လို့ မဆိုလိုပါဘူး။
 
 **Compute Fabric Shortcut** — `Compute = High Bandwidth + Ultra-Low Latency + High Throughput + Scalability`
 
@@ -321,10 +323,10 @@ Server မှာ dedicated management port ရှိနိုင်ပါတယ�
 
 ဒီ four fabrics ကို တစ်ကြောင်းတည်းနဲ့ ခွဲမယ်ဆိုရင်—
 
-- **Compute** — "How fast can my compute nodes communicate?"
-- **Storage** — "How fast can my compute nodes access data?"
-- **In-Band Management** — "How do I normally manage my servers and cluster?"
-- **OOB Management** — "How do I manage/recover a server when the normal path is broken?"
+- **Compute** — "Compute nodes တွေ ဘယ်လောက်မြန်မြန် ဆက်သွယ်နိုင်သလဲ?"
+- **Storage** — "Compute nodes တွေ data ကို ဘယ်လောက်မြန်မြန် access လုပ်နိုင်သလဲ?"
+- **In-Band Management** — "Server တွေနဲ့ cluster ကို ပုံမှန်အတိုင်း ဘယ်လို manage လုပ်သလဲ?"
+- **OOB Management** — "ပုံမှန် path ပျက်သွားရင် server ကို ဘယ်လို manage/recover လုပ်သလဲ?"
 
 ## 23. Exam Shortcut
 
@@ -373,12 +375,12 @@ Strong Security
 
 ## 24. Final Memory Trick
 
-- Compute → Compute Fast
-- Storage → Get Data Fast
-- In-Band → Manage Normally
-- OOB → Recover When Normal Management Fails
+- Compute → Compute traffic ကို အမြန်ဆုံး လုပ်ဆောင်ပါ
+- Storage → Data ကို အမြန်ဆုံး ရယူပါ
+- In-Band → ပုံမှန်အတိုင်း manage လုပ်ပါ
+- OOB → ပုံမှန် management ပျက်သွားရင် recover လုပ်ပါ
 
-Or the shortest version:
+အတိုချုပ် version ကတော့—
 
 - Compute = GPU communication
 - Storage = Data access
@@ -408,9 +410,17 @@ Or the shortest version:
 - Requirement: Availability + strong security + independent access
 
 **Final One-Line Summary**
-Compute fabric moves compute traffic fast; Storage fabric moves data between compute and storage; In-Band fabric manages the running infrastructure; OOB fabric provides an independent path to manage and recover failed servers.
+Compute fabric က compute traffic ကို အမြန်ဆုံး ရွှေ့ပေးပြီး၊ Storage fabric က compute နဲ့ storage ကြားက data ကို ရွှေ့ပေးပါတယ်။ In-Band fabric က အလုပ်လုပ်နေတဲ့ infrastructure ကို manage လုပ်ပြီး၊ OOB fabric က ပျက်သွားတဲ့ server တွေကို manage/recover လုပ်ဖို့ သီးခြားလမ်းကြောင်း ပေးပါတယ်။
 
-## English Version — Comparison of AI Data Center Network Fabrics
+## Self-Check Questions (အဖြေများပါဝင်သည်)
+
+1. **Network fabric ၄ မျိုးကို ဘယ်အချက်တွေနဲ့ compare လုပ်သလဲ?** — Purpose, Implementation (physical/logical), Key Design Features နဲ့ Performance / Security / Scalability အချက်တွေနဲ့ compare လုပ်ပါတယ်။
+2. **Compute fabric ရဲ့ design requirement အဓိက ၃ ခုက ဘာတွေလဲ?** — Extremely high throughput, ultra-low latency နဲ့ scalability တို့ ဖြစ်ပြီး InfiniBand, RoCE, NVLink တို့နဲ့ implement လုပ်နိုင်ပါတယ်။
+3. **Management traffic ကို ဘာကြောင့် သီးခြားထားသင့်သလဲ?** — Application/compute traffic နဲ့ ရောနှောရင် congestion ဖြစ်နိုင်လို့ ဖြစ်ပါတယ်။ Ethernet ပေါ်မှာ VLAN, VXLAN, EVPN နဲ့ isolate လုပ်ပြီး reliable, secure, adequate bandwidth ရှိရပါမယ်။
+4. **OOB network ကို ဘာကြောင့် highly available ဖြစ်အောင် ထားရပြီး strong security လိုအပ်သလဲ?** — Server failure ဖြစ်တဲ့အချိန်မှာ ဒီ network ကို အများဆုံး လိုအပ်လို့ဖြစ်ပြီး၊ OOB access ရတဲ့သူက power, console, hardware control စွမ်းရည် ရနိုင်လို့ strong authentication, RBAC, isolation, audit logging တွေ လိုအပ်ပါတယ်။
+5. **Fabric ၄ မျိုးကို တစ်ကြောင်းတည်းနဲ့ ဘယ်လို ခွဲမလဲ?** — Compute က node/GPU ကြား အမြန်ဆုံး ဆက်သွယ်ရေး၊ Storage က data အမြန်ဆုံး access ရရေး၊ In-Band က ပုံမှန် management၊ OOB က ပုံမှန် path ပျက်တဲ့အခါ manage/recover လုပ်ရေး ဖြစ်ပါတယ်။
+
+## English Version
 
 ## 1. Reviewing the Four Network Fabrics
 
@@ -817,3 +827,18 @@ Or the shortest version:
 
 **Final One-Line Summary**
 Compute fabric moves compute traffic fast; Storage fabric moves data between compute and storage; In-Band fabric manages the running infrastructure; OOB fabric provides an independent path to manage and recover failed servers.
+
+## Self-Check Questions (with answers)
+
+1. **Which criteria are used to compare the four network fabrics?** — Purpose, implementation (physical/logical), key design features, and performance / security / scalability considerations.
+2. **What are the three main design requirements of the compute fabric?** — Extremely high throughput, ultra-low latency, and scalability; it can be implemented with InfiniBand, RoCE, or NVLink.
+3. **Why should management traffic be isolated?** — Mixing it with application/compute traffic can cause congestion. It is isolated on Ethernet with technologies such as VLAN, VXLAN, and EVPN and needs reliable, secure operation with adequate bandwidth.
+4. **Why must the OOB network be highly available and strongly secured?** — It is needed most exactly during server failures, and anyone with OOB access can control power, console, and hardware; strong authentication, role-based access control, isolation, and audit logging are therefore required.
+5. **How do the four fabrics differ in one line each?** — Compute: fast GPU/node communication; Storage: fast data access; In-Band: normal management; OOB: manage/recover when the normal path is broken.
+
+## Technical review notes
+
+- Structure normalized to the bilingual convention: blockquote updated to the full Part II title ("GPU Interconnects, Networking and Data Movement"), `## မြန်မာဘာသာ version` and `## English Version` section headers added, and self-check questions with concise answers appended to each language section.
+- English sentences inside the Burmese body (section 5 scalability note, section 22 one-line questions, section 24 memory trick, section 25 key exam points) were translated into Burmese; the unchanged English originals remain in the English section. Tables and ASCII diagrams are technical/term-level content and are preserved verbatim in both sections.
+- No content removed; section numbering 1–25 matches across both language sections.
+- Needs verification: "multi-GB-level throughput" per compute node (section 9) is a design guideline, not a specification — actual requirements depend on the storage platform and workload. The comparison tables give qualitative levels (e.g., "Extremely high", "Ultra-low") without absolute figures.

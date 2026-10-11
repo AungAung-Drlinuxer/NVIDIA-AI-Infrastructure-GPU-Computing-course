@@ -1,6 +1,8 @@
-# Module — Transformer Model
+# Module 01 — Transformer Model
 
-> Part I · Course Module 01 (AI, ML, DL Fundamentals and AI Adoption) — topic notes
+> Part I · AI Foundations and AI Infrastructure — Course Module 01 (AI, ML, DL Fundamentals and AI Adoption) — topic notes
+
+## မြန်မာဘာသာ version
 
 ## 1. Transformer Model ဆိုတာဘာလဲ?
 
@@ -139,7 +141,6 @@ Simple idea
              \
               \
         Dog ●   ● Rabbit
-
 
                  Human-related concepts
 
@@ -367,7 +368,7 @@ Generative AI
 
 ## 17. Exam မှတ်ရန် — Transformer
 
-> **Transformer** = A Deep Learning architecture designed to process sequences using attention mechanisms, enabling models to learn relationships between tokens efficiently.
+> **Transformer** = attention mechanisms တွေကို အသုံးပြုပြီး sequences တွေကို process လုပ်ဖို့ design လုပ်ထားတဲ့ Deep Learning architecture ဖြစ်ပြီး token တွေအကြား relationship တွေကို efficiently သင်ယူနိုင်စေပါတယ်။
 
 ### Key Concepts
 
@@ -398,25 +399,89 @@ Text Generation
 **အရေးကြီးဆုံး Exam Shortcut:**
 Transformer → Attention → Context → Next-Token Prediction → Generation
 
+> **အထူးမှတ်ရန်:** Transformer ရဲ့ definition က "next word prediction" မဟုတ်ပါဘူး။ Attention-based architecture ဖြစ်တာက core idea ဖြစ်ပြီး၊ modern language models တွေမှာ next-token prediction ကို training/objective အဖြစ် အသုံးပြုပြီး text generation လုပ်တာပါ။
+
+## 18. ကိုယ်တိုင်စစ်ဆေးရန် မေးခွန်းများ (Self-Check Questions)
+
+**မေးခွန်း ၁ — Transformer architecture ကို ဘယ် research paper မှာ မိတ်ဆက်ခဲ့သလဲ?**
+
+အဖြေ — 2017 ခုနှစ်က Google researchers တွေရဲ့ **"Attention Is All You Need"** paper မှာ မိတ်ဆက်ခဲ့ပါတယ်။
+
+**မေးခွန်း ၂ — Attention mechanism ရဲ့ အဓိကအလုပ်က ဘာလဲ?**
+
+အဖြေ — Sentence / input sequence ထဲက token တွေအကြား relationship နဲ့ context ကို model က နားလည်ပြီး အသုံးချနိုင်အောင် ကူညီပေးတာဖြစ်ပါတယ်။
+
+**မေးခွန်း ၃ — "Next word prediction" နဲ့ "Next-token prediction" ဘာကွာသလဲ?**
+
+အဖြေ — Modern LLMs အတွက် ပိုမှန်တဲ့ term က next-token prediction ဖြစ်ပါတယ်။ Token တစ်ခုဟာ word တစ်ခုတည်း မဟုတ်ဘဲ word ရဲ့ အစိတ်အပိုင်းတွေလည်း ဖြစ်နိုင်တဲ့အတွက် ဖြစ်ပါတယ်။
+
+**မေးခွန်း ၄ — Transformer က parallel computing ကို ဘာကြောင့် အသုံးချနိုင်တာလဲ?**
+
+အဖြေ — Transformer architecture က training အချိန်မှာ sequence ထဲက token representations တွေကို parallel hardware (GPU / accelerator) ပေါ်မှာ efficiently process လုပ်နိုင်အောင် design လုပ်ထားတဲ့အတွက် ဖြစ်ပါတယ်။ ဒါကြောင့် large-scale training ကို လုပ်နိုင်လာပါတယ်။
+
 ---
 
-## English Explanation — Transformer Model
+## English Version
 
-### What is a Transformer Model?
+## 1. What Is a Transformer Model?
 
-A Transformer is a Deep Learning architecture that has become one of the most important foundations of modern Generative AI and Large Language Models.
+A Transformer is a Deep Learning architecture that is extremely important for modern AI, and especially for Generative AI and Large Language Models (LLMs).
 
-The Transformer architecture was introduced in the 2017 research paper: **"Attention Is All You Need."**
+The basic idea of the Transformer architecture was introduced in the 2017 research paper **"Attention Is All You Need"**, published by Google researchers.
 
-One of its key ideas is the Attention mechanism, which allows a model to learn relationships between tokens in a sequence and use context more effectively.
+One of the most important concepts in a Transformer is the **Attention mechanism**.
 
-### Simple Example
+## 2. What Is Attention?
 
-Consider: "The quick brown fox jumps over the lazy ______"
+The main job of Attention is to help the model understand the relationships and context between the words in a sentence.
 
-The model needs to predict what token is likely to come next. Possible candidates could include: person, rabbit, dog, cat.
+For example:
 
-The model produces probabilities for possible next tokens.
+> The dog chased the cat because it was fast.
+
+Here, what does "it" refer to — the dog or the cat?
+The model needs to look at the relationships between the words in the whole sentence to understand the context.
+The Attention mechanism helps the model learn these kinds of relationships.
+
+Simple idea:
+
+```
+The → dog → chased → the → cat
+             ↓
+        relationships
+             ↓
+          context
+```
+
+Instead of looking at a single word in isolation, a Transformer can also look at how that word relates to the other words.
+
+## 3. Why Is the Transformer Important for Generative AI?
+
+Because the Transformer architecture can process language data efficiently, it has become extremely useful for large-scale AI models.
+
+Transformer-based models are widely used for tasks such as:
+
+- Text understanding
+- Context understanding
+- Next-token prediction
+- Text generation
+- Question answering
+- Translation
+- Summarization
+- Code generation
+
+That is why this architecture has profoundly changed the modern Generative AI ecosystem.
+
+## 4. Basic Example — Next Word Prediction
+
+The easiest example for understanding a Transformer at beginner level is next-token prediction.
+
+For example:
+
+> The quick brown fox jumps over the lazy ______
+
+The model's task is to predict what could come in the blank.
+The model can consider candidate words — person, rabbit, dog, cat, ... — as probabilities.
 
 Conceptually:
 
@@ -427,19 +492,49 @@ dog     → 80%
 cat     → 5%
 ```
 
-These numbers are only illustrative. The model may select "dog", giving: "The quick brown fox jumps over the lazy dog."
+These numbers are illustrative only. They are not actual model probabilities.
 
-### Why does the model predict "dog"?
+The model can select the candidate with the highest probability:
 
-During training, the model processes a huge amount of text and learns statistical and contextual patterns. It may encounter the phrase "The quick brown fox jumps over the lazy dog." many times. It therefore learns relationships between tokens and contexts.
+> The quick brown fox jumps over the lazy dog.
 
-However, it is important not to think of the model as simply storing and retrieving the sentence. Instead, the neural network learns numerical representations and statistical patterns that allow it to calculate probabilities for possible next tokens.
+## 5. Why Does the Model Choose "dog"?
 
-### Vector Representations
+This is a good example for understanding an important Transformer concept.
+During training, the model processes a huge amount of text.
 
-Words and tokens are represented using numerical vectors.
+For example, it may encounter the sentence "The quick brown fox jumps over the lazy dog." many times in its training data.
 
-Conceptually:
+From such training data, the model learns statistical patterns and relationships such as:
+
+```
+quick → brown
+brown → fox
+fox → jumps
+jumps → over
+over → the
+the → lazy
+lazy → dog
+```
+
+Therefore, at inference time, when the input "The quick brown fox jumps over the lazy" arrives, the model computes probabilities for the tokens that could come next and makes a prediction.
+
+## 6. Why Is "Person" Almost Impossible?
+
+For example, "The quick brown fox jumps over the lazy person." is not grammatically wrong.
+So the model cannot say that "person" is completely impossible.
+
+However, the phrase "lazy dog" may be much more common in the English language.
+Therefore, according to the model's learned statistical patterns, **dog > person**.
+
+The important point is that a Transformer is more than "it stored this sentence and answered 'dog'".
+It uses learned representations, token relationships, context, and probability distributions from training to predict the next token.
+
+## 7. What Is a Vector Space?
+
+Words and tokens are not stored as raw text inside AI models; they are represented as numerical representations.
+
+For example, conceptually:
 
 ```
 Dog      → [0.21, -0.34, 0.82, ...]
@@ -448,109 +543,271 @@ Rabbit   → [0.15, -0.25, 0.70, ...]
 Person   → [-0.42, 0.67, -0.12, ...]
 ```
 
-These are only illustrative values. Real models use high-dimensional representations. These representations allow neural networks to process semantic and contextual relationships mathematically.
+These are illustrative numbers only. Real models can have many vector dimensions.
 
-### Next-Word vs Next-Token Prediction
+These representations allow the model to process semantic relationships and contextual relationships in mathematical form.
 
-The source describes this as next-word prediction. For modern LLMs, the more accurate term is **Next-token prediction**. A token does not necessarily equal one complete word. For example, a word may be represented by multiple tokens.
+Simple idea:
 
-Therefore "Next Word Prediction" is a simplified explanation. More accurately: **Next Token Prediction**.
+```
+                 Animal-related space
 
-### How Generation Works
+        Fox ●
+             \
+              \
+        Dog ●   ● Rabbit
 
-The model can repeatedly predict the next token.
+                 Human-related concepts
+
+                    ● Person
+```
+
+However, a simple 2D map like "dog, fox, rabbit = animal" does not actually exist inside the model.
+Real neural-network representations are high-dimensional, and the representations can also change depending on context.
+
+## 8. How Does a Transformer Use Patterns?
+
+Conceptually:
+
+```
+Input:
+
+The quick brown fox jumps over the lazy
+                         │
+                         ▼
+                  Transformer
+                         │
+             Context + learned patterns
+                         │
+                         ▼
+              Probability distribution
+                         │
+       ┌─────────────────┼────────────────┐
+       ▼                 ▼                ▼
+    person            rabbit             dog
+     10%                35%              80%
+                                           │
+                                           ▼
+                                          dog
+```
+
+Then the result is: "The quick brown fox jumps over the lazy dog."
+
+## 9. Does a Transformer Generate Only One Sentence?
+
+No. A Transformer-based language model predicts one token at a time and can generate continuously.
 
 For example:
 
 ```
+Input:
 The quick brown fox
-        ↓
-      jumps
-        ↓
-      over
-        ↓
-      the
-        ↓
-      lazy
-        ↓
-      dog
+
+↓ Predict
+
+jumps
+
+↓ Predict
+
+over
+
+↓ Predict
+
+the
+
+↓ Predict
+
+lazy
+
+↓ Predict
+
+dog
 ```
 
-This produces: "The quick brown fox jumps over the lazy dog."
+In the end: "The quick brown fox jumps over the lazy dog."
 
-The same basic process can continue:
+## 10. Sentence → Paragraph → Page → Story
+
+If this mechanism continues repeatedly—
 
 ```
 Token
- ↓
+  ↓
+Word / Token sequence
+  ↓
 Sentence
- ↓
+  ↓
 Paragraph
- ↓
+  ↓
 Page
- ↓
+  ↓
 Story
- ↓
-Long-form content
+  ↓
+Long-form document
 ```
 
-This is one of the fundamental mechanisms behind language generation in Transformer-based Generative AI systems.
+—content can be generated at increasing length.
+That is how Generative AI uses **learned patterns + context + next-token prediction** to generate new content.
 
-### Why is Attention Important?
+## 11. Important Correction — "Transformer predicts the next word"
 
-Attention allows the model to consider relationships between different tokens in the input.
+The source explains this as "next word", but for modern LLMs the more accurate terminology is **Next-token prediction**.
 
-Conceptually:
+A token can be a whole word, or it can be part of a word.
 
-```
-Token A ───────┐
-Token B ───────┤
-Token C ───────┼──→ Attention → Context
-Token D ───────┤
-Token E ───────┘
-```
-
-Instead of considering tokens completely independently, the model can learn which parts of the context are more relevant to one another.
-
-### Why is Parallel Computing Important?
-
-Transformer architectures are highly suitable for large-scale parallel computation during training. This allows modern AI systems to take advantage of GPUs and other accelerators.
-
-Conceptually:
+For example, conceptually, when tokenizing "unbelievable":
 
 ```
-Huge Dataset
+un
+believ
+able
+```
+
+—it can be split into many tokens.
+
+Therefore, remember:
+
+- Next Word Prediction ❌
+- Next-Token Prediction ✅
+
+## 12. The Most Important Concept — Attention
+
+When you study Transformers for the exam, do not forget Attention.
+Attention can be understood as the mechanism that lets the model learn how strongly tokens in the input sequence relate to one another and use context effectively.
+
+For example:
+
+> The animal didn't cross the road because it was tired.
+
+To understand "it", the model must use not only the nearby words but also the sentence context.
+Attention is important for the model to process these kinds of contextual relationships.
+
+## 13. Why Is Parallel Computing Important?
+
+The source states that a Transformer can use parallel computing efficiently.
+This is an important advantage of the Transformer architecture.
+
+Traditional recurrent architectures have more dependencies that require sequential processing of the sequence.
+The Transformer architecture is designed so that, during training, the token representations of a sequence can be processed efficiently on parallel hardware.
+
+Therefore:
+
+```
+Large Dataset
      +
 Large Neural Network
      +
-GPU Accelerators
+GPU / Accelerator
      +
 Parallel Computation
      ↓
 Large-scale Training
 ```
 
-This scalability is one of the reasons Transformer-based architectures became so important for modern AI.
+becomes possible.
+This scalability is extremely important for modern LLM development.
 
-### Final Exam Summary
+## 14. Remembering the Transformer as a Simple Architecture
 
-Remember this sequence:
+At beginner level, you can remember it like this:
+
+```
+Input Text
+                    │
+                    ▼
+               Tokenization
+                    │
+                    ▼
+              Token Embeddings
+                    │
+                    ▼
+          ┌─────────────────────┐
+          │     Transformer     │
+          │                     │
+          │  Self-Attention     │
+          │        +            │
+          │  Neural Network     │
+          └─────────────────────┘
+                    │
+                    ▼
+             Output Probabilities
+                    │
+                    ▼
+              Next Token
+                    │
+                    ▼
+          Generated Text
+```
+
+## 15. "Attention Is All You Need"
+
+If you study Transformers, you should know this paper name.
+
+> Paper: **Attention Is All You Need**
+> Published in 2017, this paper introduced the Transformer architecture.
+
+In an exam / interview:
+
+Q: What architecture was introduced in "Attention Is All You Need"?
+A: Transformer architecture.
+
+## 16. Transformer → Generative AI Relationship
+
+Remember this relationship as follows:
+
+```
+Artificial Intelligence
+        │
+        ▼
+Machine Learning
+        │
+        ▼
+Deep Learning
+        │
+        ▼
+Neural Network Architectures
+        │
+        ▼
+Transformer
+        │
+        ▼
+Large Language Models
+        │
+        ▼
+Generative AI
+```
+
+This is a learning aid. The real AI taxonomy cannot be defined by a single strict hierarchy like this.
+
+## 17. Exam Summary — Transformer
+
+> **Transformer** = A Deep Learning architecture designed to process sequences using attention mechanisms, enabling models to learn relationships between tokens efficiently.
+
+### Key Concepts
 
 ```
 Transformer
      ↓
 Attention
      ↓
-Understand relationships between tokens
+Context / Relationships
      ↓
-Use context
+Learned Patterns
      ↓
-Predict next token
+Next-Token Prediction
      ↓
-Generate content
+Text Generation
 ```
 
-**One-line definition:** A Transformer is a Deep Learning architecture that uses attention mechanisms to model relationships between tokens and efficiently process contextual information, forming a foundation for many modern Generative AI and LLM systems.
+### Keywords
+
+| Concept | Remember |
+|---|---|
+| AI | Intelligence |
+| ML | Learning from Data |
+| DL | Neural Networks |
+| Transformer | Attention |
+| GenAI | Generate New Content |
 
 **Most important keywords:**
 
@@ -562,4 +819,33 @@ Generate content
 | Generation | → Next-Token Prediction |
 | Generative AI | → New Content |
 
-> **အထူးမှတ်ရန်:** Transformer ရဲ့ definition က "next word prediction" မဟုတ်ပါဘူး။ Attention-based architecture ဖြစ်တာက core idea ဖြစ်ပြီး၊ modern language models တွေမှာ next-token prediction ကို training/objective အဖြစ် အသုံးပြုပြီး text generation လုပ်တာပါ။
+**Most important exam shortcut:**
+Transformer → Attention → Context → Next-Token Prediction → Generation
+
+> **Note:** The definition of a Transformer is not "next word prediction". Its core idea is being an attention-based architecture, and modern language models use next-token prediction as the training objective to generate text.
+
+## 18. Self-Check Questions
+
+**Question 1 — In which research paper was the Transformer architecture introduced?**
+
+Answer — In the 2017 paper **"Attention Is All You Need"** by Google researchers.
+
+**Question 2 — What is the main job of the Attention mechanism?**
+
+Answer — It helps the model understand and use the relationships and context between tokens in a sentence or input sequence.
+
+**Question 3 — What is the difference between "next word prediction" and "next-token prediction"?**
+
+Answer — For modern LLMs, the more accurate term is next-token prediction. A token is not necessarily one whole word — it can also be part of a word.
+
+**Question 4 — Why can a Transformer use parallel computing?**
+
+Answer — The Transformer architecture is designed so that, during training, the token representations of a sequence can be processed efficiently on parallel hardware (GPU / accelerator), which makes large-scale training possible.
+
+## Technical review notes
+
+- File restructured to the current bilingual convention: `# Module 01` header, the Part I / Course Module 01 blockquote, a `## မြန်မာဘာသာ version` section and an `## English Version` section with matching section numbering (1–18 in both).
+- Mixed-language content was resolved per section: the English definition blockquote in the Burmese exam-summary section ("Transformer = A Deep Learning architecture designed to process sequences using attention mechanisms…") is rendered in Burmese, with the original English wording preserved in English §17. The closing Burmese note ("အထူးမှတ်ရန်: Transformer ရဲ့ definition က \"next word prediction\" မဟုတ်ပါဘူး…") previously sat at the end of the English section; it now closes the Burmese section and an English rendering closes the English section.
+- The English section was reorganized to mirror the Burmese section numbering; material that previously existed in only one language (the "it" reference example and simple-idea diagram in §2, the task list in §3, the "lazy person" example in §6, the 2D vector-map diagram and its high-dimensional caveat in §7, the probability-distribution diagram in §8, the token-by-token generation example in §9, the tokenization example "unbelievable → un / believ / able" in §11, the "The animal didn't cross the road…" example in §12, the simple architecture diagram in §14, the paper Q&A in §15, and the AI→…→Generative AI relationship diagram in §16) now appears in both language sections as a faithful translation. Diagrams and code blocks are kept unchanged in both.
+- The correction "next word → next-token prediction" is preserved from the source as a correction to simplified terminology; the illustrative probability numbers (10/35/80/5%) and vector values are labeled illustrative in both versions and are not claimed as measured data.
+- Claims needing verification: none outstanding. The "Attention Is All You Need" (2017) attribution is standard; the AI→ML→DL→Transformer→LLM→Generative AI diagram is explicitly presented as a learning aid, not a strict taxonomy, in both versions.

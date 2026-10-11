@@ -1,4 +1,4 @@
-# Module — Installing CUDA Toolkit and Verifying the GPU Environment
+# Module 21 — Installing CUDA Toolkit and Verifying the GPU Environment
 
 > Part IV · Course Module 21 — topic notes
 

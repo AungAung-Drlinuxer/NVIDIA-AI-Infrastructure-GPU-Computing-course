@@ -1,8 +1,10 @@
-# Module — Data Center Energy Consumption and PUE
+# Module 02 — Data Center Energy Consumption and PUE
 
-> Part I · Course Module 02 (AI Data Centers, Energy Consumption and PUE) — topic notes
+> Part I · AI Foundations and AI Infrastructure — Course Module 02 (AI Data Centers, Energy Consumption and PUE) — topic notes
 
-## 1. AI Workload နှင့် Electricity Consumption
+## မြန်မာဘာသာ version
+
+### 1. AI Workload နှင့် Electricity Consumption
 
 AI workload တွေကို run လုပ်တဲ့အခါ electricity အများကြီးလိုအပ်နိုင်ပါတယ်။
 အထူးသဖြင့်—
@@ -22,7 +24,7 @@ AI workload တွေကို run လုပ်တဲ့အခါ electricity �
 - Cooling requirement တိုးလာတယ်
 - Environmental impact တိုးလာနိုင်တယ်
 
-## 2. Data Center တစ်ခုမှာ Electricity ကို ဘယ်မှာသုံးသလဲ?
+### 2. Data Center တစ်ခုမှာ Electricity ကို ဘယ်မှာသုံးသလဲ?
 
 Data Center တစ်ခုမှာ electricity အားလုံးကို IT equipment တစ်ခုတည်းအတွက် မသုံးပါဘူး။
 အဓိကအားဖြင့်—
@@ -47,7 +49,7 @@ Data Center တစ်ခုမှာ electricity အားလုံးကို 
 3. **Power Conversion and Distribution** — UPS, Power distribution, Power conversion equipment
 4. **Other Facility Systems** — Lighting, Fire suppression systems, Monitoring systems, Indicators, Other building/facility equipment
 
-## 3. Traditional Data Center Power Distribution
+### 3. Traditional Data Center တွေရဲ့ Power Distribution
 
 မူရင်းသင်ခန်းစာမှာ traditional/older data center တစ်ခုရဲ့ power distribution ကို ဥပမာအနေနဲ့—
 **50% → IT Equipment, 50% → Cooling + Power Conversion + Other** လို့ရှင်းပြထားပါတယ်။
@@ -77,7 +79,7 @@ Total Electricity = 100%
 - IT equipment power = Actual IT workload ကို run ဖို့အသုံးပြုတဲ့ power
 - Overhead power = IT equipment ကို run နိုင်အောင် supporting infrastructure တွေမှာသုံးတဲ့ power
 
-## 4. Modern Data Center ရဲ့ ရည်မှန်းချက်
+### 4. Modern Data Center ရဲ့ ရည်မှန်းချက်
 
 Modern Data Center တွေက—**More processing power per watt** ရရှိဖို့ ရည်မှန်းကြပါတယ်။
 အဓိကအားဖြင့်—
@@ -111,18 +113,18 @@ Total Electricity = 100%
 
 > ⚠️ **သတိပြုရန်**: 50/50 နဲ့ 90/10 က ဒီသင်ခန်းစာထဲမှာ illustrative examples အဖြစ် သုံးထားတဲ့အချက်တွေပါ။ Data center တိုင်းမှာ အတိအကျ ဒီရာခိုင်နှုန်းတွေဖြစ်မယ်လို့ မယူဆသင့်ပါဘူး။
 
-## 5. Why Energy Efficiency Matters
+### 5. Energy Efficiency ဘာကြောင့် အရေးကြီးသလဲ?
 
 Data Center တစ်ခုရဲ့ efficiency ကို နားလည်ဖို့—**Power Usage Effectiveness (PUE)** ဆိုတဲ့ metric ကို အသုံးပြုပါတယ်။
 PUE က Data Center တစ်ခုမှာ အသုံးပြုတဲ့ total energy နဲ့ actual IT equipment က အသုံးပြုတဲ့ energy ကို နှိုင်းယှဉ်ပေးတဲ့ metric ဖြစ်ပါတယ်။
 
-## 6. What Is PUE?
+### 6. PUE ဆိုတာ ဘာလဲ?
 
 **PUE = Power Usage Effectiveness**
 
 PUE ကို ဒီလိုသတ်မှတ်နိုင်ပါတယ်—
 
-> PUE is a metric that compares the total energy consumed by a data center with the energy consumed by its IT equipment.
+> PUE ဆိုတာ Data Center တစ်ခု သုံးစွဲတဲ့ total energy နဲ့ ၎င်းရဲ့ IT equipment သုံးစွဲတဲ့ energy ကို နှိုင်းယှဉ်ပေးတဲ့ metric ဖြစ်ပါတယ်။
 
 IT equipment ထဲမှာ—Servers, Storage, Networking, GPUs, Other IT equipment တွေ ပါဝင်နိုင်ပါတယ်။
 
@@ -136,14 +138,14 @@ PUE = ────────────────────────�
 
 သို့မဟုတ်—`PUE = Total Facility Energy ÷ IT Equipment Energy`
 
-## 7. PUE ကို ဘာကြောင့်သုံးသလဲ?
+### 7. PUE ကို ဘာကြောင့်သုံးသလဲ?
 
 PUE က Data Center ရဲ့ energy efficiency ကို တိုင်းတာဖို့ အသုံးပြုပါတယ်။
 အထူးသဖြင့်—Cooling efficiency, Power distribution efficiency, Facility design, Infrastructure overhead, Energy optimization တွေကို နားလည်ဖို့ အထောက်အကူပြုပါတယ်။
 
 **အဓိက Principle** — PUE နိမ့်လေလေ Data Center က energy-efficient ပိုဖြစ်လေလေ။
 
-## 8. PUE Example — 1.2
+### 8. PUE Example — 1.2
 
 PUE = 1.2 ဆိုတာကို နားလည်ဖို့—Total Data Center Energy = 1.2, IT Equipment Energy = 1.0 ဖြစ်တယ်လို့ ယူဆပါ။
 
@@ -172,7 +174,7 @@ Overhead = Total Energy - IT Energy
 
 ဒါကြောင့် PUE 1.2 ဆိုတာ IT equipment energy ထက် overhead energy က 20% ဖြစ်တယ် လို့ နားလည်နိုင်ပါတယ်။
 
-## 9. PUE = 2.0 ဆိုရင်?
+### 9. PUE = 2.0 ဆိုရင်?
 
 PUE = 2.0 ဆိုရင်—IT Equipment Energy = 1.0, Total Energy = 2.0, Overhead = 1.0 ဖြစ်ပါတယ်။
 
@@ -195,7 +197,7 @@ Total               2.0
 
 ဒါကြောင့် PUE 2.0 ဟာ PUE 1.2 ထက် energy efficiency ပိုနည်းပါတယ်။
 
-## 10. PUE = 1.0 ဘာကြောင့် မဖြစ်နိုင်သလဲ?
+### 10. PUE = 1.0 ဘာကြောင့် မဖြစ်နိုင်သလဲ?
 
 Theoretically—PUE = 1.0 ဆိုရင် Total Data Center Energy = IT Equipment Energy ဖြစ်ပါတယ်။
 အဓိပ္ပါယ်က—Data Center မှာ IT equipment ကလွဲပြီး ဘာ overhead energy မှ မရှိတော့ဘူး ဆိုတဲ့သဘောပါ။
@@ -203,7 +205,7 @@ Theoretically—PUE = 1.0 ဆိုရင် Total Data Center Energy = IT Equip
 လက်တွေ့ Data Center မှာတော့—Cooling, Power distribution, UPS, Lighting, Security, Monitoring, Facility systems စတာတွေ လိုအပ်တာကြောင့် PUE 1.0 ကို practical real-world target အဖြစ် ရရှိဖို့ မဖြစ်နိုင်ပါဘူး။
 ဒါကြောင့် PUE က 1.0 နဲ့ ပိုနီးလေလေ ပို efficient ဖြစ်လေလေ ဆိုတဲ့ principle ကို မှတ်ထားပါ။
 
-## 11. PUE Scale ကို နားလည်ခြင်း
+### 11. PUE Scale ကို နားလည်ခြင်း
 
 Conceptually—
 
@@ -222,7 +224,7 @@ PUE
 
 > **မှတ်ရန်** — Lower PUE = Better Energy Efficiency
 
-## 12. PUE and AI Data Centers
+### 12. PUE နှင့် AI Data Centers
 
 AI-centric Data Center တွေအတွက် PUE က ပိုအရေးကြီးလာပါတယ်။
 အကြောင်းက AI workloads တွေမှာ—GPU density မြင့်နိုင်တယ်, Power consumption မြင့်နိုင်တယ်, Cooling requirement မြင့်နိုင်တယ်။
@@ -248,7 +250,7 @@ PUE becomes an important metric
 
 ဒါကြောင့် AI Data Center design မှာ—**Compute Efficiency + Power Efficiency + Cooling Efficiency** တို့ကို အတူတူ စဉ်းစားဖို့လိုပါတယ်။
 
-## 13. PUE and Environmental Impact
+### 13. PUE နှင့် Environmental Impact
 
 AI workloads တွေဟာ electricity အများကြီးအသုံးပြုနိုင်တာကြောင့် energy efficiency က environmental consideration တစ်ခုလည်း ဖြစ်ပါတယ်။
 PUE နိမ့်လာရင်—
@@ -261,7 +263,7 @@ PUE နိမ့်လာရင်—
 
 ဒါကြောင့် PUE ဟာ Data Center energy efficiency ကို ဆွေးနွေးတဲ့အခါ အရေးကြီးတဲ့ metric ဖြစ်ပါတယ်။
 
-## 14. Important Correction — PUE က Efficiency Percentage မဟုတ်ပါ
+### 14. အရေးကြီးတဲ့ ပြင်ဆင်ချက် — PUE က Efficiency Percentage မဟုတ်ပါ
 
 PUE ကို percentage လို့ မယူဆသင့်ပါဘူး။
 ဥပမာ—PUE = 1.2 ဆိုတာ "Data Center က 120% efficient" လို့ မဆိုလိုပါဘူး။
@@ -269,46 +271,36 @@ PUE ဟာ ratio ဖြစ်ပါတယ်။
 
 `PUE = Total Facility Energy / IT Equipment Energy`
 
-PUE 1.2 ဆိုရင်—For every 1 unit of IT energy → 1.2 units of total facility energy are consumed.
+PUE 1.2 ဆိုရင်—IT energy 1 unit သုံးတိုင်း total facility energy 1.2 units စီ သုံးစွဲတယ်ဆိုတဲ့ သဘောဖြစ်ပါတယ်။
 
-## 15. Exam Preparation
+### Self-Check Questions (အဖြေများပါဝင်သည်)
 
-**Q1. What is PUE?**
-Answer: PUE stands for Power Usage Effectiveness. It is a metric that compares the total energy consumed by a data center with the energy consumed by its IT equipment.
+**Q1. PUE ဆိုတာ ဘာလဲ။ Formula က ဘာလဲ?**
+Answer: PUE = Power Usage Effectiveness ဖြစ်ပြီး Data Center တစ်ခု သုံးစွဲတဲ့ total energy နဲ့ IT equipment သုံးစွဲတဲ့ energy ကို နှိုင်းယှဉ်ပေးတဲ့ metric ဖြစ်ပါတယ်။ `PUE = Total Data Center Energy ÷ IT Equipment Energy`
 
-**Q2. What is the formula for PUE?**
+**Q2. PUE နိမ့်ရင် ဘာကို ညွှန်းသလဲ?**
+Answer: PUE နိမ့်လေလေ non-IT overhead energy နည်းလေလေဖြစ်တဲ့အတွက် Data Center ရဲ့ energy efficiency ပိုကောင်းတယ်လို့ ယေဘုယျအားဖြင့် ညွှန်းပါတယ်။
 
-```
-PUE = Total Data Center Energy
-      ─────────────────────────
-       IT Equipment Energy
-```
+**Q3. PUE = 1.2 ဆိုတာ ဘာကိုဆိုလိုသလဲ?**
+Answer: IT equipment က energy 1 unit သုံးတိုင်း Data Center တစ်ခုလုံးက total energy 1.2 units သုံးပါတယ်။ IT Energy = 1.0, Overhead = 0.2 (IT energy ရဲ့ 20%), Total Energy = 1.2 ဖြစ်ပါတယ်။
 
-**Q3. What does a lower PUE indicate?**
-Answer: A lower PUE generally indicates better data center energy efficiency because less energy is being used for non-IT overhead.
+**Q4. PUE = 2.0 ဆိုတာ ဘာကိုဆိုလိုသလဲ?**
+Answer: IT energy 1 unit အတွက် total facility က 2 units သုံးပါတယ်။ IT Energy = 1.0, Overhead = 1.0, Total Energy = 2.0 ဖြစ်ပြီး PUE 1.2 ထက် energy efficiency ပိုနည်းပါတယ်။
 
-**Q4. What does PUE = 1.2 mean?**
-For every 1 unit of energy consumed by IT equipment, the data center consumes 1.2 units of total energy. Therefore, the overhead is: 1.2 − 1.0 = 0.2, or 20% of the IT energy.
-
-**Q5. What does PUE = 2.0 mean?**
-For every 1 unit of IT energy, the total facility consumes 2 units. Therefore: IT Energy = 1.0, Overhead = 1.0, Total Energy = 2.0.
-
-**Q6. Is PUE = 1.0 possible in a practical data center?**
-No. PUE 1.0 is a theoretical ideal because real data centers require additional energy for cooling, power distribution, UPS, lighting, security, monitoring, and other facility systems.
+**Q5. လက်တွေ့ Data Center မှာ PUE = 1.0 ရနိုင်သလား?**
+Answer: မရနိုင်ပါဘူး။ PUE 1.0 က theoretical ideal ဖြစ်ပြီး Data Center တွေမှာ cooling, power distribution, UPS, lighting, security, monitoring စတဲ့ facility systems အတွက် ထပ်ဆောင်း energy လိုအပ်ပါတယ်။
 
 **Exam Shortcut**
 
 - PUE = Power Usage Effectiveness
 - Formula: `PUE = Total Data Center Energy ÷ IT Equipment Energy`
-- Remember: Lower PUE = Better Energy Efficiency
-- PUE 1.2 → Highly Efficient · PUE 2.0 → Much More Overhead · PUE 1.0 → Theoretical Ideal
+- မှတ်ရန် — PUE နိမ့်လေလေ = Energy Efficiency ပိုကောင်းလေလေ
+- PUE 1.2 → Highly Efficient · PUE 2.0 → Overhead ပိုများ · PUE 1.0 → Theoretical Ideal
 
 **One-line Exam Answer**
-PUE measures data center energy efficiency by comparing total facility energy consumption with IT equipment energy consumption.
+PUE ဟာ total facility energy consumption နဲ့ IT equipment energy consumption ကို နှိုင်းယှဉ်ပြီး Data Center ရဲ့ energy efficiency ကို တိုင်းတာပါတယ်။
 
----
-
-## English Version — Data Center Energy Consumption and PUE
+## English Version
 
 ### 1. AI Workloads and Electricity Consumption
 
@@ -544,33 +536,22 @@ PUE should not be interpreted as a percentage. For example, PUE = 1.2 does not m
 
 A PUE of 1.2 means: For every 1 unit of IT energy, the facility consumes 1.2 units of total energy.
 
-### 15. Exam Preparation
+### Self-Check Questions (with answers)
 
-**Q1. What does PUE stand for?**
-Answer: PUE stands for Power Usage Effectiveness.
+**Q1. What is PUE, and what is its formula?**
+Answer: PUE = Power Usage Effectiveness. It is a metric that compares the total energy consumed by a data center with the energy consumed by its IT equipment. `PUE = Total Data Center Energy ÷ IT Equipment Energy`
 
-**Q2. What is PUE?**
-Answer: PUE is a metric that compares total data center energy consumption with the energy consumed by IT equipment.
-
-**Q3. What is the PUE formula?**
-
-```
-PUE = Total Data Center Energy
-      ─────────────────────────
-       IT Equipment Energy
-```
-
-**Q4. What does a lower PUE indicate?**
+**Q2. What does a lower PUE indicate?**
 Answer: A lower PUE generally indicates better data center energy efficiency because less energy is being used for non-IT overhead.
 
-**Q5. What does PUE = 1.2 mean?**
-For every 1 unit of energy consumed by IT equipment, the data center consumes 1.2 units of total energy. Therefore: IT Energy = 1.0, Overhead = 0.2, Total Energy = 1.2.
+**Q3. What does PUE = 1.2 mean?**
+Answer: For every 1 unit of energy consumed by IT equipment, the data center consumes 1.2 units of total energy. IT Energy = 1.0, Overhead = 0.2 (20% of the IT energy), Total Energy = 1.2.
 
-**Q6. What does PUE = 2.0 mean?**
-For every 1 unit of IT energy, the total facility consumes 2 units. IT Energy = 1.0, Overhead = 1.0, Total Energy = 2.0.
+**Q4. What does PUE = 2.0 mean?**
+Answer: For every 1 unit of IT energy, the total facility consumes 2 units: IT Energy = 1.0, Overhead = 1.0, Total Energy = 2.0. PUE 2.0 is less energy-efficient than PUE 1.2.
 
-**Q7. Can a real data center have PUE = 1.0?**
-PUE 1.0 is a theoretical ideal. Real data centers require energy for cooling, power distribution, UPS, lighting, security, monitoring, and other facility systems.
+**Q5. Can a real data center have PUE = 1.0?**
+Answer: No. PUE 1.0 is a theoretical ideal. Real data centers require energy for cooling, power distribution, UPS, lighting, security, monitoring, and other facility systems.
 
 **Exam Shortcut**
 
@@ -581,3 +562,12 @@ PUE 1.0 is a theoretical ideal. Real data centers require energy for cooling, po
 
 **One-Line Exam Answer**
 PUE measures data center energy efficiency by comparing total facility energy consumption with IT equipment energy consumption.
+
+---
+
+## Technical review notes
+
+- Corrections made: English-language headings and full English sentences that had been left inside the Burmese body (the PUE definition quote in section 6, the PUE 1.2 explanation in section 14, and English section headings in sections 3, 5, 6, 12, 13, 14) were rendered in Burmese with technical terms kept in English; meaning unchanged.
+- Correction made: the original per-language "Exam Preparation" blocks (6 questions on the Burmese side, 7 on the English side) were consolidated into 5 self-check questions per WRITING_RULES; all facts from the original answers are preserved in the merged answers, and the Exam Shortcut / one-line answer blocks are kept intact.
+- Needs verification: the 50/50 (traditional) and 90/10 (modern) power-distribution splits are illustrative course figures, not measured universal values — flagged inline in both versions; do not cite them as benchmarks without facility-specific data.
+- Needs verification: the PUE 1.2 / 2.0 / 1.0 scale labels ("Highly Efficient", "Less Efficient", "Theoretical Ideal") are pedagogical simplifications of the lower-is-better principle, not certification thresholds.

@@ -1,4 +1,4 @@
-# Module — NCCL: Multi-GPU and Multi-Node Communication
+# Module 22 — NCCL: Multi-GPU and Multi-Node Communication
 
 > Part IV · Course Module 22 (NCCL) — topic notes
 

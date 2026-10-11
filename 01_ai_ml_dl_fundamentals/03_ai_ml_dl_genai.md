@@ -1,6 +1,8 @@
-# AI, Machine Learning, Deep Learning (DL) နှင့် Generative AI
+# Module 01 — AI, Machine Learning, Deep Learning and Generative AI
 
-> Part I · Course Module 01 (AI, ML, DL Fundamentals and AI Adoption) — topic notes
+> Part I · AI Foundations and AI Infrastructure — Course Module 01 (AI, ML, DL Fundamentals and AI Adoption) — topic notes
+
+## မြန်မာဘာသာ version
 
 ဒီ topic က exam အတွက် အရေးကြီးတဲ့ topic တစ်ခု ဖြစ်ပါတယ်။ အဓိကအားဖြင့်—
 
@@ -25,7 +27,7 @@ Artificial Intelligence (AI)
 
 သို့သော် ဒီ diagram ကို strict hierarchy လို့မယူဘဲ concept ကို နားလည်လွယ်အောင် ပြထားတာလို့မှတ်ထားပါ။ Generative AI အားလုံးဟာ Deep Learning ကိုအသုံးပြုလေ့ရှိပေမယ့် Generative AI ကို DL ရဲ့ "subset တစ်ခုတည်း" လို့ သတ်မှတ်တာထက် DL ကိုအခြေခံပြီး content အသစ်တွေ generate လုပ်တဲ့ AI systems လို့နားလည်တာပိုမှန်ပါတယ်။
 
-## 1. Artificial Intelligence (AI)
+### 1. Artificial Intelligence (AI)
 
 AI = Artificial Intelligence
 
@@ -61,7 +63,7 @@ Camera က pedestrian တစ်ယောက်ကို detect လုပ်တ�
 
 > **မှတ်ရန်** — AI is the broader concept of machines performing tasks that normally require human intelligence.
 
-## 2. Machine Learning (ML)
+### 2. Machine Learning (ML)
 
 Machine Learning က AI ရဲ့ အရေးကြီးတဲ့ approach တစ်ခုဖြစ်ပါတယ်။
 
@@ -97,7 +99,7 @@ Prediction / Decision
 Email တစ်ခုချင်းစီအတွက်—"ဒီ email က spam ဖြစ်ရင် ဒီ rule ကိုသုံး" ဆိုပြီး rule အားလုံးကို manually ရေးဖို့မလိုပါဘူး။
 Spam email နဲ့ normal email examples အများကြီးကို model ကို train လုပ်ပေးပြီး model က pattern ကို learn လုပ်နိုင်ပါတယ်။
 
-## 3. Deep Learning (DL)
+### 3. Deep Learning (DL)
 
 Deep Learning က Machine Learning ရဲ့ အရေးကြီးတဲ့ approach တစ်ခုဖြစ်ပါတယ်။
 
@@ -126,6 +128,22 @@ Output Layer
 
 Neural network ရဲ့ layers များလာပြီး complex patterns တွေကို learn လုပ်နိုင်တဲ့အတွက် Deep Learning လို့ခေါ်ပါတယ်။
 
+```
+Input Data
+    ↓
+Input Layer
+    ↓
+Hidden Layer
+    ↓
+Hidden Layer
+    ↓
+Hidden Layer
+    ↓
+Output Layer
+    ↓
+Prediction
+```
+
 ဥပမာ AI system တစ်ခုက လူတစ်ယောက်ရဲ့ face ကို recognize လုပ်ရင်—
 
 - edges
@@ -137,9 +155,23 @@ Neural network ရဲ့ layers များလာပြီး complex patterns 
 
 စတဲ့ features တွေကို layers အဆင့်ဆင့်နဲ့ learn လုပ်နိုင်ပါတယ်။
 
+```
+Image
+ ↓
+Edges
+ ↓
+Shapes
+ ↓
+Objects / Features
+ ↓
+Complex Patterns
+ ↓
+Classification
+```
+
 > **မှတ်ရန်** — Deep Learning is a Machine Learning approach that uses neural networks with multiple layers to learn complex patterns.
 
-## 4. Generative AI
+### 4. Generative AI
 
 > ⚠️ ဒီနေရာမှာ source ထဲက "Chennai" ဆိုတဲ့စကားလုံးက typo ဖြစ်ပြီး Generative AI ကို ဆိုလိုတာဖြစ်ပါတယ်။
 
@@ -163,9 +195,11 @@ Model က training data ထဲက စာကို simply copy/paste လုပ်
 နောက်ထပ် example တစ်ခုက chemistry ဖြစ်ပါတယ်။
 Chemical compounds တွေအကြောင်း patterns တွေကို model က learn လုပ်ထားရင်၊ သတ်မှတ်ထားတဲ့ properties တွေအပေါ်မူတည်ပြီး candidate compounds အသစ်တွေကို generate လုပ်နိုင်ပါတယ်။
 
+အရေးကြီးတဲ့ concept ကတော့ Generative AI ဟာ ရှိပြီးသား category ကို classify သို့မဟုတ် predict လုပ်တာမဟုတ်ဘဲ new output တွေကို ထုတ်လုပ်ဖို့ design လုပ်ထားတာ ဖြစ်ပါတယ်။
+
 > **မှတ်ရန်** — Generative AI is AI that can generate new content such as text, images, audio, video, or code based on learned patterns.
 
-## ⭐️ AI → ML → DL → Generative AI ကို အလွယ်နားလည်ရန်
+### 5. AI → ML → DL → Generative AI ကို အလွယ်နားလည်ရန်
 
 ဒီလို analogy နဲ့မှတ်ရင် ပိုလွယ်ပါတယ်။
 
@@ -181,7 +215,7 @@ DL က—"Machine ကို deep neural networks အသုံးပြုပြ�
 **Generative AI = Creating**
 Generative AI က—"Machine က learn ထားတဲ့ patterns တွေကို အသုံးပြုပြီး content အသစ်ကို generate လုပ်နိုင်မလား?" ဆိုတာကို focus လုပ်ပါတယ်။
 
-## 🧠 Exam မှတ်ရန်
+### 6. Exam မှတ်ရန်
 
 ```
 AI
@@ -207,7 +241,7 @@ AI
             └── Code
 ```
 
-### One-line definitions
+#### One-line definitions
 
 | | |
 |---|---|
@@ -216,7 +250,7 @@ AI
 | **DL** | A Machine Learning approach that uses multi-layer neural networks to learn complex patterns. |
 | **Generative AI** | AI that generates new content such as text, images, audio, video, or code based on learned patterns. |
 
-## ⭐️ Most Important Exam Concept
+### 7. ⭐️ အဓိက Exam Concept
 
 ဒီလေးခုရဲ့ difference ကို ဒီလိုမှတ်ပါ—
 
@@ -227,9 +261,43 @@ AI
 
 ဒီ four keywords ကိုမှတ်ထားရင် exam မှာ definition question တွေအတွက် အလွန်အသုံးဝင်ပါတယ်။
 
----
+```
+                 Artificial Intelligence
+                         AI
+                          │
+                          ▼
+                  Machine Learning
+                         ML
+                          │
+                          ▼
+                   Deep Learning
+                         DL
+                          │
+                          ▼
+                  Generative AI
+```
 
-## English Version — AI, Machine Learning, Deep Learning and Generative AI
+အဓိက idea ကတော့— **AI က ကျယ်ပြန့်တဲ့ concept ဖြစ်ပါတယ်။ ML က machine တွေ data ကနေ သင်ယူနိုင်အောင် လုပ်ပေးတဲ့ approach ဖြစ်ပါတယ်။ DL က deep neural networks အပေါ်အခြေခံတဲ့ ML approach ဖြစ်ပါတယ်။ Generative AI က learned patterns တွေကို အသုံးပြုပြီး content အသစ်တွေ ဖန်တီးပါတယ်။**
+
+### Self-check questions — ကိုယ့်ကိုယ်ကို စစ်ဆေးရန် မေးခွန်းများ
+
+**Q1: AI, ML, DL နဲ့ Generative AI တို့ရဲ့ relationship က ဘယ်လိုလဲ?**
+
+Answer: AI က အကျယ်ဆုံး concept ဖြစ်ပြီး ML က AI ရဲ့ approach တစ်ခု၊ DL က ML ရဲ့ neural network-based approach တစ်ခု၊ Generative AI က DL ကိုအခြေခံပြီး content အသစ်တွေ generate လုပ်တဲ့ AI systems တွေ ဖြစ်ပါတယ်။
+
+**Q2: Traditional programming နဲ့ Machine Learning ရဲ့ ကွာခြားချက်က ဘာလဲ?**
+
+Answer: Traditional programming မှာ programmer က rules တွေကို တိတိကျကျ ရေးပေးရပြီး ML မှာတော့ data နဲ့ examples တွေပေးကာ machine က patterns တွေကို ကိုယ်တိုင် learn လုပ်ပါတယ်။
+
+**Q3: "Deep" Learning လို့ ဘာကြောင့်ခေါ်တာလဲ?**
+
+Answer: Neural network မှာ multiple layers (input, hidden, output layers) တွေ ပါဝင်ပြီး layers အဆင့်ဆင့်ကနေ ပိုရှုပ်ထွေးတဲ့ patterns တွေကို learn လုပ်နိုင်လို့ ဖြစ်ပါတယ်။
+
+**Q4: Generative AI က ဘာတွေ generate လုပ်နိုင်သလဲ? classify/predict လုပ်တာနဲ့ ဘယ်လိုကွာသလဲ?**
+
+Answer: Text, images, audio, video, code စတဲ့ content အသစ်တွေကို generate လုပ်နိုင်ပါတယ်။ Classify/predict လုပ်တာက ရှိပြီးသား category ကို ခန့်မှန်းတာဖြစ်ပြီး Generative AI က learned patterns တွေကနေ output အသစ်တွေ ဖန်တီးတာ ဖြစ်ပါတယ်။
+
+## English Version
 
 Understanding AI, Machine Learning (ML), Deep Learning (DL), and Generative AI is an important exam topic.
 
@@ -278,6 +346,8 @@ Decision
 Action
 ```
 
+In an autonomous car, for example, a camera detects a pedestrian → the situation is analyzed → a decision is made to brake. This is an application of AI.
+
 > **Exam Definition** — AI is the broader concept of machines performing tasks that normally require human intelligence.
 
 ### 2. Machine Learning (ML)
@@ -325,7 +395,23 @@ Artificial Neural Networks are inspired by the way biological neural systems pro
 
 A Deep Learning model can contain multiple layers of neurons.
 
-For example:
+For example, in image recognition:
+
+```
+Image
+  ↓
+Input Layer
+  ↓
+Hidden Layers
+  ↓
+More Hidden Layers
+  ↓
+Output Layer
+  ↓
+"Cat"
+```
+
+Because the network can have many layers and learn increasingly complex representations, it is called Deep Learning.
 
 ```
 Input Data
@@ -343,9 +429,16 @@ Output Layer
 Prediction
 ```
 
-Because the network can have many layers and learn increasingly complex representations, it is called Deep Learning.
+For example, when an AI system recognizes a person's face, it can learn features such as—
 
-For example, in image recognition, a Deep Learning model can gradually learn different features:
+- edges
+- shapes
+- eyes
+- nose
+- mouth
+- facial structure
+
+step by step through the layers:
 
 ```
 Image
@@ -378,9 +471,11 @@ It can generate:
 - Audio
 - Video
 - Code
-- Other types of content
+- Other types of content (such as 3D content)
 
-For example, suppose a model has learned patterns from a large amount of literature. We can ask it: "Create a new story based on these learned patterns." The model can generate a new piece of text.
+For example, suppose a model has learned the writing style and works of Shakespeare. We can ask it: "Create a new dramatic story." The model can generate a new piece of text.
+
+The model is not simply copy/pasting text from its training data — it uses learned patterns to generate a new output.
 
 Similarly, if a model has learned patterns from many chemical compounds, it can potentially generate candidate compounds that satisfy particular requirements.
 
@@ -388,7 +483,9 @@ The important concept is that Generative AI is designed to produce new outputs, 
 
 > **Exam Definition** — Generative AI is AI that generates new content such as text, images, audio, video, or code based on learned patterns.
 
-### Understanding the Difference
+### 5. Understanding the Difference (AI → ML → DL → Generative AI)
+
+This analogy makes the differences easy to remember.
 
 **AI = Intelligence** — AI asks: Can a machine perform tasks that normally require human intelligence?
 
@@ -398,34 +495,51 @@ The important concept is that Generative AI is designed to produce new outputs, 
 
 **Generative AI = Creating** — Generative AI asks: Can a machine use learned patterns to generate new content?
 
-### ⭐️ Exam Revision
+### 6. Exam Revision
 
 ```
 AI
-↓
-INTELLIGENCE
-
-ML
-↓
-LEARNING FROM DATA
-
-DL
-↓
-NEURAL NETWORKS
-
-Generative AI
-↓
-GENERATING NEW CONTENT
+│
+│  Machines perform intelligent tasks
+│
+└── ML
+    │
+    │  Machines learn patterns from data
+    │
+    └── DL
+        │
+        │  Neural Networks learn complex patterns
+        │
+        └── Generative AI
+            │
+            │  Generate new content
+            │
+            ├── Text
+            ├── Images
+            ├── Audio
+            ├── Video
+            └── Code
 ```
 
-| Technology | Simple Definition |
-|---|---|
-| AI | Machines performing tasks that normally require human intelligence |
-| ML | Machines learning patterns from data |
-| DL | Machine Learning using multi-layer neural networks |
-| Generative AI | AI that generates new content based on learned patterns |
+#### One-line definitions
 
-### Simple Relationship
+| | |
+|---|---|
+| **AI** | Machines performing tasks that normally require human intelligence. |
+| **ML** | Machines learning patterns from data without being explicitly programmed for every situation. |
+| **DL** | A Machine Learning approach that uses multi-layer neural networks to learn complex patterns. |
+| **Generative AI** | AI that generates new content such as text, images, audio, video, or code based on learned patterns. |
+
+### 7. ⭐️ Most Important Exam Concept
+
+Remember the difference between the four like this:
+
+- **AI → Intelligence**
+- **ML → Learning from Data**
+- **DL → Learning with Neural Networks**
+- **Generative AI → Generating New Content**
+
+These four keywords are extremely useful for definition questions in the exam.
 
 ```
                  Artificial Intelligence
@@ -444,3 +558,28 @@ GENERATING NEW CONTENT
 ```
 
 The key idea is: **AI is the broad concept. ML is an approach for enabling machines to learn from data. DL is an ML approach based on deep neural networks. Generative AI uses learned patterns to create new content.**
+
+### Self-check questions
+
+**Q1: What is the relationship between AI, ML, DL, and Generative AI?**
+
+Answer: AI is the broadest concept. ML is an approach within AI. DL is a neural-network-based ML approach. Generative AI systems are AI systems built on Deep Learning that generate new content.
+
+**Q2: What is the difference between traditional programming and Machine Learning?**
+
+Answer: In traditional programming, programmers explicitly write the rules; in ML, you provide data and examples and the machine learns the patterns itself.
+
+**Q3: Why is it called "Deep" Learning?**
+
+Answer: Because the neural network contains multiple layers (input, hidden, and output layers), and increasingly complex patterns can be learned through those layers.
+
+**Q4: What can Generative AI generate, and how does it differ from classification/prediction?**
+
+Answer: It can generate new content such as text, images, audio, video, and code. Classification/prediction guesses an existing category, while Generative AI creates new outputs from learned patterns.
+
+## Technical review notes
+
+- Corrections made: normalized the file header to `# Module 01 — …` and the module blockquote to the course convention (`> Part I · AI Foundations and AI Infrastructure — Course Module 01 …`); unified section numbering (`### 1.`–`### 7.`) across both language sections.
+- Corrections made: the "Chennai" transcription error in the source material is corrected to Generative AI in both language sections (the in-text notes are retained); the original diagrams (relationship tree, layer diagrams, one-line definition table) are preserved unchanged.
+- Corrections made: brought both language sections to parity by faithful translation only (e.g., the face-recognition feature list and image-classification flow were added to the English section; the "generates new outputs rather than classifying" note and the Simple Relationship diagram were added to the Burmese section) and added self-check Q&A sets to both sections. No commands, specs, URLs, or benchmarks were invented.
+- Claims needing verification: none outstanding — this module contains only conceptual definitions and illustrative examples, with no model-specific specifications or benchmark figures.

@@ -1,6 +1,8 @@
 # Module — Ethernet vs InfiniBand in AI-Centric Data Centers
 
-> Part II · Networking — topic notes
+> Part II · GPU Interconnects, Networking and Data Movement — topic notes
+
+## မြန်မာဘာသာ version
 
 ## 1. AI Data Center မှာ Ethernet နဲ့ InfiniBand
 
@@ -145,8 +147,8 @@ Source မှာ Ethernet နဲ့ InfiniBand နှစ်ခုလုံးဟ
 အဓိကက speed တစ်ခုတည်း မဟုတ်ပါဘူး။ Network ရဲ့—Latency, Protocol overhead, CPU involvement, Reliability, Congestion behavior, Architecture, Workload suitability တို့ကလည်း အရေးကြီးပါတယ်။
 
 **Exam Point**
-- Ethernet can also provide very high bandwidth.
-- InfiniBand's advantage is not simply "speed"; its architecture is designed for high-performance, low-latency communication.
+- Ethernet ကလည်း very high bandwidth ကို ပေးနိုင်ပါတယ်။
+- InfiniBand ရဲ့ အားသာချက်က "speed" တစ်ခုတည်း မဟုတ်ပါဘူး။ ၎င်းရဲ့ architecture ကို high-performance, low-latency communication အတွက် design လုပ်ထားခြင်း ဖြစ်ပါတယ်။
 
 ## 12. Latency
 
@@ -284,18 +286,18 @@ GPU/node communication performance က consistent ဖြစ်ဖို့ အ�
 
 ## 21. The Most Important Concept
 
-Don't memorize: "Ethernet = Slow" and "InfiniBand = Fast" — that's too simplistic.
+"Ethernet = Slow"၊ "InfiniBand = Fast" ဆိုပြီး မမှတ်သင့်ပါဘူး — အရမ်းရိုးရှင်းလွန်းပါတယ်။
 
-Instead remember:
+ဒီအစား ဒီလို မှတ်ပါ—
 
 - **Ethernet** — General-purpose + flexible + widely available + cost-effective
 - **InfiniBand** — Specialized + low latency + high performance + HPC/AI optimized
 
-Both can provide very high bandwidth. The important difference is how the networking system is designed and optimized, not just the link speed.
+နှစ်ခုလုံးက very high bandwidth ကို ပေးနိုင်ပါတယ်။ အရေးကြီးတဲ့ ကွာခြားချက်က link speed တစ်ခုတည်း မဟုတ်ဘဲ networking system ကို ဘယ်လို design နဲ့ optimize လုပ်ထားသလဲ ဆိုတာ ဖြစ်ပါတယ်။
 
 ## 22. When Should You Use Ethernet?
 
-Ethernet is a good choice when you need:
+Ethernet က အောက်ပါလိုအပ်ချက်တွေ ရှိတဲ့အခါ ကောင်းမွန်တဲ့ ရွေးချယ်မှု ဖြစ်ပါတယ်—
 
 - General-purpose networking
 - Broad compatibility
@@ -306,11 +308,11 @@ Ethernet is a good choice when you need:
 - Data center networking
 - Management networking
 
-In AI data centers, Ethernet can also be used for high-performance workloads, particularly with technologies such as RoCE.
+AI data center တွေမှာ Ethernet ကို RoCE လို technology တွေနဲ့ high-performance workload တွေအတွက်လည်း အသုံးပြုနိုင်ပါတယ်။
 
 ## 23. When Should You Use InfiniBand?
 
-InfiniBand is particularly attractive when you need:
+အောက်ပါလိုအပ်ချက်တွေ ရှိတဲ့အခါ InfiniBand က အထူးသင့်တော်ပါတယ်—
 
 - Extremely low latency
 - High throughput
@@ -323,7 +325,7 @@ InfiniBand is particularly attractive when you need:
 
 ## 24. AI Data Center Example
 
-A data center does not necessarily need to choose only one technology. You could have a design like:
+Data center တစ်ခုက technology တစ်မျိုးတည်းကိုပဲ ရွေးချယ်ရမယ်လို့ မဆိုလိုပါဘူး။ အောက်ပါ design မျိုး ရှိနိုင်ပါတယ်—
 
 ```
                  AI DATA CENTER
@@ -338,16 +340,16 @@ A data center does not necessarily need to choose only one technology. You could
    Networking        Fabric         Networking
 ```
 
-- **Ethernet** could be used for: Management, External connectivity, General data center networking, User/application access
-- **InfiniBand** could be used for: GPU-to-GPU communication, Distributed AI training, HPC workloads, High-performance cluster interconnect
+- **Ethernet** ကို အောက်ပါတွေအတွက် အသုံးပြုနိုင်ပါတယ်— Management, External connectivity, General data center networking, User/application access
+- **InfiniBand** ကို အောက်ပါတွေအတွက် အသုံးပြုနိုင်ပါတယ်— GPU-to-GPU communication, Distributed AI training, HPC workloads, High-performance cluster interconnect
 
-This is why the two technologies can complement each other.
+ဒါကြောင့် ဒီ technology နှစ်ခုက တစ်ခုနဲ့တစ်ခု ဖြည့်စွက်ပေးနိုင်ပါတယ်။
 
 ## 25. Exam Shortcut
 
-**Ethernet** — Think: Highway → General purpose · Flexible · Widely available · Lower cost · TCP/IP · Enterprise / Internet / Data Center · Can support very high bandwidth
+**Ethernet** — Highway လို မှတ်ပါ → General purpose · Flexible · Widely available · Lower cost · TCP/IP · Enterprise / Internet / Data Center · Very high bandwidth ကို support လုပ်နိုင်
 
-**InfiniBand** — Think: Bullet Train → Specialized · High performance · Ultra-low latency · RDMA · HPC · AI clusters · Specialized hardware/software
+**InfiniBand** — Bullet Train လို မှတ်ပါ → Specialized · High performance · Ultra-low latency · RDMA · HPC · AI clusters · Specialized hardware/software
 
 ## 26. One-Line Memory Trick
 
@@ -357,7 +359,7 @@ This is why the two technologies can complement each other.
 
 ## 27. Final Exam Summary
 
-**Ethernet** — General-purpose network technology · Flexible · Widely deployed · Lower cost · Broad compatibility · TCP/IP · LAN/WAN/Data Center/Internet · High-speed versions available
+**Ethernet** — General-purpose network technology · Flexible · Widely deployed · Lower cost · Broad compatibility · TCP/IP · LAN/WAN/Data Center/Internet · High-speed versions ရှိနိုင်
 
 **InfiniBand** — High-performance interconnect technology · Very low latency · High throughput · RDMA-based communication · Specialized hardware/software · HPC · AI clusters · Distributed training · Predictable high-performance communication
 
@@ -385,11 +387,19 @@ This is why the two technologies can complement each other.
      Enterprise / DC         AI / HPC / Clusters
 ```
 
-**Remember:**
+**မှတ်ထားရန်—**
 - Ethernet = Flexibility + Compatibility + General Networking
 - InfiniBand = Performance + Low Latency + Specialized AI/HPC Networking
 
-## English Version — Ethernet vs InfiniBand in AI-Centric Data Centers
+## Self-Check Questions (အဖြေများပါဝင်သည်)
+
+1. **"Ethernet = Slow, InfiniBand = Fast" ဆိုတဲ့ အမှတ်အသား ဘာကြောင့် မှားသလဲ?** — Ethernet ကလည်း very high bandwidth ပေးနိုင်ပါတယ် (source မှာ up to 400 Gbps ဥပမာပြထား)။ ကွာခြားချက်က link speed မဟုတ်ဘဲ latency, protocol overhead, CPU involvement, congestion behavior, architecture စတာတွေ ဖြစ်ပါတယ်။
+2. **RDMA ဆိုတာ ဘာလဲ၊ InfiniBand အတွက် ဘာကြောင့် အရေးကြီးသလဲ?** — Remote Direct Memory Access ဖြစ်ပြီး CPU involvement အနည်းဆုံးနဲ့ memory-to-memory data transfer လုပ်နိုင်ခြင်းကြောင့် low latency, high performance ကို support ပေးနိုင်ပါတယ်။
+3. **Ethernet ကို ဘယ်အခါ ရွေးချယ်သင့်သလဲ?** — General-purpose networking, broad compatibility, lower cost, large ecosystem လိုအပ်တဲ့အခါ ဖြစ်ပြီး RoCE ကဲ့သို့ technology တွေနဲ့ high-performance workload အတွက်လည်း အသုံးပြုနိုင်ပါတယ်။
+4. **InfiniBand ကို ဘယ်အခါ ရွေးချယ်သင့်သလဲ?** — Extremely low latency, high throughput, predictable communication လိုအပ်ပြီး large GPU clusters, distributed AI training, HPC, supercomputing တွေအတွက် ဖြစ်ပါတယ်။
+5. **Data center တစ်ခုထဲမှာ နှစ်ခုလုံးကို အတူတွဲ အသုံးပြုနိုင်သလား?** — ရပါတယ်။ Ethernet က management/general networking အတွက်၊ InfiniBand က GPU fabric/compute အတွက် ဆိုသလို complementary အနေနဲ့ အသုံးပြုနိုင်ပါတယ်။
+
+## English Version
 
 ## 1. Ethernet and InfiniBand in AI Data Centers
 
@@ -775,3 +785,19 @@ In other words — Ethernet is a flexible highway that can carry all kinds of tr
 **Remember:**
 - Ethernet = Flexibility + Compatibility + General Networking
 - InfiniBand = Performance + Low Latency + Specialized AI/HPC Networking
+
+## Self-Check Questions (with answers)
+
+1. **Why is "Ethernet = Slow, InfiniBand = Fast" wrong?** — Ethernet can also provide very high bandwidth (the source gives up to 400 Gbps as an example). The real difference is latency, protocol overhead, CPU involvement, congestion behavior, and architecture — not link speed alone.
+2. **What is RDMA and why does it matter for InfiniBand?** — Remote Direct Memory Access: memory-to-memory data transfer with minimal CPU involvement, which supports low latency and high performance.
+3. **When should you choose Ethernet?** — When you need general-purpose networking, broad compatibility, lower cost, and a large ecosystem; with technologies such as RoCE it can also serve high-performance workloads.
+4. **When should you choose InfiniBand?** — When you need extremely low latency, high throughput, and predictable communication — large GPU clusters, distributed AI training, HPC, and supercomputing.
+5. **Can both be used in one data center?** — Yes, complementarily — for example Ethernet for management/general networking and InfiniBand for the GPU fabric/compute.
+
+## Technical review notes
+
+- Structure normalized to the bilingual convention: blockquote updated to the full Part II title ("GPU Interconnects, Networking and Data Movement"), `## မြန်မာဘာသာ version` and `## English Version` section headers added, and self-check questions with concise answers appended to each language section.
+- English-only sections of the former mixed body (sections 21–27) and English fragments in sections 11, 22–25 were translated into Burmese; the unchanged English originals remain in the English section. Comparison tables and ASCII diagrams are preserved verbatim in both sections.
+- Correction made (already present in the source text and preserved): the source transcript's "RDM" is corrected to the standard term **RDMA — Remote Direct Memory Access**.
+- Needs verification: the latency examples "~10–100 microseconds" (Ethernet) and "~1–2 microseconds" (InfiniBand) and the "up to 400 Gbps" figure are source examples only — actual values depend on hardware, topology, workload, and configuration (flagged in the text itself).
+- No commands, benchmark numbers beyond the source examples above, or compatibility claims were added.
