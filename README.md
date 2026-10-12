@@ -113,7 +113,6 @@ NVIDIA AI infrastructure concepts and related certification topics.
 - **မြန်မာဘာသာ version အပြည့်** + **English Version အပြည့်** (section အမှတ်အသား နှစ်ဖက် တူညီ)
 - ပြဿနာ → အဓိကအယူအဆ → နှိုင်းယှဉ်ခြင်း → ဥပမာ/configuration → သတိပြုရန် → ကိုယ်တိုင်စစ်ဆေးမေးခွန်းများ (self-check Q&A) progression
 - **Mermaid diagram ပုံများ** (GitHub/Obsidian/VS Code တွင် ပုံအဖြစ် render ဖြစ်) — ပုံတိုင်းနောက် ပုံရှင်းလင်းချက် (figure walkthrough) ပါ
-- **Real hardware photos** (`assets/hardware/`) — DGX, GPU cards, NICs, DPUs, switches များ
 - **Technical review notes** — ပြင်ဆင်ပြီး အချက်များ နှင့် verify လုပ်ရန် ကျန်အချက်များ
 
 ## Visual assets
@@ -121,7 +120,6 @@ NVIDIA AI infrastructure concepts and related certification topics.
 | Type | နေရာ / Location | မှတ်ချက် |
 |---|---|---|
 | Mermaid figures | module ဖိုင်များအတွင်း inline | Figure 1, 2, ... နံပါတ်ပေး |
-| Real photos | [`assets/hardware/`](assets/hardware/) | NVIDIA official product images ([`IMAGES.md`](assets/hardware/IMAGES.md) တွင် source) |
 
 ## Suggested Study Method
 
@@ -140,11 +138,9 @@ Module တစ်ခုချင်းစီကို အောက်ပါအစ
 
 chapter များ ရေးသား/ပြင်ဆင်ရာတွင် [`WRITING_RULES.md`](WRITING_RULES.md) ကို လိုက်နာပါ —
 natural Burmese + English technical terms၊ problem → concept → comparison →
-configuration → cautions → self-check progression၊ visual aids (Mermaid figures +
-real photos + attributed third-party diagrams) စည်းမျဉ်းများ၊ version-dependent
+configuration → cautions → self-check progression၊ visual aids (Mermaid figures) စည်းမျဉ်းများ၊ version-dependent
 claims များ flag ပြုလုပ်ခြင်း၊ chapter အဆုံး "Technical review notes" ပါဝင်ခြင်း။
 
 ## Credits
 
 - Course content — မူရင်း source content များမှ ပြန်လည်ရေးသားခြင်း + public NVIDIA documentation များမှ ဖြည့်စွက်ခြင်း
-- Hardware photos — NVIDIA official product images (educational use; image rights © NVIDIA)

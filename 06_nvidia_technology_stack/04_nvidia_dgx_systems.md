@@ -40,19 +40,6 @@ flowchart TD
 - အောက်က components ခုနစ်ခုကို တစ်ခုချင်းစီ ကြည့်ပါ — CPU က control အလုပ်၊ GPU က AI acceleration၊ GPU Interconnect က GPU ကြား ဆက်သွယ်ရေး ဖြစ်ပါတယ်။
 - Memory၊ Networking၊ Storage နဲ့ NVIDIA Software Stack တွေ မပါဘဲ DGX ဟာ ပြည့်စုံတဲ့ AI platform မဖြစ်နိုင်ပါဘူး။
 
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA DGX system](../assets/hardware/dgx-system.jpg)
-
-**ဓာတ်ပုံရှင်းလင်းချက် (Photo walkthrough):**
-- ပုံထဲမှာ NVIDIA DGX system တစ်လုံးကို မြင်ရပါတယ် — ဒါဟာ data-center rack ထဲ တပ်ဆင်ရတဲ့ integrated server အမျိုးအစား ဖြစ်ပါတယ်။
-- အပြင်ဘက်ကနေ CPU၊ GPU များ၊ memory၊ NVMe storage နဲ့ networking စတဲ့ components တွေ မမြင်ရပေမဲ့ ဒီ chassis တစ်ခုတည်းထဲမှာ အားလုံး ပေါင်းစပ်ပါဝင်နေပါတယ်။
-- အပေါ်က Figure 1 မှာ ပြထားတဲ့ components ခုနစ်ခုစလုံး ဒီစက်ထဲမှာ ပါဝင်တာကြောင့် "integrated AI platform" ဆိုတဲ့ အဓိပ္ပာယ်ကို ဒီပုံနဲ့ ယှဉ်မှတ်ထားနိုင်ပါတယ်။
-
-![သင်တန်းပုံ 1 (Training Slide 1): DGX definition](../assets/nca-aiio-slides/slide-076.jpg)
-
-**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training slide က DGX ရဲ့ အဓိပ္ပာယ်ကို ရှင်းပြထားပါတယ် — DGX ဟာ AI, Machine Learning, Deep Learning နဲ့ HPC workloads အတွက် ရည်ရွယ်ထုတ်လုပ်ထားတဲ့ integrated hardware and software platform family ဖြစ်ပါတယ်။ GPU ပါရုံ server တစ်လုံးထက် ပိုတယ်ဆိုတာကို အပေါ်က component စာရင်းနဲ့ ယှဉ်မှတ်ထားနိုင်ပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ## 2. DGX Systems ရဲ့ Evolution
 
 DGX Family ဟာ GPU Generations တွေ တိုးတက်လာတာနဲ့အမျှ CPU, GPU, Memory နဲ့ Interconnect Technologies တွေကိုလည်း တဖြည်းဖြည်း ပြောင်းလဲတိုးတက်လာခဲ့ပါတယ်။
@@ -161,12 +148,6 @@ Grace CPU ရဲ့ အဓိက Features တွေကတော့ —
 **Grace CPU မှာ Core ဘယ်လောက်ရှိသလဲ?** — NVIDIA Grace CPU တစ်ခုမှာ 72 Arm Neoverse V2 CPU Cores ပါဝင်တဲ့ Configuration ရှိပါတယ်။ Grace CPU Superchip ဆိုတာ CPU Chip နှစ်ခုကို ပေါင်းစပ်ထားတဲ့ သီးခြား Configuration ဖြစ်ပြီး 144 CPU Cores အထိ ရှိနိုင်ပါတယ်။
 
 Grace CPU အကြောင်းကို NVIDIA Grace CPU Superchip (https://www.nvidia.com/en-sg/data-center/grace-cpu-superchip/) မှာ ဆက်လက်လေ့လာနိုင်ပါတယ်။
-
-![သင်တန်းပုံ 2 (Training Slide 2): NVIDIA Grace CPU](../assets/nca-aiio-slides/slide-078.jpg)
-
-**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training slide က NVIDIA Grace CPU ကို မိတ်ဆက်ပြထားပါတယ် — GPU နဲ့ အတူ ထိရောက်စွာ အလုပ်လုပ်နိုင်ဖို့ ဒီဇိုင်းထုတ်ထားတဲ့ Arm-based data center CPU ဖြစ်ပါတယ်။ အပေါ်က feature စာရင်း (Arm Neoverse cores၊ LPDDR5X memory၊ NVLink-C2C) နဲ့ ယှဉ်မှတ်ထားနိုင်ပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 7. Grace Hopper Superchip
 
@@ -338,19 +319,6 @@ flowchart TD
 - Look at the seven components below one by one: the CPU handles control work, the GPU handles AI acceleration, and the GPU interconnect links the GPUs to each other.
 - Memory, networking, storage, and the NVIDIA software stack are all part of the platform — without them DGX would not be complete.
 
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA DGX system](../assets/hardware/dgx-system.jpg)
-
-**Photo walkthrough (ဓာတ်ပုံရှင်းလင်းချက်):**
-- The photo shows an NVIDIA DGX system — an integrated server designed to be installed in a data-center rack.
-- From the outside you cannot see the CPUs, GPUs, memory, NVMe storage, and networking, but all of them are combined inside this one chassis.
-- Because all seven components from Figure 1 live inside this machine, the photo is a good anchor for the phrase "integrated AI platform".
-
-![သင်တန်းပုံ 1 (Training Slide 1): DGX definition](../assets/nca-aiio-slides/slide-076.jpg)
-
-**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide gives the definition of DGX — an integrated hardware and software platform family built for AI, machine learning, deep learning, and HPC workloads. It reinforces the point above that a DGX is more than a server that simply contains GPUs.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ## 2. DGX Evolution
 
 | Period / Generation | Example | Key Characteristics |
@@ -453,12 +421,6 @@ Its features include:
 **How many cores?** — A Grace CPU configuration contains 72 Arm Neoverse V2 CPU cores. A Grace CPU Superchip combines two CPU chips and can provide 144 CPU cores.
 
 See NVIDIA Grace CPU Superchip (https://www.nvidia.com/en-sg/data-center/grace-cpu-superchip/).
-
-![သင်တန်းပုံ 2 (Training Slide 2): NVIDIA Grace CPU](../assets/nca-aiio-slides/slide-078.jpg)
-
-**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide introduces the NVIDIA Grace CPU — the Arm-based data-center CPU designed to work efficiently alongside GPUs. Match it with the feature list above (Arm Neoverse cores, LPDDR5X memory, NVLink-C2C).
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 7. Grace Hopper Superchip
 

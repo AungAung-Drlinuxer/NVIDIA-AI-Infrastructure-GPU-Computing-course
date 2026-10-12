@@ -132,50 +132,6 @@ flowchart TD
 - အောက်ဘယ်ဘက်က 8x A100 GPUs နဲ့ အလယ်က NVSwitch ကို မြားနဲ့ ချိတ်ထားတာက GPU တွေကြား high-speed interconnect ရှိတာကို ပြပါတယ်။
 - ညာဘက်မှာ NVMe SSD storage (source example အနေနဲ့ 15 TB)၊ system memory / networking / cooling နဲ့ NVIDIA software stack တွေ ပါဝင်ပါတယ်။
 
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA HGX baseboard](../assets/hardware/hgx-baseboard.jpg)
-
-**ဓာတ်ပုံရှင်းလင်းချက် (Photo walkthrough):**
-- ပုံထဲမှာ NVIDIA HGX baseboard ကို မြင်ရပါတယ် — GPU တွေနဲ့ NVSwitch တွေကို တပ်ဆင်ထားတဲ့ ကြီးမားတဲ့ circuit board ဖြစ်ပါတယ်။
-- ဒီ board ပေါ်မှာ GPU ရှစ်လုံးနဲ့ NVSwitch ကို တစ်နေရာတည်းမှာ ချိတ်ဆက်တပ်ဆင်ထားတာကြောင့် အပေါ်က block diagram ထဲက "8 × A100 GPU + NVSwitch" architecture ဟာ board ပေါ်မှာ တကယ် တည်ရှိတာ ဖြစ်ပါတယ်။
-- Baseboard ပေါ်က high-speed connections တွေကပဲ GPU အချင်းချင်း မြန်ဆန်စွာ data ဖလှယ်ခွင့် ပေးတာ ဖြစ်ပါတယ်။
-
-![သင်တန်းပုံ 1 (Training Slide 1): DGX A100 platform](../assets/nca-aiio-slides/slide-064.jpg)
-
-**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training slide က DGX A100 platform ကို ပြထားပါတယ် — 8x A100 GPUs၊ NVSwitch high-speed interconnect နဲ့ NVMe storage ပါဝင်တဲ့ system architecture ဖြစ်ပါတယ်။ အပေါ်က block diagram၊ Figure 2 နဲ့ HGX baseboard ဓာတ်ပုံတို့နဲ့ ယှဉ်ကြည့်နိုင်ပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
-## 5. Eight NVIDIA A100 GPUs
-
-DGX A100 ရဲ့ အရေးကြီးဆုံး feature တစ်ခုက **8 × NVIDIA A100 GPUs** ပါဝင်တာ ဖြစ်ပါတယ်။ ဒါကြောင့် ဒီ system ကိုကြည့်တဲ့အခါ ပုံမှန် server တစ်လုံးလို CPU တစ်လုံး၊ GPU တစ်လုံးနဲ့မဟုတ်ဘဲ GPU အများကြီးကို system တစ်ခုထဲမှာ integrated လုပ်ထားတာကို တွေ့ရပါမယ်။
-
-Conceptually —
-
-```
-              DGX A100
-                  │
-    ┌─────┬─────┬─────┬─────┐
-    │GPU 0│GPU 1│GPU 2│GPU 3│
-    ├─────┼─────┼─────┼─────┤
-    │GPU 4│GPU 5│GPU 6│GPU 7│
-    └─────┴─────┴─────┴─────┘
-                  │
-              NVSwitch
-                  │
-        High-speed communication
-```
-
-ဒီလို GPU အများကြီးကို system တစ်ခုထဲမှာ ချိတ်ဆက်ထားတာကြောင့် large-scale AI workload တွေကို parallel အနေနဲ့ run လုပ်နိုင်ပါတယ်။
-
-![ဓာတ်ပုံ 2 (Photo 2): NVIDIA A100 80GB GPU](../assets/hardware/a100-gpu.jpg)
-
-**ဓာတ်ပုံရှင်းလင်းချက် (Photo walkthrough):**
-- ပုံထဲမှာ NVIDIA A100 GPU (80GB version) ကို မြင်ရပါတယ် — DGX A100 ထဲမှာ အသုံးပြုတဲ့ data-center GPU ဖြစ်ပါတယ်။
-- ဒီ GPU မှာ processor နဲ့ HBM memory ကို ပေါင်းစပ်ထားပြီး အပူစီမံခန့်ခွဲမှု (cooling) အတွက် ဒီဇိုင်းထုတ်ထားပါတယ်။
-- DGX A100 တစ်လုံးမှာ ဒီလို GPU ရှစ်လုံးကို အပေါ်က HGX baseboard ပေါ်မှာ တပ်ဆင်ထားတာ ဖြစ်ပါတယ် — "GPU တစ်လုံး" နဲ့ "GPU ရှစ်လုံးပါတဲ့ system" ကွာခြားပုံကို ဒီပုံက စိတ်ကူးကူညီပေးပါတယ်။
-
-*(Image: NVIDIA official product image)*
-
 ## 6. High-Speed Interconnect
 
 DGX system ရဲ့ အရေးကြီးတဲ့ concept တစ်ခုက high-speed GPU interconnect ဖြစ်ပါတယ်။ GPU 8 လုံးရှိတာတစ်ခုတည်းနဲ့ မလုံလောက်ပါဘူး။ GPU တွေအချင်းချင်း data exchange လုပ်ရတဲ့အတွက် GPU-to-GPU communication မြန်ဆန်ဖို့လိုပါတယ်။
@@ -302,12 +258,6 @@ flowchart TD
 - **GPU Instance တိုင်း ≠ DGX Cloud** — Cloud provider တစ်ခုမှာ NVIDIA GPUs ရှိရုံနဲ့ အဲဒီ GPU instance တိုင်း DGX Cloud offering မဟုတ်ပါဘူး။
 - **Storage I/O bottleneck** — storage က data ကို GPU ဆီ မမီနိုင်ရင် GPU performance ကို ထိခိုက်စေနိုင်ပါတယ်။
 - **Power / Cooling / Rack Space** — on-premises deployment မှာ ကြိုတင်စီစဉ်ရပါမယ်။
-
-![သင်တန်းပုံ 2 (Training Slide 2): DGX H100 and BMC](../assets/nca-aiio-slides/slide-081.jpg)
-
-**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training slide မှာ DGX H100 နဲ့ ၎င်းရဲ့ BMC (Baseboard Management Controller) ကို ပြထားပါတယ်။ DGX H100 ဟာ Hopper generation ဖြစ်ပြီး အပေါ်က သတိပြုရန်အချက်အတိုင်း DGX A100 (Ampere) နဲ့ generation မရောထွေးပါစေနဲ့ — BMC ကတော့ system management အတွက် သီးခြား management controller ဖြစ်ပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 12. Exam Points
 
@@ -464,50 +414,6 @@ flowchart TD
 - The 8x A100 GPUs box on the lower left is linked by an arrow to NVSwitch in the middle — that is the high-speed interconnect between the GPUs.
 - On the right: NVMe SSD storage (15 TB as the source example), system memory/networking/cooling, and the NVIDIA software stack.
 
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA HGX baseboard](../assets/hardware/hgx-baseboard.jpg)
-
-**Photo walkthrough (ဓာတ်ပုံရှင်းလင်းချက်):**
-- The photo shows the NVIDIA HGX baseboard — a large circuit board on which the GPUs and NVSwitch chips are mounted.
-- Eight GPUs and the NVSwitch are connected on this single board, so the "8 × A100 GPU + NVSwitch" block diagram above physically exists on this hardware.
-- The high-speed connections on the baseboard are exactly what allows the GPUs to exchange data quickly with each other.
-
-![သင်တန်းပုံ 1 (Training Slide 1): DGX A100 platform](../assets/nca-aiio-slides/slide-064.jpg)
-
-**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide presents the DGX A100 platform — the system architecture with 8x A100 GPUs, NVSwitch high-speed interconnect, and NVMe storage. Compare it with the block diagram, Figure 2, and the HGX baseboard photo above.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
-## 5. Eight NVIDIA A100 GPUs
-
-One of the most important features of the DGX A100 is that it contains **8 × NVIDIA A100 GPUs**. Instead of a normal server with one CPU and one GPU, many GPUs are integrated into a single system.
-
-Conceptually:
-
-```
-              DGX A100
-                  │
-    ┌─────┬─────┬─────┬─────┐
-    │GPU 0│GPU 1│GPU 2│GPU 3│
-    ├─────┼─────┼─────┼─────┤
-    │GPU 4│GPU 5│GPU 6│GPU 7│
-    └─────┴─────┴─────┴─────┘
-                  │
-              NVSwitch
-                  │
-        High-speed communication
-```
-
-Because many GPUs are connected within one system, large-scale AI workloads can be run in parallel.
-
-![ဓာတ်ပုံ 2 (Photo 2): NVIDIA A100 80GB GPU](../assets/hardware/a100-gpu.jpg)
-
-**Photo walkthrough (ဓာတ်ပုံရှင်းလင်းချက်):**
-- The photo shows an NVIDIA A100 GPU (80GB version) — the data-center GPU used inside the DGX A100.
-- This GPU combines the processor with HBM memory and is designed for data-center thermal management.
-- A single DGX A100 holds eight of these GPUs on the HGX baseboard above — the photo helps you picture the difference between "one GPU card" and "a system built from eight of them".
-
-*(Image: NVIDIA official product image)*
-
 ## 6. High-Speed Interconnect
 
 An important DGX concept is the high-speed GPU interconnect. Having 8 GPUs alone is not enough — the GPUs must exchange data with each other, so GPU-to-GPU communication must be fast. That is why the DGX A100 architecture uses NVSwitch.
@@ -634,12 +540,6 @@ flowchart TD
 - **GPU instance ≠ DGX Cloud** — A provider having NVIDIA GPUs does not make every GPU instance a DGX Cloud offering.
 - **Storage I/O bottleneck** — If storage cannot keep the GPUs fed, performance suffers.
 - **Power / cooling / rack space** — Must be planned for in on-premises deployments.
-
-![သင်တန်းပုံ 2 (Training Slide 2): DGX H100 and BMC](../assets/nca-aiio-slides/slide-081.jpg)
-
-**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide shows a DGX H100 together with its BMC (Baseboard Management Controller). DGX H100 is the Hopper generation — do not confuse it with DGX A100 (Ampere), as noted above — and the BMC is the separate management controller used for system management.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 12. Exam Points
 

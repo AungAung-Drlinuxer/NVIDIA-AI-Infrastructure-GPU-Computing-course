@@ -69,12 +69,6 @@ Network က system များကြား data ကို သယ်ပို့
 
 AI data center တွင် Pantry = Storage ဖြစ်ပါသည်။ Storage ထဲတွင် Training datasets၊ Model files၊ Checkpoints၊ Logs၊ Configuration data၊ Scripts၊ Historical data များ ပါရှိနိုင်ပါသည်။
 
-![သင်တန်းပုံ 1 (Training Slide 1): Storage pantry analogy](../assets/nca-aiio-slides/slide-052.jpg)
-
-**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training slide မှာ storage ကို စားသောက်ဆိုင်တစ်ခုရဲ့ pantry (ပစ္စည်းသိုလှောင်ခန်း) နဲ့ နှိုင်းယှဉ်ပြထားပါတယ်။ Pantry က ဟင်းချက်ပစ္စည်းတွေကို သိုလှောင်ပေးသလို storage က training datasets၊ model files၊ checkpoints၊ logs စတဲ့ data တွေကို သိုလှောင်ပေးပါတယ် — စားဖိုမှူး (GPU) က လိုအပ်တဲ့အချိန်မှာ အမြန်ဆုံး ရယူသုံးစွဲနိုင်ဖို့ပဲ အရေးကြီးပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ## 5. Storage ၏ အခန်းကဏ္ဍ
 
 အခြေခံလိုအပ်ချက်မှာ — **GPU များ လိုအပ်သော data ကို Storage က အမြန်ဆုံး ဝင်ရောက်အသုံးပြုနိုင်အောင် ပေးအပ်ရမည်** ဟူ၍ ဖြစ်ပါသည်။
@@ -596,12 +590,6 @@ The network transports data between systems.
 A restaurant needs a well-stocked pantry. The pantry contains ingredients such as: Vegetables, Meat, Rice, Spices, Sauces, Other ingredients. The chef needs fast access to these ingredients.
 
 In an AI data center: Pantry = Storage. Storage may contain: Training datasets, Model files, Checkpoints, Logs, Configuration data, Scripts, Historical data.
-
-![သင်တန်းပုံ 1 (Training Slide 1): Storage pantry analogy](../assets/nca-aiio-slides/slide-052.jpg)
-
-**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide compares storage with a restaurant pantry. Just as a pantry keeps the kitchen's ingredients, storage keeps training datasets, model files, checkpoints, and logs — what matters is that the chef (the GPU) can get them quickly when needed.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 5. The Role of Storage
 

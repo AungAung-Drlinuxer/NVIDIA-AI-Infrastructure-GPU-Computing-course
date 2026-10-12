@@ -83,12 +83,6 @@ GCC မရှိရင် သက်ဆိုင်ရာ Linux distribution အ�
 
 ## 5. CUDA Toolkit ကို Install လုပ်ခြင်း
 
-![သင်တန်းပုံ 1 (Training Slide 1): Installing CUDA — where the toolkit fits](../assets/nca-aiio-slides/slide-124.jpg)
-
-**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training ပုံက CUDA ကို install လုပ်ရာမှာ CUDA Toolkit က software stack ရဲ့ ဘယ်နေရာမှာ ရပ်တည်သလဲ ဆိုတာကို ပြထားပါတယ်။ CUDA-capable GPU, compatible NVIDIA driver, supported OS နဲ့ host compiler (GCC) တို့ အဆင်သင့် ရှိပြီးမှ CUDA Toolkit ကို install ပြုလုပ်ရတာ ဖြစ်ကြောင်း — ဒီ module ရဲ့ install မလုပ်မီ prerequisites တွေနဲ့ ဆက်စပ် ဖော်ပြထားပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 NVIDIA က official installation instructions နဲ့ downloads တွေကို ပေးထားပါတယ်။
 
 Official resources:
@@ -454,12 +448,6 @@ If GCC is missing, install the appropriate development tools for your Linux dist
 **Important distinction** — GCC is generally required for CUDA development and compilation, but it is not inherently required just to run an already-built CUDA application.
 
 ## 5. Installing CUDA Toolkit
-
-![သင်တန်းပုံ 1 (Training Slide 1): Installing CUDA — where the toolkit fits](../assets/nca-aiio-slides/slide-124.jpg)
-
-**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide shows where the CUDA Toolkit fits when installing CUDA: the CUDA-capable GPU, a compatible NVIDIA driver, a supported OS, and a host compiler (GCC) need to be in place before the CUDA Toolkit is installed — matching the prerequisites covered earlier in this module.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 NVIDIA provides official installation instructions and downloads.
 

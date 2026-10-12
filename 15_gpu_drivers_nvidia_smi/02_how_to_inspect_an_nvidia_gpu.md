@@ -345,18 +345,6 @@ Graphics card တစ်ခုမှာ အောက်ပါတွေလည်�
 - Fans / cooling
 - Display outputs
 
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA H100 GPU](../assets/hardware/h100-gpu.jpg)
-
-**ပုံရှင်းလင်းချက် (ဓာတ်ပုံ 1)** — ဓာတ်ပုံမှာ NVIDIA H100 data-center GPU ကို မြင်ရပါမယ် — GPU chip ကို ဖုံးအုပ်ထားတဲ့ heatsink နဲ့ cooling assembly ပါဝင်တဲ့ board ဖြစ်ပါတယ်။ GPU အကြောင်း inspect လုပ်တဲ့အခါ တွေ့ရမယ့် specifications တွေဟာ ဒီ board ရဲ့ အတွင်းပိုင်း component တွေကို ရည်ညွှန်းတာ ဖြစ်ပါတယ်။
-
-*(Image: NVIDIA official product image)*
-
-![ဓာတ်ပုံ 2 (Photo 2): GeForce RTX 4090 graphics card](../assets/hardware/rtx-4090-card.jpg)
-
-**ပုံရှင်းလင်းချက် (ဓာတ်ပုံ 2)** — ဓာတ်ပုံမှာ GeForce RTX 4090 graphics card တစ်ခုလုံးကို မြင်ရပါမယ် — ကတ်ရဲ့ အပေါ်ယံမှာ GPU ကို အေးအောင် ထိန်းပေးတဲ့ cooler (heatsink နဲ့ fan) က ကတ်အလျားလိုက် ဖုံးအုပ်ထားပြီး အောက်ဘက်မှာ motherboard ရဲ့ PCIe slot ထဲ ထည့်ရမယ့် connector (gold fingers) ရှိပါတယ်။ ဒီမှာ သတိပြုရမာက GPU chip ဆိုတာ ဒီကတ်တစ်ခုလုံးရဲ့ အစိတ်အပိုင်း တစ်ခုသာ ဖြစ်ပြီး memory၊ PCB၊ power delivery နဲ့ cooling component တွေလည်း အတူ ပါဝင်ပါတယ်။
-
-*(Image: NVIDIA official product image)*
-
 ## 10. GPU အချက်အလက်ကို Inspect လုပ်ခြင်း
 
 အဓိက lesson က— GPU အချက်အလက်ကို software utility တွေနဲ့ inspect လုပ်နိုင်တယ် ဆိုတာ ဖြစ်ပါတယ်။
@@ -832,18 +820,6 @@ When looking at a physical graphics card, remember that the GPU chip is only one
 - Heat sink
 - Fans / cooling
 - Display outputs
-
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA H100 GPU](../assets/hardware/h100-gpu.jpg)
-
-**Photo walkthrough (Photo 1)** — The photo shows an NVIDIA H100 data-center GPU: a board with a heatsink and cooling assembly covering the GPU chip. The specifications you inspect with tools like GPU-Z describe the internal components of a board like this one.
-
-*(Image: NVIDIA official product image)*
-
-![ဓာတ်ပုံ 2 (Photo 2): GeForce RTX 4090 graphics card](../assets/hardware/rtx-4090-card.jpg)
-
-**Photo walkthrough (Photo 2)** — The photo shows a complete GeForce RTX 4090 graphics card: a cooler (heatsink and fan) covering the length of the card keeps the GPU cool, and along the bottom edge is the connector (gold fingers) that plugs into a PCIe slot on the motherboard. Note that the GPU chip is only one part of this card — graphics memory, the PCB, power delivery, and cooling components come with it.
-
-*(Image: NVIDIA official product image)*
 
 ## 10. Inspecting GPU Information
 

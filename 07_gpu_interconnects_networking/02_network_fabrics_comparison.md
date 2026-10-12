@@ -24,15 +24,6 @@
 
 Exam မှာ ဒီ topic ကနေ question ထွက်နိုင်ပါတယ်။
 
-![သင်တန်းပုံ 1 (Training Slide 1): Evolution of Roads (analogy)](../assets/nca-aiio-slides/slide-045.jpg)
-
-**ပုံရှင်းလင်းချက် (Training slide walkthrough)**
-1. ဒီ slide က "Evolution of Roads" — လမ်းတွေ တိုးတက်ပြောင်းလဲလာပုံကို သရုပ်ပြထားတဲ့ analogy ဖြစ်ပါတယ်။
-2. သွားလာရေးလိုအပ်ချက်တွေ ပြောင်းလဲ/တိုးတက်လာသလို လမ်းအမျိုးအစားတွေလည်း အမျိုးမျိုး ပေါ်လာသလို၊ AI data center ထဲမှာလည်း traffic အမျိုးအစားတစ်ခုချင်းစီရဲ့ ရည်ရွယ်ချက် မတူညီလို့ network fabric ၄ မျိုးကို သီးခြားထားရတာ ဖြစ်ပါတယ်။
-3. ဒီနှိုင်းယှဉ်ချက်ကို ကြည့်ပြီး အောက်က comparison ပိုင်းတွေမှာ fabric တစ်ခုချင်းစီရဲ့ purpose ကို ခွဲခြားရတဲ့ အကြောင်းရင်းကို ပိုနားလည်နိုင်ပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ## 2. Overview Comparison
 
 | Network Fabric | Main Purpose | Typical Implementation | Main Requirement |
@@ -104,15 +95,6 @@ Source အရ compute fabric ကို အောက်ပါ technologies တွ
 ဒီ technologies တွေကို နောက်ပိုင်း section တွေမှာ အသေးစိတ် လေ့လာပါမယ်။
 
 InfiniBand compute fabric ကို physical အနေနဲ့ NVIDIA Quantum-2 NDR InfiniBand switch များကဲ့သို့ hardware များဖြင့် တည်ဆောက်လေ့ရှိပါတယ်။
-
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA Quantum-2 NDR InfiniBand](../assets/hardware/quantum-2-ndr.jpg)
-
-**ပုံရှင်းလင်းချက် (Photo walkthrough)**
-1. ဒီမှာ မြင်ရတာက rack ထဲ တပ်ဆင်သုံးရတဲ့ InfiniBand switch chassis ဖြစ်ပါတယ်။
-2. ရှေ့ဘက် faceplate မှာ high-speed InfiniBand port တွေကို အတန်းလိုက် တန်းစီထားပြီး cable ချိတ်ဆက်ဖို့ connector cage တွေ ပါရှိပါတယ်။
-3. GPU nodes တွေကို ချိတ်ဆက်ထားတဲ့ fabric ရဲ့ အလယ်ခံ hardware က ဒီလို switch တွေ ဖြစ်ပါတယ်။
-
-*(Image: NVIDIA official product image)*
 
 အဓိက idea ကတော့—Compute nodes တွေကြားမှာ data ကို အမြန်ဆုံး ရွှေ့နိုင်တဲ့ high-bandwidth interconnect ဖြစ်ရမယ်။
 
@@ -543,15 +525,6 @@ The main comparison points are—
 
 Exam questions can come from this topic.
 
-![သင်တန်းပုံ 1 (Training Slide 1): Evolution of Roads (analogy)](../assets/nca-aiio-slides/slide-045.jpg)
-
-**Training slide walkthrough**
-1. This slide is the "Evolution of Roads" analogy.
-2. Just as changing transport needs produced many kinds of roads, each traffic type in an AI data center has a different purpose, so the four network fabrics are kept separate.
-3. With this analogy in mind, the comparison sections below show why each fabric has its own purpose.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ## 2. Overview Comparison
 
 | Network Fabric | Main Purpose | Typical Implementation | Main Requirement |
@@ -623,15 +596,6 @@ According to the source, a compute fabric can be implemented with the following 
 We will study these technologies in detail in later sections.
 
 In practice, an InfiniBand compute fabric is built with hardware such as NVIDIA Quantum-2 NDR InfiniBand switches.
-
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA Quantum-2 NDR InfiniBand](../assets/hardware/quantum-2-ndr.jpg)
-
-**Photo walkthrough**
-1. What you see is an InfiniBand switch chassis designed to be mounted in a rack.
-2. On the front faceplate, high-speed InfiniBand ports are arranged in rows, each with a connector cage for the cable.
-3. Switches like this one are the hardware at the center of the fabric connecting GPU nodes.
-
-*(Image: NVIDIA official product image)*
 
 The key idea is that there must be a high-bandwidth interconnect that can move data between compute nodes as fast as possible.
 

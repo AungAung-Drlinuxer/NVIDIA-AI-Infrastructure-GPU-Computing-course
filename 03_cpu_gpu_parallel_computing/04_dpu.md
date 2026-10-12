@@ -4,7 +4,6 @@
 
 ## မြန်မာဘာသာ version
 
-
 ## 1. DPU — Data Processing Unit
 
 CPU နဲ့ GPU ကို နားလည်ပြီးရင် နောက်အရေးကြီးတဲ့ compute device က DPU ဖြစ်ပါတယ်။
@@ -30,12 +29,6 @@ DPU က data movement နှင့် infrastructure task တွေကို က
 ```
 
 အဓိက idea က ရိုးရှင်းပါတယ်— CPU နဲ့ GPU က specialized infrastructure hardware က ထိရောက်စွာ ကိုင်တွယ်နိုင်တဲ့ task တွေအတွက် resource မဖြုန်းသင့်ပါဘူး။
-
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA BlueField DPU](../assets/hardware/bluefield-dpu.jpg)
-
-**ပုံရှင်းလင်းချက် (ဓာတ်ပုံ 1)** — ဓာတ်ပုံမှာ NVIDIA BlueField DPU card ကို မြင်ရပါမယ် — ကတ်ပေါ်မှာ DPU processor ကို ဖုံးအုပ်ထားတဲ့ heatsink၊ ကွန်ရက် cable ချိတ်ဆက်ဖို့ network ports နဲ့ server ရဲ့ PCIe slot ထဲ ထည့်သုံးရမယ့် connector တွေ ပါဝင်ပါတယ်။ DPU ဟာ CPU လည်း မဟုတ် GPU လည်း မဟုတ်ဘဲ data movement နဲ့ infrastructure task တွေအတွက် သီးသန့် ဒီဇိုင်းထုတ်ထားတဲ့ ကတ်တစ်ခု ဖြစ်ပါတယ်။
-
-*(Image: NVIDIA official product image)*
 
 အောက်ပါ **Figure 1** မှာ data center ထဲက CPU, GPU နဲ့ DPU သုံးခုရဲ့ အခန်းကဏ္ဍ ကွဲပြားပုံကို ကြည့်နိုင်ပါတယ်။
 
@@ -89,12 +82,6 @@ flowchart TD
 - GPU က လေယာဉ်လို ဝန်လေးတဲ့ payload (AI computation) ကို သယ်ဆောင်ပါတယ်။
 - DPU က ground services / logistics လို ခရီးဆောင်အိတ်၊ ဆီဖြည့်ခြင်း၊ data movement တွေကို ကိုင်တွယ်ပေးပါတယ်။
 
-![သင်တန်းပုံ 1 (Training Slide 1): လေယာဉ်မှူးနှင့် လေယာဉ်အမှုထမ်း နှိုင်းယှဉ်ချက် (Pilots and Crew Analogy)](../assets/nca-aiio-slides/slide-033.jpg)
-
-**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 1)** — ဒီသင်တန်းပုံမှာ AI data center ကို လေကြောင်းစနစ်နဲ့ နှိုင်းယှဉ်ပြီး CPU, GPU, DPU တို့ရဲ့ အခန်းကဏ္ဍကို လေယာဉ်မှူးနှင့် လေယာဉ်အမှုထမ်း သင်္ကေတတွေနဲ့ ရှင်းလင်းထားပါတယ်။ ဆုံးဖြတ်ချက်ချ ညှိနှိုင်းပေးတဲ့ CPU၊ ဝန်လေးတဲ့ AI payload ကို သယ်ဆောင်တဲ့ GPU နဲ့ မြေပြင်ဝန်ထမ်း / logistics လို data movement ကို ကိုင်တွယ်ပေးတဲ့ DPU တို့ တစ်ခုနဲ့တစ်ခု ဘယ်လို ဖြည့်စွက်ပေးကြလဲ ဆိုတာ မြင်ရပါမယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ## 4. CPU vs GPU vs DPU
 
 | Aspect | CPU | GPU | DPU |
@@ -123,12 +110,6 @@ Storage နှင့် ဆိုင်သော operation များ—
 - Storage protocol processing
 
 အဓိက idea က သင့်တော်တဲ့ data နှင့် infrastructure task တွေကို CPU ကနေ specialized hardware ဆီ ရွှေ့ပြီး CPU က application workload ပေါ် အာရုံစိုက်နိုင်စေခြင်း ဖြစ်ပါတယ်။
-
-![သင်တန်းပုံ 2 (Training Slide 2): DPU — Offload, Accelerate, Isolate](../assets/nca-aiio-slides/slide-035.jpg)
-
-**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 2)** — ဒီသင်တန်းပုံမှာ DPU ရဲ့ အဓိက လုပ်ငန်းတာဝန် သုံးရပ် — offload, accelerate, isolate ကို ရှင်းလင်းထားပါတယ်။ DPU က networking, storage, security စတဲ့ infrastructure task တွေကို CPU ကနေ ယူပေးခြင်း (offload)၊ data movement ကို ပိုမြန်အောင် ကူညီခြင်း (accelerate) နဲ့ multi-tenant environment မှာ workload တွေကို သီးခြား ခွဲထားပေးခြင်း (isolate) တို့ဖြင့် CPU နဲ့ GPU တွေကို application / compute workload ပေါ် အာရုံစိုက်နိုင်စေပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 6. Networking Offload
 
@@ -249,12 +230,6 @@ flowchart TD
 - အောက်ဆုံး node က ဒီ offload ကြောင့် CPU နဲ့ GPU က application / compute workload ပေါ် အာရုံစိုက်နိုင်တာကို ဆိုလိုပါတယ်။
 - DPU က CPU / GPU ကို အစားထိုးတာ မဟုတ်ဘဲ ကူညီပေးတဲ့ ground services အခန်းကဏ္ဍ ဖြစ်တာကို မှတ်ပါ။
 
-![သင်တန်းပုံ 3 (Training Slide 3): Modern Server ဓာတ်ပုံ (A Modern Server — Photo)](../assets/nca-aiio-slides/slide-038.jpg)
-
-**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 3)** — ဒီဓာတ်ပုံက AI data center ထဲမှာ အသုံးပြုတဲ့ modern server တစ်လုံးကို ပြသထားပါတယ်။ ဒီ module မှာ ရှင်းပြထားတဲ့ CPU (general compute)၊ GPU (parallel AI compute) နဲ့ DPU (data movement / infrastructure offload) ကဲ့သို့ specialized processor တွေဟာ ဒီလို server တွေထဲမှာ အတူတပ်ဆင် အလုပ်လုပ်ကြတာ ဖြစ်ပါတယ်။ ရုပ်ပိုင်းဆိုင်ရာ hardware ကို ဓာတ်ပုံနဲ့ မြင်ရခြင်းက diagram တွေနဲ့ မရနိုင်တဲ့ လက်တွေ့ နားလည်မှုကို ဖြည့်စွက်ပေးပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ## 9. အကျဉ်းချုပ်
 
 ```
@@ -315,12 +290,6 @@ Conceptually:
 
 The idea is simple: the CPU and GPU should not waste resources on tasks that can be handled efficiently by dedicated infrastructure hardware.
 
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA BlueField DPU](../assets/hardware/bluefield-dpu.jpg)
-
-**Photo walkthrough (Photo 1)** — The photo shows an NVIDIA BlueField DPU card: a heatsink covering the DPU processor, network ports for connecting cables, and the connector that plugs into a server's PCIe slot. A DPU is neither a CPU nor a GPU — it is a dedicated card designed for data movement and infrastructure tasks.
-
-*(Image: NVIDIA official product image)*
-
 See **Figure 1** for a picture of the different roles of the CPU, GPU, and DPU inside a data center.
 
 **Figure 1: Roles of the CPU, GPU, and DPU in a Data Center**
@@ -373,12 +342,6 @@ flowchart TD
 - The GPU is like the aircraft, carrying the heavy payload (AI computation).
 - The DPU is like ground services and logistics, handling baggage, refueling, and data movement.
 
-![သင်တန်းပုံ 1 (Training Slide 1): Pilots and Crew Analogy](../assets/nca-aiio-slides/slide-033.jpg)
-
-**Slide walkthrough (Training Slide 1)** — This training slide explains the roles of the CPU, GPU, and DPU with a pilots-and-crew analogy for the AI data center: the CPU coordinates decisions like flight operations, the GPU carries the heavy AI payload like the aircraft, and the DPU handles the ground services — data movement and infrastructure work — that keep everything running.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ## 4. CPU vs GPU vs DPU
 
 | Aspect | CPU | GPU | DPU |
@@ -407,12 +370,6 @@ Storage-related operations can include:
 - Storage protocol processing
 
 The idea is to move suitable data and infrastructure tasks from the CPU to specialized hardware so the CPU can focus on application workloads.
-
-![သင်တန်းပုံ 2 (Training Slide 2): DPU — Offload, Accelerate, Isolate](../assets/nca-aiio-slides/slide-035.jpg)
-
-**Slide walkthrough (Training Slide 2)** — This training slide covers the DPU's three main jobs — offload, accelerate, and isolate. The DPU takes infrastructure tasks such as networking, storage, and security off the CPU (offload), helps data movement run faster (accelerate), and keeps workloads separated in multi-tenant environments (isolate), so the CPU and GPU can focus on application and compute work.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 6. Networking Offload
 
@@ -532,12 +489,6 @@ flowchart TD
 - The DPU at the top acts as the control tower / ground services and can offload five areas: networking, storage, security / encryption, load balancing, and data movement.
 - The bottom node means that, thanks to this offload, the CPU and GPU can focus on application and compute workloads.
 - Remember: the DPU does not replace the CPU or GPU — it plays a supporting ground-services role.
-
-![သင်တန်းပုံ 3 (Training Slide 3): A Modern Server (Photo)](../assets/nca-aiio-slides/slide-038.jpg)
-
-**Slide walkthrough (Training Slide 3)** — This photo shows a modern server as used in AI data centers. The specialized processors explained in this module — the CPU for general compute, the GPU for parallel AI compute, and the DPU for data movement and infrastructure offload — are installed and work together inside servers like this one. Seeing the physical hardware adds the practical context that diagrams cannot show.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 9. Summary
 

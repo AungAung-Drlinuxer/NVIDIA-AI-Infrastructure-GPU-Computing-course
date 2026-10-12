@@ -47,29 +47,11 @@ flowchart TD
 - အလယ်က "Sharing mechanism လိုအပ်ခြင်း" node က ဒီပြဿနာကို ဖြေရှင်းဖို့ နည်းလမ်း ရွေးချယ်ရမယ့် နေရာဖြစ်ပါတယ်။
 - အောက်ဆုံးမှာ NVIDIA ရဲ့ ဖြေရှင်းချက်နှစ်ခုဖြစ်တဲ့ vGPU နဲ့ MIG ဆီ ဘယ်လိုခွဲထွက်သွားသလဲဆိုတာ တွေ့ရပါမယ်။
 
-![သင်တန်းပုံ 1 (Training Slide 1): Co-working space analogy](../assets/nca-aiio-slides/slide-111.jpg)
-
-**ပုံရှင်းလင်းချက် (Slide walkthrough):** GPU မျှဝေ အသုံးပြုမှု ပြဿနာကို နားလည်စေဖို့ co-working space ဥပမာနဲ့ ရှင်းလင်းပြထားတဲ့ training ပုံ ဖြစ်ပါတယ်။ ဈေးကြီးပြီး အရင်းအနှီးများတဲ့ နေရာတစ်ခုကို လူအများကြား ဘယ်လို ခွဲဝေ အသုံးပြုမလဲ ဆိုတဲ့ မေးခွန်းကို လုပ်ငန်းခွင်/ရုံးခန်း မျှဝေအသုံးပြုမှုနဲ့ နှိုင်းယှဉ် ပြထားပြီး၊ အပေါ်က GPU တစ်လုံးကို workload များစွာကြား မျှဝေရမယ့် ပြဿနာနဲ့ ဆင်တူပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ## 3. vGPU နဲ့ MIG ဆိုတာ ဘာလဲ — Mechanism
 
 **NVIDIA vGPU** က GPU Virtualization Software နဲ့ Driver များကို အသုံးပြုပြီး VM များထံ **Virtual GPU Device** တွေ ပေးအပ်ပါတယ်။ VM တစ်ခုချင်းစီဟာ သတ်မှတ်ထားတဲ့ vGPU Device ကို အသုံးပြုနိုင်ပြီး၊ ပုံမှန် vGPU Deployment တွင် Hypervisor က အဓိကအစိတ်အပိုင်းအဖြစ် ပါဝင်ပါတယ်။
 
-![သင်တန်းပုံ 2 (Training Slide 2): Shared co-working space](../assets/nca-aiio-slides/slide-112.jpg)
-
-**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training ပုံက ပူးတွဲ အလုပ်လုပ်ရာ နေရာ (co-working space) ကို အားလုံး အတူတကွ မျှဝေ အသုံးပြုတဲ့ ပုံစံ (shared co-working space) ကို ပြထားပါတယ်။ GPU တစ်လုံးကို workload များစွာကြား အားလုံး အတူ မျှဝေ အသုံးပြုတဲ့ ပုံစံနဲ့ နှိုင်းယှဉ် လေ့လာနိုင်ပြီး၊ ဒီနေရာက vGPU ရဲ့ sharing model နဲ့ ဆက်စပ်နေပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 **NVIDIA MIG** ကတော့ Physical GPU တစ်လုံးကို **Hardware-supported Instances** များအဖြစ် ခွဲခြားပါတယ်။ သတ်မှတ်ထားတဲ့ Compute နဲ့ Memory Resource များကို Instance တစ်ခုချင်းစီထံ ပေးအပ်ပါတယ်။ Bare-metal Linux နဲ့ Containers တွေအတွက် အသုံးဝင်ပြီး၊ VM အသုံးပြုမှုကတော့ သက်ဆိုင်ရာ Platform က MIG ကို Support လုပ်ပုံပေါ် မူတည်ပါတယ်။
-
-![သင်တန်းပုံ 3 (Training Slide 3): More isolation](../assets/nca-aiio-slides/slide-113.jpg)
-
-**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training ပုံက ပိုမို သီးခြားဖြစ်တဲ့ ပုံစံ (more isolation) ကို ပြထားပါတယ်။ မျှဝေ အသုံးပြုမှုမှာ တစ်ခုနဲ့တစ်ခု သက်ရောက်မှု မရှိစေဖို့ ပိုမို ခိုင်မာတဲ့ isolation ဖြင့် ခွဲဝေတဲ့ ပုံစံကို ရှင်းလင်းပြထားပြီး၊ ဒီနေရာက MIG ရဲ့ hardware-supported instances တွေလို သတ်မှတ်ထားတဲ့ resource ပေးအပ်ပြီး isolation ပိုမို ခိုင်မာတဲ့ ခွဲဝေမှု ပုံစံနဲ့ နှိုင်းယှဉ် လေ့လာနိုင်ပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 **Figure 2 — vGPU နှင့် MIG ရဲ့ mechanism ကွာခြားပုံ**
 
@@ -91,18 +73,6 @@ flowchart TD
 - နှစ်ခုလုံးရဲ့ အစက Physical GPU တစ်ခုတည်းဖြစ်ပေမယ့် ခွဲဝေပုံချင်း မတူတာကို သတိပြုကြည့်ပါ။
 
 **Exam မှတ်စု:** vGPU = Virtual GPU Device for VMs; MIG = Hardware-supported GPU partitioning into multiple instances.
-
-![သင်တန်းပုံ 4 (Training Slide 4): vGPU vs MIG — simple explanation](../assets/nca-aiio-slides/slide-114.jpg)
-
-**ပုံရှင်းလင်းချက် (Slide walkthrough):** vGPU နဲ့ MIG ရဲ့ ကွာခြားချက်ကို ရိုးရှင်းစွာ ရှင်းလင်းပြထားတဲ့ training ပုံ ဖြစ်ပါတယ်။ အပေါ်က အဓိက ခွဲခြားချက်အတိုင်း vGPU က VM များအတွက် Virtual GPU Device များ ပေးအပ်ခြင်း၊ MIG က Physical GPU ကို Hardware-supported Instance များအဖြစ် ခွဲခြားခြင်း ဆိုတဲ့ သဘောကို အခြေခံ ပြထားပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
-![သင်တန်းပုံ 5 (Training Slide 5): vGPU vs MIG diagram](../assets/nca-aiio-slides/slide-115.jpg)
-
-**ပုံရှင်းလင်းချက် (Slide walkthrough):** vGPU နဲ့ MIG ကို နှိုင်းယှဉ်ပြထားတဲ့ diagram ဖြစ်ပါတယ်။ ပြဿနာတစ်ခုတည်းကို ဖြေရှင်းပေးပေမယ့် vGPU က virtualization software, driver နဲ့ hypervisor ကတစ်ဆင့် Virtual GPU Device တွေကို VM တွေဆီ ပေးပြီး၊ MIG က Physical GPU ကို hardware level ကနေ instance တွေအဖြစ် ခွဲပေးတဲ့ ကွာခြားချက်ကို ပုံဖြင့် နှိုင်းယှဉ် ပြထားပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 4. vGPU vs. MIG — Feature Comparison
 
@@ -360,29 +330,11 @@ flowchart TD
 - The middle node shows that a deliberate sharing mechanism is required to solve this problem.
 - The bottom nodes show the two NVIDIA solutions the problem branches into: vGPU and MIG.
 
-![သင်တန်းပုံ 1 (Training Slide 1): Co-working space analogy](../assets/nca-aiio-slides/slide-111.jpg)
-
-**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide explains the GPU-sharing problem with a co-working space analogy: how one expensive space is arranged for shared use by many people mirrors the question of how one GPU is shared among many workloads, just like the problem in the figure above.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ## 3. What Are vGPU and MIG? — Mechanism
 
 **NVIDIA vGPU** uses GPU Virtualization Software and drivers to present **virtual GPU devices** to VMs. Each VM can use its own assigned vGPU device, and the hypervisor is a central component of a normal vGPU deployment.
 
-![သင်တန်းပုံ 2 (Training Slide 2): Shared co-working space](../assets/nca-aiio-slides/slide-112.jpg)
-
-**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide shows the shared co-working space model — one space used jointly by everyone. Compare it with the way one GPU is shared among many workloads, which connects to the vGPU sharing model explained here.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 **NVIDIA MIG** (Multi-Instance GPU) splits a physical GPU into **hardware-supported instances**. Each instance receives its own dedicated compute and memory resources. It is useful for bare-metal Linux and containers; using it with VMs depends on how the platform supports MIG.
-
-![သင်တန်းပုံ 3 (Training Slide 3): More isolation](../assets/nca-aiio-slides/slide-113.jpg)
-
-**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide shows a more isolated arrangement: dividing the shared resource with stronger isolation so one user does not affect another. Compare it with MIG's hardware-supported instances, where each instance gets its own dedicated resources and isolation is stronger.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 **Figure 2 — How the vGPU and MIG mechanisms differ**
 
@@ -404,18 +356,6 @@ flowchart TD
 - Both paths start from the same physical GPU, but the way it is divided is completely different — watch how each path branches.
 
 **Exam note:** vGPU = virtual GPU devices for VMs; MIG = hardware-supported GPU partitioning into multiple instances.
-
-![သင်တန်းပုံ 4 (Training Slide 4): vGPU vs MIG — simple explanation](../assets/nca-aiio-slides/slide-114.jpg)
-
-**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide gives a simple explanation of the difference between vGPU and MIG. Based on the key distinction above: vGPU presents virtual GPU devices to VMs, while MIG splits the physical GPU into hardware-supported instances.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
-![သင်တန်းပုံ 5 (Training Slide 5): vGPU vs MIG diagram](../assets/nca-aiio-slides/slide-115.jpg)
-
-**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide compares vGPU and MIG in diagram form. Both solve the same problem, but vGPU delivers virtual GPU devices to VMs through virtualization software, drivers, and the hypervisor, while MIG splits the physical GPU into instances at the hardware level.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 4. vGPU vs. MIG — Feature Comparison
 

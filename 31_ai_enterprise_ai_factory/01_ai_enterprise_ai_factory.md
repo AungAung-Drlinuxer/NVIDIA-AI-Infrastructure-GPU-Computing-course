@@ -324,12 +324,6 @@ AI Factory ဆိုတာ AI models တွေကို data ကနေ AI output
 - Monitoring and operations။
 - Security and governance။
 
-![သင်တန်းပုံ 1 (Training Slide 1): NVIDIA AI Factory](../assets/nca-aiio-slides/slide-144.jpg)
-
-**ပုံရှင်းလင်းချက်** — ဒီသင်တန်းပုံက NVIDIA AI Factory ဆိုတဲ့ concept ကို မိတ်ဆက်ပြထားတဲ့ slide ဖြစ်ပါတယ်။ AI Factory ဆိုတာ data ကို AI models တွေကတစ်ဆင့် AI outputs, predictions သို့မဟုတ် generated content အဖြစ် ပြောင်းပေးတဲ့ production system တစ်ခုလုံးကို ရည်ညွှန်းပါတယ်။ အပေါ်က component စာရင်းအတိုင်း GPU compute, networking, storage/data pipelines, AI software platform, training, inference/serving, orchestration, monitoring နဲ့ security စတဲ့ အစိတ်အပိုင်းတွေ အားလုံး ပေါင်းစပ် ပါဝင်ပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 Conceptually —
 
 ```
@@ -834,12 +828,6 @@ That system can include the following components.
 - Orchestration and scheduling.
 - Monitoring and operations.
 - Security and governance.
-
-![သင်တန်းပုံ 1 (Training Slide 1): NVIDIA AI Factory](../assets/nca-aiio-slides/slide-144.jpg)
-
-**Figure walkthrough** — This training slide introduces the NVIDIA AI Factory concept. An AI Factory is the whole production system that turns data into AI outputs, predictions, or generated content through AI models. As the component list above shows, it combines GPU compute, networking, storage and data pipelines, the AI software platform, training, inference/serving, orchestration, monitoring, and security.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 Conceptually —
 

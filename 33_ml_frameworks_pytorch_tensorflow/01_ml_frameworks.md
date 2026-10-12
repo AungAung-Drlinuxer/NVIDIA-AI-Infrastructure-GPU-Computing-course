@@ -30,12 +30,6 @@ Framework များကို အသုံးပြုခြင်းဖြင
 
 Machine Learning Framework တွေကလည်း အလားတူပဲ ဖြစ်ပါတယ်။
 
-![သင်တန်းပုံ 1 (Training Slide 1): Framework နှိုင်းယှဉ်ချက် — အိမ်ဆောက်ခြင်း](../assets/nca-aiio-slides/slide-147.jpg)
-
-**ပုံရှင်းလင်းချက်** — ဒီသင်တန်းပုံက ML Framework ကို အိမ်ဆောက်ခြင်းနဲ့ နှိုင်းယှဉ်ပြထားတဲ့ analogy slide ဖြစ်ပါတယ်။ ကိရိယာတွေ ကိုယ်တိုင်ပြင်ပြီး အုတ်စီနည်း၊ သစ်သားဖြတ်နည်း စတဲ့ အခြေခံတည်ဆောက်ပုံတွေ ကိုယ်တိုင် လေ့လာရသလို framework မပါဘဲ model ကို အစကနေ ရေးရရင် အချိန်ပိုကုန်ပြီး အမှားများနိုင်ပါတယ်။ ကိရိယာ၊ ပစ္စည်းနဲ့ ဒီဇိုင်းပုံစံတွေ ကြိုတင် ပြင်ဆင်ထားတဲ့ workshop ရှိသလို framework က tools, libraries နဲ့ APIs တွေ အသင့် ပေးထားတဲ့အတွက် ကိုယ့် model ဒီဇိုင်းအပေါ်သာ အာရုံစိုက်နိုင်ပါတယ်။ ဒါပေမဲ့ အိမ်ဒီဇိုင်းကို ပိုင်ရှင်က ဆုံးဖြတ်ရသလို model architecture နဲ့ training configuration ကိုတော့ developer သို့မဟုတ် data scientist ကပဲ ဆုံးဖြတ်ရတုန်း ဖြစ်ပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ဥပမာ Neural Network တစ်ခု တည်ဆောက်ချင်တယ်ဆိုရင် Tensor တွေကို ကိုယ်တိုင်စီမံခြင်း၊ Gradient တွေတွက်ချက်ခြင်း၊ Backpropagation ရေးသားခြင်းနဲ့ GPU operation တွေကို ကိုယ်တိုင်ချိတ်ဆက်ခြင်းတို့ကို အစမှရေးနိုင်ပေမဲ့ အလွန်ရှုပ်ထွေးပါတယ်။
 
 PyTorch သို့မဟုတ် TensorFlow ကို အသုံးပြုရင် ဒီလိုလုပ်ဆောင်ချက်များအတွက် အသင့်သုံးနိုင်တဲ့ APIs နဲ့ libraries တွေ ရရှိပါတယ်။
@@ -53,7 +47,6 @@ flowchart TD
 ```
 
 **ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက Model တည်ဆောက်လိုသည့် ရည်ရွယ်ချက်ကနေ လမ်းကြောင်းနှစ်ခု ခွဲသွားပါသည်။ ဘယ်ဘက်လမ်းကြောင်းတွင် tensor operation, gradient တွက်ချက်ခြင်း၊ backpropagation နှင့် GPU operation ချိတ်ဆက်ခြင်း အားလုံးကို ကိုယ်တိုင်ရေးရမည်ဖြစ်၍ အချိန်ပိုကုန်ပြီး အမှားများနိုင်ပါသည်။ ညာဘက်လမ်းကြောင်းတွင် Framework က tools, libraries နှင့် APIs များ အသင့်ပေးထားသောကြောင့် ကိုယ့် model ဒီဇိုင်းအပေါ် အာရုံစိုက်နိုင်ပါသည်။
-
 
 ## 3. Framework က ဘာတွေ ပံ့ပိုးပေးသလဲ?
 
@@ -88,7 +81,6 @@ sequenceDiagram
 ```
 
 **ပုံရှင်းလင်းချက်** — Training Data က input ပေးပြီး Model ရဲ့ layer တွေက prediction ကို တွက်ပေးပါသည်။ Loss Function က prediction နဲ့ အဖြေမှန် ဘယ်လောက်ကွာလဲဆိုတာကို loss အဖြစ် တိုင်းတာပြီး Automatic Differentiation ကနေ ရလာတဲ့ gradient နဲ့အတူ Optimizer ကို ပေးပါသည်။ Optimizer က model parameter တွေကို update လုပ်ပြီး loop က နောက် batch နဲ့ ဆက်လက် လည်ပတ်ပါသည်။
-
 
 ## 4. PyTorch ဆိုတာဘာလဲ?
 
@@ -230,7 +222,6 @@ flowchart TD
 
 **ပုံရှင်းလင်းချက်** — Python application က framework API ကတစ်ဆင့် model နဲ့ tensor operation တွေကို ဖော်ပြပါသည်။ Framework က ထောက်ပံ့ထားသော operation တွေကို CUDA / GPU backend ကတစ်ဆင့် NVIDIA GPU ပေါ်မှာ parallel computation အဖြစ် ဆောင်ရွက်ပြီး ရလဒ်တွေ ပြန်ပေးပါသည်။ Operation အားလုံး အလိုအလျောက် GPU ပေါ် မရောက်နိုင်ဘူးဆိုတာကိုလည်း မှတ်ထားပါ။
 
-
 **CPU နဲ့ GPU အခန်းကဏ္ဍ**
 
 CPU သည် Program logic, data preparation, orchestration နဲ့ အခြားအလုပ်များကို လုပ်ဆောင်နိုင်ပါတယ်။ GPU သည် သင့်လျော်သော parallel numerical operations များကို အရှိန်မြှင့်နိုင်ပါတယ်။
@@ -303,7 +294,6 @@ flowchart TD
 ```
 
 **ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက Client Application ကနေ အောက်ကို လိုက်ကြည့်ပါ။ Triton က model ကို client တွေဆီ serve လုပ်ပေးပြီး TensorRT က inference performance ကို optimize လုပ်ပေးပါသည်။ PyTorch / TensorFlow က model development နှင့် training အတွက် အလုပ်လုပ်ပြီး အောက်ဆုံးမှာ CUDA platform နဲ့ NVIDIA GPU က တကယ့် computation ကို လုပ်ဆောင်ပါသည်။ တစ်ခုချင်းစီရဲ့ တာဝန် မတူညီတာကို ဤပုံတွင် မြင်နိုင်ပါသည်။
-
 
 ## 10. Exam Notes
 
@@ -416,12 +406,6 @@ Imagine you are building a house.
 
 Machine learning frameworks work the same way.
 
-![သင်တန်းပုံ 1 (Training Slide 1): Framework analogy — house building](../assets/nca-aiio-slides/slide-147.jpg)
-
-**Figure walkthrough** — This training slide shows the house-building analogy for ML frameworks. Preparing the hammer, saw, and construction techniques yourself is like writing tensor operations, gradients, and GPU wiring from scratch — slow and error-prone. A workshop where the tools, materials, and design patterns are prepared in advance is like a framework that provides ready-made tools, libraries, and APIs, so you can focus on your model's design. But just as the homeowner still decides the house design, the developer or data scientist still decides the model architecture and training configuration.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 For example, if you want to build a neural network, you could manage tensors yourself, compute gradients, write backpropagation, and wire up GPU operations from scratch — but it is extremely complicated.
 
 With PyTorch or TensorFlow, ready-to-use APIs and libraries exist for these operations.
@@ -439,7 +423,6 @@ flowchart TD
 ```
 
 **Figure walkthrough** — At the top, the goal is to build a model, and two paths branch from it. On the left path you must write tensor operations, gradient computation, backpropagation, and GPU wiring yourself — slower and error-prone. On the right path the framework provides tools, libraries, and APIs, so you can focus on your model's design.
-
 
 ## 3. What Does a Framework Provide?
 
@@ -474,7 +457,6 @@ sequenceDiagram
 ```
 
 **Figure walkthrough** — Training data provides the input, and the model's layers compute the prediction. The loss function measures how far the prediction is from the expected answer and passes the loss, together with the gradients from automatic differentiation, to the optimizer. The optimizer updates the model parameters, and the loop continues with the next batch.
-
 
 ## 4. What Is PyTorch?
 
@@ -616,7 +598,6 @@ flowchart TD
 
 **Figure walkthrough** — The Python application describes the model and tensor operations through framework APIs. The framework runs its supported operations on the NVIDIA GPU as parallel computation through the CUDA / GPU backend and returns the results. Remember that not every operation automatically runs on the GPU.
 
-
 **CPU and GPU Roles**
 
 The CPU can handle program logic, data preparation, orchestration, and other work. The GPU can accelerate suitable parallel numerical operations.
@@ -689,7 +670,6 @@ flowchart TD
 ```
 
 **Figure walkthrough** — Start at the Client Application at the top and move downward. Triton serves the model to clients, and TensorRT optimizes inference performance. PyTorch / TensorFlow handle model development and training, and at the bottom the CUDA platform and the NVIDIA GPU perform the actual computation. The figure shows that each component has a different responsibility.
-
 
 ## 10. Exam Notes
 

@@ -67,12 +67,6 @@ flowchart TD
 - အလယ်က **CUDA** box ဟာ GPU ကို general-purpose computing အတွက် စတင်အသုံးပြုနိုင်စေတဲ့ အရေးကြီးဆုံး အလှည့်အပြောင်း (turning point) ဖြစ်ပါတယ်။
 - အောက်ဆုံးက Modern AI Data Center ဆိုတာ ဒီနေ့ခေတ် NVIDIA platform တွေ ရောက်ရှိနေတဲ့ နေရာဖြစ်ပါတယ်။
 
-![သင်တန်းပုံ 1 (Training Slide 1): NVIDIA history](../assets/nca-aiio-slides/slide-058.jpg)
-
-**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training slide က NVIDIA ရဲ့ သမိုင်းကြောင်းကို အကျဉ်းချုပ် ဖော်ပြထားပါတယ် — ၁၉၉၃ ခုနှစ် စတင်တည်ထောင်ချိန်ကနေ graphics / gaming၊ GPU innovation၊ CUDA ကတစ်ဆင့် parallel computing နဲ့ နောက်ဆုံး AI ခေတ်အထိ ရောက်ရှိလာပုံကို အပေါ်က Figure နဲ့ ယှဉ်ကြည့်နိုင်ပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ### 3. NVIDIA NV1
 
 1995 ခုနှစ်မှာ NVIDIA က **NV1** ဆိုတဲ့ graphics product ကို ထုတ်လုပ်ခဲ့ပါတယ်။
@@ -161,7 +155,6 @@ Traditional:
 CPU
  │
  └── Application Processing
-
 
 CUDA-based:
 
@@ -483,12 +476,6 @@ flowchart TD
 - အလယ်ပိုင်းက CUDA ကနေစပြီး GPU ဟာ general parallel computing platform အဖြစ် ပြောင်းလဲလာတာကို တွေ့ရပါမယ်။
 - နောက်ဆုံးက Blackwell နဲ့ Future Architectures ဟာ NVIDIA ရဲ့ ဆက်လက်တိုးတက်နေမှုကို ပြပါတယ် — product name အားလုံးကို ကျက်မှတ်စရာ မလိုပါဘူး။
 
-![သင်တန်းပုံ 2 (Training Slide 2): NVIDIA technology timeline](../assets/nca-aiio-slides/slide-059.jpg)
-
-**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training slide မှာ NVIDIA technology evolution ကို timeline ပုံစံနဲ့ မြင်သာအောင် ပြထားပါတယ် — အပေါ်ကနေ အောက်ကို ဖတ်ရင် 1993၊ GeForce 256 (GPU concept)၊ CUDA၊ Tesla၊ DGX၊ data center GPU တွေကတစ်ဆင့် ယနေ့ခေတ် AI platform တွေအထိ အစဉ်အတိုင်း ဖြစ်ပါတယ်။ အပေါ်က Figure 4 နဲ့ တူညီတဲ့ အစဉ်ကို ဒီပုံနဲ့ ယှဉ်မှတ်ထားနိုင်ပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ### 15. အရေးကြီးဆုံး Concept
 
 NVIDIA ရဲ့ history ကို product name အများကြီးအနေနဲ့ပဲ မမှတ်ပါနဲ့။
@@ -652,12 +639,6 @@ flowchart TD
 - The **CUDA** box in the middle marks the turning point that made the GPU usable for general-purpose computing.
 - The bottom box, the modern AI data center, is where NVIDIA platforms stand today.
 
-![သင်တန်းပုံ 1 (Training Slide 1): NVIDIA history](../assets/nca-aiio-slides/slide-058.jpg)
-
-**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide summarizes NVIDIA's history — from the company's founding in 1993, through graphics and gaming, GPU innovation, and the CUDA turning point into parallel computing, up to the AI era. Compare it with the flowchart above to place each stage on the same path.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ### 3. NVIDIA NV1
 
 In 1995, NVIDIA released a graphics product called **NV1**. This was one of NVIDIA's early graphics technologies and an important step that began expanding NVIDIA's graphics innovation.
@@ -739,7 +720,6 @@ Traditional:
 CPU
  │
  └── Application Processing
-
 
 CUDA-based:
 
@@ -1048,12 +1028,6 @@ flowchart TD
 - Read the boxes from top to bottom — they follow the real time order from 1993 to today.
 - Watch the middle of the chain: CUDA is where the GPU turns into a general parallel-computing platform.
 - The chain ends with Blackwell and future architectures — the point is the continuous path, not memorizing every product name.
-
-![သင်တန်းပုံ 2 (Training Slide 2): NVIDIA technology timeline](../assets/nca-aiio-slides/slide-059.jpg)
-
-**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide shows the NVIDIA technology evolution as a timeline visual. Reading it from top to bottom follows the same order as Figure 4 above: 1993, GeForce 256 (the GPU concept), CUDA, Tesla, DGX, data-center GPUs, and today's AI platforms.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ### 15. The Most Important Concept
 

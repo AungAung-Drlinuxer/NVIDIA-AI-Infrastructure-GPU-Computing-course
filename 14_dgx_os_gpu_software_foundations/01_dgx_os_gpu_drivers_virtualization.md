@@ -19,12 +19,6 @@ Hardware နဲ့ data-movement infrastructure အဆင်သင့် ဖြ�
 
 ဒီ မိတ်ဆက် lesson မှာတော့ အဓိကအားဖြင့် DGX OS ကို အာရုံစိုက် လေ့လာပါမယ်။
 
-![သင်တန်းပုံ 1 (Training Slide 1): OS / driver / virtualization section](../assets/nca-aiio-slides/slide-103.jpg)
-
-**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training ပုံက OS, GPU driver နဲ့ virtualization ဆိုင်ရာ section ကို မိတ်ဆက်ပြထားပါတယ်။ Layer 1 နဲ့ Layer 2 က hardware နဲ့ data movement ကို ပြင်ဆင်ပေးပြီးနောက် ဒီ resource တွေကို operating system, GPU driver နဲ့ လိုအပ်ရင် virtualization layer တွေနဲ့ စီမံ အသုံးပြုရတာ ဖြစ်ကြောင်း — ဒီ module ရဲ့ အဓိက ခေါင်းစဉ်တွေ (DGX OS, GPU drivers, OS optimization, GPU virtualization) ကို ဖော်ပြထားပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ## 2. NVIDIA Stack မှာ Layer 3 ရပ်တည်ပုံ
 
 Technology stack ရဲ့ ရိုးရှင်းတဲ့ ပုံကတော့—
@@ -91,12 +85,6 @@ NVIDIA DGX OS ဆိုတာ NVIDIA DGX system များအတွက် NVID
 Course မှာ DGX OS ကို customized Ubuntu-based OS အဖြစ် ဖော်ပြထားပြီး DGX platform ပေါ်မှာ AI, machine learning နဲ့ analytics workload များအတွက် optimization များနဲ့ integrated software stack ပါဝင်တယ်လို့ ရှင်းပြထားပါတယ်။
 
 အဓိက idea က— NVIDIA က generic OS installation ထက် ပိုပေးပါတယ်။ Software environment ကို DGX hardware နဲ့ ၎င်း support ပြုတဲ့ NVIDIA software component တွေနဲ့ အတူ အလုပ်လုပ်နိုင်အောင် design လုပ်ထားခြင်း ဖြစ်ပါတယ်။
-
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA DGX system](../assets/hardware/dgx-system.jpg)
-
-**ပုံရှင်းလင်းချက် (ဓာတ်ပုံ 1)** — ဓာတ်ပုံမှာ NVIDIA DGX system ကို မြင်ရပါမယ် — အပြင်ဘက်မှာ ခိုင်မာတဲ့ chassis ဖြင့် ဖုံးအုပ်ထားပြီး အတွင်းမှာ GPU များစွာ၊ high-speed interconnect နဲ့ storage တွေကို ပေါင်းစပ်တပ်ဆင်ထားတဲ့ integrated AI server ဖြစ်ပါတယ်။ DGX OS ဆိုတာ ဒီ hardware component တွေ အားလုံးကို တစ်ခုတည်းသော platform အဖြစ် အလုပ်လုပ်စေဖို့ ရည်ရွယ်ထားတဲ့ operating-system environment ဖြစ်ပါတယ်။
-
-*(Image: NVIDIA official product image)*
 
 DGX-specific OS ကို ဘာကြောင့် သုံးရသလဲ?
 
@@ -341,12 +329,6 @@ This module introduces Layer 3: OS, Drivers, and Virtualization. The main topics
 
 This introductory lesson focuses primarily on DGX OS.
 
-![သင်တန်းပုံ 1 (Training Slide 1): OS / driver / virtualization section](../assets/nca-aiio-slides/slide-103.jpg)
-
-**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide introduces the OS, drivers, and virtualization section. Once the lower layers provide the hardware and data movement, those resources are managed and used through the operating system, GPU drivers, and — where needed — a virtualization layer, matching this module's main topics (DGX OS, GPU drivers, OS optimization, and GPU virtualization).
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ## 2. Where Layer 3 Fits in the NVIDIA Stack
 
 A simplified view of the technology stack is:
@@ -411,12 +393,6 @@ NVIDIA DGX OS is an NVIDIA-provided operating-system environment designed for NV
 The course describes DGX OS as a customized Ubuntu-based OS, with optimizations and an integrated software stack intended for AI, machine learning, and analytics workloads on DGX platforms.
 
 The key idea is that NVIDIA provides more than a generic OS installation: the software environment is designed to work with DGX hardware and its supported NVIDIA software components.
-
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA DGX system](../assets/hardware/dgx-system.jpg)
-
-**Photo walkthrough (Photo 1)** — The photo shows an NVIDIA DGX system: a sturdy chassis enclosing an integrated AI server that combines many GPUs, high-speed interconnects, and storage. DGX OS is the operating-system environment designed to make all of these hardware components work as a single platform.
-
-*(Image: NVIDIA official product image)*
 
 Why use a DGX-specific OS?
 

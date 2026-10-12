@@ -4,7 +4,6 @@
 
 ## မြန်မာဘာသာ version
 
-
 ## 1. အကြမ်းဖျဉ်း
 
 ယခင်က CPU နဲ့ GPU ကို နှိုင်းယှဉ်ချက်များနဲ့ နှိုင်းယှဉ်ခဲ့ပါတယ်။ ယခုတော့ စက်နှစ်ခုရဲ့ အတွင်းပိုင်း architecture ကို ကြည့်ပါမယ်။
@@ -183,12 +182,6 @@ GPU ထဲမှာ အဓိကပါဝင်တာတွေက—
 - **VRAM (Video Memory)** — သီးသန့် high-bandwidth memory
 - **Memory Interface** — processing unit များကို VRAM နှင့် ချိတ်ဆက်ပေးသည်
 
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA A100 80GB GPU](../assets/hardware/a100-gpu.jpg)
-
-**ပုံရှင်းလင်းချက် (ဓာတ်ပုံ 1)** — ဓာတ်ပုံမှာ NVIDIA A100 GPU တစ်လုံး (GPU board/module) ကို မြင်ရပါမယ် — GPU chip ကို ဖုံးအုပ်ထားတဲ့ ကြီးမားတဲ့ heatsink နဲ့ cooling assembly နဲ့ ၎င်းဝန်းကျင်မှာ တပ်ဆင်ထားတဲ့ GPU memory (VRAM) တွေ ပါဝင်ပါတယ်။ အပေါ်မှာ ပြောခဲ့တဲ့ parallel processing units၊ VRAM နဲ့ memory interface ဆိုတဲ့ အစိတ်အပိုင်း သုံးခုလုံးဟာ ဒီ hardware တစ်ခုလုံးထဲမှာ ပါဝင်နေတာ ဖြစ်ပါတယ်။
-
-*(Image: NVIDIA official product image)*
-
 အောက်ပါ **Figure 3** မှာ GPU ရဲ့ အဓိက အစိတ်အပိုင်း သုံးခုကို ပုံနဲ့ ကြည့်နိုင်ပါတယ်။
 
 **Figure 3: GPU High-Level Architecture — Parallel Units, VRAM နှင့် Memory Interface**
@@ -306,12 +299,6 @@ flowchart TD
 | Memory | System RAM | Dedicated VRAM |
 | အကောင်းဆုံး | Control flow, logic, OS | Matrix, vector, tensor operation |
 | Latency | Latency နည်းအောင် optimize | Throughput အတွက် optimize |
-
-![သင်တန်းပုံ 1 (Training Slide 1): CPU vs GPU Architecture ပုံ (CPU vs GPU Architecture Diagram)](../assets/nca-aiio-slides/slide-030.jpg)
-
-**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 1)** — ဒီသင်တန်းပုံမှာ CPU နဲ့ GPU ရဲ့ high-level architecture ကို ဘေးချင်းယှဉ် ပြထားပါတယ်။ CPU ဘက်မှာ core နည်းနည်း powerful နဲ့ cache hierarchy ကြီး ပါဝင်ပြီး၊ GPU ဘက်မှာ processing unit ထောင်ပေါင်းများစွာ ငယ်ငယ်တွေနဲ့ high-bandwidth memory ပါဝင်ပုံကို တွေ့ရပါမယ်။ ဒီဇိုင်း ကွာခြားချက်ကြောင့် CPU က latency နည်းအောင်၊ GPU က throughput များအောင် အသီးသီး optimize ဖြစ်ကြတာ ဖြစ်ပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 14. အတူတကွ ဘယ်လိုအလုပ်လုပ်သလဲ?
 
@@ -572,12 +559,6 @@ The main parts are:
 - **VRAM (Video Memory)** — dedicated high-bandwidth memory
 - **Memory Interface** — connects processing units to VRAM
 
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA A100 80GB GPU](../assets/hardware/a100-gpu.jpg)
-
-**Photo walkthrough (Photo 1)** — The photo shows an NVIDIA A100 GPU: a board carrying the GPU chip under a large heatsink and cooling assembly, with GPU memory (VRAM) mounted around it. The three parts described above — parallel processing units, VRAM, and the memory interface — all live inside this single piece of hardware.
-
-*(Image: NVIDIA official product image)*
-
 See **Figure 3** for a picture of the three main parts of a GPU.
 
 **Figure 3: High-Level GPU Architecture — Parallel Units, VRAM, and Memory Interface**
@@ -695,12 +676,6 @@ flowchart TD
 | Memory | System RAM | Dedicated VRAM |
 | Best for | Control flow, logic, OS | Matrix, vector, tensor operations |
 | Latency | Optimized for low latency | Optimized for throughput |
-
-![သင်တန်းပုံ 1 (Training Slide 1): CPU vs GPU Architecture Diagram](../assets/nca-aiio-slides/slide-030.jpg)
-
-**Slide walkthrough (Training Slide 1)** — This training slide puts the CPU and GPU high-level architectures side by side. The CPU side shows a few powerful cores with a large cache hierarchy, while the GPU side shows thousands of smaller processing units with high-bandwidth memory. Those design differences are why the CPU is optimized for low latency and the GPU for high throughput.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 14. How They Work Together
 

@@ -105,30 +105,11 @@ flowchart LR
 
 ဒီ analogy ကို networking မှာ အသုံးပြုရင်—Ethernet → Highway၊ InfiniBand → Dedicated high-performance transport လို့ မှတ်နိုင်ပါတယ်။
 
-![သင်တန်းပုံ 1 (Training Slide 1): Highway vs Bullet Train Track](../assets/nca-aiio-slides/slide-046.jpg)
-
-**ပုံရှင်းလင်းချက် (Training slide walkthrough)**
-1. ဒီ slide မှာ general-purpose highway နဲ့ bullet train အတွက် သီးသန့်တည်ဆောက်ထားတဲ့ track ကို နှိုင်းယှဉ်ပြထားပါတယ်။
-2. Highway ပေါ်မှာ car, truck, bus စတဲ့ ယာဉ်အမျိုးမျိုး သွားနိုင်သလို Ethernet ကလည်း traffic အမျိုးမျိုးအတွက် general-purpose ဖြစ်ပါတယ်။
-3. Bullet train က သီးသန့်လမ်းပေါ်မှာ အမြန်ဆုံးသွားသလို InfiniBand ကလည်း high-performance workload အတွက် dedicated transport ဖြစ်ပါတယ်။
-4. ပုံမှာ Shinkansen bullet train ဓာတ်ပုံကိုလည်း ထည့်သုံးထားတာ တွေ့ရပါမယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ## 5. Ethernet vs InfiniBand — Basic Idea
 
 **Ethernet** — General-purpose networking အတွက် အလွန်ကျယ်ပြန့်စွာ အသုံးပြုတဲ့ technology ဖြစ်ပါတယ်။ အသုံးပြုနိုင်တဲ့နေရာတွေက—Home, Office, Enterprise, Data Center, Internet စတာတွေ ဖြစ်ပါတယ်။
 
 **InfiniBand** — High-Performance Computing (HPC) နဲ့ high-performance data center workloads တွေအတွက် အထူးအသုံးဝင်တဲ့ specialized networking technology ဖြစ်ပါတယ်။ အထူးသဖြင့်—HPC, AI clusters, Distributed AI, High-performance storage/interconnect စတဲ့ environment တွေမှာ အသုံးပြုနိုင်ပါတယ်။
-
-![သင်တန်းပုံ 2 (Training Slide 2): Ethernet vs InfiniBand — Two Prominent Networking Technologies](../assets/nca-aiio-slides/slide-047.jpg)
-
-**ပုံရှင်းလင်းချက် (Training slide walkthrough)**
-1. ဒီ slide မှာ networking technology နှစ်မျိုး—Ethernet နဲ့ InfiniBand ကို ဘေးချင်းယှဉ် မိတ်ဆက်ပြထားပါတယ်။
-2. Ethernet က home, office, enterprise, data center, internet စတဲ့ နေရာတွေမှာ အသုံးများတဲ့ general-purpose networking technology ဖြစ်ပါတယ်။
-3. InfiniBand ကတော့ HPC, AI clusters နဲ့ high-performance data center workload တွေအတွက် အထူးတည်ဆောက်ထားတဲ့ specialized technology ဖြစ်ပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 6. Physical Connectivity
 
@@ -146,15 +127,6 @@ High-speed Ethernet environment တွေမှာတော့ optical transceiv
 
 ဒီ Ethernet connectivity တွေကို physical အနေနဲ့ Ethernet switch များ၊ NIC များနဲ့ cable များဖြင့် တည်ဆောက်ပါတယ်။
 
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA Spectrum Ethernet switch](../assets/hardware/spectrum-switch.jpg)
-
-**ပုံရှင်းလင်းချက် (Photo walkthrough)**
-1. ဒီမှာ မြင်ရတာက Ethernet ဘက်ခြမ်းမှာ သုံးတဲ့ rack-mount Ethernet switch chassis ဖြစ်ပါတယ်။
-2. ရှေ့ဘက် faceplate မှာ high-speed Ethernet port တွေကို အတန်းလိုက် တန်းစီထားပြီး cable ချိတ်ဆက်ဖို့ connector cage တွေ ပါရှိပါတယ်။
-3. Server တွေက NIC ကတစ်ဆင့် ဒီ switch ထဲကို cable ချိတ်ပြီး Ethernet network ထဲ ဝင်ကြပါတယ်။
-
-*(Image: NVIDIA official product image)*
-
 ## 7. InfiniBand Physical Connectivity
 
 InfiniBand မှာလည်း cable နဲ့ connectors လိုအပ်ပါတယ်။ High-speed InfiniBand deployment တွေမှာ—Fiber optic, High-speed copper, SFP/QSFP-class pluggable interfaces စတဲ့ connectivity technologies တွေကို အသုံးပြုနိုင်ပါတယ်။
@@ -164,15 +136,6 @@ Source မှာ **QSFP — Quad Small Form-factor Pluggable** ဆိုတဲ�
 အဓိက idea က—InfiniBand physical infrastructure ကို high-speed server-to-server interconnect အတွက် optimize လုပ်ထားခြင်း ဖြစ်ပါတယ်။
 
 ဒီ InfiniBand fabric ရဲ့ အလယ်ခံ hardware ကတော့ InfiniBand switch တွေ ဖြစ်ပါတယ်။
-
-![ဓာတ်ပုံ 2 (Photo 2): NVIDIA Quantum InfiniBand switch](../assets/hardware/quantum-ib-switch.jpg)
-
-**ပုံရှင်းလင်းချက် (Photo walkthrough)**
-1. ဒီမှာ မြင်ရတာက InfiniBand ဘက်ခြမ်းမှာ သုံးတဲ့ rack-mount InfiniBand switch chassis ဖြစ်ပါတယ်။
-2. ရှေ့ဘက် faceplate မှာ high-speed InfiniBand port တွေ အတန်းလိုက် တန်းစီပြီး QSFP-class connector cage တွေ ပါရှိပါတယ်။
-3. ဒီ switch ကတစ်ဆင့် server တွေကြား high-speed, low-latency interconnect လမ်းကြောင်း ဖြစ်လာပါတယ်။
-
-*(Image: NVIDIA official product image)*
 
 ## 8. Ethernet vs InfiniBand — Main Comparison
 
@@ -611,30 +574,11 @@ flowchart LR
 
 Applying this analogy to networking—remember it as Ethernet → Highway, InfiniBand → Dedicated high-performance transport.
 
-![သင်တန်းပုံ 1 (Training Slide 1): Highway vs Bullet Train Track](../assets/nca-aiio-slides/slide-046.jpg)
-
-**Training slide walkthrough**
-1. This slide compares a general-purpose highway with a dedicated bullet train track.
-2. A highway carries cars, trucks and buses — just as Ethernet is general-purpose networking for many traffic types.
-3. A bullet train runs on its own dedicated track at high speed — just as InfiniBand is dedicated transport for high-performance workloads.
-4. The slide also uses a photograph of Shinkansen bullet trains to make the comparison concrete.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ## 5. Ethernet vs InfiniBand — Basic Idea
 
 **Ethernet** — A technology widely used for general-purpose networking. Where it is used—Home, Office, Enterprise, Data Center, Internet, and more.
 
 **InfiniBand** — A specialized networking technology particularly useful for High-Performance Computing (HPC) and high-performance data center workloads. Especially—HPC, AI clusters, Distributed AI, high-performance storage/interconnect environments, and more.
-
-![သင်တန်းပုံ 2 (Training Slide 2): Ethernet vs InfiniBand — Two Prominent Networking Technologies](../assets/nca-aiio-slides/slide-047.jpg)
-
-**Training slide walkthrough**
-1. This slide introduces the two prominent networking technologies side by side: Ethernet and InfiniBand.
-2. Ethernet is the general-purpose networking technology used in homes, offices, enterprises, data centers and the internet.
-3. InfiniBand is the specialized technology built for HPC, AI clusters and high-performance data center workloads.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 6. Physical Connectivity
 
@@ -652,15 +596,6 @@ In high-speed Ethernet environments, optical transceivers and high-speed pluggab
 
 This Ethernet connectivity is physically built from Ethernet switches, NICs, and cables.
 
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA Spectrum Ethernet switch](../assets/hardware/spectrum-switch.jpg)
-
-**Photo walkthrough**
-1. What you see is a rack-mount Ethernet switch chassis used on the Ethernet side.
-2. On the front faceplate, high-speed Ethernet ports are arranged in rows, each with a connector cage for the cable.
-3. Servers connect through a cable from their NIC into a switch like this to join the Ethernet network.
-
-*(Image: NVIDIA official product image)*
-
 ## 7. InfiniBand Physical Connectivity
 
 InfiniBand also needs cables and connectors. In high-speed InfiniBand deployments—Fiber optic, high-speed copper, SFP/QSFP-class pluggable interfaces and other connectivity technologies can be used.
@@ -670,15 +605,6 @@ The source mentions **QSFP — Quad Small Form-factor Pluggable**, a connector/f
 The key idea is that InfiniBand physical infrastructure is optimized for high-speed server-to-server interconnect.
 
 The hardware at the center of this InfiniBand fabric is the InfiniBand switch.
-
-![ဓာတ်ပုံ 2 (Photo 2): NVIDIA Quantum InfiniBand switch](../assets/hardware/quantum-ib-switch.jpg)
-
-**Photo walkthrough**
-1. What you see is a rack-mount InfiniBand switch chassis used on the InfiniBand side.
-2. On the front faceplate, high-speed InfiniBand ports are arranged in rows with QSFP-class connector cages.
-3. Through this switch, servers get the high-speed, low-latency interconnect path between one another.
-
-*(Image: NVIDIA official product image)*
 
 ## 8. Ethernet vs InfiniBand — Main Comparison
 

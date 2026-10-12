@@ -24,12 +24,6 @@ AI workload တွေကို run လုပ်တဲ့အခါ electricity �
 - Cooling requirement တိုးလာတယ်
 - Environmental impact တိုးလာနိုင်တယ်
 
-![သင်တန်းပုံ 1 (Training Slide 1): Average Data Center Electricity Use by Size](../assets/nca-aiio-slides/slide-019.jpg)
-
-**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 1)** — ဒီသင်တန်းပုံက data center အရွယ်အစားအလိုက် ပျမ်းမျှ electricity သုံးစွဲမှုကို chart အနေနဲ့ နှိုင်းယှဉ်ပြထားပါတယ်။ data center အရွယ်အစား ကွာခြားသွားတာနဲ့အမျှ လိုအပ်တဲ့ electricity ပမာဏ ဘယ်လောက်အထိ ကွာခြားနိုင်လဲဆိုတာ ဒီ chart ကို ကြည့်ရုံနဲ့ ခန့်မှန်းနိုင်ပါတယ် — AI training၊ large-scale inference နဲ့ large GPU clusters လို workload တွေအတွက် ဒီပမာဏဟာ infrastructure ဒီဇိုင်းဆွဲတဲ့အခါ ထည့်စဉ်းစားရမယ့် အဓိကအချက် ဖြစ်လာပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ### 2. Data Center တစ်ခုမှာ Electricity ကို ဘယ်မှာသုံးသလဲ?
 
 Data Center တစ်ခုမှာ electricity အားလုံးကို IT equipment တစ်ခုတည်းအတွက် မသုံးပါဘူး။
@@ -72,12 +66,6 @@ flowchart TD
 ```
 
 **ပုံရှင်းလင်းချက်** — အပေါ်ဆုံးက Data Center Power ကနေ စပါတယ်။ ဒီ power ကို အဓိက လေးစုခွဲသုံးပါတယ် — IT Equipment၊ Cooling၊ Power Conversion / Distribution နဲ့ Other Facility Systems။ အောက်ဆုံးအဆင့်မှာ တစ်စုချင်းစီရဲ့ ဥပမာပစ္စည်းတွေ — Servers / GPUs / Storage / Network၊ Chillers / Fans / Pumps၊ UPS / Power Distribution၊ Lighting / Fire / Monitoring — ကို တွေ့ရပါမယ်။ IT equipment အတွက် သုံးတဲ့ power နဲ့ ကျန် overhead power ကွာခြားပုံကို နားလည်ဖို့ ဒီပုံက အခြေခံပါတယ်။
-
-![ဓာတ်ပုံ 1 (Photo 1): AI data center — server racks](../assets/hardware/data-center.jpg)
-
-**ပုံရှင်းလင်းချက် (ဓာတ်ပုံ 1)** — ဒီဓာတ်ပုံမှာ မြင်ရတဲ့ rack တစ်ခုချင်းစီထဲက server တွေ၊ GPU တွေ၊ storage နဲ့ network equipment တွေဟာ ဒီ section မှာ ပြောခဲ့တဲ့ IT Equipment power consumption ရဲ့ အဓိက ပစ္စည်းတွေ ဖြစ်ပါတယ်။ rack တွေ ဘယ်လောက် စုပြုံနေလဲ၊ တစ် rack ထဲမှာ ပစ္စည်း ဘယ်လောက် ထူထပ်လဲ ဆိုတာက power နဲ့ cooling ဘယ်လောက် လိုအပ်မလဲ ဆိုတာကို တိုက်ရိုက် သက်ရောက်စေပါတယ်။
-
-*(Image: NVIDIA official product image)*
 
 ### 3. Traditional Data Center တွေရဲ့ Power Distribution
 
@@ -158,12 +146,6 @@ Total Electricity = 100%
 
 > ⚠️ **သတိပြုရန်**: 50/50 နဲ့ 90/10 က ဒီသင်ခန်းစာထဲမှာ illustrative examples အဖြစ် သုံးထားတဲ့အချက်တွေပါ။ Data center တိုင်းမှာ အတိအကျ ဒီရာခိုင်နှုန်းတွေဖြစ်မယ်လို့ မယူဆသင့်ပါဘူး။
 
-![သင်တန်းပုံ 2 (Training Slide 2): Power Consumption — Old vs Modern Data Centers](../assets/nca-aiio-slides/slide-020.jpg)
-
-**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 2)** — ဒီသင်တန်းပုံက traditional (အဟောင်း) data center နဲ့ modern data center တို့ရဲ့ power consumption ပုံစံကို နှိုင်းယှဉ်ပြထားပါတယ် — အဟောင်း data center တွေမှာ electricity ရဲ့ သိသာတဲ့ အပိုင်းဟာ cooling၊ power conversion စတဲ့ overhead တွေမှာ ကုန်ဆုံးပြီး modern data center တွေမှာတော့ IT equipment ဆီ ပိုမို ရောက်ရှိအောင် လုပ်နိုင်ကြောင်း ပြသပါတယ်။ အပေါ်က 50/50 နဲ့ 90/10 ဥပမာတွေနဲ့ တွဲကြည့်ရင် "more processing power per watt" ဆိုတဲ့ modern data center ရဲ့ ရည်မှန်းချက်ကို ပိုမို နားလည်နိုင်ပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ### 5. Energy Efficiency ဘာကြောင့် အရေးကြီးသလဲ?
 
 Data Center တစ်ခုရဲ့ efficiency ကို နားလည်ဖို့—**Power Usage Effectiveness (PUE)** ဆိုတဲ့ metric ကို အသုံးပြုပါတယ်။
@@ -188,12 +170,6 @@ PUE = ────────────────────────�
 ```
 
 သို့မဟုတ်—`PUE = Total Facility Energy ÷ IT Equipment Energy`
-
-![သင်တန်းပုံ 3 (Training Slide 3): PUE Definition](../assets/nca-aiio-slides/slide-021.jpg)
-
-**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 3)** — ဒီသင်တန်းပုံက PUE (Power Usage Effectiveness) ရဲ့ သတ်မှတ်ချက်ကို ပြထားပါတယ် — data center တစ်ခု သုံးစွဲတဲ့ total energy ကို ၎င်းရဲ့ IT equipment သုံးစွဲတဲ့ energy နဲ့ နှိုင်းယှဉ်ပေးတဲ့ metric ဖြစ်ကြောင်း ဒီပုံမှာ မြင်ရပါတယ်။ အပေါ်က formula — PUE = Total Facility Energy ÷ IT Equipment Energy — နဲ့ တူညီပြီး PUE ဆိုတာ ဘာကို တိုင်းတာတဲ့ metric လဲဆိုတာကို ဒီပုံက တစ်နေရာတည်းမှာ ရှင်းလင်းစွာ ပြသပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ### 7. PUE ကို ဘာကြောင့်သုံးသလဲ?
 
@@ -404,12 +380,6 @@ Higher electricity consumption can lead to:
 - Higher cooling requirements
 - Potentially greater environmental impact
 
-![သင်တန်းပုံ 1 (Training Slide 1): Average Data Center Electricity Use by Size](../assets/nca-aiio-slides/slide-019.jpg)
-
-**Slide walkthrough (Training Slide 1)** — This training slide is a chart comparing average electricity use by data center size. It shows how the required electricity differs as data center size changes — a key consideration when designing infrastructure for AI training, large-scale inference, large GPU clusters, and other heavy workloads.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ### 2. Where Is Power Consumed in a Data Center?
 
 The electricity consumed by a data center is not used only by IT equipment. It can be broadly divided into:
@@ -451,12 +421,6 @@ flowchart TD
 ```
 
 **Figure walkthrough** — Start at the top node, Data Center Power. It is divided into four main areas: IT Equipment, Cooling, Power Conversion / Distribution, and Other Facility Systems. At the bottom, each area shows example equipment — Servers / GPUs / Storage / Network, Chillers / Fans / Pumps, UPS / Power Distribution, and Lighting / Fire / Monitoring. This figure is the basis for understanding the difference between power used by IT equipment and the remaining overhead power.
-
-![ဓာတ်ပုံ 1 (Photo 1): AI data center — server racks](../assets/hardware/data-center.jpg)
-
-**Photo walkthrough (Photo 1)** — The servers, GPUs, storage, and networking equipment inside each rack shown in this photo are exactly the "IT Equipment" whose power use is described above. How densely racks are packed directly affects how much power and cooling the facility needs.
-
-*(Image: NVIDIA official product image)*
 
 ### 3. Traditional Data Center Power Distribution
 
@@ -530,12 +494,6 @@ Total Electricity = 100%
 
 > ⚠️ **Important:** The 50/50 and 90/10 distributions in the source are illustrative examples, not universal values for every data center.
 
-![သင်တန်းပုံ 2 (Training Slide 2): Power Consumption — Old vs Modern Data Centers](../assets/nca-aiio-slides/slide-020.jpg)
-
-**Slide walkthrough (Training Slide 2)** — This training slide compares the power consumption patterns of older/traditional and modern data centers. In older data centers a visible share of the electricity goes to overhead such as cooling and power conversion, while modern data centers are designed to deliver more of it to the IT equipment. Read together with the 50/50 and 90/10 examples above, it illustrates the modern aim of "more processing power per watt."
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ### 5. Why Does Energy Efficiency Matter?
 
 To measure data center energy efficiency, we use a metric called: **PUE = Power Usage Effectiveness**. PUE compares the total energy consumed by a data center with the energy consumed by its IT equipment.
@@ -557,12 +515,6 @@ PUE = ────────────────────────�
 ```
 
 Or: `PUE = Total Facility Energy ÷ IT Equipment Energy`
-
-![သင်တန်းပုံ 3 (Training Slide 3): PUE Definition](../assets/nca-aiio-slides/slide-021.jpg)
-
-**Slide walkthrough (Training Slide 3)** — This training slide presents the definition of PUE (Power Usage Effectiveness): a metric that compares the total energy consumed by a data center with the energy consumed by its IT equipment. It matches the formula above — PUE = Total Facility Energy ÷ IT Equipment Energy — and makes clear in one view what PUE actually measures.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ### 7. Why Does PUE Matter?
 

@@ -181,12 +181,6 @@ RDMA က support လုပ်တဲ့ network adapters တွေကို data 
 
 CPU နဲ့ software က communication ကို တည်ဆောက်ပေးပြီး memory ကို register ဒါမှမဟုတ် map လုပ်ပေးပြီး access ကို ခွင့်ပြုပြီး completion information ကို လုပ်ဆောင်ဆဲ ဖြစ်ပါတယ်။ RDMA က data copy တိုင်းကို CPU ကိုင်တွယ်ရန် လိုအပ်ချက်ကို လျှော့ချပေးတာ ဖြစ်ပါတယ်။
 
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA ConnectX InfiniBand adapter](../assets/hardware/connectx-ib-nic.jpg)
-
-**ပုံရှင်းလင်းချက် (ဓာတ်ပုံ 1)** — ဓာတ်ပုံမှာ NVIDIA ConnectX InfiniBand adapter (network card) ကို မြင်ရပါမယ် — ကတ်ပေါ်မှာ network processor ကို ဖုံးအုပ်ထားတဲ့ heatsink၊ ကွန်ရက် cable ချိတ်ဆက်ဖို့ port တွေနဲ့ server ရဲ့ PCIe slot ထဲ ထည့်သုံးရမယ့် connector ပါဝင်ပါတယ်။ RDMA မှာ ပြောတဲ့ "RDMA-capable adapter" ဆိုတာ ဒီလို network adapter ကို ရည်ညွှန်းတာ ဖြစ်ပြီး ၎င်းက data path ထဲမှာ CPU ပါဝင်မှုကို လျှော့ချပြီး data ကို တိုက်ရိုက် လွှဲပြောင်းပေးပါတယ်။
-
-*(Image: NVIDIA official product image)*
-
 ရိုးရှင်းတဲ့ မြင်ကွင်း—
 
 ```
@@ -521,12 +515,6 @@ RDMA allows supported network adapters to transfer data between registered memor
 For example, an RDMA-capable adapter on Host 1 can exchange data with a registered memory region on Host 2 over a supported network.
 
 The CPU and software still establish the communication, register or map memory, authorize access, and process completion information. RDMA reduces the need for the CPU to handle each data copy.
-
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA ConnectX InfiniBand adapter](../assets/hardware/connectx-ib-nic.jpg)
-
-**Photo walkthrough (Photo 1)** — The photo shows an NVIDIA ConnectX InfiniBand adapter (network card): a heatsink covering the network processor, ports for connecting network cables, and the connector that plugs into a server's PCIe slot. The "RDMA-capable adapter" in this section is exactly this kind of network card — it transfers data directly while reducing CPU involvement in the data path.
-
-*(Image: NVIDIA official product image)*
 
 A simplified view:
 

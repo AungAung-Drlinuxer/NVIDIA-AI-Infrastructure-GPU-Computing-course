@@ -74,12 +74,6 @@ flowchart TD
 
 > Reference Architecture = Infrastructure implementation အတွက် architectural blueprint
 
-![သင်တန်းပုံ 1 (Training Slide 1): NVIDIA reference architectures](../assets/nca-aiio-slides/slide-068.jpg)
-
-**ပုံရှင်းလင်းချက် (Slide walkthrough):** ဒီ training slide က NVIDIA reference architectures တွေကို မိတ်ဆက်ပြထားပါတယ် — hardware, compute, networking, storage စတဲ့ components တွေကို ဘယ်လို ပေါင်းစပ်ရမလဲဆိုတဲ့ architectural blueprint အဖြစ် အသုံးပြုနိုင်တာကို အပေါ်က Figure 1 ရဲ့ blueprint ဥပမာနဲ့ ယှဉ်ကြည့်နိုင်ပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ## 3. NVIDIA က Reference Architectures တွေ ဘာကြောင့် ပေးထားသလဲ?
 
 NVIDIA Reference Architectures တွေက system implementation အတွက် frameworks နဲ့ design guidance တွေကို ပေးပါတယ်။ ရည်ရွယ်ထားတဲ့ အကျိုးကျေးဇူးတွေက —
@@ -236,15 +230,6 @@ flowchart TD
 BlueField DPU, management infrastructure နဲ့ security controls တွေကိုလည်း သင့်တော်တဲ့ design အလိုက် ထည့်သွင်းနိုင်ပါတယ်။
 
 Reference Architecture ရဲ့ အရေးကြီးဆုံး concept က components တွေကို သီးခြားစီသာ မကြည့်ဘဲ အပြန်အလှန်ဆက်စပ်နေတဲ့ system တစ်ခုအဖြစ် နားလည်ဖို့ ဖြစ်ပါတယ်။
-
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA Spectrum-X platform](../assets/hardware/spectrum-x.jpg)
-
-**ဓာတ်ပုံရှင်းလင်းချက် (Photo walkthrough):**
-- ပုံထဲမှာ NVIDIA Spectrum-X Ethernet networking platform ကို မြင်ရပါတယ် — Ethernet-based reference architecture တွေမှာ အသုံးပြုတဲ့ switch နဲ့ adapter ထုတ်ကုန်များ ဖြစ်ပါတယ်။
-- အပေါ်က diagram မှာ "InfiniBand / Ethernet" လို့ ပြထားတဲ့ networking အပိုင်းကို Ethernet နဲ့ တည်ဆောက်မယ်ဆိုရင် Spectrum-X platform ကို အသုံးပြုပါတယ်။
-- Ethernet reference architecture တစ်ခုမှာ compute nodes တွေကို Spectrum-X switch တွေနဲ့ ချိတ်ဆက်ပြီး multi-node AI system တစ်ခုလုံးကို network ပိုင်းက ပံ့ပိုးပေးပါတယ်။
-
-*(Image: NVIDIA official product image)*
 
 ## 9. Component တိုင်းကို မှတ်ထားဖို့ လိုသလား?
 
@@ -425,12 +410,6 @@ flowchart TD
 
 > Reference Architecture = an architectural blueprint for infrastructure implementation.
 
-![သင်တန်းပုံ 1 (Training Slide 1): NVIDIA reference architectures](../assets/nca-aiio-slides/slide-068.jpg)
-
-**Slide walkthrough (ပုံရှင်းလင်းချက်):** This training slide introduces NVIDIA reference architectures — architectural blueprints showing how to combine hardware, compute, networking, and storage components into a working system. Read it alongside the blueprint analogy in Figure 1 above.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ## 3. Why Does NVIDIA Provide Reference Architectures?
 
 NVIDIA Reference Architectures provide frameworks and design guidance for system implementation. Their intended benefits include:
@@ -581,15 +560,6 @@ flowchart TD
 4. At the bottom, compute, network, and storage join together into one multi-node AI system.
 
 BlueField DPU, management infrastructure, and security controls can also be incorporated as appropriate to the design. The most important concept is to understand the components as an integrated system, not merely as separate products.
-
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA Spectrum-X platform](../assets/hardware/spectrum-x.jpg)
-
-**Photo walkthrough (ဓာတ်ပုံရှင်းလင်းချက်):**
-- The photo shows the NVIDIA Spectrum-X Ethernet networking platform — the switch and adapter products used in Ethernet-based reference architectures.
-- Where the diagram above says "InfiniBand / Ethernet", an Ethernet design would build that networking layer from the Spectrum-X platform.
-- In an Ethernet reference architecture, the compute nodes connect through Spectrum-X switches, and this hardware is what supports the whole multi-node AI system on the network side.
-
-*(Image: NVIDIA official product image)*
 
 ## 9. Do You Need to Memorize Every Component?
 

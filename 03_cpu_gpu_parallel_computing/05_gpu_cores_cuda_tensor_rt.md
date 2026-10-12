@@ -18,12 +18,6 @@ GPU (Graphics Processing Unit) ကို အပြင်ကကြည့်ရင
 
 ဒီ Core အမျိုးအစားတွေဟာ အလုပ်တူတူကို နည်းလမ်းတူတူနဲ့ လုပ်ဆောင်တာမဟုတ်ပါဘူး။ တစ်ခုချင်းစီမှာ ကိုယ်ပိုင်ရည်ရွယ်ချက်နဲ့ အားသာချက်တွေ ရှိပါတယ်။
 
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA H100 GPU](../assets/hardware/h100-gpu.jpg)
-
-**ပုံရှင်းလင်းချက် (ဓာတ်ပုံ 1)** — ဓာတ်ပုံမှာ NVIDIA H100 GPU ကို မြင်ရပါမယ် — GPU chip ပါဝင်တဲ့ board ပေါ်မှာ ကြီးမားတဲ့ heatsink / cooling assembly နဲ့ အနီးအနားမှာ high-bandwidth memory တွေ တပ်ဆင်ထားပါတယ်။ CUDA Cores၊ Tensor Cores စတဲ့ core အမျိုးအစားတွေဟာ ဒီ GPU chip ထဲမှာ ပါဝင်တဲ့ hardware units တွေ ဖြစ်ပြီး အပြင်ကနေ ကြည့်ရင်တော့ GPU တစ်လုံးဟာ hardware unit တစ်ခုတည်းလိုပဲ မြင်ရပါတယ်။
-
-*(Image: NVIDIA official product image)*
-
 Conceptual Diagram —
 
 ```
@@ -39,12 +33,6 @@ Conceptual Diagram —
 ```
 
 ဒီ Diagram က သဘောတရားကို နားလည်ဖို့ ရေးထားတာဖြစ်ပြီး GPU အားလုံးမှာ Core အမျိုးအစားသုံးမျိုးလုံး ပါဝင်တယ်လို့ မဆိုလိုပါဘူး။ အမှန်တကယ် ပါဝင်တဲ့ Hardware Units တွေဟာ GPU Model နဲ့ Architecture အလိုက် ကွာခြားနိုင်ပါတယ်။
-
-![သင်တန်းပုံ 1 (Training Slide 1): GPU အတွင်းပိုင်း Core များ (GPU Cores — Visual 1)](../assets/nca-aiio-slides/slide-070.jpg)
-
-**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 1)** — ဒီသင်တန်းပုံက GPU တစ်လုံးဟာ processing unit တစ်ခုတည်း မဟုတ်ဘဲ အလုပ်အမျိုးမျိုးအတွက် ရည်ရွယ်ထားတဲ့ core အမျိုးအစားတွေ — CUDA Cores, Tensor Cores, RT Cores ပါဝင်တဲ့ အကြောင်းကို အဓိက မြင်ကွင်းနဲ့ ရှင်းလင်းထားပါတယ်။ GPU အပြင်ပိုင်းကနေ ကြည့်ရင် hardware unit တစ်ခုတည်းလို မြင်ရပေမယ့် အတွင်းမှာ မတူညီတဲ့ processing hardware တွေ ခွဲထားတာကို ဒီပုံမှာ လေ့လာနိုင်ပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 အောက်ပါ **Figure 1** မှာ GPU အတွင်းက core အမျိုးအစား သုံးမျိုးရဲ့ အဓိက အလုပ်တွေကို ပုံနဲ့ ကြည့်နိုင်ပါတယ်။
 
@@ -66,12 +54,6 @@ flowchart TD
 - CUDA Cores က general & parallel computing အတွက် အသုံးဝင်ပါတယ်။
 - Tensor Cores က AI matrix operation တွေကို အရှိန်မြှင့်ပေးပါတယ်။
 - RT Cores က ray tracing operation တွေကို အရှိန်မြှင့်ပေးပါတယ်။ (GPU အားလုံး သုံးမျိုးလုံး ပါဝင်တယ်လို့ မဆိုလိုပါဘူး — GPU model နဲ့ architecture ပေါ် မူတည်ပါတယ်။)
-
-![သင်တန်းပုံ 2 (Training Slide 2): GPU Core အမျိုးအစားများနှင့် ၎င်းတို့၏ အလုပ်များ (GPU Cores — Visual 2)](../assets/nca-aiio-slides/slide-071.jpg)
-
-**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 2)** — ဒီသင်တန်းပုံမှာ GPU အတွင်းက core အမျိုးအစား သုံးမျိုးရဲ့ အဓိက အလုပ်တွေကို ဆက်လက် ပြသထားပါတယ် — CUDA Cores က general & parallel computing၊ Tensor Cores က AI matrix operations၊ RT Cores က ray tracing operations အတွက် ဖြစ်ပါတယ်။ မှတ်ရန်က ဒီ core တွေ အားလုံး GPU တိုင်းမှာ ပါဝင်တယ်လို့ မဆိုလိုဘဲ GPU model နဲ့ architecture ပေါ် မူတည်ပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 3. Human Brain နဲ့ နှိုင်းယှဉ်ကြည့်ခြင်း
 
@@ -110,12 +92,6 @@ flowchart TD
 - General teachers တွေက CUDA Cores နဲ့ တူပြီး ဘာသာရပ်မျိုးစုံ သင်နိုင်သလို general computing အမျိုးမျိုး လုပ်နိုင်ပါတယ်။
 - Math specialist က Tensor Cores နဲ့ တူပြီး AI matrix operation တွေမှာ အထူးကျွမ်းကျင်ပါတယ်။
 - Art specialist က RT Cores နဲ့ တူပြီး ray tracing အတွက် အထူးပြုပါတယ်။ Principal ကတော့ software stack ကတစ်ဆင့် အလုပ်ခွဲဝေ စီမံပေးပါတယ်။
-
-![သင်တန်းပုံ 3 (Training Slide 3): School နှင့် Teachers ဥပမာ (School Analogy)](../assets/nca-aiio-slides/slide-072.jpg)
-
-**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 3)** — ဒီသင်တန်းပုံမှာ GPU core အမျိုးအစားတွေကို ကျောင်းတစ်ကျောင်းနဲ့ နှိုင်းယှဉ်ထားပါတယ် — General Teachers တွေက CUDA Cores လို ဘာသာရပ်မျိုးစုံ သင်နိုင်ပြီး၊ Math Specialist က Tensor Cores လို AI matrix operations မှာ အထူးကျွမ်းကျင်ပြီး၊ Art Specialist က RT Cores လို ray tracing အတွက် အထူးပြုပါတယ်။ Principal ကတော့ software stack လို အလုပ်ခွဲဝေ စီမံပေးပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ### 4.1 General Teachers — CUDA Cores
 
@@ -204,12 +180,6 @@ flowchart TD
 
 ဒါတွေဟာ supported GPU architectures တွေအတွင်းက မတူညီတဲ့ hardware resources တွေဖြစ်ပြီး တစ်ခုကိုတစ်ခု အစားထိုးတာမဟုတ်ဘဲ အတူတကွ အလုပ်လုပ်ပါတယ်။
 
-![သင်တန်းပုံ 4 (Training Slide 4): GPU Core အမျိုးအစားများ နှိုင်းယှဉ်ဇယား (GPU Core Types Table)](../assets/nca-aiio-slides/slide-073.jpg)
-
-**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 4)** — ဒီသင်တန်းပုံမှာ CUDA Cores, Tensor Cores, RT Cores တို့ကို ဇယားနဲ့ အမြန် နှိုင်းယှဉ်ပြထားပါတယ် — ပင်မရည်ရွယ်ချက်၊ အသုံးများတဲ့ workload တွေ၊ အဓိက အားသာချက်နဲ့ ဥပမာတွေ ပါဝင်ပါတယ်။ အလွယ်ဆုံး မှတ်ရန် — CUDA Cores က general computing၊ Tensor Cores က AI အတွက် matrix/tensor operations၊ RT Cores က ray tracing ဖြစ်ပြီး တစ်ခုနဲ့တစ်ခု အစားထိုးတာ မဟုတ်ဘဲ အတူတကွ အလုပ်လုပ်ပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ## 7. Use Case 1 — CUDA Cores
 
 CUDA Cores တွေကို parallel computation အမျိုးမျိုးအတွက် အသုံးပြုနိုင်ပါတယ်။ ဥပမာ —
@@ -276,12 +246,6 @@ flowchart TD
 
 အဓိကအချက်က — ဒီ components တွေဟာ gaming experience တစ်ခုတည်းအတွက် အတူပါဝင်ကူညီကြတာဖြစ်ပါတယ်။ Game တိုင်းမှာ အလုပ်ကို သီးခြားအဆင့်သုံးဆင့်အဖြစ် ခွဲဝေထားတာ မဟုတ်ပါဘူး — တကယ့် execution က rendering engine နဲ့ graphics pipeline ပေါ် မူတည်ပါတယ်။ NVIDIA ရဲ့ RTX 4090 specifications မှာ CUDA Cores, fourth-generation Tensor Cores, third-generation RT Cores နဲ့ DLSS features support တွေကို ဖော်ပြထားပါတယ်။
 
-![သင်တန်းပုံ 5 (Training Slide 5): Cyberpunk 2077 ဥပမာ (Cyberpunk 2077 Example)](../assets/nca-aiio-slides/slide-074.jpg)
-
-**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 5)** — ဒီသင်တန်းပုံမှာ Cyberpunk 2077 ကို ray tracing နဲ့ DLSS ဖွင့်ထားတဲ့ GeForce RTX GPU ပေါ်မှာ ကစားတဲ့ ဥပမာနဲ့ core သုံးမျိုး ဘယ်လို ပေါင်းပါဝင်သလဲ ပြထားပါတယ် — CUDA Cores က shader operations အပါအဝင် general graphics rendering ကို ဆောင်ရွက်ပြီး၊ Tensor Cores က DLSS AI upscaling / frame generation ကို အရှိန်မြှင့်ပေးပြီး၊ RT Cores က reflections နဲ့ lighting အတွက် ray-tracing calculations ကို အရှိန်မြှင့်ပေးပါတယ်။ သုံးခုပေါင်း gaming experience တစ်ခုတည်းကို ဖန်တီးပေးတာ ဖြစ်ပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ## 11. GPU Families တွေမှာ ဒီ Cores တွေ ရှိသလား?
 
 | GPU family or example | CUDA Cores | Tensor Cores | RT Cores |
@@ -293,12 +257,6 @@ flowchart TD
 | NVIDIA Jetson | Depends on model | Depends on model | Depends on model and generation |
 
 **အရေးကြီးချက်** — ဒီဇယားဟာ high-level comparison သာဖြစ်ပြီး family တစ်ခုထဲက product တိုင်းရဲ့ specification မဟုတ်ပါဘူး။ အထူးသဖြင့် Jetson devices တွေဟာ generation နဲ့ model အလိုက် ကွာခြားတဲ့အတွက် ဘယ် core တွေပါသလဲ မယူဆခင် အတိအကျ module ရဲ့ specifications ကို စစ်ဆေးပါ။
-
-![သင်တန်းပုံ 6 (Training Slide 6): NVIDIA GPU Families နှင့် Core အမျိုးအစားများ (GPU Families vs Core Types)](../assets/nca-aiio-slides/slide-075.jpg)
-
-**ပုံရှင်းလင်းချက် (သင်တန်းပုံ 6)** — ဒီသင်တန်းပုံမှာ NVIDIA GPU family အမျိုးမျိုးမှာ core အမျိုးအစား ဘယ်လောက် ပါသလဲ ဆိုတာကို နှိုင်းယှဉ်ပြထားပါတယ် — ဥပမာ GeForce RTX 4090 မှာ core သုံးမျိုးစလုံး ပါဝင်ပြီး၊ A100 နဲ့ H100 ကဲ့သို့ data center GPU တွေမှာ CUDA Cores နဲ့ Tensor Cores ပါဝင်ပေမယ့် သီးခြား RT Core block မပါပါဘူး။ ဒီဇယားက high-level နှိုင်းယှဉ်ချက်သာ ဖြစ်ပြီး family တစ်ခုထဲက product တိုင်းရဲ့ specification မဟုတ်ပါဘူး။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 12. Example GPU Specifications
 
@@ -415,12 +373,6 @@ A GPU (Graphics Processing Unit) may look like one hardware device, but internal
 
 These components have different purposes and should not be treated as interchangeable.
 
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA H100 GPU](../assets/hardware/h100-gpu.jpg)
-
-**Photo walkthrough (Photo 1)** — The photo shows an NVIDIA H100 GPU: a board carrying the GPU chip under a large heatsink and cooling assembly, with high-bandwidth memory mounted nearby. CUDA Cores, Tensor Cores, and the other core types are hardware units inside this GPU chip — from the outside, the whole GPU simply looks like one hardware device.
-
-*(Image: NVIDIA official product image)*
-
 Conceptual Diagram:
 
 ```
@@ -436,12 +388,6 @@ Conceptual Diagram:
 ```
 
 This diagram illustrates the concept only. Not every GPU contains all three types of cores; the available components depend on the model and architecture.
-
-![သင်တန်းပုံ 1 (Training Slide 1): GPU Cores — Visual 1](../assets/nca-aiio-slides/slide-070.jpg)
-
-**Slide walkthrough (Training Slide 1)** — This training slide is the main visual for the point that a GPU is not a single processing unit: inside it are core types built for different work — CUDA Cores, Tensor Cores, and RT Cores. From the outside a GPU looks like one hardware device, but this visual shows the different processing hardware inside.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 See **Figure 1** for a picture of the main jobs of the three core types inside a GPU.
 
@@ -463,12 +409,6 @@ flowchart TD
 - CUDA Cores are useful for general and parallel computing.
 - Tensor Cores accelerate AI matrix operations.
 - RT Cores accelerate ray-tracing operations. (Not every GPU includes all three — it depends on the GPU model and architecture.)
-
-![သင်တန်းပုံ 2 (Training Slide 2): GPU Cores — Visual 2](../assets/nca-aiio-slides/slide-071.jpg)
-
-**Slide walkthrough (Training Slide 2)** — This training slide continues with the main jobs of the three core types inside a GPU: CUDA Cores for general and parallel computing, Tensor Cores for AI matrix operations, and RT Cores for ray-tracing operations. Remember that not every GPU contains all three — it depends on the GPU model and architecture.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 3. Human Brain Analogy
 
@@ -502,12 +442,6 @@ flowchart TD
 - General teachers match CUDA Cores: they can teach many subjects, just as CUDA Cores handle many kinds of general computing.
 - The math specialist matches Tensor Cores, specialized in AI matrix operations.
 - The art specialist matches RT Cores, specialized for ray tracing. The principal represents the software stack assigning the work.
-
-![သင်တန်းပုံ 3 (Training Slide 3): The School Analogy](../assets/nca-aiio-slides/slide-072.jpg)
-
-**Slide walkthrough (Training Slide 3)** — This training slide uses the school analogy for GPU core types: general teachers are like CUDA Cores, able to teach many subjects; the math specialist is like Tensor Cores, specialized in AI matrix operations; and the art specialist is like RT Cores, specialized for ray tracing. The principal represents the software stack that assigns the work.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ### 4.1 CUDA Cores — General Teachers
 
@@ -592,12 +526,6 @@ The simplest way to remember:
 
 These are different hardware resources within supported GPU architectures. They work together rather than necessarily replacing one another.
 
-![သင်တန်းပုံ 4 (Training Slide 4): GPU Core Types Comparison Table](../assets/nca-aiio-slides/slide-073.jpg)
-
-**Slide walkthrough (Training Slide 4)** — This training slide compares CUDA Cores, Tensor Cores, and RT Cores in a quick table — main purpose, common workloads, main benefit, and examples. The simplest way to remember it: CUDA Cores for general computing, Tensor Cores for matrix/tensor operations in AI, and RT Cores for ray tracing. They work together rather than replacing one another.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ## 7. Use Case 1 — CUDA Cores
 
 CUDA Cores are used for many types of parallel computation. Examples include:
@@ -664,12 +592,6 @@ flowchart TD
 
 The key point is that these components can contribute to the same overall gaming experience. The work is not divided into three completely independent stages in every game; the actual execution depends on the rendering engine and graphics pipeline. NVIDIA's RTX 4090 specifications list CUDA Cores, fourth-generation Tensor Cores, and third-generation RT Cores, along with support for DLSS features.
 
-![သင်တန်းပုံ 5 (Training Slide 5): Cyberpunk 2077 Example](../assets/nca-aiio-slides/slide-074.jpg)
-
-**Slide walkthrough (Training Slide 5)** — This training slide shows the Cyberpunk 2077 example: on a GeForce RTX GPU with ray tracing and DLSS enabled, CUDA Cores handle general graphics rendering including shader operations, Tensor Cores accelerate DLSS AI upscaling / frame generation, and RT Cores accelerate ray-tracing calculations for reflections and lighting. Together the three core types shape one gaming experience.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ## 11. Which GPU Families Have These Cores?
 
 | GPU family or example | CUDA Cores | Tensor Cores | RT Cores |
@@ -681,12 +603,6 @@ The key point is that these components can contribute to the same overall gaming
 | NVIDIA Jetson | Depends on model | Depends on model | Depends on model and generation |
 
 **Important:** The table is a high-level comparison, not a specification for every product in a family. In particular, Jetson devices vary by generation and model, so check the exact module's specifications before assuming which cores it has.
-
-![သင်တန်းပုံ 6 (Training Slide 6): NVIDIA GPU Families vs Core Types](../assets/nca-aiio-slides/slide-075.jpg)
-
-**Slide walkthrough (Training Slide 6)** — This training slide compares which core types appear in different NVIDIA GPU families — for example, the GeForce RTX 4090 has all three core types, while data-center GPUs like the A100 and H100 include CUDA Cores and Tensor Cores but no dedicated RT Core blocks. The table is a high-level comparison, not a specification for every product in a family.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 12. Example GPU Specifications
 

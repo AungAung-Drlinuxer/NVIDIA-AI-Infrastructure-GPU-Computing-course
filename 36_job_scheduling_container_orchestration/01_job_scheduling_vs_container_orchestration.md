@@ -297,12 +297,6 @@ Deployment ထဲမှာ `replicas: 3` သတ်မှတ်ထားခြင
 
 အမှန်တကယ် ကွာခြားချက်က Slurm ဟာ HPC/Batch Job Scheduling နဲ့ Compute Resource Management အတွက် အထူးပြုထားပြီး Kubernetes ဟာ Containerized Applications တွေရဲ့ Desired State နဲ့ Lifecycle ကို စီမံတဲ့ Platform ဖြစ်တာပါ။
 
-![သင်တန်းပုံ 1 (Training Slide 1): Job Scheduling နှင့် Container Orchestration နှိုင်းယှဉ်ချက်](../assets/nca-aiio-slides/slide-151.jpg)
-
-**ပုံရှင်းလင်းချက်** — ဒီသင်တန်းပုံက Job Scheduling နဲ့ Container Orchestration ကို နှိုင်းယှဉ်ပြထားတဲ့ slide ဖြစ်ပါတယ်။ တစ်ဖက်မှာ Job Scheduling က training, batch, HPC jobs တွေကို queue ချ၊ schedule လုပ်၊ resource ခွဲဝေပေးပြီး Slurm ကဲ့သို့ tool တွေနဲ့ ဆောင်ရွက်ပါတယ်။ တစ်ဖက်မှာတော့ Container Orchestration က inference APIs, microservices စတဲ့ 24/7 လည်ပတ်ရတဲ့ containerized applications တွေရဲ့ lifecycle ကို Kubernetes နဲ့ စီမံပါတယ်။ အပေါ်က ဇယားနဲ့ တွဲကြည့်ရင် အဓိက ကွာခြားချက်က scheduling လုပ်/မလုပ် မဟုတ်ဘဲ workload အမျိုးအစားနဲ့ စီမံခန့်ခွဲပုံ ဖြစ်ကြောင်း မှတ်သားနိုင်ပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 **Figure 3 — Workload အလိုက် Job Scheduling နှင့် Container Orchestration ရွေးချယ်မှု**
 
 ```mermaid
@@ -731,12 +725,6 @@ However, Self-Healing cannot automatically fix every Application problem. It can
 Key point to remember — Kubernetes itself also does Workload Scheduling. So the claim "Slurm does Scheduling and Kubernetes does not" is wrong.
 
 The real difference is that Slurm specializes in HPC/Batch Job Scheduling and Compute Resource Management, while Kubernetes is a Platform that manages the Desired State and Lifecycle of Containerized Applications.
-
-![သင်တန်းပုံ 1 (Training Slide 1): Job scheduling vs container orchestration](../assets/nca-aiio-slides/slide-151.jpg)
-
-**Figure walkthrough** — This training slide compares job scheduling and container orchestration. On one side, job scheduling queues, schedules, and allocates training, batch, and HPC jobs with tools like Slurm. On the other side, container orchestration manages the lifecycle of 24/7 containerized applications such as inference APIs and microservices with Kubernetes. Read it together with the table above: the key difference is not whether scheduling happens, but the kind of workload and how it is managed.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 **Figure 3 — Choosing Job Scheduling or Container Orchestration by Workload**
 

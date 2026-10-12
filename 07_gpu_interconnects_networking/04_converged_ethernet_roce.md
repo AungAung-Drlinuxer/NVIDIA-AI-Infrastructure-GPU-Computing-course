@@ -105,7 +105,6 @@ LAN  ───────────────► LAN Network
 HPC  ───────────────► HPC Network
 SAN  ───────────────► Storage Network
 
-
 Converged Ethernet
 
 LAN  ────────┐
@@ -310,15 +309,6 @@ flowchart LR
 
 RoCE ကဲ့သို့ RDMA traffic တွေကို သယ်ဆောင်ပေးမယ့် physical hardware ကတော့ RoCE-capable NIC / SuperNIC ဖြစ်ပါတယ်။
 
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA ConnectX SuperNIC](../assets/hardware/supernic.jpg)
-
-**ပုံရှင်းလင်းချက် (Photo walkthrough)**
-1. ဒီမှာ မြင်ရတာက server ရဲ့ PCIe slot ထဲ ထည့်သုံးရတဲ့ SuperNIC adapter card ဖြစ်ပါတယ်။
-2. Card ရဲ့ အစွန်းဘက် bracket မှာ high-speed Ethernet cable ချိတ်ဆက်ဖို့ network port ပါရှိပါတယ်။
-3. SuperNIC က RoCE ကဲ့သော RDMA traffic ကို hardware ဘက်ကနေ ကူညီသယ်ဆောင်ပေးပြီး CPU ပေါ်ဝန်ကို လျှော့ချပေးနိုင်ပါတယ်။
-
-*(Image: NVIDIA official product image)*
-
 ## 13. RoCE ကို ဘာကြောင့်သုံးလဲ?
 
 AI-centric data center မှာ GPU nodes အများကြီးရှိနိုင်ပါတယ်။ ဥပမာ—
@@ -462,9 +452,7 @@ Traditional Data Center
  HPC ───────► HPC Switch
  Storage ───► Storage Switch
 
-
              ↓ CONVERGENCE ↓
-
 
 Converged Data Center
 
@@ -598,7 +586,6 @@ Traditional
 LAN  ───────────────► LAN Network
 HPC  ───────────────► HPC Network
 SAN  ───────────────► Storage Network
-
 
 Converged Ethernet
 
@@ -806,15 +793,6 @@ So RoCE enables RDMA-style high-performance data transfer using Ethernet infrast
 
 The physical hardware that carries RDMA traffic like RoCE is the RoCE-capable NIC / SuperNIC.
 
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA ConnectX SuperNIC](../assets/hardware/supernic.jpg)
-
-**Photo walkthrough**
-1. What you see is a SuperNIC adapter card installed in a PCIe slot inside the server.
-2. On the card's edge bracket there is a high-speed Ethernet port where the network cable connects.
-3. A SuperNIC helps carry RDMA traffic such as RoCE in hardware, reducing the load on the CPU.
-
-*(Image: NVIDIA official product image)*
-
 ## 13. Why Use RoCE?
 
 An AI-centric data center can have many GPU nodes. For example—
@@ -958,9 +936,7 @@ Traditional Data Center
  HPC ───────► HPC Switch
  Storage ───► Storage Switch
 
-
              ↓ CONVERGENCE ↓
-
 
 Converged Data Center
 

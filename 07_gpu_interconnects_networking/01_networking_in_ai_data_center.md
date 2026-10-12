@@ -51,15 +51,6 @@ flowchart TD
 
 Node တွေကို network နဲ့ တကယ် ချိတ်ဆက်ပေးတဲ့ physical hardware ကတော့ NIC — Network Interface Card ဖြစ်ပါတယ်။
 
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA ConnectX NIC (Ethernet adapter)](../assets/hardware/connectx-nic.jpg)
-
-**ပုံရှင်းလင်းချက် (Photo walkthrough)**
-1. ဒီမှာ မြင်ရတာက server ရဲ့ PCIe slot ထဲ ထည့်သုံးရတဲ့ NIC card တစ်ခု ဖြစ်ပါတယ်။
-2. Card ရဲ့ အစွန်းဘက် bracket မှာ network cable ချိတ်ဆက်ဖို့ high-speed port (QSFP-class interface) ကို မြင်ရပါတယ်။
-3. ဒီ port ကတစ်ဆင့် node တစ်ခုချင်းစီက network fabric ထဲကို ဝင်ရောက်ချိတ်ဆက်ပါတယ်။
-
-*(Image: NVIDIA official product image)*
-
 ဒီ nodes တွေကြားမှာ—
 
 - Application traffic
@@ -69,16 +60,6 @@ Node တွေကို network နဲ့ တကယ် ချိတ်ဆက်�
 - Monitoring traffic
 
 စတာတွေကို ပို့ဆောင်ရပါတယ်။
-
-![သင်တန်းပုံ 1 (Training Slide 1): Network inside an AI-Centric Data Center (in-band / out-of-band)](../assets/nca-aiio-slides/slide-040.jpg)
-
-**ပုံရှင်းလင်းချက် (Training slide walkthrough)**
-1. ဒီ training slide မှာ AI-centric data center တစ်ခုထဲက network ကို ပုံကြီးချဲ့ ဖော်ပြထားပါတယ်။
-2. အလယ်မှာ GPU အများပါတဲ့ GPU servers တွေကို မြင်ရပြီး ဘေးဘက်တွေမှာတော့ Compute network နဲ့ Storage network ကို သီးခြားပြထားပါတယ်။
-3. Management network ကိုလည်း In-Band Management Network နဲ့ Out-of-Band Management Network ဆိုပြီး လမ်းကြောင်း နှစ်ခုအဖြစ် ခွဲပြထားပါတယ်။
-4. Traffic အမျိုးအစားတွေကို ဘာကြောင့် သီးခြား network တွေပေါ် ခွဲထားရတာလဲဆိုတာ ဒီပုံကနေ စမြင်နိုင်ပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 2. ဘာကြောင့် Network တစ်ခုတည်း မသုံးတာလဲ?
 
@@ -124,15 +105,6 @@ Network ကို ခွဲထားရတဲ့ အဓိကအကြောင�
 - Scalability
 
 ဖြစ်ပါတယ်။
-
-![သင်တန်းပုံ 2 (Training Slide 2): Why the Network Separation Matters](../assets/nca-aiio-slides/slide-041.jpg)
-
-**ပုံရှင်းလင်းချက် (Training slide walkthrough)**
-1. ဒီ slide ရဲ့ ခေါင်းစဉ်က "Why the Separation Matters?" ဖြစ်ပါတယ်။
-2. Network ခွဲထားရတဲ့ အကြောင်းပြချက် ငါးခု—Performance Sensitivity, Latency Isolation, Failure Isolation & Robustness, Security, Scalability ကို စာရင်းပြထားပါတယ်။
-3. ဒီအချက်တွေဟာ ဒီ section မှာ ဖော်ပြထားတဲ့ network separation ရဲ့ အကျိုးကျေးဇူးတွေနဲ့ တိုက်ရိုက်ကိုက်ညီပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 4. Performance Isolation
 
@@ -270,15 +242,6 @@ AI-centric data center networking မှာ Network Fabric ဆိုတဲ့ te
 အလွယ်ပြောရရင်—Network Fabric ဆိုတာ traffic အမျိုးအစားအလိုက် communication ကို handle လုပ်ပေးတဲ့ logical/physical networking infrastructure ဖြစ်ပါတယ်။
 
 Physical အနေနဲ့ ဒီ fabric တွေကို switch များ၊ NIC များနဲ့ cable များဖြင့် တည်ဆောက်ထားပါတယ်။
-
-![ဓာတ်ပုံ 2 (Photo 2): NVIDIA Spectrum Ethernet switch](../assets/hardware/spectrum-switch.jpg)
-
-**ပုံရှင်းလင်းချက် (Photo walkthrough)**
-1. ဒီမှာ မြင်ရတာက rack ထဲ တပ်ဆင်သုံးရတဲ့ Ethernet switch chassis ဖြစ်ပါတယ်။
-2. ရှေ့ဘက် faceplate မှာ high-speed Ethernet port တွေကို အတန်းလိုက် တန်းစီထားပြီး cable ချိတ်ဆက်ဖို့ connector cage တွေ ပါရှိပါတယ်။
-3. Node တွေ အများကြီးကို ဒီလို switch တစ်လုံး (ဒါမှမဟုတ် အများကြီး) ကတစ်ဆင့် ချိတ်ဆက်ကြပါတယ်။
-
-*(Image: NVIDIA official product image)*
 
 AI-centric data center မှာ network fabric အမျိုးမျိုး ရှိနိုင်ပါတယ်။
 ဒီ lesson ရဲ့ framework အရ အဓိက ၄ မျိုးကို ပြောထားပါတယ်။
@@ -528,15 +491,6 @@ flowchart TD
 3. Storage Fabric က compute nodes တွေနဲ့ storage ကြား data access အတွက် ဖြစ်ပါတယ်။
 4. Management က နောက်ထပ် In-Band Management (OS အလုပ်လုပ်ချိန် စီမံရေး) နဲ့ Out-of-Band Management (OS မအလုပ်လုပ်ချိန် remote recovery) ဆိုပြီး နှစ်ခု ထပ်ခွဲထားပါတယ်။
 
-![သင်တန်းပုံ 3 (Training Slide 3): Network Layout Recap](../assets/nca-aiio-slides/slide-042.jpg)
-
-**ပုံရှင်းလင်းချက် (Training slide walkthrough)**
-1. ဒီ slide က အပေါ်မှာ ပြခဲ့တဲ့ AI data center ရဲ့ network layout ကို ပြန်လည်အကျဉ်းချုပ် ပြထားတာ ဖြစ်ပါတယ်။
-2. GPU servers တွေကို အလယ်မှာထားပြီး Compute, Storage, In-Band Management, Out-of-Band Management ဆိုတဲ့ network အပိုင်းတွေကို ဝိုင်းပြထားပါတယ်။
-3. ဒီ layout ဟာ ဒီ module တစ်ခုလုံးမှာ လေ့လာခဲ့တဲ့ network fabric လေးမျိုးနဲ့ ကိုက်ညီပါတယ်။
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
-
 ## 20. Simple Memory Trick
 
 ဒီ ၄ ခုကို Exam အတွက် ဒီလိုမှတ်ပါ။
@@ -633,15 +587,6 @@ flowchart TD
 
 The physical hardware that actually connects each node to the network is the NIC — Network Interface Card.
 
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA ConnectX NIC (Ethernet adapter)](../assets/hardware/connectx-nic.jpg)
-
-**Photo walkthrough**
-1. What you see is a NIC card that is installed in a PCIe slot inside the server.
-2. On the card's edge bracket there is a high-speed network port (a QSFP-class interface) where the network cable connects.
-3. Through this port, each node joins the network fabric.
-
-*(Image: NVIDIA official product image)*
-
 Between these nodes, we have to carry:
 
 - Application traffic
@@ -649,16 +594,6 @@ Between these nodes, we have to carry:
 - Storage traffic
 - Management traffic
 - Monitoring traffic
-
-![သင်တန်းပုံ 1 (Training Slide 1): Network inside an AI-Centric Data Center (in-band / out-of-band)](../assets/nca-aiio-slides/slide-040.jpg)
-
-**Training slide walkthrough**
-1. This training slide shows the network inside an AI-centric data center as a big picture.
-2. In the middle you see GPU servers with multiple GPUs; on the sides, the Compute network and the Storage network are shown separately.
-3. The management network is split into two distinct paths: the In-Band Management Network and the Out-of-Band Management Network.
-4. From this picture you can already see why the different traffic types belong on separate networks.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 2. Why Not Use a Single Network?
 
@@ -702,15 +637,6 @@ The main reasons for separating the network are:
 - Failure Isolation
 - Security
 - Scalability
-
-![သင်တန်းပုံ 2 (Training Slide 2): Why the Network Separation Matters](../assets/nca-aiio-slides/slide-041.jpg)
-
-**Training slide walkthrough**
-1. The title of this slide is "Why the Separation Matters?".
-2. It lists the five reasons for keeping networks separate: Performance Sensitivity, Latency Isolation, Failure Isolation & Robustness, Security, and Scalability.
-3. These points map directly to the benefits of network separation covered in this section.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 4. Performance Isolation
 
@@ -846,15 +772,6 @@ In AI-centric data center networking, you will hear the term Network Fabric.
 Simply put, a Network Fabric is the logical/physical networking infrastructure that handles communication for each traffic type.
 
 Physically, these fabrics are built from switches, NICs, and cables.
-
-![ဓာတ်ပုံ 2 (Photo 2): NVIDIA Spectrum Ethernet switch](../assets/hardware/spectrum-switch.jpg)
-
-**Photo walkthrough**
-1. What you see is an Ethernet switch chassis designed to be mounted in a rack.
-2. On the front faceplate, high-speed Ethernet ports are arranged in rows, each with a connector cage for the cable.
-3. Many nodes connect to the fabric through switches like this one.
-
-*(Image: NVIDIA official product image)*
 
 An AI-centric data center can have several kinds of network fabric.
 According to this lesson's framework, the main four are:
@@ -1101,15 +1018,6 @@ flowchart TD
 2. The Compute Fabric handles communication between nodes.
 3. The Storage Fabric handles data access between compute nodes and storage.
 4. Management splits further into In-Band Management (normal management while the OS runs) and Out-of-Band Management (remote recovery when the OS is down).
-
-![သင်တန်းပုံ 3 (Training Slide 3): Network Layout Recap](../assets/nca-aiio-slides/slide-042.jpg)
-
-**Training slide walkthrough**
-1. This slide recaps the network layout of an AI data center shown earlier.
-2. GPU servers sit in the middle, surrounded by the Compute, Storage, In-Band Management and Out-of-Band Management network parts.
-3. This layout matches the four network fabrics studied throughout this module.
-
-*(Source: NVIDIA NCA-AIIO training deck — study material)*
 
 ## 20. Simple Memory Trick
 

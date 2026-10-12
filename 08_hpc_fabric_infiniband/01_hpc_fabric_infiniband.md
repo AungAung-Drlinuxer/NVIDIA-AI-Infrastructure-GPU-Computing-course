@@ -78,27 +78,9 @@ Typical fabric တစ်ခုက components အမျိုးမျိုး �
 
 HCA ဆိုတာ host ကို InfiniBand fabric နဲ့ ချိတ်ဆက်ပေးတဲ့ server-side adapter ဖြစ်ပါတယ်။ Communication အတွက် hardware interface ပေးပြီး RDMA capabilities တွေကို support လုပ်ပါတယ်။
 
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA ConnectX InfiniBand adapter](../assets/hardware/connectx-ib-nic.jpg)
-
-**ပုံရှင်းလင်းချက် (Photo walkthrough)**
-1. ဒီမှာ မြင်ရတာက HCA အနေနဲ့ သုံးတဲ့ server-side InfiniBand adapter card ဖြစ်ပါတယ်။
-2. Card ကို server ရဲ့ PCIe slot ထဲ ထည့်သုံးပြီး အစွန်းဘက် bracket မှာ InfiniBand cable ချိတ်ဖို့ QSFP-class port ပါရှိပါတယ်။
-3. ဒီ adapter ကတစ်ဆင့် host က InfiniBand fabric ထဲ ဝင်ရောက်ပြီး RDMA ဖြင့် တိုက်ရိုက် data ပို့နိုင်ပါတယ်။
-
-*(Image: NVIDIA official product image)*
-
 **B. InfiniBand switches**
 
 Switches တွေက servers အများကြီးကို ချိတ်ဆက်ပြီး data သွားလာဖို့ လမ်းကြောင်းတွေ ပေးပါတယ်။ ပိုကြီးတဲ့ clusters တွေမှာ switches အဆင့်ဆင့်နဲ့ သေချာ design လုပ်ထားတဲ့ network topologies တွေ အသုံးပြုနိုင်ပါတယ်။
-
-![ဓာတ်ပုံ 2 (Photo 2): NVIDIA Quantum InfiniBand switch](../assets/hardware/quantum-ib-switch.jpg)
-
-**ပုံရှင်းလင်းချက် (Photo walkthrough)**
-1. ဒီမှာ မြင်ရတာက rack ထဲ တပ်ဆင်သုံးရတဲ့ InfiniBand switch chassis ဖြစ်ပါတယ်။
-2. ရှေ့ဘက် faceplate မှာ high-speed InfiniBand port တွေကို အတန်းလိုက် တန်းစီထားပြီး cable ချိတ်ဆက်ဖို့ connector cage တွေ ပါရှိပါတယ်။
-3. Servers အများကြီးကို ဒီ switch တွေကတစ်ဆင့် ချိတ်ဆက်ပြီး cluster ကြီးလာရင် switches အဆင့်ဆင့် (multi-tier topology) ဖြင့် ချဲ့ကြပါတယ်။
-
-*(Image: NVIDIA official product image)*
 
 Switches အဆင့်ဆင့်နဲ့ တည်ဆောက်လေ့ရှိတဲ့ topology တွေထဲမှာ HPC cluster တွေ အသုံးများတဲ့ တစ်မျိုးကတော့ fat-tree topology ဖြစ်ပါတယ်—
 
@@ -390,27 +372,9 @@ A typical fabric is built from several components working together.
 
 The HCA is the server-side adapter that connects a host to the InfiniBand fabric. It provides the hardware interface for communication and supports RDMA capabilities.
 
-![ဓာတ်ပုံ 1 (Photo 1): NVIDIA ConnectX InfiniBand adapter](../assets/hardware/connectx-ib-nic.jpg)
-
-**Photo walkthrough**
-1. What you see is a server-side InfiniBand adapter card used as the HCA.
-2. The card goes into a PCIe slot in the server, and its edge bracket has a QSFP-class port for the InfiniBand cable.
-3. Through this adapter the host joins the InfiniBand fabric and can move data directly with RDMA.
-
-*(Image: NVIDIA official product image)*
-
 **B. InfiniBand switches**
 
 Switches connect multiple servers and provide paths for data to travel between nodes. Larger clusters may use multiple tiers of switches and carefully designed network topologies.
-
-![ဓာတ်ပုံ 2 (Photo 2): NVIDIA Quantum InfiniBand switch](../assets/hardware/quantum-ib-switch.jpg)
-
-**Photo walkthrough**
-1. What you see is an InfiniBand switch chassis designed to be mounted in a rack.
-2. On the front faceplate, high-speed InfiniBand ports are arranged in rows, each with a connector cage for the cable.
-3. Many servers connect through these switches, and as the cluster grows, multiple switch tiers (multi-tier topologies) are used.
-
-*(Image: NVIDIA official product image)*
 
 One multi-tier topology widely used in HPC clusters is the fat-tree topology—
 
